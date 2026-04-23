@@ -1,0 +1,84 @@
+{
+  "header": {
+    "logo_alt": "CookPilot Icon",
+    "toggle_language": "Change language",
+    "toggle_theme": "Toggle theme",
+    "watch_demo": "Watch demo"
+  },
+  "hero": {
+    "slide_money_headline": "Cook to save money",
+    "slide_money_support": "Less improvisation. More criteria. More control over what you spend.",
+    "slide_time_headline": "Cook to save time",
+    "slide_time_support": "Less back and forth. Less friction. Decide faster what to cook today.",
+    "slide_health_headline": "Cook to eat better",
+    "slide_health_support": "Better nutrition, without breaking your culture or your real life.",
+    "slide_control_headline": "Reclaim control of your kitchen",
+    "slide_control_support_prefix": "Tell me what you have and ",
+    "slide_control_support_suffix": " helps you solve it with clarity.",
+    "cta_button": "Watch 30s demo",
+    "dot_indicator_aria": "Go to state {number}",
+    "floating_icon_alt": "Decorative element"
+  },
+  "pillars": {
+    "section_title_main": "Three reasons to ",
+    "section_title_accent": "cook with an advantage",
+    "section_support_suffix": " is here to help you win something real every week.",
+    "pillar_1_title": "Save real money",
+    "pillar_1_body": "Cooking smarter is also a financial decision. CookPilot helps you resolve meals with more criteria, less waste, and better cost visibility.",
+    "pillar_2_title": "Save time and mental load",
+    "pillar_2_body": "Less time wondering what to cook. Less back and forth. Less last-minute improvisation. More clarity from the very first step.",
+    "pillar_3_title": "Eat better without breaking your reality",
+    "pillar_3_body": "Better nutrition shouldn't mean giving up your culture or living in guilt. CookPilot starts from real food, real context, and a real kitchen."
+  },
+  "how_it_works": {
+    "section_title_main": "CookPilot doesn't sell recipes.",
+    "section_title_accent": "It solves decisions.",
+    "section_support": "Tell it your context. CookPilot does the magic. You cook with clarity.",
+    "step_1_number": "01",
+    "step_1_title": "Tell me what you have",
+    "step_1_support": "Start from your real kitchen, not an ideal recipe book.",
+    "step_2_number": "02",
+    "step_2_title": "CKP builds you viable options",
+    "step_2_support": "Not a random recipe. A decision with criteria.",
+    "step_3_number": "03",
+    "step_3_title": "You choose with clarity",
+    "step_3_support": "Less doubt. More control. Better execution."
+  },
+  "demo": {
+    "section_title_prefix": "Watch ",
+    "section_title_suffix": " in action",
+    "section_microcopy": "30 seconds. Money, time, and health, grounded in a real product.",
+    "thumbnail_alt": "CookPilot Demo",
+    "iframe_title": "CookPilot Demo",
+    "play_button_aria": "Play video"
+  },
+  "brand": {
+    "section_title_main": "CookPilot exists to give you back ",
+    "section_title_accent": "control of your nutrition.",
+    "section_body": "Save money. Save time. Eat better. Less errors, less friction, and more clarity around something as basic as feeding yourself well.",
+    "mascot_alt": "CookPilot Mascot"
+  },
+  "waitlist": {
+    "section_title": "Save yourself a seat",
+    "section_description": "Be among the first to try CookPilot when it opens its first table.",
+    "user_count": "+1K",
+    "email_placeholder": "Enter your email...",
+    "submit_button": "I want my seat",
+    "avatar_alt": "User",
+    "icon_alt": "CookPilot Waitlist",
+    "success_title": "You're in!",
+    "success_description_line_1": "Thanks for joining!",
+    "success_description_line_2": "We'll notify you the moment early access opens."
+  },
+  "final_cta": {
+    "section_title": "Eating better, spending less, and having more control shouldn't be a luxury.",
+    "email_placeholder": "Your email",
+    "submit_button": "Join the list",
+    "success_icon_aria": "Success",
+    "success_message": "Done! We'll notify you when CookPilot opens."
+  },
+  "footer": {
+    "logo_alt": "CookPilot Icon",
+    "made_in": "Made in Peru 🇵🇪"
+  }
+}

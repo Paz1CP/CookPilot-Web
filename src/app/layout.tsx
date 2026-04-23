@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const outfit = Outfit({
   variable: "--cp-font-sans-loaded",
@@ -52,7 +53,9 @@ export default function RootLayout({
       data-theme="dark"
       className={`${outfit.variable} ${permanentMarker.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

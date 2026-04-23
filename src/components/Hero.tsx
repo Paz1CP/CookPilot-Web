@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-
 import styles from "./Hero.module.css";
+import { useLocale } from "@/contexts/LanguageContext";
 
 interface FloatingIconDef {
   src: string;
@@ -18,17 +18,20 @@ interface FloatingIconDef {
 }
 
 interface HeroState {
-  headline: string;
-  support: React.ReactNode;
+  headlineKey: "slide_money_headline" | "slide_time_headline" | "slide_health_headline" | "slide_control_headline";
+  supportKey:
+    | "slide_money_support"
+    | "slide_time_support"
+    | "slide_health_support";
+  isControlSlide?: boolean;
   placeholder: string;
   floatingIcons?: FloatingIconDef[];
 }
 
 const HERO_STATES: HeroState[] = [
   {
-    headline: "Cocina para ahorrar plata",
-    support:
-      "Menos improvisación. Más criterio. Más control sobre lo que gastas.",
+    headlineKey: "slide_money_headline",
+    supportKey: "slide_money_support",
     placeholder: "img_hero_pricing_visual.png",
     floatingIcons: [
       { src: "img_icon_money.webp", top: "-10%", left: "-20%", size: 160, rotation: -12, delay: 0.1, floatDuration: 3.2 },
@@ -38,9 +41,8 @@ const HERO_STATES: HeroState[] = [
     ],
   },
   {
-    headline: "Cocina para ahorrar tiempo",
-    support:
-      "Menos vueltas. Menos fricción. Decide más rápido qué cocinar hoy.",
+    headlineKey: "slide_time_headline",
+    supportKey: "slide_time_support",
     placeholder: "img_hero_time_visual.png",
     floatingIcons: [
       { src: "img_icon_time.webp", top: "0%", right: "-22%", size: 160, rotation: 18, delay: 0.15, floatDuration: 3.1 },
@@ -50,9 +52,8 @@ const HERO_STATES: HeroState[] = [
     ],
   },
   {
-    headline: "Cocina para comer mejor",
-    support:
-      "Mejor nutrición, sin romper tu cultura ni tu vida real.",
+    headlineKey: "slide_health_headline",
+    supportKey: "slide_health_support",
     placeholder: "img_hero_health_visual.png",
     floatingIcons: [
       { src: "img_icon_health.webp", top: "-10%", right: "0%", size: 160, rotation: 12, delay: 0.1, floatDuration: 3.0 },
@@ -62,13 +63,9 @@ const HERO_STATES: HeroState[] = [
     ],
   },
   {
-    headline: "Recupera el control de tu cocina",
-    support: (
-      <>
-        Dime qué tienes y <span className="brand-cook">Cook</span>
-        <span className="brand-pilot">Pilot</span> te ayuda a resolverlo con claridad.
-      </>
-    ),
+    headlineKey: "slide_control_headline",
+    supportKey: "slide_money_support", // unused — rendered manually
+    isControlSlide: true,
     placeholder: "img_hero_control_visual.png",
     floatingIcons: [
       { src: "img_mascot_brand_pose.png", top: "-10%", left: "-20%", size: 160, rotation: -10, delay: 0.15, floatDuration: 3.3 },
@@ -80,7 +77,36 @@ const HERO_STATES: HeroState[] = [
 
 const INTERVAL = 5200;
 
+const HeroBackground = memo(() => (
+  <div className={styles.bgContainer}>
+    <div className={styles.bgNoise} />
+    <motion.div
+      className={`${styles.blob} ${styles.blobPrimary}`}
+      animate={{ x: [0, 120, -60, 0], y: [0, -80, 40, 0] }}
+      transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+    />
+    <motion.div
+      className={`${styles.blob} ${styles.blobAccent}`}
+      animate={{ x: [0, -150, 80, 0], y: [0, 100, -50, 0] }}
+      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+    />
+    <motion.div
+      className={`${styles.blob} ${styles.blobError}`}
+      animate={{ x: [0, 90, -120, 0], y: [0, -60, 140, 0] }}
+      transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+    />
+    <motion.div
+      className={`${styles.blob} ${styles.blobLight}`}
+      animate={{ x: [0, -60, 60, 0], y: [0, 80, -80, 0] }}
+      transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+    />
+    <div className={styles.bgOverlay} />
+  </div>
+));
+HeroBackground.displayName = "HeroBackground";
+
 export default function Hero() {
+  const { t } = useLocale();
   const [active, setActive] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -96,6 +122,9 @@ export default function Hero() {
 
   const state = HERO_STATES[active];
 
+  const headline = t.hero[state.headlineKey];
+  const support = state.isControlSlide ? null : t.hero[state.supportKey as keyof typeof t.hero] as string;
+
   const scrollToDemo = () => {
     const el = document.getElementById("demo");
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -103,53 +132,11 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} id="hero">
-      {/* Dynamic Background — "Flame" Gradients */}
-      <div className={styles.bgContainer}>
-        <div className={styles.bgNoise} />
-        <motion.div
-          className={`${styles.blob} ${styles.blobPrimary}`}
-          animate={{
-            x: [0, 120, -60, 0],
-            y: [0, -80, 40, 0],
-            scale: [1, 1.15, 0.85, 1],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className={`${styles.blob} ${styles.blobAccent}`}
-          animate={{
-            x: [0, -150, 80, 0],
-            y: [0, 100, -50, 0],
-            scale: [1, 1.25, 0.75, 1],
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className={`${styles.blob} ${styles.blobError}`}
-          animate={{
-            x: [0, 90, -120, 0],
-            y: [0, -60, 140, 0],
-            scale: [1, 0.85, 1.15, 1],
-          }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className={`${styles.blob} ${styles.blobLight}`}
-          animate={{
-            x: [0, -60, 60, 0],
-            y: [0, 80, -80, 0],
-            scale: [1, 1.1, 0.9, 1],
-          }}
-          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-        />
-        <div className={styles.bgOverlay} />
-      </div>
+      <HeroBackground />
 
       <div className={styles.inner}>
-        {/* Left Column */}
+        {/* Columna izquierda */}
         <div className={styles.left}>
-
-
           <div className={styles.headlineWrap}>
             <AnimatePresence mode="wait">
               <motion.h1
@@ -158,12 +145,9 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -16 }}
-                transition={{
-                  duration: 0.55,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               >
-                {state.headline}
+                {headline}
               </motion.h1>
             </AnimatePresence>
           </div>
@@ -176,13 +160,18 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{
-                  duration: 0.45,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 0.08,
-                }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
               >
-                {state.support}
+                {state.isControlSlide ? (
+                  <>
+                    {t.hero.slide_control_support_prefix}
+                    <span className="brand-cook">Cook</span>
+                    <span className="brand-pilot">Pilot</span>
+                    {t.hero.slide_control_support_suffix}
+                  </>
+                ) : (
+                  support
+                )}
               </motion.p>
             </AnimatePresence>
           </div>
@@ -191,21 +180,17 @@ export default function Hero() {
             className={styles.ctaWrap}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 0.7,
-            }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}
           >
             <button
               className={`cp-btn cp-btn--primary ${styles.ctaBtn}`}
               onClick={scrollToDemo}
             >
-              Watch demo 30s
+              {t.hero.cta_button}
             </button>
           </motion.div>
 
-          {/* State indicator — subtle dots */}
+          {/* Indicador de puntos */}
           <motion.div
             className={styles.stateIndicator}
             initial={{ opacity: 0 }}
@@ -217,14 +202,14 @@ export default function Hero() {
                 key={i}
                 className={`${styles.dot} ${i === active ? styles.dotActive : ""}`}
                 onClick={() => setActive(i)}
-                aria-label={`Go to state ${i + 1}`}
+                aria-label={t.hero.dot_indicator_aria.replace("{number}", String(i + 1))}
               />
             ))}
           </motion.div>
         </div>
 
-        {/* Right Column — Visual */}
-        <div 
+        {/* Columna derecha — Visual */}
+        <div
           className={styles.right}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
@@ -245,29 +230,21 @@ export default function Hero() {
                   setActive((prev) => (prev + 1) % HERO_STATES.length);
                 }
               }}
-              transition={{
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <img
                 src={`/images/${state.placeholder}`}
-                alt={state.headline}
+                alt={headline}
                 className={styles.heroPlaceholder}
               />
 
-              {/* Bouncing / Floating Icons */}
+              {/* Íconos flotantes */}
               {state.floatingIcons?.map((icon, idx) => (
                 <motion.div
                   key={`${active}-icon-${idx}`}
                   initial={{ opacity: 0, scale: 0, y: 40, rotate: icon.rotation - 30 }}
                   animate={{ opacity: 1, scale: 1, y: 0, rotate: icon.rotation }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 250,
-                    damping: 15,
-                    delay: 0.1 + icon.delay,
-                  }}
+                  transition={{ type: "spring", stiffness: 250, damping: 15, delay: 0.1 + icon.delay }}
                   style={{
                     position: "absolute",
                     top: icon.top,
@@ -279,15 +256,9 @@ export default function Hero() {
                 >
                   <motion.img
                     src={`/images/${icon.src}`}
-                    alt="Floating element"
-                    animate={{
-                      y: [0, -10, 0],
-                    }}
-                    transition={{
-                      duration: icon.floatDuration,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                    alt={t.hero.floating_icon_alt}
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: icon.floatDuration, repeat: Infinity, ease: "easeInOut" }}
                     style={{
                       width: `${icon.size}px`,
                       height: `${icon.size}px`,

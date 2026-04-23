@@ -2,51 +2,46 @@
 
 import { Reveal, StaggerReveal, fadeUp, scaleIn } from "./motion";
 import styles from "./HowItWorks.module.css";
-
-interface Step {
-  number: string;
-  title: string;
-  support: string;
-  placeholder: string;
-}
-
-const STEPS: Step[] = [
-  {
-    number: "01",
-    title: "Dime qué tienes",
-    support: "Empieza desde tu cocina real, no desde un recetario ideal.",
-    placeholder: "img_app_cookflow_chat.jpg",
-  },
-  {
-    number: "02",
-    title: "CKP te arma opciones viables",
-    support: "No una receta al azar. Una decisión con criterio.",
-    placeholder: "img_app_menu_candidates.jpg",
-  },
-  {
-    number: "03",
-    title: "Tú eliges con claridad",
-    support: "Menos duda. Más control. Mejor ejecución.",
-    placeholder: "img_app_recipe_detail.jpg",
-  },
-];
+import { useLocale } from "@/contexts/LanguageContext";
 
 export default function HowItWorks() {
+  const { t } = useLocale();
+
+  const STEPS = [
+    {
+      number: t.how_it_works.step_1_number,
+      title: t.how_it_works.step_1_title,
+      support: t.how_it_works.step_1_support,
+      placeholder: "img_app_cookflow_chat.jpg",
+    },
+    {
+      number: t.how_it_works.step_2_number,
+      title: t.how_it_works.step_2_title,
+      support: t.how_it_works.step_2_support,
+      placeholder: "img_app_menu_candidates.jpg",
+    },
+    {
+      number: t.how_it_works.step_3_number,
+      title: t.how_it_works.step_3_title,
+      support: t.how_it_works.step_3_support,
+      placeholder: "img_app_recipe_detail.png",
+    },
+  ];
+
   return (
     <section className={styles.howItWorks} id="how-it-works">
       <div className={styles.header}>
         <Reveal variants={fadeUp}>
           <h2 className={styles.title}>
-            CookPilot no vende recetas.
+            {t.how_it_works.section_title_main}
             <br />
-            <span className={styles.titleAccent}>Resuelve decisiones.</span>
+            <span className={styles.titleAccent}>
+              {t.how_it_works.section_title_accent}
+            </span>
           </h2>
         </Reveal>
         <Reveal variants={fadeUp} delay={0.1}>
-          <p className={styles.support}>
-            Le dices tu contexto. CookPilot hace la magia. Tú cocinas con
-            claridad.
-          </p>
+          <p className={styles.support}>{t.how_it_works.section_support}</p>
         </Reveal>
       </div>
 
@@ -66,11 +61,6 @@ export default function HowItWorks() {
             </div>
           </Reveal>
         ))}
-
-        {/* Connector line (desktop only) */}
-        <div className={styles.connector} aria-hidden="true">
-          <div className={styles.connectorLine} />
-        </div>
       </StaggerReveal>
     </section>
   );

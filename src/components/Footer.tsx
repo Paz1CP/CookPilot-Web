@@ -2,8 +2,11 @@
 
 import { Reveal, fadeUp } from "./motion";
 import styles from "./Footer.module.css";
+import { useLocale } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLocale();
+
   return (
     <footer className={styles.footer}>
       <Reveal variants={fadeUp}>
@@ -12,7 +15,7 @@ export default function Footer() {
             <div className={styles.logo}>
               <img
                 src="/images/img_app_icon.png"
-                alt="CookPilot Icon"
+                alt={t.footer.logo_alt}
                 className={styles.logoImage}
               />
               <span className={styles.logoText}>
@@ -22,19 +25,8 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className={styles.center}>
-            <span className={styles.madeIn}>Hecho en Perú 🇵🇪</span>
-          </div>
-
           <div className={styles.right}>
-            <a
-              href="https://cookpilot.pro"
-              className={styles.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              cookpilot.pro
-            </a>
+            <span className={styles.madeIn}>{t.footer.made_in}</span>
           </div>
         </div>
       </Reveal>

@@ -113,7 +113,7 @@
 .visualFrame {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 442px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,8 +173,8 @@
     justify-content: center;
   }
   .visualFrame {
-    max-width: 320px;
-    height: 580px;
+    max-width: 272px;
+    height: 493px;
   }
   .heroPlaceholder {
     border-radius: 28px;
@@ -205,8 +205,8 @@
     width: 100%;
   }
   .visualFrame {
-    max-width: 260px;
-    height: 480px;
+    max-width: 221px;
+    height: 408px;
   }
   .heroPlaceholder {
     border-radius: 24px;
@@ -228,7 +228,11 @@
   overflow: hidden;
   pointer-events: none;
   background: var(--cp-layer-base);
+  /* Force GPU layer and isolate repaints */
+  contain: paint;
+  isolation: isolate;
 }
+
 
 .bgOverlay {
   position: absolute;
@@ -246,18 +250,22 @@
   position: absolute;
   width: 1200px;
   height: 900px;
-  filter: blur(180px) saturate(2) contrast(1.2);
+  filter: blur(140px) saturate(1.8) contrast(1.1);
   border-radius: 50%;
   z-index: 1;
   bottom: -50px;
   mix-blend-mode: multiply;
   opacity: 0.45;
+  /* Performance optimizations to prevent flickering */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 :global([data-theme="dark"]) .blob {
   mix-blend-mode: screen;
   opacity: 0.4;
-  filter: blur(180px);
+  filter: blur(140px);
 }
 
 .blobPrimary {

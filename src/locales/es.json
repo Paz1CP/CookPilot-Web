@@ -1,0 +1,84 @@
+{
+  "header": {
+    "logo_alt": "Ícono de CookPilot",
+    "toggle_language": "Cambiar idioma",
+    "toggle_theme": "Cambiar tema",
+    "watch_demo": "Ver demo"
+  },
+  "hero": {
+    "slide_money_headline": "Cocina para ahorrar plata",
+    "slide_money_support": "Menos improvisación. Más criterio. Más control sobre lo que gastas.",
+    "slide_time_headline": "Cocina para ahorrar tiempo",
+    "slide_time_support": "Menos vueltas. Menos fricción. Decide más rápido qué cocinar hoy.",
+    "slide_health_headline": "Cocina para comer mejor",
+    "slide_health_support": "Mejor nutrición, sin romper tu cultura ni tu vida real.",
+    "slide_control_headline": "Recupera el control de tu cocina",
+    "slide_control_support_prefix": "Dime qué tienes y ",
+    "slide_control_support_suffix": " te ayuda a resolverlo con claridad.",
+    "cta_button": "Ver demo en 30 segundos",
+    "dot_indicator_aria": "Ir al estado {number}",
+    "floating_icon_alt": "Elemento decorativo"
+  },
+  "pillars": {
+    "section_title_main": "Tres razones para ",
+    "section_title_accent": "cocinar con ventaja",
+    "section_support_suffix": " existe para ayudarte a ganar algo real cada semana.",
+    "pillar_1_title": "Ahorra plata de verdad",
+    "pillar_1_body": "Cocinar mejor también es una decisión financiera. CookPilot te ayuda a resolver comidas con más criterio, menos desperdicio y mejor visibilidad de costo.",
+    "pillar_2_title": "Ahorra tiempo y carga mental",
+    "pillar_2_body": "Menos tiempo dudando qué cocinar. Menos vueltas. Menos improvisación a última hora. Más claridad desde el primer paso.",
+    "pillar_3_title": "Come mejor sin romper tu realidad",
+    "pillar_3_body": "Mejor nutrición no debería significar renunciar a tu cultura ni vivir a punta de culpa. CookPilot parte de comida real, contexto real y cocina real."
+  },
+  "how_it_works": {
+    "section_title_main": "CookPilot no vende recetas.",
+    "section_title_accent": "Resuelve decisiones.",
+    "section_support": "Le dices tu contexto. CookPilot hace la magia. Tú cocinas con claridad.",
+    "step_1_number": "01",
+    "step_1_title": "Dime qué tienes",
+    "step_1_support": "Empieza desde tu cocina real, no desde un recetario ideal.",
+    "step_2_number": "02",
+    "step_2_title": "CKP te arma opciones viables",
+    "step_2_support": "No una receta al azar. Una decisión con criterio.",
+    "step_3_number": "03",
+    "step_3_title": "Tú eliges con claridad",
+    "step_3_support": "Menos duda. Más control. Mejor ejecución."
+  },
+  "demo": {
+    "section_title_prefix": "Mira ",
+    "section_title_suffix": " en acción",
+    "section_microcopy": "30 segundos. Plata, tiempo y salud, aterrizados en producto real.",
+    "thumbnail_alt": "Demo de CookPilot",
+    "iframe_title": "Demo de CookPilot",
+    "play_button_aria": "Reproducir video"
+  },
+  "brand": {
+    "section_title_main": "CookPilot existe para devolverle ",
+    "section_title_accent": "control sobre tu alimentación.",
+    "section_body": "Ahorrar plata. Ahorrar tiempo. Comer mejor. Menos errores, menos fricción y más claridad en algo tan básico como alimentarte bien.",
+    "mascot_alt": "Mascota de CookPilot"
+  },
+  "waitlist": {
+    "section_title": "Guárdate un asiento",
+    "section_description": "Sé de los primeros en probar CookPilot cuando abra su primera mesa.",
+    "user_count": "+1K",
+    "email_placeholder": "Ingresa tu correo...",
+    "submit_button": "Quiero mi asiento",
+    "avatar_alt": "Usuario",
+    "icon_alt": "Lista de espera de CookPilot",
+    "success_title": "¡Ya estás dentro!",
+    "success_description_line_1": "¡Gracias por unirte!",
+    "success_description_line_2": "Te avisaremos en cuanto se abran los accesos anticipados."
+  },
+  "final_cta": {
+    "section_title": "Comer mejor, gastar menos y tener más control no debería ser un lujo.",
+    "email_placeholder": "Tu correo",
+    "submit_button": "Unirme a la lista",
+    "success_icon_aria": "Éxito",
+    "success_message": "¡Listo! Te avisaremos cuando CookPilot abra."
+  },
+  "footer": {
+    "logo_alt": "Ícono de CookPilot",
+    "made_in": "Hecho en Perú 🇵🇪"
+  }
+}

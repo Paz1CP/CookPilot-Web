@@ -189,7 +189,7 @@ ul, ol {
 }
 
 .cp-btn--primary:hover {
-  background: var(--cp-primary-strong);
+  background: var(--cp-primary);
   transform: translateY(-1px);
   box-shadow: 0 8px 32px rgba(233, 168, 14, 0.3);
 }
@@ -237,7 +237,7 @@ ul, ol {
 
 /* ── Brand Rich Text ── */
 .brand-cook {
-  color: var(--cp-primary);
+  color: var(--cp-text-primary);
 }
 
 .brand-pilot {

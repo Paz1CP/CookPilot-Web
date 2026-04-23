@@ -1,64 +1,91 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Reveal, Parallax, fadeUp, slideFromRight } from "./motion";
+import { motion, AnimatePresence } from "motion/react";
 import styles from "./Brand.module.css";
+import { useLocale } from "@/contexts/LanguageContext";
+
+const MASCOTS = [
+  {
+    id: "pose",
+    src: "/images/img_mascot_brand_pose.png",
+    initial: { opacity: 0, scale: 0.8, y: 30 },
+    animate: { opacity: 1, scale: 1, y: 0 },
+    transition: { type: "spring" as const, stiffness: 200, damping: 15 },
+  },
+  {
+    id: "friendly",
+    src: "/images/img_mascot_friendly.png",
+    initial: { opacity: 0, scale: 0.9, rotate: -10, x: -20 },
+    animate: { opacity: 1, scale: 1, rotate: 0, x: 0 },
+    transition: { type: "spring" as const, stiffness: 180, damping: 12 },
+  },
+  {
+    id: "helper",
+    src: "/images/img_mascot_helper.png",
+    initial: { opacity: 0, y: -40, rotate: 5 },
+    animate: { opacity: 1, y: 0, rotate: 0 },
+    transition: { type: "spring" as const, stiffness: 220, damping: 14 },
+  },
+];
+
+const INTERVAL = 4000; // 4 seconds per mascot
 
 export default function Brand() {
+  const { t } = useLocale();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % MASCOTS.length);
+    }, INTERVAL);
+    return () => clearInterval(timer);
+  }, []);
+
+  const activeMascot = MASCOTS[activeIndex];
+
   return (
     <section className={styles.brand} id="brand">
       <div className={styles.inner}>
         <div className={styles.textCol}>
           <Reveal variants={fadeUp}>
             <h2 className={styles.title}>
-              CookPilot existe para devolverle control a tu cocina.
+              {t.brand.section_title_main}
+              <span className={styles.titleAccent}>
+                {t.brand.section_title_accent}
+              </span>
             </h2>
           </Reveal>
 
           <Reveal variants={fadeUp} delay={0.12}>
-            <p className={styles.body}>
-              Ahorrar plata. Ahorrar tiempo. Comer mejor. Menos errores, menos
-              fricción y más claridad en algo tan básico como alimentarte bien.
-            </p>
-          </Reveal>
-
-          <Reveal variants={fadeUp} delay={0.24}>
-            <div className={styles.iconRow}>
-              <img
-                src="/images/img_icon_control.png"
-                alt="Control"
-                style={{
-                  width: "52px",
-                  height: "52px",
-                  borderRadius: "16px",
-                  objectFit: "cover",
-                }}
-              />
-              <img
-                src="/images/img_app_icon.png"
-                alt="Wallet"
-                style={{
-                  width: "52px",
-                  height: "52px",
-                  borderRadius: "16px",
-                  objectFit: "cover",
-                }}
-              />
-            </div>
+            <p className={styles.body}>{t.brand.section_body}</p>
           </Reveal>
         </div>
 
-        <Parallax speed={0.1} className={styles.mascotCol}>
-          <Reveal variants={slideFromRight}>
-            <div className={styles.mascotWrap}>
-              <img
-                src="/images/img_mascot_brand_pose.png"
-                alt="CookPilot Mascot"
+        <Parallax speed={0.05} className={styles.mascotCol}>
+          <div className={styles.mascotWrap}>
+            <div className={styles.mascotGlow} />
+            
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activeMascot.id}
+                src={activeMascot.src}
+                alt={t.brand.mascot_alt}
                 className={styles.mascotPlaceholder}
                 style={{ objectFit: "contain" }}
+                initial={activeMascot.initial}
+                animate={activeMascot.animate}
+                exit={{ 
+                  opacity: 0, 
+                  filter: "blur(8px)",
+                  scale: 0.9,
+                  transition: { duration: 0.4 } 
+                }}
+                transition={activeMascot.transition}
               />
-              <div className={styles.mascotGlow} />
-            </div>
-          </Reveal>
+            </AnimatePresence>
+          </div>
         </Parallax>
       </div>
     </section>
