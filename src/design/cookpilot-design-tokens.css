@@ -1,0 +1,258 @@
+/* CookPilot Design Tokens
+ * Generated from Flutter design tokens.
+ * Source mapping based on:
+ * - cook_palette.dart
+ * - app_theme.dart
+ * - cook_style_colors.dart
+ * - palette_extension.dart
+ *
+ * Notes:
+ * - Foundation tokens live in :root.
+ * - Semantic light tokens also live in :root.
+ * - Semantic dark tokens override under [data-theme="dark"].
+ * - Gradients and blur tokens included for landing/UI work.
+ */
+
+:root {
+  /* Foundation: core */
+  --cp-primary-muted: #FFF7E0;
+  --cp-primary-soft: #FDEECC;
+  --cp-primary: #E9A80E;
+  --cp-primary-strong: #CCA10D;
+  --cp-primary-deep: #665305;
+  --cp-secondary-muted: #F4FAE5;
+  --cp-secondary-soft: #E0FFAB;
+  --cp-secondary: #7BBC0B;
+  --cp-secondary-strong: #659609;
+  --cp-secondary-deep: #345005;
+  --cp-accent-muted: #FFF0F5;
+  --cp-accent-soft: #F9C1DA;
+  --cp-accent: #E24690;
+  --cp-accent-strong: #D43B7B;
+  --cp-accent-deep: #7C1D45;
+  --cp-error-muted: #FFF0F0;
+  --cp-error-soft: #FCEAEA;
+  --cp-error: #CD0000;
+  --cp-error-strong: #A30000;
+  --cp-error-deep: #510000;
+  --cp-warning: #E9D502;
+  --cp-time: #046FCC;
+
+  /* Foundation: neutrals */
+  --cp-light-soft: #FEFEF5;
+  --cp-light: #F9FAE9;
+  --cp-light-strong: #E2E4B0;
+  --cp-light-deep: #898B5F;
+  --cp-dark: #080000;
+  --cp-dark-raised: #151212;
+  --cp-dark-floating: #1F1B1A;
+  --cp-dark-deep: #020000;
+  --cp-gray-soft: #C7C7BD;
+  --cp-gray: #77786F;
+  --cp-gray-strong: #5E5F58;
+  --cp-gray-deep: #3E3F3A;
+
+  /* Foundation: foreground */
+  --cp-foreground-light: #F9FAE9;
+  --cp-foreground-light-soft: #FEFEF5;
+  --cp-foreground-light-strong: #E2E4B0;
+  --cp-foreground-dark: #080000;
+  --cp-foreground-dark-soft: #151212;
+  --cp-foreground-dark-strong: #77786F;
+
+  /* Foundation: opacity / glass bases */
+  --cp-primary-tint: #29E9A80E;
+  --cp-primary-tint-strong: #3DE9A80E;
+  --cp-accent-tint: #29E24690;
+  --cp-accent-tint-strong: #3DE24690;
+  --cp-dark-dim: #7A080000;
+  --cp-dark-dim-strong: #A3080000;
+  --cp-gray-disabled: #6177786F;
+  --cp-light-glass-fill-base: #8CFEFEF5;
+  --cp-light-glass-rim-base: #73FFFFFF;
+  --cp-light-glass-backdrop-base: #1F080000;
+  --cp-dark-glass-fill-base: #94151212;
+  --cp-dark-glass-rim-base: #1AFFFFFF;
+  --cp-primary-glass-fill-base: #8CFDEECC;
+  --cp-primary-glass-rim-base: #59E9A80E;
+  --cp-accent-glass-fill-base: #8CF9C1DA;
+  --cp-accent-glass-rim-base: #59E24690;
+  --cp-error-glass-fill-base: #8CFCEAEA;
+  --cp-error-glass-rim-base: #59CD0000;
+  --cp-time-glass-rim-base: #7D046FCC;
+  --cp-secondary-glass-rim-base: #597BBC0B;
+
+  /* Semantics: actions / states / metrics */
+  --cp-action-primary: #E9A80E;
+  --cp-action-primary-pressed: #CCA10D;
+  --cp-action-secondary: #7BBC0B;
+  --cp-action-secondary-pressed: #659609;
+  --cp-action-accent: #E24690;
+  --cp-action-accent-pressed: #D43B7B;
+  --cp-state-success: #7BBC0B;
+  --cp-state-error: #CD0000;
+  --cp-state-error-soft: #FCEAEA;
+  --cp-state-warning: #E9D502;
+  --cp-metric-saving: #E9A80E;
+  --cp-metric-health: #7BBC0B;
+  --cp-metric-fat: #E24690;
+  --cp-metric-warning: #E9D502;
+  --cp-metric-time: #046FCC;
+
+  /* Semantics: glass */
+  --cp-light-glass-fill: #8CFEFEF5;
+  --cp-light-glass-rim: #73FFFFFF;
+  --cp-light-glass-backdrop: #1F080000;
+  --cp-dark-glass-fill: #94151212;
+  --cp-dark-glass-rim: #1AFFFFFF;
+  --cp-dark-glass-backdrop: #7A080000;
+  --cp-primary-glass-fill: #8CFDEECC;
+  --cp-primary-glass-rim: #59E9A80E;
+  --cp-primary-glass-backdrop: #7A080000;
+  --cp-accent-glass-fill: #8CF9C1DA;
+  --cp-accent-glass-rim: #59E24690;
+  --cp-accent-glass-backdrop: #7A080000;
+  --cp-error-glass-fill: #8CFCEAEA;
+  --cp-error-glass-rim: #59CD0000;
+  --cp-error-glass-backdrop: #7A080000;
+  --cp-time-glass-rim: #7D046FCC;
+  --cp-secondary-glass-rim: #597BBC0B;
+
+  /* Brand extras */
+  --cp-blue: #046FCC;
+  --cp-blue-soft: #64B6FF;
+  --cp-cyan: #0BB3BC;
+  --cp-cyan-soft: #7CF6F9;
+  --cp-green: #13552E;
+  --cp-green-soft: #E4F3EA;
+  --cp-red: #9D0208;
+  --cp-red-soft: #FADFE1;
+  --cp-wine: #651931;
+  --cp-wine-soft: #F3E2E8;
+
+  /* Blur */
+  --cp-blur-0: 0px;
+  --cp-blur-8: 8px;
+  --cp-blur-16: 16px;
+  --cp-blur-24: 24px;
+  --cp-blur-40: 40px;
+  --cp-blur-64: 64px;
+
+  /* Gradients */
+  --cp-magic-gradient: linear-gradient(144deg, #D43B7B 0%, #E9A80E 50%, #E2E4B0 100%);
+  --cp-primary-gradient: linear-gradient(60deg, #E9A80E 0%, #FF8C21 100%);
+  --cp-cards-overlay-shadow: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 0, 0, 0.48) 100%);
+  --cp-time-gradient: conic-gradient(from 0deg, #046FCC 0%, #046FCC 50%, #0BB3BC 75.5%, #046FCC 100%);
+
+  /* Semantic app tokens — light */
+  --cp-layer-base: #F9FAE9;
+  --cp-layer-raised: #FEFEF5;
+  --cp-layer-floating: #FFFFFF;
+  --cp-layer-dim: #1F080000;
+  --cp-text-primary: #080000;
+  --cp-text-secondary: #5E5F58;
+  --cp-text-tertiary: #77786F;
+  --cp-text-inverse: #F9FAE9;
+  --cp-text-disabled: #77786F;
+  --cp-border-subtle: #C7C7BD;
+  --cp-border-default: #77786F;
+  --cp-border-strong: #5E5F58;
+  --cp-border-primary: #FDEECC;
+  --cp-border-secondary: #E0FFAB;
+  --cp-border-accent: #F9C1DA;
+  --cp-border-error: #FCEAEA;
+
+  /* Friendly aliases */
+  --cp-background: var(--cp-layer-base);
+  --cp-background-raised: var(--cp-layer-raised);
+  --cp-background-floating: var(--cp-layer-floating);
+  --cp-background-dim: var(--cp-layer-dim);
+
+  --cp-text-primary-color: var(--cp-text-primary);
+  --cp-text-secondary-color: var(--cp-text-secondary);
+  --cp-text-tertiary-color: var(--cp-text-tertiary);
+  --cp-text-inverse-color: var(--cp-text-inverse);
+  --cp-text-disabled-color: var(--cp-text-disabled);
+
+  --cp-border-subtle-color: var(--cp-border-subtle);
+  --cp-border-default-color: var(--cp-border-default);
+  --cp-border-strong-color: var(--cp-border-strong);
+
+  --cp-surface-glass-fill: var(--cp-dark-glass-fill);
+  --cp-surface-glass-rim: var(--cp-dark-glass-rim);
+  --cp-surface-glass-backdrop: var(--cp-dark-glass-backdrop);
+}
+
+[data-theme="dark"] {
+  /* Semantic app tokens — dark */
+  --cp-layer-base: #080000;
+  --cp-layer-raised: #151212;
+  --cp-layer-floating: #1F1B1A;
+  --cp-layer-dim: #7A080000;
+  --cp-text-primary: #F9FAE9;
+  --cp-text-secondary: #E2E4B0;
+  --cp-text-tertiary: #C7C7BD;
+  --cp-text-inverse: #080000;
+  --cp-text-disabled: #C7C7BD;
+  --cp-border-subtle: #5E5F58;
+  --cp-border-default: #77786F;
+  --cp-border-strong: #C7C7BD;
+  --cp-border-primary: #E9A80E;
+  --cp-border-secondary: #7BBC0B;
+  --cp-border-accent: #E24690;
+  --cp-border-error: #CD0000;
+
+  /* Friendly aliases */
+  --cp-background: var(--cp-layer-base);
+  --cp-background-raised: var(--cp-layer-raised);
+  --cp-background-floating: var(--cp-layer-floating);
+  --cp-background-dim: var(--cp-layer-dim);
+
+  --cp-text-primary-color: var(--cp-text-primary);
+  --cp-text-secondary-color: var(--cp-text-secondary);
+  --cp-text-tertiary-color: var(--cp-text-tertiary);
+  --cp-text-inverse-color: var(--cp-text-inverse);
+  --cp-text-disabled-color: var(--cp-text-disabled);
+
+  --cp-border-subtle-color: var(--cp-border-subtle);
+  --cp-border-default-color: var(--cp-border-default);
+  --cp-border-strong-color: var(--cp-border-strong);
+
+  --cp-surface-glass-fill: var(--cp-dark-glass-fill);
+  --cp-surface-glass-rim: var(--cp-dark-glass-rim);
+  --cp-surface-glass-backdrop: var(--cp-dark-glass-backdrop);
+}
+
+/* Optional utility hooks */
+.cp-theme-light {
+  color-scheme: light;
+  background: var(--cp-layer-base);
+  color: var(--cp-text-primary);
+}
+
+.cp-theme-dark {
+  color-scheme: dark;
+  background: var(--cp-layer-base);
+  color: var(--cp-text-primary);
+}
+
+.cp-glass {
+  background: var(--cp-surface-glass-fill);
+  border: 1px solid var(--cp-surface-glass-rim);
+  backdrop-filter: blur(var(--cp-blur-24));
+  -webkit-backdrop-filter: blur(var(--cp-blur-24));
+}
+
+.cp-gradient-text-magic {
+  background: var(--cp-magic-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cp-gradient-text-primary {
+  background: var(--cp-primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

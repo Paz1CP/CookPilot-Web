@@ -1,0 +1,88 @@
+.footer {
+  padding: 48px;
+  background: var(--cp-layer-base);
+  border-top: 1px solid var(--cp-border-subtle);
+}
+
+.inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoImage {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.logoText {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+}
+
+.brandCook {
+  color: var(--cp-primary);
+}
+
+.brandPilot {
+  color: var(--cp-primary);
+}
+
+.center {
+  display: flex;
+  align-items: center;
+}
+
+.madeIn {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-medium);
+  font-size: 14px;
+  color: var(--cp-text-tertiary);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-medium);
+  font-size: 14px;
+  color: var(--cp-text-secondary);
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: var(--cp-primary);
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 32px 20px;
+  }
+  .inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}

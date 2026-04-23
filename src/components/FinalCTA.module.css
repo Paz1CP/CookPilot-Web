@@ -1,0 +1,121 @@
+.finalCta {
+  padding: 144px 48px;
+  background: var(--cp-layer-base);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.title {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: 36px;
+  letter-spacing: -0.6px;
+  color: var(--cp-text-primary);
+  margin-bottom: 40px;
+  line-height: 1.25;
+  max-width: 620px;
+}
+
+.form {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 20px;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+}
+
+.submitBtn {
+  flex-shrink: 0;
+}
+
+.supportText {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-regular);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--cp-text-tertiary);
+  margin-bottom: 24px;
+}
+
+.demoLink {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-medium);
+  font-size: 15px;
+  color: var(--cp-text-secondary);
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid var(--cp-border-subtle);
+  background: none;
+}
+
+.demoLink:hover {
+  color: var(--cp-primary);
+  border-color: rgba(233, 168, 14, 0.3);
+}
+
+.successMsg {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 28px;
+  background: var(--cp-layer-floating);
+  border: 1px solid var(--cp-state-success);
+  border-radius: 20px;
+  margin-bottom: 20px;
+  color: var(--cp-text-primary);
+  font-size: 16px;
+}
+
+.successIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cp-state-success);
+  color: var(--cp-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--cp-fw-bold);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .finalCta {
+    padding: 112px 28px;
+  }
+  .title {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .finalCta {
+    padding: 80px 20px;
+  }
+  .title {
+    font-size: 26px;
+    margin-bottom: 32px;
+  }
+  .form {
+    flex-direction: column;
+  }
+  .submitBtn {
+    width: 100%;
+  }
+}

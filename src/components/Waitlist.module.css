@@ -1,0 +1,132 @@
+.waitlist {
+  padding: 144px 48px;
+  background: var(--cp-layer-base);
+}
+
+.inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 80px;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.title {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: 40px;
+  letter-spacing: -0.8px;
+  color: var(--cp-text-primary);
+  margin-bottom: 32px;
+  line-height: 1.15;
+}
+
+.form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+}
+
+.submitBtn {
+  flex-shrink: 0;
+  height: 60px;
+  padding: 0 32px;
+}
+
+.description {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-regular);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--cp-text-tertiary);
+  max-width: 460px;
+}
+
+.successMsg {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 28px;
+  background: var(--cp-layer-floating);
+  border: 1px solid var(--cp-state-success);
+  border-radius: 20px;
+  margin-bottom: 20px;
+  color: var(--cp-text-primary);
+  font-size: 16px;
+}
+
+.successIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cp-state-success);
+  color: var(--cp-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--cp-fw-bold);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Mascot */
+.mascotCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mascotPlaceholder {
+  width: 100%;
+  max-width: 280px;
+  min-height: 340px;
+  border-radius: 32px;
+}
+
+@media (max-width: 1024px) {
+  .waitlist {
+    padding: 112px 28px;
+  }
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .title {
+    font-size: 32px;
+  }
+  .mascotPlaceholder {
+    max-width: 220px;
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .waitlist {
+    padding: 80px 20px;
+  }
+  .title {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+  .form {
+    flex-direction: column;
+  }
+  .submitBtn {
+    width: 100%;
+  }
+  .mascotCol {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,259 @@
+/*
+  CookPilot Typography Tokens
+  Translated from cook_typography.dart
+  Source mappings:
+  - font families Outfit and PermanentMarker
+  - sizes, weights, letter spacing, and line-height where defined
+*/
+
+:root {
+  --cp-font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --cp-font-marker: "PermanentMarker", "Permanent Marker", cursive;
+
+  --cp-fw-light: 300;
+  --cp-fw-regular: 400;
+  --cp-fw-medium: 500;
+  --cp-fw-semibold: 600;
+  --cp-fw-bold: 700;
+
+  --cp-text-display-xxl-size: 56px;
+  --cp-text-display-xxl-letter-spacing: -0.8px;
+
+  --cp-text-display-xl-size: 48px;
+  --cp-text-display-xl-letter-spacing: -0.96px;
+
+  --cp-text-display-l-size: 40px;
+  --cp-text-display-l-letter-spacing: -0.8px;
+
+  --cp-text-display-m-size: 32px;
+  --cp-text-display-m-letter-spacing: -0.48px;
+
+  --cp-text-title-xl-size: 28px;
+  --cp-text-title-xl-letter-spacing: -0.28px;
+
+  --cp-text-title-l-size: 24px;
+  --cp-text-title-l-letter-spacing: -0.24px;
+
+  --cp-text-title-m-size: 20px;
+  --cp-text-title-m-letter-spacing: 0;
+
+  --cp-text-title-s-size: 16px;
+  --cp-text-title-s-letter-spacing: 0;
+
+  --cp-text-body-l-size: 16px;
+  --cp-text-body-l-letter-spacing: 0;
+
+  --cp-text-body-m-size: 16px;
+  --cp-text-body-m-letter-spacing: 0;
+
+  --cp-text-body-s-size: 14px;
+  --cp-text-body-s-letter-spacing: 0;
+
+  --cp-text-label-14-size: 14px;
+  --cp-text-label-14-letter-spacing: 0.12px;
+
+  --cp-text-caption-10-size: 10px;
+  --cp-text-caption-10-letter-spacing: 0.1px;
+
+  --cp-text-button-20-size: 20px;
+  --cp-text-button-20-letter-spacing: 0.1px;
+  --cp-text-button-20-line-height: 1.2;
+
+  --cp-text-button-16-size: 16px;
+  --cp-text-button-16-letter-spacing: 0.08px;
+
+  --cp-text-button-14-size: 14px;
+  --cp-text-button-14-letter-spacing: 0.07px;
+
+  --cp-text-button-12-size: 12px;
+  --cp-text-button-12-letter-spacing: 0;
+
+  --cp-text-label-12-size: 12px;
+  --cp-text-label-12-letter-spacing: 0.12px;
+  --cp-text-label-12-line-height: 1.1000000238;
+
+  --cp-text-highlight-xl-size: 32px;
+  --cp-text-highlight-l-size: 24px;
+  --cp-text-highlight-m-size: 16px;
+}
+
+/* Base utility families */
+.cp-font-sans { font-family: var(--cp-font-sans); }
+.cp-font-marker { font-family: var(--cp-font-marker); }
+
+/* Display */
+.cp-display-xxl {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: var(--cp-text-display-xxl-size);
+  letter-spacing: var(--cp-text-display-xxl-letter-spacing);
+}
+
+.cp-display-xl {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: var(--cp-text-display-xl-size);
+  letter-spacing: var(--cp-text-display-xl-letter-spacing);
+}
+
+.cp-display-l {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: var(--cp-text-display-l-size);
+  letter-spacing: var(--cp-text-display-l-letter-spacing);
+}
+
+.cp-display-m {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: var(--cp-text-display-m-size);
+  letter-spacing: var(--cp-text-display-m-letter-spacing);
+}
+
+/* Titles */
+.cp-title-xl {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-title-xl-size);
+  letter-spacing: var(--cp-text-title-xl-letter-spacing);
+}
+
+.cp-title-l {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-title-l-size);
+  letter-spacing: var(--cp-text-title-l-letter-spacing);
+}
+
+.cp-title-m {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-medium);
+  font-size: var(--cp-text-title-m-size);
+  letter-spacing: var(--cp-text-title-m-letter-spacing);
+}
+
+.cp-title-s {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-medium);
+  font-size: var(--cp-text-title-s-size);
+  letter-spacing: var(--cp-text-title-s-letter-spacing);
+}
+
+/* Body */
+.cp-body-l {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-body-l-size);
+  letter-spacing: var(--cp-text-body-l-letter-spacing);
+}
+
+.cp-body-m {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-regular);
+  font-size: var(--cp-text-body-m-size);
+  letter-spacing: var(--cp-text-body-m-letter-spacing);
+}
+
+.cp-body-s {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-regular);
+  font-size: var(--cp-text-body-s-size);
+  letter-spacing: var(--cp-text-body-s-letter-spacing);
+}
+
+/* Labels */
+.cp-label-14 {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-medium);
+  font-size: var(--cp-text-label-14-size);
+  letter-spacing: var(--cp-text-label-14-letter-spacing);
+}
+
+.cp-label-12-light {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-light);
+  font-size: var(--cp-text-label-12-size);
+  line-height: var(--cp-text-label-12-line-height);
+  letter-spacing: var(--cp-text-label-12-letter-spacing);
+}
+
+/* Captions */
+.cp-caption-10 {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-regular);
+  font-size: var(--cp-text-caption-10-size);
+  letter-spacing: var(--cp-text-caption-10-letter-spacing);
+}
+
+/* Buttons */
+.cp-button-20 {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-button-20-size);
+  line-height: var(--cp-text-button-20-line-height);
+  letter-spacing: var(--cp-text-button-20-letter-spacing);
+}
+
+.cp-button-16 {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-button-16-size);
+  letter-spacing: var(--cp-text-button-16-letter-spacing);
+}
+
+.cp-button-14 {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-button-14-size);
+  letter-spacing: var(--cp-text-button-14-letter-spacing);
+}
+
+.cp-button-12 {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-button-12-size);
+  letter-spacing: var(--cp-text-button-12-letter-spacing);
+}
+
+/* Marker highlights */
+.cp-highlight-xl {
+  font-family: var(--cp-font-marker);
+  font-weight: var(--cp-fw-regular);
+  font-size: var(--cp-text-highlight-xl-size);
+  letter-spacing: 0;
+}
+
+.cp-highlight-l {
+  font-family: var(--cp-font-marker);
+  font-weight: var(--cp-fw-regular);
+  font-size: var(--cp-text-highlight-l-size);
+  letter-spacing: 0;
+}
+
+.cp-highlight-m {
+  font-family: var(--cp-font-marker);
+  font-weight: var(--cp-fw-regular);
+  font-size: var(--cp-text-highlight-m-size);
+  letter-spacing: 0;
+}
+
+/* Semantic aliases for landing pages */
+.cp-hero-title { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-bold); font-size: var(--cp-text-display-xxl-size); letter-spacing: var(--cp-text-display-xxl-letter-spacing); }
+.cp-section-title { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-bold); font-size: var(--cp-text-display-m-size); letter-spacing: var(--cp-text-display-m-letter-spacing); }
+.cp-card-title { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-semibold); font-size: var(--cp-text-title-l-size); letter-spacing: var(--cp-text-title-l-letter-spacing); }
+.cp-lead { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-regular); font-size: 18px; letter-spacing: 0; }
+.cp-body { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-regular); font-size: var(--cp-text-body-m-size); letter-spacing: var(--cp-text-body-m-letter-spacing); }
+.cp-meta { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-medium); font-size: var(--cp-text-label-14-size); letter-spacing: var(--cp-text-label-14-letter-spacing); }
+.cp-cta { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-semibold); font-size: var(--cp-text-button-16-size); letter-spacing: var(--cp-text-button-16-letter-spacing); }
+
+/* Optional responsive helpers */
+@media (max-width: 1024px) {
+  .cp-hero-title { font-size: 48px; letter-spacing: -0.96px; }
+  .cp-section-title { font-size: 28px; letter-spacing: -0.28px; }
+}
+
+@media (max-width: 640px) {
+  .cp-hero-title { font-size: 40px; letter-spacing: -0.8px; }
+  .cp-section-title { font-size: 24px; letter-spacing: -0.24px; }
+  .cp-lead { font-size: 16px; }
+}
