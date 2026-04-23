@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./Demo.module.css";
 import { motion, AnimatePresence } from "motion/react";
@@ -10,6 +10,14 @@ import { useLocale } from "@/contexts/LanguageContext";
 export default function Demo() {
   const { t } = useLocale();
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const handleTrigger = () => {
+      setIsPlaying(true);
+    };
+    window.addEventListener("cp-trigger-demo", handleTrigger);
+    return () => window.removeEventListener("cp-trigger-demo", handleTrigger);
+  }, []);
 
   return (
     <section className={styles.demo} id="demo">

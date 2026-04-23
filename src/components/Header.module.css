@@ -145,10 +145,30 @@
 
 @media (max-width: 640px) {
   .inner {
-    padding: 0 20px;
+    padding: 0 24px;
   }
   .header {
     height: 64px;
-    width: 92%;
+    width: 95%;
+  }
+  .logoImage {
+    display: none;
+  }
+  .logoText {
+    font-size: 24px;
+  }
+  .actions {
+    gap: 12px;
+    flex: 1;
+    justify-content: flex-end;
+  }
+  .demoLink {
+    padding: 0;
+    font-size: 14px;
+    border: none;
+    background: none !important;
+  }
+  .demoLink img {
+    display: none;
   }
 }

@@ -183,22 +183,23 @@
 
 @media (max-width: 640px) {
   .hero {
-    padding: 88px 20px 48px;
+    padding: 112px 20px 48px;
     min-height: auto;
   }
   .headline {
-    font-size: 48px;
+    font-size: 58px;
     letter-spacing: -1.2px;
   }
   .headlineWrap {
-    min-height: 110px;
+    min-height: auto;
+    margin-bottom: 12px;
   }
   .support {
     font-size: 17px;
   }
   .supportWrap {
-    min-height: 48px;
-    margin-bottom: 28px;
+    min-height: auto;
+    margin-bottom: 24px;
   }
   .ctaBtn {
     height: 58px;
@@ -214,6 +215,15 @@
   .mascotAccent {
     bottom: -16px;
     left: -16px;
+  }
+  .floatingIconWrap {
+    scale: 0.65;
+  }
+  .floatingIconWrap[data-side="left"] {
+    translate: -24px 0;
+  }
+  .floatingIconWrap[data-side="right"] {
+    translate: 24px 0;
   }
 }
 

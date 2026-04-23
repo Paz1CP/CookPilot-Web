@@ -128,6 +128,7 @@ export default function Hero() {
   const scrollToDemo = () => {
     const el = document.getElementById("demo");
     if (el) el.scrollIntoView({ behavior: "smooth" });
+    window.dispatchEvent(new CustomEvent("cp-trigger-demo"));
   };
 
   return (
@@ -242,6 +243,9 @@ export default function Hero() {
               {state.floatingIcons?.map((icon, idx) => (
                 <motion.div
                   key={`${active}-icon-${idx}`}
+                  className={styles.floatingIconWrap}
+                  data-side={icon.left ? "left" : "right"}
+                  data-vert={icon.top ? "top" : "bottom"}
                   initial={{ opacity: 0, scale: 0, y: 40, rotate: icon.rotation - 30 }}
                   animate={{ opacity: 1, scale: 1, y: 0, rotate: icon.rotation }}
                   transition={{ type: "spring", stiffness: 250, damping: 15, delay: 0.1 + icon.delay }}
@@ -257,6 +261,7 @@ export default function Hero() {
                   <motion.img
                     src={`/images/${icon.src}`}
                     alt={t.hero.floating_icon_alt}
+                    className={styles.floatingIcon}
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: icon.floatDuration, repeat: Infinity, ease: "easeInOut" }}
                     style={{

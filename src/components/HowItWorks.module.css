@@ -13,7 +13,6 @@
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-bold);
   font-size: 72px;
-  letter-spacing: -2px;
   color: var(--cp-text-primary);
   margin-bottom: 20px;
   line-height: 1.1;
@@ -101,8 +100,6 @@
   color: var(--cp-text-tertiary);
   max-width: 280px;
 }
-
-
 
 /* Responsive */
 @media (max-width: 1024px) {

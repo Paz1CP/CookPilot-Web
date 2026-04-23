@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./FinalCTA.module.css";
+import waitlistStyles from "./Waitlist.module.css";
+import { ArrowRight } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
 
 const CAROUSEL_IMAGES = [
@@ -45,10 +47,10 @@ export default function FinalCTA() {
 
         <Reveal variants={fadeUp} delay={0.12}>
           {!submitted ? (
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={waitlistStyles.formWrap} style={{ margin: "0 auto 20px", width: "100%" }} onSubmit={handleSubmit}>
               <input
                 type="email"
-                className={`cp-input ${styles.input}`}
+                className={waitlistStyles.input}
                 placeholder={t.final_cta.email_placeholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -56,9 +58,9 @@ export default function FinalCTA() {
               />
               <button
                 type="submit"
-                className={`cp-btn cp-btn--primary ${styles.submitBtn}`}
+                className={waitlistStyles.submitBtn}
               >
-                {t.final_cta.submit_button}
+                {t.final_cta.submit_button} <ArrowRight size="18" variant="Outline" />
               </button>
             </form>
           ) : (

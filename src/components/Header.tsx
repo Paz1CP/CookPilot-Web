@@ -34,6 +34,7 @@ export default function Header() {
   const scrollToDemo = () => {
     const el = document.getElementById("demo");
     if (el) el.scrollIntoView({ behavior: "smooth" });
+    window.dispatchEvent(new CustomEvent("cp-trigger-demo"));
   };
 
   const scrollToHero = () => {

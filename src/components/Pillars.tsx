@@ -85,7 +85,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-                      style={{ position: "absolute", top: "12%", left: "calc(50% + 140px)", zIndex: 1 }}
+                      style={{ position: "absolute", top: "12%", left: "calc(50% + 90px)", zIndex: 1 }}
                     >
                       <motion.div className={styles.neoCard} animate={{ y: [0, -12, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
                         +S/ 20
@@ -96,7 +96,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.4 }}
-                      style={{ position: "absolute", top: "35%", left: "calc(50% - 280px)", zIndex: 1 }}
+                      style={{ position: "absolute", top: "35%", left: "calc(50% - 200px)", zIndex: 1 }}
                     >
                       <motion.div className={styles.neoCard} animate={{ y: [0, 15, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
                         +S/ 35
@@ -107,7 +107,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.6 }}
-                      style={{ position: "absolute", bottom: "25%", left: "calc(50% + 160px)", zIndex: 1 }}
+                      style={{ position: "absolute", bottom: "25%", left: "calc(50% + 110px)", zIndex: 1 }}
                     >
                       <motion.div className={styles.neoCard} animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
                         +S/ 12
@@ -118,7 +118,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, x: 0, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 250, damping: 15, delay: 0.8 }}
-                      style={{ position: "absolute", bottom: "10%", left: "calc(50% - 230px)", zIndex: 10 }}
+                      style={{ position: "absolute", bottom: "10%", left: "calc(50% - 170px)", zIndex: 10 }}
                     >
                       <motion.div className={`${styles.neoCard} ${styles.neoCardFront}`} animate={{ y: [0, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
                         +S/ 16
@@ -134,7 +134,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-                      style={{ position: "absolute", top: "12%", left: "calc(50% + 140px)", zIndex: 1 }}
+                      style={{ position: "absolute", top: "12%", left: "calc(50% + 90px)", zIndex: 1 }}
                     >
                       <motion.div className={`${styles.neoCard} ${styles.neoCardBlue}`} animate={{ y: [0, -12, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
                         +15 min
@@ -145,7 +145,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.4 }}
-                      style={{ position: "absolute", top: "35%", left: "calc(50% - 280px)", zIndex: 1 }}
+                      style={{ position: "absolute", top: "35%", left: "calc(50% - 200px)", zIndex: 1 }}
                     >
                       <motion.div className={`${styles.neoCard} ${styles.neoCardBlue}`} animate={{ y: [0, 15, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
                         +30 min
@@ -156,7 +156,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.6 }}
-                      style={{ position: "absolute", bottom: "25%", left: "calc(50% + 160px)", zIndex: 1 }}
+                      style={{ position: "absolute", bottom: "25%", left: "calc(50% + 110px)", zIndex: 1 }}
                     >
                       <motion.div className={`${styles.neoCard} ${styles.neoCardBlue}`} animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
                         +10 min
@@ -167,7 +167,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, x: 0, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 250, damping: 15, delay: 0.8 }}
-                      style={{ position: "absolute", bottom: "10%", left: "calc(50% - 230px)", zIndex: 10 }}
+                      style={{ position: "absolute", bottom: "10%", left: "calc(50% - 170px)", zIndex: 10 }}
                     >
                       <motion.div className={`${styles.neoCard} ${styles.neoCardFront} ${styles.neoCardBlue}`} animate={{ y: [0, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
                         +45 min
@@ -183,7 +183,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-                      style={{ position: "absolute", top: "12%", left: "calc(50% + 140px)", zIndex: 1 }}
+                      style={{ position: "absolute", top: "12%", left: "calc(50% + 90px)", zIndex: 1 }}
                     >
                       <motion.img src="/images/health/smart_fats.webp" className={styles.healthIcon} animate={{ y: [0, -12, 0], rotate: [0, 8, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} />
                     </motion.div>
@@ -192,7 +192,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, x: 0, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.4 }}
-                      style={{ position: "absolute", top: "35%", left: "calc(50% - 280px)", zIndex: 1 }}
+                      style={{ position: "absolute", top: "35%", left: "calc(50% - 200px)", zIndex: 1 }}
                     >
                       <motion.img src="/images/health/active_fiber.webp" className={styles.healthIcon} animate={{ y: [0, 15, 0], rotate: [0, -10, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }} />
                     </motion.div>
@@ -201,7 +201,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.6 }}
-                      style={{ position: "absolute", bottom: "25%", left: "calc(50% + 160px)", zIndex: 1 }}
+                      style={{ position: "absolute", bottom: "25%", left: "calc(50% + 110px)", zIndex: 1 }}
                     >
                       <motion.img src="/images/health/prolonged_satiety.webp" className={styles.healthIcon} animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }} />
                     </motion.div>
@@ -210,7 +210,7 @@ export default function Pillars() {
                       whileInView={{ opacity: 1, scale: 1, x: 0, y: 0, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 250, damping: 15, delay: 0.8 }}
-                      style={{ position: "absolute", bottom: "10%", left: "calc(50% - 230px)", zIndex: 10 }}
+                      style={{ position: "absolute", bottom: "10%", left: "calc(50% - 170px)", zIndex: 10 }}
                     >
                       <motion.img src="/images/health/light_heart.webp" className={styles.healthIcon} animate={{ y: [0, -8, 0], rotate: [0, 12, -12, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }} />
                     </motion.div>

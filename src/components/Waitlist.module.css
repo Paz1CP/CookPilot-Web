@@ -37,7 +37,7 @@
     transparent 50%
   );
   transform-origin: center;
-  animation: magical-spin 5s linear infinite;
+  animation: magical-spin 6s linear infinite;
   translate: -50% -50%;
   z-index: 0;
 }
@@ -67,6 +67,7 @@
 .avatarGroup {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 32px;
 }
 
@@ -161,8 +162,8 @@
   height: 48px;
   padding: 0 28px;
   border-radius: 999px;
-  background: var(--cp-dark);
-  color: white;
+  background: var(--cp-layer-floating);
+  color: var(--cp-text-primary);
   font-weight: var(--cp-fw-semibold);
   font-size: 15px;
   display: flex;
@@ -266,8 +267,9 @@
   }
   .formWrap {
     flex-direction: column;
-    padding: 12px;
+    padding: 16px;
     border-radius: 24px;
+    gap: 8px;
   }
   .submitBtn {
     width: 100%;
@@ -278,6 +280,6 @@
     width: 100%;
     text-align: center;
     padding: 0;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   }
 }
