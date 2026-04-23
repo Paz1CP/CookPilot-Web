@@ -81,8 +81,6 @@
     padding: 32px 20px;
   }
   .inner {
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
+    gap: 12px;
   }
 }
