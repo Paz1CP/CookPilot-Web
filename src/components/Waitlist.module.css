@@ -179,11 +179,18 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+.card.submitted::before {
+  background: var(--cp-secondary, #10b981);
+  animation: none;
+}
+
 /* Success State */
 .successContainer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
+  min-height: 320px;
 }
 
 .successPill {

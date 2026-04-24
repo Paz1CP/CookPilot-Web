@@ -22,6 +22,9 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  width: 100vw;
+  max-width: 100vw;
 }
 
 body {
@@ -32,6 +35,8 @@ body {
   background: var(--cp-layer-base);
   color: var(--cp-text-primary);
   overflow-x: hidden;
+  width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
   position: relative;
 }

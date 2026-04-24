@@ -151,6 +151,34 @@
   scale: 0.85;
 }
 
+.cardWrap1 {
+  position: absolute;
+  top: 12%;
+  left: calc(50% + 90px);
+  z-index: 1;
+}
+
+.cardWrap2 {
+  position: absolute;
+  top: 35%;
+  left: calc(50% - 200px);
+  z-index: 1;
+}
+
+.cardWrap3 {
+  position: absolute;
+  bottom: 25%;
+  left: calc(50% + 110px);
+  z-index: 1;
+}
+
+.cardWrap4 {
+  position: absolute;
+  bottom: 10%;
+  left: calc(50% - 170px);
+  z-index: 10;
+}
+
 @media (max-width: 768px) {
   .healthIcon {
     width: 96px;
@@ -261,5 +289,24 @@
   .screenshotPlaceholder {
     max-width: 260px;
     min-height: 400px;
+  }
+  .neoCard {
+    scale: 0.75;
+  }
+  .cardWrap1 {
+    left: calc(50% + 55px);
+    z-index: 10;
+  }
+  .cardWrap2 {
+    left: calc(50% - 175px);
+    z-index: 10;
+  }
+  .cardWrap3 {
+    left: calc(50% + 65px);
+    z-index: 10;
+  }
+  .cardWrap4 {
+    left: calc(50% - 165px);
+    z-index: 10;
   }
 }

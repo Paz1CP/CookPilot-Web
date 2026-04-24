@@ -17,7 +17,7 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
       const timer = setTimeout(() => {
         setSubmitted(false);
         setEmail("");
-      }, 3000);
+      }, 6000);
       return () => clearTimeout(timer);
     }
   }, [submitted]);
@@ -31,7 +31,7 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
 
   return (
     <section className={styles.waitlist} id={id}>
-      <div className={styles.card}>
+      <div className={`${styles.card} ${submitted ? styles.submitted : ""}`}>
         <div className={styles.content}>
           <AnimatePresence mode="wait">
             {!submitted ? (
@@ -71,9 +71,9 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
               <motion.div
                 key="success"
                 className={styles.successContainer}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <h2 className={styles.successTitle}>{t.waitlist.success_title}</h2>
                 <p className={styles.description}>
@@ -88,10 +88,16 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
 
         <div className={styles.mascotCol}>
           <Reveal variants={fadeUp} delay={0.2}>
-            <img
+            <motion.img
               src="/images/img_icon_waitlist.png"
               alt={t.waitlist.icon_alt}
               className={styles.mascotPlaceholder}
+              animate={
+                submitted
+                  ? { y: [0, -20, 0], scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] }
+                  : { y: 0, scale: 1, rotate: 0 }
+              }
+              transition={{ duration: 0.8, ease: "easeInOut" }}
             />
           </Reveal>
         </div>
