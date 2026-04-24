@@ -70,8 +70,11 @@
     "avatar_alt": "Usuario",
     "icon_alt": "Lista de espera de CookPilot",
     "success_title": "¡Ya estás dentro!",
-    "success_description_line_1": "¡Gracias por unirte!",
-    "success_description_line_2": "Te avisaremos en cuanto se abran los accesos anticipados."
+    "success_description_line_1": "Listo. Te aviso cuando CookPilot abra su primera mesa.",
+    "success_description_line_2": "",
+    "already_joined": "Ese correo ya está en la lista.",
+    "error": "No se pudo guardar tu correo. Intenta otra vez.",
+    "loading": "Guardando..."
   },
   "final_cta": {
     "section_title": "Comer mejor, gastar menos y tener más control no debería ser un lujo.",
@@ -79,7 +82,10 @@
     "email_label": "Correo electrónico para unirte",
     "submit_button": "Unirme a la lista",
     "success_icon_aria": "Éxito",
-    "success_message": "¡Listo! Te avisaremos cuando CookPilot abra."
+    "success_message": "Listo. Te aviso cuando CookPilot abra su primera mesa.",
+    "already_joined": "Ese correo ya está en la lista.",
+    "error": "No se pudo guardar tu correo. Intenta otra vez.",
+    "loading": "Guardando..."
   },
   "footer": {
     "logo_alt": "Ícono de CookPilot",

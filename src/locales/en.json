@@ -70,8 +70,11 @@
     "avatar_alt": "User",
     "icon_alt": "CookPilot Waitlist",
     "success_title": "You're in!",
-    "success_description_line_1": "Thanks for joining!",
-    "success_description_line_2": "We'll notify you the moment early access opens."
+    "success_description_line_1": "Done. We'll let you know when CookPilot opens its first table.",
+    "success_description_line_2": "",
+    "already_joined": "That email is already on the list.",
+    "error": "Couldn't save your email. Please try again.",
+    "loading": "Saving..."
   },
   "final_cta": {
     "section_title": "Eating better, spending less, and having more control shouldn't be a luxury.",
@@ -79,7 +82,10 @@
     "email_label": "Email to join the list",
     "submit_button": "Join the list",
     "success_icon_aria": "Success",
-    "success_message": "Done! We'll notify you when CookPilot opens."
+    "success_message": "Done. We'll let you know when CookPilot opens its first table.",
+    "already_joined": "That email is already on the list.",
+    "error": "Couldn't save your email. Please try again.",
+    "loading": "Saving..."
   },
   "footer": {
     "logo_alt": "CookPilot Icon",

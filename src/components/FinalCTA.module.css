@@ -175,3 +175,11 @@
     width: 100%;
   }
 }
+
+/* ── Feedback states ── */
+.errorMsg {
+  font-size: 13px;
+  color: var(--cp-error);
+  margin-top: 10px;
+  text-align: center;
+}

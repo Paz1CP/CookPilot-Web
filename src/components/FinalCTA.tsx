@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./FinalCTA.module.css";
 import waitlistStyles from "./Waitlist.module.css";
 import { ArrowRight } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
+import { joinWaitlist } from "@/lib/joinWaitlist";
+
+type SubmitState = "idle" | "loading" | "success" | "alreadyJoined" | "error";
 
 const CAROUSEL_IMAGES = [
   "/images/img_dish_hero_signature.webp",
@@ -20,14 +23,20 @@ const SCROLL_IMAGES = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES];
 export default function FinalCTA() {
   const { t } = useLocale();
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [state, setState] = useState<SubmitState>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.includes("@")) {
-      setSubmitted(true);
-    }
+    if (state === "loading") return;
+    setState("loading");
+
+    const result = await joinWaitlist(email);
+    setState(result.status);
+
+    if (result.status === "success") setEmail("");
   };
+
+  const submitted = state === "success" || state === "alreadyJoined";
 
   return (
     <section className={styles.finalCta} id="final-cta">
@@ -46,41 +55,65 @@ export default function FinalCTA() {
         </Reveal>
 
         <Reveal variants={fadeUp} delay={0.12}>
-          {!submitted ? (
-            <form className={waitlistStyles.formWrap} style={{ margin: "0 auto 20px", width: "100%" }} onSubmit={handleSubmit}>
-              <input
-                type="email"
-                className={waitlistStyles.input}
-                placeholder={t.final_cta.email_placeholder}
-                aria-label={t.final_cta.email_label}
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button
-                type="submit"
-                className={waitlistStyles.submitBtn}
+          <AnimatePresence mode="wait">
+            {!submitted ? (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                {t.final_cta.submit_button} <ArrowRight size="18" variant="Outline" />
-              </button>
-            </form>
-          ) : (
-            <motion.div
-              className={styles.successMsg}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <span
-                className={styles.successIcon}
-                aria-label={t.final_cta.success_icon_aria}
+                <form
+                  className={waitlistStyles.formWrap}
+                  style={{ margin: "0 auto 20px", width: "100%" }}
+                  onSubmit={handleSubmit}
+                >
+                  <input
+                    type="email"
+                    className={waitlistStyles.input}
+                    placeholder={t.final_cta.email_placeholder}
+                    aria-label={t.final_cta.email_label}
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={state === "loading"}
+                  />
+                  <button
+                    type="submit"
+                    className={waitlistStyles.submitBtn}
+                    disabled={state === "loading"}
+                  >
+                    {state === "loading"
+                      ? t.final_cta.loading
+                      : <>{t.final_cta.submit_button} <ArrowRight size="18" variant="Outline" /></>}
+                  </button>
+                </form>
+
+                {state === "error" && (
+                  <p className={styles.errorMsg}>{t.final_cta.error}</p>
+                )}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="success"
+                className={styles.successMsg}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               >
-                ✓
-              </span>
-              <p>{t.final_cta.success_message}</p>
-            </motion.div>
-          )}
+                <span className={styles.successIcon} aria-label={t.final_cta.success_icon_aria}>
+                  ✓
+                </span>
+                <p>
+                  {state === "alreadyJoined"
+                    ? t.final_cta.already_joined
+                    : t.final_cta.success_message}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Reveal>
       </div>
     </section>

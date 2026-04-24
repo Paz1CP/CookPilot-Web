@@ -6,28 +6,36 @@ import { Reveal, fadeUp } from "./motion";
 import styles from "./Waitlist.module.css";
 import { ArrowRight } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
+import { joinWaitlist } from "@/lib/joinWaitlist";
+
+type SubmitState = "idle" | "loading" | "success" | "alreadyJoined" | "error";
 
 export default function Waitlist({ id = "waitlist" }: { id?: string }) {
   const { t } = useLocale();
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [state, setState] = useState<SubmitState>("idle");
 
+  // Auto-reset after success/alreadyJoined so the user can re-enter
   useEffect(() => {
-    if (submitted) {
+    if (state === "success" || state === "alreadyJoined") {
       const timer = setTimeout(() => {
-        setSubmitted(false);
+        setState("idle");
         setEmail("");
       }, 6000);
       return () => clearTimeout(timer);
     }
-  }, [submitted]);
+  }, [state]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.includes("@")) {
-      setSubmitted(true);
-    }
+    if (state === "loading") return;
+    setState("loading");
+
+    const result = await joinWaitlist(email);
+    setState(result.status);
   };
+
+  const submitted = state === "success" || state === "alreadyJoined";
 
   return (
     <section className={styles.waitlist} id={id}>
@@ -63,11 +71,23 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    disabled={state === "loading"}
                   />
-                  <button type="submit" className={styles.submitBtn}>
-                    {t.waitlist.submit_button} <ArrowRight size="18" variant="Outline" />
+                  <button
+                    type="submit"
+                    className={styles.submitBtn}
+                    disabled={state === "loading"}
+                  >
+                    {state === "loading"
+                      ? t.waitlist.loading
+                      : <>{t.waitlist.submit_button} <ArrowRight size="18" variant="Outline" /></>}
                   </button>
                 </form>
+
+                {/* Inline error — doesn't replace layout */}
+                {state === "error" && (
+                  <p className={styles.errorMsg}>{t.waitlist.error}</p>
+                )}
               </motion.div>
             ) : (
               <motion.div
@@ -79,9 +99,9 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
               >
                 <h2 className={styles.successTitle}>{t.waitlist.success_title}</h2>
                 <p className={styles.description}>
-                  {t.waitlist.success_description_line_1}
-                  <br />
-                  {t.waitlist.success_description_line_2}
+                  {state === "alreadyJoined"
+                    ? t.waitlist.already_joined
+                    : t.waitlist.success_description_line_1}
                 </p>
               </motion.div>
             )}

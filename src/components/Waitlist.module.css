@@ -290,3 +290,17 @@
     margin-bottom: 16px;
   }
 }
+
+/* ── Feedback states ── */
+.errorMsg {
+  font-size: 13px;
+  color: var(--cp-error);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.input:disabled,
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

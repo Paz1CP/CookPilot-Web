@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 const outfit = Outfit({
   variable: "--cp-font-sans-loaded",
   subsets: ["latin"],
