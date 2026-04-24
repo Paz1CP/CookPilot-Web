@@ -232,3 +232,34 @@
     height: 24px;
   }
 }
+
+/* ── Demo summary / transcript ── */
+.demoSummary {
+  max-width: 680px;
+  margin: 40px auto 0;
+  text-align: center;
+  padding: 20px 28px;
+  border-left: 2px solid var(--cp-border-subtle);
+  border-radius: 0 12px 12px 0;
+  background: var(--cp-layer-raised);
+}
+
+.summaryLabel {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cp-text-tertiary);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.summaryText {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-regular);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cp-text-secondary);
+  margin: 0;
+}

@@ -44,9 +44,9 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
                 style={{ width: "100%" }}
               >
                 <div className={styles.avatarGroup}>
-                  <img src="/images/img_dish_hero_signature.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} />
-                  <img src="/images/img_dish_fresh_health.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} />
-                  <img src="/images/img_dish_hearty_home.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} />
+                  <img src="/images/img_dish_hero_signature.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} loading="lazy" />
+                  <img src="/images/img_dish_fresh_health.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} loading="lazy" />
+                  <img src="/images/img_dish_hearty_home.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} loading="lazy" />
                   <div className={styles.avatarCount}>{t.waitlist.user_count}</div>
                 </div>
 
@@ -58,6 +58,8 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
                     type="email"
                     className={styles.input}
                     placeholder={t.waitlist.email_placeholder}
+                    aria-label={t.waitlist.email_label}
+                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required

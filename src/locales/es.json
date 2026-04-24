@@ -50,7 +50,9 @@
     "section_microcopy": "30 segundos. Plata, tiempo y salud, aterrizados en producto real.",
     "thumbnail_alt": "Demo de CookPilot",
     "iframe_title": "Demo de CookPilot",
-    "play_button_aria": "Reproducir video"
+    "play_button_aria": "Reproducir video",
+    "summary_title": "En este demo",
+    "summary_body": "CookPilot muestra cómo una conversación simple puede ayudarte a ahorrar plata, ahorrar tiempo y comer mejor, resolviendo qué cocinar con más claridad desde tu contexto real."
   },
   "brand": {
     "section_title_main": "CookPilot existe para devolverle ",
@@ -63,6 +65,7 @@
     "section_description": "Sé de los primeros en probar CookPilot cuando abra su primera mesa.",
     "user_count": "+1K",
     "email_placeholder": "Ingresa tu correo...",
+    "email_label": "Correo electrónico para la lista de espera",
     "submit_button": "Quiero mi asiento",
     "avatar_alt": "Usuario",
     "icon_alt": "Lista de espera de CookPilot",
@@ -73,6 +76,7 @@
   "final_cta": {
     "section_title": "Comer mejor, gastar menos y tener más control no debería ser un lujo.",
     "email_placeholder": "Tu correo",
+    "email_label": "Correo electrónico para unirte",
     "submit_button": "Unirme a la lista",
     "success_icon_aria": "Éxito",
     "success_message": "¡Listo! Te avisaremos cuando CookPilot abra."

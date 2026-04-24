@@ -34,7 +34,7 @@ export default function FinalCTA() {
       <div className={styles.bgCarousel}>
         <div className={styles.carouselTrack}>
           {SCROLL_IMAGES.map((src, i) => (
-            <img key={i} src={src} alt="Dish" className={styles.bgImage} />
+            <img key={i} src={src} alt="" className={styles.bgImage} loading="lazy" />
           ))}
         </div>
       </div>
@@ -52,6 +52,8 @@ export default function FinalCTA() {
                 type="email"
                 className={waitlistStyles.input}
                 placeholder={t.final_cta.email_placeholder}
+                aria-label={t.final_cta.email_label}
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

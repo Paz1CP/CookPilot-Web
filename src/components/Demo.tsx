@@ -62,6 +62,9 @@ export default function Demo() {
                     src="https://i.ytimg.com/vi/9AuzJ2GBCGw/maxresdefault.jpg"
                     alt={t.demo.thumbnail_alt}
                     className={styles.thumbnail}
+                    width={1280}
+                    height={720}
+                    loading="lazy"
                   />
                   <div className={styles.playBtnWrap}>
                     <button className={styles.playBtn} aria-label={t.demo.play_button_aria}>
@@ -77,10 +80,18 @@ export default function Demo() {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  loading="lazy"
                 ></iframe>
               )}
             </div>
           </div>
+        </Reveal>
+
+        <Reveal variants={fadeUp} delay={0.4}>
+          <aside className={styles.demoSummary} aria-label={t.demo.summary_title}>
+            <strong className={styles.summaryLabel}>{t.demo.summary_title}</strong>
+            <p className={styles.summaryText}>{t.demo.summary_body}</p>
+          </aside>
         </Reveal>
       </div>
     </section>

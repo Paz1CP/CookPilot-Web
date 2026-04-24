@@ -50,7 +50,9 @@
     "section_microcopy": "30 seconds. Money, time, and health, grounded in a real product.",
     "thumbnail_alt": "CookPilot Demo",
     "iframe_title": "CookPilot Demo",
-    "play_button_aria": "Play video"
+    "play_button_aria": "Play video",
+    "summary_title": "In this demo",
+    "summary_body": "CookPilot shows how a simple conversation can help you save money, save time, and eat better, solving what to cook with more clarity from your real context."
   },
   "brand": {
     "section_title_main": "CookPilot exists to give you back ",
@@ -63,6 +65,7 @@
     "section_description": "Be among the first to try CookPilot when it opens its first table.",
     "user_count": "+1K",
     "email_placeholder": "Enter your email...",
+    "email_label": "Email for the waitlist",
     "submit_button": "I want my seat",
     "avatar_alt": "User",
     "icon_alt": "CookPilot Waitlist",
@@ -73,6 +76,7 @@
   "final_cta": {
     "section_title": "Eating better, spending less, and having more control shouldn't be a luxury.",
     "email_placeholder": "Your email",
+    "email_label": "Email to join the list",
     "submit_button": "Join the list",
     "success_icon_aria": "Success",
     "success_message": "Done! We'll notify you when CookPilot opens."
