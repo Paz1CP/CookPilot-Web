@@ -55,8 +55,6 @@ export default function HowItWorks() {
                 alt={step.title}
                 className={styles.stepPlaceholder}
                 style={{ objectFit: "cover" }}
-                width={400}
-                height={800}
                 loading="lazy"
               />
               <h3 className={styles.stepTitle}>{step.title}</h3>

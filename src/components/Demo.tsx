@@ -87,12 +87,6 @@ export default function Demo() {
           </div>
         </Reveal>
 
-        <Reveal variants={fadeUp} delay={0.4}>
-          <aside className={styles.demoSummary} aria-label={t.demo.summary_title}>
-            <strong className={styles.summaryLabel}>{t.demo.summary_title}</strong>
-            <p className={styles.summaryText}>{t.demo.summary_body}</p>
-          </aside>
-        </Reveal>
       </div>
     </section>
   );

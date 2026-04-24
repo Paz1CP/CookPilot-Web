@@ -154,28 +154,28 @@
 .cardWrap1 {
   position: absolute;
   top: 12%;
-  left: calc(50% + 90px);
+  left: calc(50% + 120px);
   z-index: 1;
 }
 
 .cardWrap2 {
   position: absolute;
   top: 35%;
-  left: calc(50% - 200px);
+  left: calc(50% - 240px);
   z-index: 1;
 }
 
 .cardWrap3 {
   position: absolute;
   bottom: 25%;
-  left: calc(50% + 110px);
+  left: calc(50% + 140px);
   z-index: 1;
 }
 
 .cardWrap4 {
   position: absolute;
   bottom: 10%;
-  left: calc(50% - 170px);
+  left: calc(50% - 210px);
   z-index: 10;
 }
 
