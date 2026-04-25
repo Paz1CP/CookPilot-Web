@@ -15,7 +15,7 @@
     "slide_control_headline": "Reclaim control of your kitchen",
     "slide_control_support_prefix": "Tell me what you have and ",
     "slide_control_support_suffix": " helps you solve it with clarity.",
-    "cta_button": "Watch 30s demo",
+    "cta_button": "Watch 1 min demo",
     "dot_indicator_aria": "Go to state {number}",
     "floating_icon_alt": "Decorative element"
   },
@@ -47,7 +47,7 @@
   "demo": {
     "section_title_prefix": "Watch ",
     "section_title_suffix": " in action",
-    "section_microcopy": "30 seconds. Money, time, and health, grounded in a real product.",
+    "section_microcopy": "1 minute. Money, time, and health, grounded in a real product.",
     "thumbnail_alt": "CookPilot Demo",
     "iframe_title": "CookPilot Demo",
     "play_button_aria": "Play video",
