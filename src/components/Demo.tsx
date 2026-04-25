@@ -59,7 +59,7 @@ export default function Demo() {
               {!isPlaying ? (
                 <div className={styles.facade} onClick={() => setIsPlaying(true)}>
                   <img
-                    src="https://i.ytimg.com/vi/9AuzJ2GBCGw/maxresdefault.jpg"
+                    src="https://i.ytimg.com/vi/cNyIeQM9Ow8/maxresdefault.jpg"
                     alt={t.demo.thumbnail_alt}
                     className={styles.thumbnail}
                     width={1280}
@@ -75,7 +75,7 @@ export default function Demo() {
               ) : (
                 <iframe
                   className={styles.iframe}
-                  src="https://www.youtube.com/embed/9AuzJ2GBCGw?autoplay=1&rel=0"
+                  src="https://www.youtube.com/embed/cNyIeQM9Ow8?autoplay=1&rel=0"
                   title={t.demo.iframe_title}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
