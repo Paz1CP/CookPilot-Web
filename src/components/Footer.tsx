@@ -1,5 +1,6 @@
 "use client";
 
+import { Sms } from "iconsax-reactjs";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./Footer.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
@@ -26,7 +27,36 @@ export default function Footer() {
           </div>
 
           <div className={styles.right}>
-            <span className={styles.madeIn}>{t.footer.made_in}</span>
+            <div className={styles.socials}>
+              <a
+                href="https://www.linkedin.com/company/cookpilot/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label="LinkedIn"
+              >
+                <img
+                  src="/icons/linkedln-icon.svg"
+                  alt=""
+                  className={styles.socialIcon}
+                />
+              </a>
+              <a
+                href="mailto:founder@cookpilot.pro"
+                className={styles.socialLink}
+                aria-label="Email"
+              >
+                <Sms variant="Linear" size={20} className={styles.socialIconInner} />
+              </a>
+            </div>
+            <div className={styles.madeIn}>
+              <span>{t.footer.made_in}</span>
+              <img
+                src="/icons/peru-icon.png"
+                alt="Perú"
+                className={styles.footerFlag}
+              />
+            </div>
           </div>
         </div>
       </Reveal>

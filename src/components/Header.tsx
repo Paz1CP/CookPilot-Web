@@ -69,7 +69,11 @@ export default function Header() {
             aria-label={t.header.toggle_language}
             title={t.header.toggle_language}
           >
-            {locale === "es" ? "🇵🇪" : "🇺🇸"}
+            <img
+              src={locale === "es" ? "/icons/peru-icon.png" : "/icons/usa-icon.png"}
+              alt=""
+              className={styles.flagIcon}
+            />
           </button>
 
           <button
