@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useState, useEffect } from "react";
 import { Sun1, Moon } from "iconsax-reactjs";
@@ -51,10 +52,13 @@ export default function Header() {
     >
       <div className={styles.inner}>
         <div className={styles.logo} onClick={scrollToHero} style={{ cursor: "pointer" }}>
-          <img
+          <Image
             src="/images/img_app_icon.png"
             alt={t.header.logo_alt}
+            width={34}
+            height={34}
             className={styles.logoImage}
+            priority
           />
           <span className={styles.logoText}>
             <span className="brand-cook">Cook</span>
@@ -69,10 +73,13 @@ export default function Header() {
             aria-label={t.header.toggle_language}
             title={t.header.toggle_language}
           >
-            <img
+            <Image
               src={locale === "es" ? "/icons/peru-icon.png" : "/icons/usa-icon.png"}
               alt=""
+              width={22}
+              height={22}
               className={styles.flagIcon}
+              priority
             />
           </button>
 
@@ -89,10 +96,13 @@ export default function Header() {
           </button>
 
           <button className={styles.demoLink} onClick={scrollToDemo}>
-            <img
+            <Image
               src="/images/img_icon_demo.png"
               alt=""
-              style={{ width: "24px", height: "24px", objectFit: "contain" }}
+              width={24}
+              height={24}
+              style={{ objectFit: "contain" }}
+              priority
             />
             {t.header.watch_demo}
           </button>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./Demo.module.css";
@@ -58,13 +59,14 @@ export default function Demo() {
             <div className={styles.player}>
               {!isPlaying ? (
                 <div className={styles.facade} onClick={() => setIsPlaying(true)}>
-                  <img
+                  <Image
                     src="https://i.ytimg.com/vi/cNyIeQM9Ow8/maxresdefault.jpg"
                     alt={t.demo.thumbnail_alt}
                     className={styles.thumbnail}
                     width={1280}
                     height={720}
-                    loading="lazy"
+                    sizes="(max-width: 1024px) 100vw, 1280px"
+                    style={{ objectFit: "cover", width: "100%", height: "auto" }}
                   />
                   <div className={styles.playBtnWrap}>
                     <button className={styles.playBtn} aria-label={t.demo.play_button_aria}>

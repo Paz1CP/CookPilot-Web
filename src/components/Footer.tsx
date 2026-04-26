@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Sms } from "iconsax-reactjs";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./Footer.module.css";
@@ -14,9 +15,11 @@ export default function Footer() {
         <div className={styles.inner}>
           <div className={styles.left}>
             <div className={styles.logo}>
-              <img
+              <Image
                 src="/images/img_app_icon.png"
                 alt={t.footer.logo_alt}
+                width={28}
+                height={28}
                 className={styles.logoImage}
               />
               <span className={styles.logoText}>
@@ -35,9 +38,11 @@ export default function Footer() {
                 className={styles.socialLink}
                 aria-label="LinkedIn"
               >
-                <img
+                <Image
                   src="/icons/linkedln-icon.svg"
                   alt=""
+                  width={18}
+                  height={18}
                   className={styles.socialIcon}
                 />
               </a>
@@ -51,9 +56,11 @@ export default function Footer() {
             </div>
             <div className={styles.madeIn}>
               <span>{t.footer.made_in}</span>
-              <img
+              <Image
                 src="/icons/peru-icon.png"
                 alt="Perú"
+                width={18}
+                height={18}
                 className={styles.footerFlag}
               />
             </div>

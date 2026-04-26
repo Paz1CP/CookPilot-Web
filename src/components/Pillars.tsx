@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   Reveal,
   StaggerReveal,
@@ -185,7 +186,9 @@ export default function Pillars() {
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
                       className={styles.cardWrap1}
                     >
-                      <motion.img src="/images/health/smart_fats.webp" className={styles.healthIcon} animate={{ y: [0, -12, 0], rotate: [0, 8, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} />
+                      <motion.div animate={{ y: [0, -12, 0], rotate: [0, 8, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
+                        <Image src="/images/health/smart_fats.webp" alt="" width={120} height={120} className={styles.healthIcon} />
+                      </motion.div>
                     </motion.div>
                     <motion.div
                       initial={{ opacity: 0, scale: 0.5, x: -40, rotate: 20 }}
@@ -194,7 +197,9 @@ export default function Pillars() {
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.4 }}
                       className={styles.cardWrap2}
                     >
-                      <motion.img src="/images/health/active_fiber.webp" className={styles.healthIcon} animate={{ y: [0, 15, 0], rotate: [0, -10, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }} />
+                      <motion.div animate={{ y: [0, 15, 0], rotate: [0, -10, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
+                        <Image src="/images/health/active_fiber.webp" alt="" width={120} height={120} className={styles.healthIcon} />
+                      </motion.div>
                     </motion.div>
                     <motion.div
                       initial={{ opacity: 0, scale: 0.5, y: 40, rotate: -15 }}
@@ -203,7 +208,9 @@ export default function Pillars() {
                       transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.6 }}
                       className={styles.cardWrap3}
                     >
-                      <motion.img src="/images/health/prolonged_satiety.webp" className={styles.healthIcon} animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }} />
+                      <motion.div animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
+                        <Image src="/images/health/prolonged_satiety.webp" alt="" width={120} height={120} className={styles.healthIcon} />
+                      </motion.div>
                     </motion.div>
                     <motion.div
                       initial={{ opacity: 0, scale: 0.5, x: -40, y: 40, rotate: 25 }}
@@ -212,17 +219,17 @@ export default function Pillars() {
                       transition={{ type: "spring", stiffness: 250, damping: 15, delay: 0.8 }}
                       className={styles.cardWrap4}
                     >
-                      <motion.img src="/images/health/light_heart.webp" className={styles.healthIcon} animate={{ y: [0, -8, 0], rotate: [0, 12, -12, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }} />
+                      <motion.div animate={{ y: [0, -8, 0], rotate: [0, 12, -12, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
+                        <Image src="/images/health/light_heart.webp" alt="" width={120} height={120} className={styles.healthIcon} />
+                      </motion.div>
                     </motion.div>
                   </>
                 )}
 
                 <Reveal variants={isReversed ? slideFromLeft : slideFromRight}>
-                  <motion.img
-                    src={`/images/${pillar.screenshotPlaceholder}`}
-                    alt={pillar.title}
+                  <motion.div
                     className={styles.screenshotPlaceholder}
-                    style={{ objectFit: "cover", position: "relative", zIndex: 5, transformStyle: "preserve-3d" }}
+                    style={{ position: "relative", zIndex: 5, transformStyle: "preserve-3d" }}
                     initial={{ opacity: 0, scale: 0.9, y: 20 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
@@ -233,7 +240,16 @@ export default function Pillars() {
                       rotateY: isReversed ? -10 : 10,
                       transition: { type: "spring", stiffness: 300, damping: 20 },
                     }}
-                  />
+                  >
+                    <Image
+                      src={`/images/${pillar.screenshotPlaceholder}`}
+                      alt={pillar.title}
+                      width={340}
+                      height={540}
+                      style={{ objectFit: "cover", width: "100%", height: "auto" }}
+                      sizes="(max-width: 1024px) 280px, 340px"
+                    />
+                  </motion.div>
                 </Reveal>
               </div>
             </div>

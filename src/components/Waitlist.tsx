@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Reveal, fadeUp } from "./motion";
@@ -52,9 +53,9 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
                 style={{ width: "100%" }}
               >
                 <div className={styles.avatarGroup}>
-                  <img src="/images/img_dish_hero_signature.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} loading="lazy" />
-                  <img src="/images/img_dish_fresh_health.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} loading="lazy" />
-                  <img src="/images/img_dish_hearty_home.webp" alt={t.waitlist.avatar_alt} className={styles.avatar} loading="lazy" />
+                  <Image src="/images/img_dish_hero_signature.webp" alt={t.waitlist.avatar_alt} width={48} height={48} className={styles.avatar} />
+                  <Image src="/images/img_dish_fresh_health.webp" alt={t.waitlist.avatar_alt} width={48} height={48} className={styles.avatar} />
+                  <Image src="/images/img_dish_hearty_home.webp" alt={t.waitlist.avatar_alt} width={48} height={48} className={styles.avatar} />
                   <div className={styles.avatarCount}>{t.waitlist.user_count}</div>
                 </div>
 
@@ -110,9 +111,7 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
 
         <div className={styles.mascotCol}>
           <Reveal variants={fadeUp} delay={0.2}>
-            <motion.img
-              src="/images/img_icon_waitlist.png"
-              alt={t.waitlist.icon_alt}
+            <motion.div
               className={styles.mascotPlaceholder}
               animate={
                 submitted
@@ -120,7 +119,15 @@ export default function Waitlist({ id = "waitlist" }: { id?: string }) {
                   : { y: 0, scale: 1, rotate: 0 }
               }
               transition={{ duration: 0.8, ease: "easeInOut" }}
-            />
+            >
+              <Image
+                src="/images/img_icon_waitlist.png"
+                alt={t.waitlist.icon_alt}
+                width={280}
+                height={340}
+                style={{ objectFit: "contain", width: "100%", height: "auto" }}
+              />
+            </motion.div>
           </Reveal>
         </div>
       </div>

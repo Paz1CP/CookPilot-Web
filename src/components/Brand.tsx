@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Reveal, Parallax, fadeUp, slideFromRight } from "./motion";
 import { motion, AnimatePresence } from "motion/react";
@@ -68,12 +69,9 @@ export default function Brand() {
             <div className={styles.mascotGlow} />
             
             <AnimatePresence mode="wait">
-              <motion.img
+              <motion.div
                 key={activeMascot.id}
-                src={activeMascot.src}
-                alt={t.brand.mascot_alt}
                 className={styles.mascotPlaceholder}
-                style={{ objectFit: "contain" }}
                 initial={activeMascot.initial}
                 animate={activeMascot.animate}
                 exit={{ 
@@ -83,7 +81,15 @@ export default function Brand() {
                   transition: { duration: 0.4 } 
                 }}
                 transition={activeMascot.transition}
-              />
+              >
+                <Image
+                  src={activeMascot.src}
+                  alt={t.brand.mascot_alt}
+                  fill
+                  style={{ objectFit: "contain" }}
+                  sizes="(max-width: 1024px) 100vw, 360px"
+                />
+              </motion.div>
             </AnimatePresence>
           </div>
         </Parallax>

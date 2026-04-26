@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from "./Hero.module.css";
@@ -233,9 +234,14 @@ export default function Hero() {
               }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <img
+              <Image
                 src={`/images/${state.placeholder}`}
                 alt={headline}
+                width={884}
+                height={1600}
+                priority
+                style={{ width: "100%", height: "auto" }}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className={styles.heroPlaceholder}
               />
 
@@ -258,19 +264,24 @@ export default function Hero() {
                     zIndex: 10,
                   }}
                 >
-                  <motion.img
-                    src={`/images/${icon.src}`}
-                    alt={t.hero.floating_icon_alt}
-                    className={styles.floatingIcon}
+                  <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: icon.floatDuration, repeat: Infinity, ease: "easeInOut" }}
-                    style={{
-                      width: `${icon.size}px`,
-                      height: `${icon.size}px`,
-                      objectFit: "contain",
-                      filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.3))",
-                    }}
-                  />
+                    className={styles.floatingIconFloatInner}
+                  >
+                    <Image
+                      src={`/images/${icon.src}`}
+                      alt={t.hero.floating_icon_alt}
+                      className={styles.floatingIcon}
+                      width={icon.size}
+                      height={icon.size}
+                      priority
+                      style={{
+                        objectFit: "contain",
+                        filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.3))",
+                      }}
+                    />
+                  </motion.div>
                 </motion.div>
               ))}
             </motion.div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Reveal, StaggerReveal, fadeUp, scaleIn } from "./motion";
 import styles from "./HowItWorks.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
@@ -50,12 +51,14 @@ export default function HowItWorks() {
           <Reveal key={i} variants={scaleIn} delay={i * 0.12}>
             <div className={styles.stepCard}>
               <span className={styles.stepNumber}>{step.number}</span>
-              <img
+              <Image
                 src={`/images/${step.placeholder}`}
                 alt={step.title}
+                width={240}
+                height={384}
+                sizes="(max-width: 1024px) 160px, 240px"
                 className={styles.stepPlaceholder}
                 style={{ objectFit: "cover" }}
-                loading="lazy"
               />
               <h3 className={styles.stepTitle}>{step.title}</h3>
               <p className={styles.stepSupport}>{step.support}</p>

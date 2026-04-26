@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Reveal, fadeUp } from "./motion";
@@ -43,7 +44,7 @@ export default function FinalCTA() {
       <div className={styles.bgCarousel}>
         <div className={styles.carouselTrack}>
           {SCROLL_IMAGES.map((src, i) => (
-            <img key={i} src={src} alt="" className={styles.bgImage} loading="lazy" />
+            <Image key={i} src={src} alt="" width={1024} height={1024} className={styles.bgImage} />
           ))}
         </div>
       </div>
