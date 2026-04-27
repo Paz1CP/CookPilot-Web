@@ -19,7 +19,7 @@ export default function HowItWorks() {
       number: t.how_it_works.step_2_number,
       title: t.how_it_works.step_2_title,
       support: t.how_it_works.step_2_support,
-      placeholder: "img_app_menu_candidates.jpg",
+      placeholder: "img_app_menu_candidates.png",
     },
     {
       number: t.how_it_works.step_3_number,
