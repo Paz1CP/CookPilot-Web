@@ -72,6 +72,9 @@
 
 .ctaWrap {
   margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .ctaBtn {
@@ -200,6 +203,10 @@
   .supportWrap {
     min-height: auto;
     margin-bottom: 24px;
+  }
+  .ctaWrap {
+    flex-direction: column;
+    align-items: stretch;
   }
   .ctaBtn {
     height: 58px;

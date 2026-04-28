@@ -190,6 +190,14 @@ export default function Hero() {
             >
               {t.hero.cta_button}
             </button>
+            <a
+              href="https://canva.link/c7k5hnrttes17df"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`cp-btn cp-btn--ghost ${styles.ctaBtn}`}
+            >
+              Ver Pitch Deck
+            </a>
           </motion.div>
 
           {/* Indicador de puntos */}
