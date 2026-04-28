@@ -16,6 +16,8 @@
     "slide_control_support_prefix": "Tell me what you have and ",
     "slide_control_support_suffix": " helps you solve it with clarity.",
     "cta_button": "Watch 1 min demo",
+    "pitch_deck_button": "View Pitch Deck",
+    "pitch_deck_link": "https://canva.link/c7k5hnrttes17df",
     "dot_indicator_aria": "Go to state {number}",
     "floating_icon_alt": "Decorative element"
   },

@@ -191,12 +191,12 @@ export default function Hero() {
               {t.hero.cta_button}
             </button>
             <a
-              href="https://canva.link/c7k5hnrttes17df"
+              href={t.hero.pitch_deck_link}
               target="_blank"
               rel="noopener noreferrer"
               className={`cp-btn cp-btn--ghost ${styles.ctaBtn}`}
             >
-              Ver Pitch Deck
+              {t.hero.pitch_deck_button}
             </a>
           </motion.div>
 
