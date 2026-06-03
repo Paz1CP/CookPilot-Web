@@ -27,18 +27,30 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocale] = useState<Locale>("es");
 
   useEffect(() => {
-    const saved = localStorage.getItem("cp-locale") as Locale | null;
-    if (saved === "es" || saved === "en") {
-      setLocale(saved);
-    }
+    let cancelled = false;
+
+    window.setTimeout(() => {
+      if (cancelled) return;
+
+      const saved = window.localStorage.getItem("cp-locale") as Locale | null;
+      if (saved === "es" || saved === "en") {
+        setLocale(saved);
+      }
+    }, 0);
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("lang", locale);
+  }, [locale]);
 
   const toggleLocale = () => {
     const next: Locale = locale === "es" ? "en" : "es";
     setLocale(next);
     localStorage.setItem("cp-locale", next);
-    // Update the html lang attribute
-    document.documentElement.setAttribute("lang", next);
   };
 
   return (

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Sun1, Moon } from "iconsax-reactjs";
 import styles from "./Header.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
@@ -11,16 +11,15 @@ export default function Header() {
   const { t, locale, toggleLocale } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(() => {
+    if (typeof document === "undefined") return "dark";
+    return document.documentElement.getAttribute("data-theme") || "light";
+  });
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setTheme(document.documentElement.getAttribute("data-theme") || "light");
     setScrolled(latest > 40);
   });
-
-  useEffect(() => {
-    setTheme(document.documentElement.getAttribute("data-theme") || "light");
-  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -34,13 +33,22 @@ export default function Header() {
 
   const scrollToDemo = () => {
     const el = document.getElementById("demo");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.assign("/#demo");
+      return;
+    }
     window.dispatchEvent(new CustomEvent("cp-trigger-demo"));
   };
 
   const scrollToHero = () => {
     const el = document.getElementById("hero");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.assign("/");
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Sms } from "iconsax-reactjs";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./Footer.module.css";
@@ -30,6 +31,9 @@ export default function Footer() {
           </div>
 
           <div className={styles.right}>
+            <Link href="/privacy-and-terms" className={styles.link}>
+              {t.footer.privacy_terms}
+            </Link>
             <div className={styles.socials}>
               <a
                 href="https://www.linkedin.com/company/cookpilot/"
