@@ -93,10 +93,10 @@ const ui = {
     sectionLabel: "Sección",
     noAccountSections:
       "No encontramos secciones específicas de eliminación de cuenta en este documento.",
-    deletionCtaTitle: "Solicitar eliminación de cuenta",
+    deletionCtaTitle: "Eliminar cuenta",
     deletionCtaBody:
-      "Si tienes problemas eliminando tu cuenta desde la app, escribe a soporte y podremos solicitar información mínima para verificar que eres el titular.",
-    deletionCtaAction: "Escribir a soporte",
+      "Puedes eliminar tu cuenta directamente desde la página pública de eliminación con verificación por correo.",
+    deletionCtaAction: "Ir a eliminar cuenta",
   },
   en: {
     eyebrow: "Official policies",
@@ -140,10 +140,10 @@ const ui = {
     sectionLabel: "Section",
     noAccountSections:
       "We could not find account deletion sections in this document.",
-    deletionCtaTitle: "Request account deletion",
+    deletionCtaTitle: "Delete account",
     deletionCtaBody:
-      "If you have trouble deleting your account from the app, contact support. We may request minimal information to verify that you own the account.",
-    deletionCtaAction: "Email support",
+      "You can delete your account directly from the public deletion page with email verification.",
+    deletionCtaAction: "Go to delete account",
   },
 } satisfies Record<Locale, unknown>;
 
@@ -489,7 +489,7 @@ export default function PrivacyAndTermsPage({ documents }: PrivacyAndTermsPagePr
               <h2>{copy.deletionCtaTitle}</h2>
               <p>{copy.deletionCtaBody}</p>
             </div>
-            <a className="cp-btn cp-btn--primary" href={`mailto:${copy.contactValue}`}>
+            <a className="cp-btn cp-btn--primary" href="/delete-account">
               {copy.deletionCtaAction}
             </a>
           </section>
