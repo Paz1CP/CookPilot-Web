@@ -1,14 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import {
-  InfoCircle,
-  Lock,
-  MessageText,
-  ReceiptText,
-  ShieldTick,
-  Trash,
-} from "iconsax-reactjs";
+import { FormEvent, useEffect, useState } from "react";
+import { InfoCircle, Lock, ReceiptText, ShieldTick, Trash } from "iconsax-reactjs";
+import { useLocale } from "@/contexts/LanguageContext";
 import {
   deleteCookPilotAccount,
   requestAccountDeletionOtp,
@@ -21,17 +15,13 @@ type Step = "email" | "otp" | "confirm" | "success";
 
 const copy = {
   en: {
-    languageName: "English",
-    otherLanguageName: "Español",
     eyebrow: "Self-serve account deletion",
     title: "Delete account",
     intro:
       "Use this page to request and confirm permanent deletion of your CookPilot account. You do not need to reinstall or open the mobile app.",
-    modalIntro:
+    formTitle: "Delete your CookPilot account",
+    formLead:
       "Verify your email, enter the one-time code, and confirm the exact phrase before deletion starts.",
-    inlineTitle: "Delete your CookPilot account",
-    inlineLead:
-      "This visible form remains available on the page even if the modal does not open.",
     permanentTitle: "What gets deleted",
     permanentBody:
       "Deleting your account permanently deletes CookPilot account data, including profile, recipes, shopping lists, menus, CookMode sessions, uploaded files, generated images, AI history, preferences, packs, and usage data.",
@@ -63,62 +53,54 @@ const copy = {
     deleteFailed: "Account deletion failed. Please try again.",
     userNotFound: "We could not verify an active CookPilot account for this session.",
     cooldown: "Please wait before requesting another code.",
-    close: "Close",
-    openModal: "Open delete account modal",
     step: "Step",
     emailStep: "Email",
     otpStep: "Code",
     finalStep: "Confirm",
   },
   es: {
-    languageName: "Español",
-    otherLanguageName: "English",
-    eyebrow: "Eliminación de cuenta autoservicio",
+    eyebrow: "Eliminacion de cuenta autoservicio",
     title: "Eliminar cuenta",
     intro:
-      "Usa esta página para solicitar y confirmar la eliminación permanente de tu cuenta de CookPilot. No necesitas reinstalar ni abrir la app móvil.",
-    modalIntro:
-      "Verifica tu correo, ingresa el código de un solo uso y confirma la frase exacta antes de iniciar la eliminación.",
-    inlineTitle: "Elimina tu cuenta de CookPilot",
-    inlineLead:
-      "Este formulario visible permanece disponible en la página incluso si el modal no se abre.",
-    permanentTitle: "Qué se elimina",
+      "Usa esta pagina para solicitar y confirmar la eliminacion permanente de tu cuenta de CookPilot. No necesitas reinstalar ni abrir la app movil.",
+    formTitle: "Elimina tu cuenta de CookPilot",
+    formLead:
+      "Verifica tu correo, ingresa el codigo de un solo uso y confirma la frase exacta antes de iniciar la eliminacion.",
+    permanentTitle: "Que se elimina",
     permanentBody:
-      "Eliminar tu cuenta borra permanentemente los datos de cuenta de CookPilot, incluidos perfil, recetas, listas de compras, menús, sesiones de CookMode, archivos subidos, imágenes generadas, historial de AI, preferencias, packs y datos de uso.",
+      "Eliminar tu cuenta borra permanentemente los datos de cuenta de CookPilot, incluidos perfil, recetas, listas de compras, menus, sesiones de CookMode, archivos subidos, imagenes generadas, historial de AI, preferencias, packs y datos de uso.",
     subscriptionsTitle: "Suscripciones",
     subscriptionsBody:
-      "Eliminar tu cuenta de CookPilot puede no cancelar automáticamente suscripciones administradas por Google Play, Apple App Store o Huawei AppGallery.",
-    retentionTitle: "Retención limitada",
+      "Eliminar tu cuenta de CookPilot puede no cancelar automaticamente suscripciones administradas por Google Play, Apple App Store o Huawei AppGallery.",
+    retentionTitle: "Retencion limitada",
     retentionBody:
-      "Información técnica o relacionada con transacciones puede conservarse hasta por 30 días por seguridad, prevención de fraude, cumplimiento legal, resolución de disputas o finalización del proceso de eliminación.",
+      "Informacion tecnica o relacionada con transacciones puede conservarse hasta por 30 dias por seguridad, prevencion de fraude, cumplimiento legal, resolucion de disputas o finalizacion del proceso de eliminacion.",
     emailLabel: "Correo de tu cuenta CookPilot",
     emailPlaceholder: "tu@correo.com",
-    sendCode: "Enviar código de verificación",
-    resendCode: "Enviar otro código",
-    otpLabel: "Código de verificación",
-    otpPlaceholder: "Código de 6 dígitos",
-    verifyCode: "Verificar código",
-    confirmLabel: "Confirmación final",
+    sendCode: "Enviar codigo de verificacion",
+    resendCode: "Enviar otro codigo",
+    otpLabel: "Codigo de verificacion",
+    otpPlaceholder: "Codigo de 6 digitos",
+    verifyCode: "Verificar codigo",
+    confirmLabel: "Confirmacion final",
     confirmHelp: "Escribe esta frase exactamente:",
     confirmationPhrase: "Eliminar mi cuenta",
     deleteButton: "Eliminar mi cuenta permanentemente",
     successTitle: "Tu cuenta de CookPilot ha sido eliminada.",
     successBody:
-      "La solicitud verificada de eliminación de cuenta se completó correctamente. Cualquier registro técnico o transaccional retenido sigue la política de retención limitada indicada arriba.",
+      "La solicitud verificada de eliminacion de cuenta se completo correctamente. Cualquier registro tecnico o transaccional retenido sigue la politica de retencion limitada indicada arriba.",
     genericOtpMessage:
-      "Si existe una cuenta asociada a este correo, enviamos un código de verificación.",
-    invalidEmail: "Ingresa un correo válido.",
-    invalidOtp: "Ingresa el código de verificación enviado a tu correo.",
-    wrongOtp: "El código es incorrecto o expiró. Revisa tu correo e inténtalo otra vez.",
-    networkError: "Error de red. Revisa tu conexión e inténtalo otra vez.",
-    deleteFailed: "La eliminación de cuenta falló. Inténtalo nuevamente.",
-    userNotFound: "No pudimos verificar una cuenta activa de CookPilot para esta sesión.",
-    cooldown: "Espera antes de solicitar otro código.",
-    close: "Cerrar",
-    openModal: "Abrir modal para eliminar cuenta",
+      "Si existe una cuenta asociada a este correo, enviamos un codigo de verificacion.",
+    invalidEmail: "Ingresa un correo valido.",
+    invalidOtp: "Ingresa el codigo de verificacion enviado a tu correo.",
+    wrongOtp: "El codigo es incorrecto o expiro. Revisa tu correo e intentalo otra vez.",
+    networkError: "Error de red. Revisa tu conexion e intentalo otra vez.",
+    deleteFailed: "La eliminacion de cuenta fallo. Intentalo nuevamente.",
+    userNotFound: "No pudimos verificar una cuenta activa de CookPilot para esta sesion.",
+    cooldown: "Espera antes de solicitar otro codigo.",
     step: "Paso",
     emailStep: "Correo",
-    otpStep: "Código",
+    otpStep: "Codigo",
     finalStep: "Confirmar",
   },
 } satisfies Record<AccountDeletionLocale, Record<string, string>>;
@@ -140,26 +122,12 @@ function mapDeleteError(message: string, locale: AccountDeletionLocale) {
   return copy[locale].deleteFailed;
 }
 
-interface DeletionFormProps {
-  idPrefix: string;
+interface ProgressPillsProps {
   locale: AccountDeletionLocale;
   step: Step;
-  email: string;
-  otp: string;
-  confirmation: string;
-  statusMessage: string;
-  errorMessage: string;
-  isBusy: boolean;
-  cooldownSeconds: number;
-  setEmail: (value: string) => void;
-  setOtp: (value: string) => void;
-  setConfirmation: (value: string) => void;
-  onEmailSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  onOtpSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  onDeleteSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-function ProgressPills({ locale, step }: { locale: AccountDeletionLocale; step: Step }) {
+function ProgressPills({ locale, step }: ProgressPillsProps) {
   const t = copy[locale];
   const steps = [
     { key: "email", label: t.emailStep },
@@ -186,6 +154,24 @@ function ProgressPills({ locale, step }: { locale: AccountDeletionLocale; step: 
   );
 }
 
+interface DeletionFormProps {
+  locale: AccountDeletionLocale;
+  step: Step;
+  email: string;
+  otp: string;
+  confirmation: string;
+  statusMessage: string;
+  errorMessage: string;
+  isBusy: boolean;
+  cooldownSeconds: number;
+  setEmail: (value: string) => void;
+  setOtp: (value: string) => void;
+  setConfirmation: (value: string) => void;
+  onEmailSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onOtpSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onDeleteSubmit: (event: FormEvent<HTMLFormElement>) => void;
+}
+
 function DeletionForm(props: DeletionFormProps) {
   const t = copy[props.locale];
   const canDelete = props.confirmation === t.confirmationPhrase && !props.isBusy;
@@ -205,10 +191,10 @@ function DeletionForm(props: DeletionFormProps) {
       <ProgressPills locale={props.locale} step={props.step} />
 
       <form className={styles.form} onSubmit={props.onEmailSubmit}>
-        <label htmlFor={`${props.idPrefix}-email`}>{t.emailLabel}</label>
+        <label htmlFor="delete-account-email">{t.emailLabel}</label>
         <div className={styles.inputRow}>
           <input
-            id={`${props.idPrefix}-email`}
+            id="delete-account-email"
             className="cp-input"
             type="email"
             autoComplete="email"
@@ -236,10 +222,10 @@ function DeletionForm(props: DeletionFormProps) {
 
       {props.step === "otp" || props.step === "confirm" ? (
         <form className={styles.form} onSubmit={props.onOtpSubmit}>
-          <label htmlFor={`${props.idPrefix}-otp`}>{t.otpLabel}</label>
+          <label htmlFor="delete-account-otp">{t.otpLabel}</label>
           <div className={styles.inputRow}>
             <input
-              id={`${props.idPrefix}-otp`}
+              id="delete-account-otp"
               className="cp-input"
               type="text"
               autoComplete="one-time-code"
@@ -259,12 +245,12 @@ function DeletionForm(props: DeletionFormProps) {
 
       {props.step === "confirm" ? (
         <form className={styles.form} onSubmit={props.onDeleteSubmit}>
-          <label htmlFor={`${props.idPrefix}-confirmation`}>{t.confirmLabel}</label>
+          <label htmlFor="delete-account-confirmation">{t.confirmLabel}</label>
           <p className={styles.confirmPhrase}>
             {t.confirmHelp} <strong>{t.confirmationPhrase}</strong>
           </p>
           <input
-            id={`${props.idPrefix}-confirmation`}
+            id="delete-account-confirmation"
             className="cp-input"
             type="text"
             autoComplete="off"
@@ -294,8 +280,9 @@ function DeletionForm(props: DeletionFormProps) {
 }
 
 export default function DeleteAccountPage() {
-  const [locale, setLocale] = useState<AccountDeletionLocale>("en");
-  const [modalOpen, setModalOpen] = useState(true);
+  const { locale } = useLocale();
+  const deletionLocale: AccountDeletionLocale = locale;
+  const t = copy[deletionLocale];
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
@@ -305,16 +292,6 @@ export default function DeleteAccountPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isBusy, setIsBusy] = useState(false);
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
-  const t = copy[locale];
-
-  const disclosureCards = useMemo(
-    () => [
-      { title: t.permanentTitle, body: t.permanentBody, icon: Trash },
-      { title: t.subscriptionsTitle, body: t.subscriptionsBody, icon: ReceiptText },
-      { title: t.retentionTitle, body: t.retentionBody, icon: Lock },
-    ],
-    [t.permanentBody, t.permanentTitle, t.retentionBody, t.retentionTitle, t.subscriptionsBody, t.subscriptionsTitle],
-  );
 
   useEffect(() => {
     if (cooldownSeconds <= 0) return;
@@ -325,12 +302,11 @@ export default function DeleteAccountPage() {
     return () => window.clearInterval(timer);
   }, [cooldownSeconds]);
 
-  const switchLocale = () => {
-    setLocale((current) => (current === "en" ? "es" : "en"));
-    setConfirmation("");
-    setStatusMessage("");
-    setErrorMessage("");
-  };
+  const disclosureCards = [
+    { title: t.permanentTitle, body: t.permanentBody, icon: Trash },
+    { title: t.subscriptionsTitle, body: t.subscriptionsBody, icon: ReceiptText },
+    { title: t.retentionTitle, body: t.retentionBody, icon: Lock },
+  ];
 
   const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -346,7 +322,7 @@ export default function DeleteAccountPage() {
 
     setIsBusy(true);
     try {
-      const result = await requestAccountDeletionOtp(normalizedEmail, locale);
+      const result = await requestAccountDeletionOtp(normalizedEmail, deletionLocale);
       setStatusMessage(result.message || t.genericOtpMessage);
       setCooldownSeconds(result.cooldownSeconds ?? 60);
       setStep((current) => (current === "email" ? "otp" : current));
@@ -374,9 +350,8 @@ export default function DeleteAccountPage() {
       const session = await verifyAccountDeletionOtp(email.trim().toLowerCase(), otp.trim());
       setAccessToken(session.access_token);
       setStep("confirm");
-      setStatusMessage("");
     } catch (error) {
-      setErrorMessage(error instanceof Error ? mapOtpError(error.message, locale) : t.wrongOtp);
+      setErrorMessage(error instanceof Error ? mapOtpError(error.message, deletionLocale) : t.wrongOtp);
     } finally {
       setIsBusy(false);
     }
@@ -393,32 +368,11 @@ export default function DeleteAccountPage() {
     try {
       await deleteCookPilotAccount(accessToken);
       setStep("success");
-      setModalOpen(false);
-      setStatusMessage("");
-      setErrorMessage("");
     } catch (error) {
-      setErrorMessage(error instanceof Error ? mapDeleteError(error.message, locale) : t.deleteFailed);
+      setErrorMessage(error instanceof Error ? mapDeleteError(error.message, deletionLocale) : t.deleteFailed);
     } finally {
       setIsBusy(false);
     }
-  };
-
-  const formProps = {
-    locale,
-    step,
-    email,
-    otp,
-    confirmation,
-    statusMessage,
-    errorMessage,
-    isBusy,
-    cooldownSeconds,
-    setEmail,
-    setOtp,
-    setConfirmation,
-    onEmailSubmit: handleEmailSubmit,
-    onOtpSubmit: handleOtpSubmit,
-    onDeleteSubmit: handleDeleteSubmit,
   };
 
   return (
@@ -432,16 +386,6 @@ export default function DeleteAccountPage() {
             </div>
             <h1>{t.title}</h1>
             <p>{t.intro}</p>
-          </div>
-
-          <div className={styles.heroActions}>
-            <button className={styles.languageToggle} type="button" onClick={switchLocale}>
-              {t.otherLanguageName}
-            </button>
-            <button className="cp-btn cp-btn--ghost" type="button" onClick={() => setModalOpen(true)}>
-              <MessageText variant="Bulk" size={20} color="currentColor" />
-              {t.openModal}
-            </button>
           </div>
         </div>
 
@@ -460,51 +404,33 @@ export default function DeleteAccountPage() {
           })}
         </div>
 
-        <section className={styles.inlineFallback} aria-labelledby="delete-account-inline-title">
+        <section className={styles.accountPanel} aria-labelledby="delete-account-title">
           <div className={styles.inlineHeader}>
             <InfoCircle variant="Bulk" size={26} color="var(--cp-primary)" />
             <div>
-              <h2 id="delete-account-inline-title">{t.inlineTitle}</h2>
-              <p>{t.inlineLead}</p>
+              <h2 id="delete-account-title">{t.formTitle}</h2>
+              <p>{t.formLead}</p>
             </div>
           </div>
-          <DeletionForm idPrefix="inline" {...formProps} />
+          <DeletionForm
+            locale={deletionLocale}
+            step={step}
+            email={email}
+            otp={otp}
+            confirmation={confirmation}
+            statusMessage={statusMessage}
+            errorMessage={errorMessage}
+            isBusy={isBusy}
+            cooldownSeconds={cooldownSeconds}
+            setEmail={setEmail}
+            setOtp={setOtp}
+            setConfirmation={setConfirmation}
+            onEmailSubmit={handleEmailSubmit}
+            onOtpSubmit={handleOtpSubmit}
+            onDeleteSubmit={handleDeleteSubmit}
+          />
         </section>
       </div>
-
-      {modalOpen ? (
-        <div className={styles.overlay} role="presentation">
-          <section
-            className={styles.modal}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="delete-account-modal-title"
-            aria-describedby="delete-account-modal-description"
-          >
-            <div className={styles.modalHeader}>
-              <div>
-                <div className={styles.eyebrow}>
-                  <Trash variant="Bulk" size={18} color="var(--cp-primary)" />
-                  {t.eyebrow}
-                </div>
-                <h2 id="delete-account-modal-title">{t.title}</h2>
-                <p id="delete-account-modal-description">{t.modalIntro}</p>
-              </div>
-              <div className={styles.modalActions}>
-                <button className={styles.languageToggle} type="button" onClick={switchLocale}>
-                  {t.otherLanguageName}
-                </button>
-                <button className={styles.closeButton} type="button" onClick={() => setModalOpen(false)}>
-                  <span aria-hidden="true">x</span>
-                  <span className={styles.srOnly}>{t.close}</span>
-                </button>
-              </div>
-            </div>
-
-            <DeletionForm idPrefix="modal" {...formProps} />
-          </section>
-        </div>
-      ) : null}
     </section>
   );
 }
