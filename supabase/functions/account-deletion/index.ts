@@ -10,6 +10,7 @@ const GENERIC_MESSAGES = {
 const EMAIL_COOLDOWN_SECONDS = 60;
 const IP_WINDOW_MINUTES = 15;
 const IP_MAX_REQUESTS = 8;
+const VERIFICATION_TOKEN_TTL_SECONDS = 10 * 60;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Locale = keyof typeof GENERIC_MESSAGES;
@@ -37,6 +38,56 @@ interface StorageAdminClient {
   };
 }
 
+interface UsersSchemaClient {
+  schema(schema: "users"): {
+    from(table: "account_deletion_otp_requests"): {
+      select(
+        columns: string,
+        options?: { count?: "exact"; head?: boolean },
+      ): UsersCountQuery;
+      insert(values: Record<string, unknown>): Promise<{ error: Error | null }>;
+    };
+    rpc(
+      fn: "delete_account_app_data",
+      params: { target_user_id: string },
+    ): Promise<{ error: Error | null }>;
+  };
+}
+
+interface UsersCountQuery {
+  eq(column: string, value: unknown): UsersCountQuery;
+  gte(column: string, value: string): Promise<{
+    count: number | null;
+    error: Error | null;
+  }>;
+}
+
+interface OtpAuthClient {
+  auth: {
+    verifyOtp(params: {
+      email: string;
+      token: string;
+      type: "email" | "signup";
+    }): Promise<{
+      data: {
+        user: { id: string } | null;
+        session: { access_token: string; refresh_token: string } | null;
+      };
+      error: unknown;
+    }>;
+  };
+}
+
+interface DeletionVerificationPayload {
+  userId: string;
+  email: string;
+  expiresAt: number;
+}
+
+function usersSchema(client: unknown) {
+  return (client as UsersSchemaClient).schema("users");
+}
+
 function getEnv(name: string) {
   const value = Deno.env.get(name);
   if (!value) throw new Error(`Missing ${name}`);
@@ -51,8 +102,119 @@ function getPublishableKey() {
   );
 }
 
+function getVerificationSecret() {
+  return (
+    Deno.env.get("ACCOUNT_DELETION_VERIFICATION_SECRET") ??
+      Deno.env.get("ACCOUNT_DELETION_RATE_LIMIT_SALT") ??
+      getEnv("SUPABASE_SERVICE_ROLE_KEY")
+  );
+}
+
 function normalizeLocale(value: unknown): Locale {
   return value === "es" ? "es" : "en";
+}
+
+function normalizeEmail(value: unknown) {
+  return String(value ?? "").trim().toLowerCase();
+}
+
+function normalizeOtpCode(value: unknown) {
+  return String(value ?? "").replace(/\D/g, "").slice(0, 6);
+}
+
+function base64UrlEncode(bytes: Uint8Array) {
+  let binary = "";
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+  return btoa(binary)
+    .replaceAll("+", "-")
+    .replaceAll("/", "_")
+    .replaceAll("=", "");
+}
+
+function base64UrlDecode(value: string) {
+  const padded = value.replaceAll("-", "+").replaceAll("_", "/").padEnd(
+    Math.ceil(value.length / 4) * 4,
+    "=",
+  );
+  const binary = atob(padded);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes;
+}
+
+function signaturesMatch(left: string, right: string) {
+  if (left.length !== right.length) return false;
+
+  let diff = 0;
+  for (let index = 0; index < left.length; index += 1) {
+    diff |= left.charCodeAt(index) ^ right.charCodeAt(index);
+  }
+  return diff === 0;
+}
+
+async function signVerificationTokenPayload(payload: string) {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(getVerificationSecret()),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signature = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    new TextEncoder().encode(payload),
+  );
+  return base64UrlEncode(new Uint8Array(signature));
+}
+
+async function createVerificationToken(userId: string, email: string) {
+  const payload: DeletionVerificationPayload = {
+    userId,
+    email: email.toLowerCase(),
+    expiresAt: Math.floor(Date.now() / 1000) + VERIFICATION_TOKEN_TTL_SECONDS,
+  };
+  const payloadPart = base64UrlEncode(
+    new TextEncoder().encode(JSON.stringify(payload)),
+  );
+  const signaturePart = await signVerificationTokenPayload(payloadPart);
+  return `${payloadPart}.${signaturePart}`;
+}
+
+async function readVerificationToken(value: unknown) {
+  const token = String(value ?? "");
+  const [payloadPart, signaturePart] = token.split(".");
+  if (!payloadPart || !signaturePart) {
+    return null;
+  }
+
+  const expectedSignature = await signVerificationTokenPayload(payloadPart);
+  if (!signaturesMatch(expectedSignature, signaturePart)) {
+    return null;
+  }
+
+  try {
+    const payload = JSON.parse(
+      new TextDecoder().decode(base64UrlDecode(payloadPart)),
+    ) as Partial<DeletionVerificationPayload>;
+    if (
+      typeof payload.userId !== "string" ||
+      typeof payload.email !== "string" ||
+      typeof payload.expiresAt !== "number"
+    ) {
+      return null;
+    }
+    if (payload.expiresAt < Math.floor(Date.now() / 1000)) {
+      return null;
+    }
+    return payload as DeletionVerificationPayload;
+  } catch (_) {
+    return null;
+  }
 }
 
 async function sha256(value: string) {
@@ -76,7 +238,7 @@ function getClientIp(req: Request) {
 async function handleOtpRequest(req: Request, body: Record<string, unknown>) {
   const locale = normalizeLocale(body.locale);
   const message = GENERIC_MESSAGES[locale];
-  const email = String(body.email ?? "").trim().toLowerCase();
+  const email = normalizeEmail(body.email);
 
   if (!EMAIL_PATTERN.test(email)) {
     return jsonResponse(
@@ -105,26 +267,31 @@ async function handleOtpRequest(req: Request, body: Record<string, unknown>) {
   const windowStart = new Date(Date.now() - IP_WINDOW_MINUTES * 60 * 1000)
     .toISOString();
 
-  const { count: recentEmailCount, error: recentEmailError } = await admin
-    .from("account_deletion_otp_requests")
-    .select("id", { count: "exact", head: true })
-    .eq("email_hash", emailHash)
-    .gte("requested_at", oneMinuteAgo);
+  const [recentEmail, recentIp] = await Promise.all([
+    usersSchema(admin)
+      .from("account_deletion_otp_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("email_hash", emailHash)
+      .eq("accepted", true)
+      .gte("requested_at", oneMinuteAgo),
+    usersSchema(admin)
+      .from("account_deletion_otp_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("ip_hash", ipHash)
+      .eq("accepted", true)
+      .gte("requested_at", windowStart),
+  ]);
 
+  const { count: recentEmailCount, error: recentEmailError } = recentEmail;
   if (recentEmailError) throw recentEmailError;
 
-  const { count: recentIpCount, error: recentIpError } = await admin
-    .from("account_deletion_otp_requests")
-    .select("id", { count: "exact", head: true })
-    .eq("ip_hash", ipHash)
-    .gte("requested_at", windowStart);
-
+  const { count: recentIpCount, error: recentIpError } = recentIp;
   if (recentIpError) throw recentIpError;
 
   if (
     (recentEmailCount ?? 0) > 0 || (recentIpCount ?? 0) >= IP_MAX_REQUESTS
   ) {
-    await admin.from("account_deletion_otp_requests").insert({
+    await usersSchema(admin).from("account_deletion_otp_requests").insert({
       email_hash: emailHash,
       ip_hash: ipHash,
       user_agent: userAgent,
@@ -140,14 +307,14 @@ async function handleOtpRequest(req: Request, body: Record<string, unknown>) {
     );
   }
 
-  const { error: insertError } = await admin.from(
-    "account_deletion_otp_requests",
-  ).insert({
-    email_hash: emailHash,
-    ip_hash: ipHash,
-    user_agent: userAgent,
-    accepted: true,
-  });
+  const { error: insertError } = await usersSchema(admin)
+    .from("account_deletion_otp_requests")
+    .insert({
+      email_hash: emailHash,
+      ip_hash: ipHash,
+      user_agent: userAgent,
+      accepted: true,
+    });
 
   if (insertError) throw insertError;
 
@@ -210,17 +377,60 @@ async function removeStorageObjects(admin: StorageAdminClient, userId: string) {
   return removedCount;
 }
 
-async function handleAccountDeletion(req: Request) {
-  const authorization = req.headers.get("Authorization") ?? "";
-  const token = authorization.replace(/^Bearer\s+/i, "").trim();
+async function removeStorageObjectsBestEffort(
+  admin: StorageAdminClient,
+  userId: string,
+) {
+  try {
+    return {
+      removedStorageObjects: await removeStorageObjects(admin, userId),
+      storageCleanupSkipped: false,
+    };
+  } catch (error) {
+    console.warn("Account deletion storage cleanup skipped", error);
+    return {
+      removedStorageObjects: 0,
+      storageCleanupSkipped: true,
+    };
+  }
+}
 
-  if (!token) {
-    return jsonResponse({ message: "Missing authenticated session." }, {
-      status: 401,
+async function verifyDeletionOtp(
+  authClient: OtpAuthClient,
+  email: string,
+  otpCode: string,
+) {
+  let firstError: unknown = null;
+
+  for (const type of ["email", "signup"] as const) {
+    const { data, error } = await authClient.auth.verifyOtp({
+      email,
+      token: otpCode,
+      type,
     });
+
+    if (!error && data.user) {
+      return data;
+    }
+
+    firstError ??= error;
   }
 
-  const supabaseUrl = getEnv("SUPABASE_URL");
+  console.warn("Account deletion OTP verification failed", firstError);
+  return null;
+}
+
+async function getAuthenticatedUser(req: Request, supabaseUrl: string) {
+  const authorization = req.headers.get("Authorization") ?? "";
+  const token = authorization.replace(/^Bearer\s+/i, "").trim();
+  if (!token) {
+    return {
+      error: jsonResponse({ message: "Missing authenticated session." }, {
+        status: 401,
+      }),
+    };
+  }
+
   const authClient = createClient(supabaseUrl, getPublishableKey(), {
     global: { headers: { Authorization: `Bearer ${token}` } },
     auth: { autoRefreshToken: false, persistSession: false },
@@ -232,9 +442,103 @@ async function handleAccountDeletion(req: Request) {
   } = await authClient.auth.getUser(token);
 
   if (userError || !user) {
+    return {
+      error: jsonResponse({
+        message: "Invalid or expired authenticated session.",
+      }, { status: 401 }),
+    };
+  }
+
+  return { token, user };
+}
+
+async function handleOtpVerification(
+  req: Request,
+  body: Record<string, unknown>,
+) {
+  const email = normalizeEmail(body.email);
+  const otpCode = normalizeOtpCode(body.otpCode);
+
+  if (!EMAIL_PATTERN.test(email) || otpCode.length !== 6) {
+    return jsonResponse({ message: "Valid email and OTP code are required." }, {
+      status: 400,
+    });
+  }
+
+  const supabaseUrl = getEnv("SUPABASE_URL");
+
+  // Make authenticated session check optional (required only if Authorization header is present)
+  const authHeader = req.headers.get("Authorization") ?? "";
+  let authenticatedUser: { id: string; email?: string } | null = null;
+
+  if (authHeader) {
+    const authenticated = await getAuthenticatedUser(req, supabaseUrl);
+    if (authenticated.error) {
+      return authenticated.error;
+    }
+    authenticatedUser = authenticated.user;
+    if ((authenticatedUser.email ?? "").toLowerCase() !== email) {
+      return jsonResponse({
+        message: "OTP email does not match the authenticated account.",
+      }, { status: 403 });
+    }
+  }
+
+  const otpAuthClient = createClient(supabaseUrl, getPublishableKey(), {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+  const verificationResult = await verifyDeletionOtp(
+    otpAuthClient as unknown as OtpAuthClient,
+    email,
+    otpCode,
+  );
+
+  if (!verificationResult || !verificationResult.user) {
+    return jsonResponse({ message: "Invalid or expired verification code." }, {
+      status: 401,
+    });
+  }
+
+  const verifiedUser = verificationResult.user;
+
+  if (authenticatedUser && verifiedUser.id !== authenticatedUser.id) {
     return jsonResponse({
-      message: "Invalid or expired authenticated session.",
-    }, { status: 401 });
+      message: "Verification code belongs to a different account.",
+    }, { status: 403 });
+  }
+
+  return jsonResponse({
+    verificationToken: await createVerificationToken(verifiedUser.id, email),
+    expiresInSeconds: VERIFICATION_TOKEN_TTL_SECONDS,
+    session: verificationResult.session,
+  });
+}
+
+async function handleAccountDeletion(
+  req: Request,
+  body: Record<string, unknown>,
+) {
+  const supabaseUrl = getEnv("SUPABASE_URL");
+  const authenticated = await getAuthenticatedUser(req, supabaseUrl);
+  if (authenticated.error) {
+    return authenticated.error;
+  }
+
+  const user = authenticated.user;
+  const verification = await readVerificationToken(body.verificationToken);
+  if (!verification) {
+    return jsonResponse({ message: "Invalid or expired verification token." }, {
+      status: 401,
+    });
+  }
+
+  if (
+    verification.userId !== user.id ||
+    verification.email !== (user.email ?? "").toLowerCase()
+  ) {
+    return jsonResponse({
+      message: "Verification token belongs to a different account.",
+    }, { status: 403 });
   }
 
   const admin = createClient(
@@ -245,14 +549,16 @@ async function handleAccountDeletion(req: Request) {
     },
   );
 
-  const removedStorageObjects = await removeStorageObjects(
-    admin as unknown as StorageAdminClient,
-    user.id,
-  );
+  const { removedStorageObjects, storageCleanupSkipped } =
+    await removeStorageObjectsBestEffort(
+      admin as unknown as StorageAdminClient,
+      user.id,
+    );
 
-  const { error: rpcError } = await admin.rpc("delete_account_app_data", {
-    target_user_id: user.id,
-  });
+  const { error: rpcError } = await usersSchema(admin)
+    .rpc("delete_account_app_data", {
+      target_user_id: user.id,
+    });
 
   if (rpcError) {
     console.error("delete_account_app_data failed", rpcError);
@@ -275,6 +581,7 @@ async function handleAccountDeletion(req: Request) {
   return jsonResponse({
     message: "Your CookPilot account has been deleted.",
     removedStorageObjects,
+    storageCleanupSkipped,
   });
 }
 
@@ -295,8 +602,12 @@ Deno.serve(async (req: Request) => {
       return await handleOtpRequest(req, body);
     }
 
+    if (action === "verify_otp") {
+      return await handleOtpVerification(req, body);
+    }
+
     if (action === "delete_account") {
-      return await handleAccountDeletion(req);
+      return await handleAccountDeletion(req, body);
     }
 
     return jsonResponse({ message: "Unknown account deletion action." }, {

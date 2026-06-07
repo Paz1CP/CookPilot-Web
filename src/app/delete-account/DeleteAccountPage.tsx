@@ -288,6 +288,7 @@ export default function DeleteAccountPage() {
   const [otp, setOtp] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [accessToken, setAccessToken] = useState("");
+  const [verificationToken, setVerificationToken] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isBusy, setIsBusy] = useState(false);
@@ -347,8 +348,12 @@ export default function DeleteAccountPage() {
 
     setIsBusy(true);
     try {
-      const session = await verifyAccountDeletionOtp(email.trim().toLowerCase(), otp.trim());
-      setAccessToken(session.access_token);
+      const { accessToken: token, verificationToken: vToken } = await verifyAccountDeletionOtp(
+        email.trim().toLowerCase(),
+        otp.trim(),
+      );
+      setAccessToken(token);
+      setVerificationToken(vToken);
       setStep("confirm");
     } catch (error) {
       setErrorMessage(error instanceof Error ? mapOtpError(error.message, deletionLocale) : t.wrongOtp);
@@ -362,11 +367,11 @@ export default function DeleteAccountPage() {
     setStatusMessage("");
     setErrorMessage("");
 
-    if (confirmation !== t.confirmationPhrase || !accessToken) return;
+    if (confirmation !== t.confirmationPhrase || !accessToken || !verificationToken) return;
 
     setIsBusy(true);
     try {
-      await deleteCookPilotAccount(accessToken);
+      await deleteCookPilotAccount(accessToken, verificationToken);
       setStep("success");
     } catch (error) {
       setErrorMessage(error instanceof Error ? mapDeleteError(error.message, deletionLocale) : t.deleteFailed);

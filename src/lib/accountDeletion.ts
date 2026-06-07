@@ -62,22 +62,44 @@ export async function requestAccountDeletionOtp(
   };
 }
 
-export async function verifyAccountDeletionOtp(email: string, token: string) {
-  const { data, error } = await supabase.auth.verifyOtp({
-    email,
-    token,
-    type: "email",
+export async function verifyAccountDeletionOtp(email: string, otpCode: string) {
+  const response = await fetch(accountDeletionFunctionUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+    },
+    body: JSON.stringify({ action: "verify_otp", email, otpCode }),
   });
 
-  if (error) throw error;
-  if (!data.session?.access_token) {
+  const payload = await parseJson(response);
+
+  if (!response.ok) {
+    throw new Error(
+      typeof payload.message === "string"
+        ? payload.message
+        : "OTP verification failed. Please try again.",
+    );
+  }
+
+  const session = payload.session as { access_token: string; refresh_token: string } | null;
+  if (session) {
+    const { error: sessionError } = await supabase.auth.setSession({
+      access_token: session.access_token,
+      refresh_token: session.refresh_token,
+    });
+    if (sessionError) throw sessionError;
+  } else {
     throw new Error("No active session was returned for this verification code.");
   }
 
-  return data.session;
+  return {
+    accessToken: session.access_token,
+    verificationToken: String(payload.verificationToken || ""),
+  };
 }
 
-export async function deleteCookPilotAccount(accessToken: string) {
+export async function deleteCookPilotAccount(accessToken: string, verificationToken: string) {
   const response = await fetch(accountDeletionFunctionUrl, {
     method: "POST",
     headers: {
@@ -85,7 +107,7 @@ export async function deleteCookPilotAccount(accessToken: string) {
       Authorization: `Bearer ${accessToken}`,
       apikey: SUPABASE_PUBLISHABLE_KEY,
     },
-    body: JSON.stringify({ action: "delete_account" }),
+    body: JSON.stringify({ action: "delete_account", verificationToken }),
   });
 
   const payload = await parseJson(response);
