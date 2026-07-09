@@ -448,7 +448,7 @@ These providers may include, among others:
 * OpenRouter;
 * Google / Gemini;
 * OpenAI;
-* payment providers such as Google Play, Apple App Store, or Huawei AppGallery, if applicable;
+* payment providers such as Google Play, Apple App Store, or Huawei, if applicable;
 * other technical providers needed to operate CookPilot.
 
 These providers may process information only to provide the requested services, operate infrastructure, maintain security, process requests, prevent abuse, or comply with legal obligations.
@@ -602,7 +602,7 @@ Pro plans may include access to advanced features such as CookFlow, CookImport, 
 
 The exact features included in each plan may vary by version, market, platform, or promotional period.
 
-Payment and renewal are handled by the payment platform when the purchase is made through Google Play, Apple App Store, Huawei AppGallery, or another provider.
+Payment and renewal are handled by the payment platform when the purchase is made through Google Play, Apple App Store, Huawei, or another provider.
 
 ### 9.4 Usage limits
 
@@ -632,7 +632,7 @@ Payments may be processed by external providers such as:
 
 * Google Play;
 * Apple App Store;
-* Huawei AppGallery;
+* Huawei;
 * other enabled payment providers.
 
 Those providers process payment data, billing, taxes, renewals, cancellations, and refunds according to their own policies.
@@ -643,7 +643,7 @@ CookPilot does not directly store complete card data, CVV, or sensitive banking 
 
 If your subscription is managed by an external platform, you must cancel it through that platform to avoid future renewals.
 
-Deleting your CookPilot account does not always automatically cancel a subscription managed by Google Play, Apple App Store, Huawei AppGallery, or another provider.
+Deleting your CookPilot account does not always automatically cancel a subscription managed by Google Play, Apple App Store, Huawei, or another provider.
 
 ### 9.8 Refunds
 
@@ -865,7 +865,7 @@ If you purchase a subscription or pack, the transaction may be processed by exte
 
 * Google Play;
 * Apple App Store;
-* Huawei AppGallery;
+* Huawei;
 * other enabled payment providers.
 
 These providers may process payment information, billing, taxes, renewals, cancellations, and refunds according to their own policies.
@@ -1032,7 +1032,7 @@ Account deletion is a permanent action. Once completed, we may not be able to re
 
 ### 15.2 Active subscriptions
 
-Deleting your CookPilot account does not always automatically cancel a subscription managed by an external platform such as Google Play, Apple App Store, or Huawei AppGallery.
+Deleting your CookPilot account does not always automatically cancel a subscription managed by an external platform such as Google Play, Apple App Store, or Huawei.
 
 If you have an active subscription, you must cancel it through the platform where you made the purchase to avoid future renewals, according to the rules of the corresponding provider.
 
@@ -1153,7 +1153,7 @@ These transfers may occur when we use providers such as:
 * OpenAI;
 * Google Play;
 * Apple App Store;
-* Huawei AppGallery;
+* Huawei;
 * other technical providers needed to operate CookPilot.
 
 When we transfer or process data internationally, we seek to use reliable providers and reasonable security measures to protect user information.
@@ -1172,7 +1172,7 @@ CookPilot may update this Privacy Policy occasionally to reflect changes in:
 * plans, subscriptions, or packs;
 * legal requirements;
 * security practices;
-* platform policies such as Google Play, Apple App Store, or Huawei AppGallery.
+* platform policies such as Google Play, Apple App Store, or Huawei.
 
 When we make relevant changes, we will update the "Last updated" date at the beginning of this page.
 
@@ -1233,7 +1233,7 @@ Account deletion is permanent. Once completed, we may not be able to recover you
 
 ### Important information about subscriptions
 
-Deleting your CookPilot account does not always automatically cancel a subscription managed by an external platform such as Google Play, Apple App Store, or Huawei AppGallery.
+Deleting your CookPilot account does not always automatically cancel a subscription managed by an external platform such as Google Play, Apple App Store, or Huawei.
 
 If you have an active subscription, you must cancel it directly from the platform where you made the purchase to avoid future renewals.
 

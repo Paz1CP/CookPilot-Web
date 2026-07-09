@@ -1,0 +1,268 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - link "Ícono de CookPilot Cook Pilot" [ref=f1e4] [cursor=pointer]:
+        - /url: /es
+        - img "Ícono de CookPilot" [ref=f1e5]
+        - generic [ref=f1e6]:
+          - generic [ref=f1e7]: Cook
+          - generic [ref=f1e8]: Pilot
+      - navigation [ref=f1e9]:
+        - link "Cómo funciona" [ref=f1e10] [cursor=pointer]:
+          - /url: /es/como-funciona
+        - link "Guías" [ref=f1e11] [cursor=pointer]:
+          - /url: /es/guias
+        - link "Pro" [ref=f1e12] [cursor=pointer]:
+          - /url: /es/pro
+        - link "FAQ" [ref=f1e13] [cursor=pointer]:
+          - /url: /es/faq
+      - generic [ref=f1e14]:
+        - button "Cambiar idioma" [ref=f1e15]
+        - button "Cambiar tema" [ref=f1e16]:
+          - img [ref=f1e17]
+        - link "Descargar" [ref=f1e19] [cursor=pointer]:
+          - /url: /es/descargar
+  - main [ref=f1e20]:
+    - generic [ref=f1e22]:
+      - generic [ref=f1e24]: Cómo funciona CookPilot
+      - heading "Cómo funciona CookPilot" [level=1] [ref=f1e26]
+      - paragraph [ref=f1e28]: Empieza con una receta, una idea o un día vacío. CookPilot lo convierte en menú, compra, cocina y reutilización.
+      - generic [ref=f1e30]:
+        - link "Descargar CookPilot" [ref=f1e31] [cursor=pointer]:
+          - /url: "#download-final"
+        - link "Ver guías" [ref=f1e32] [cursor=pointer]:
+          - /url: /es/guias
+    - generic [ref=f1e34]:
+      - heading "Del primer menú a una semana organizada." [level=2] [ref=f1e36]
+      - paragraph [ref=f1e38]: CookPilot no trabaja en pantallas sueltas. Cada paso deja algo listo para el siguiente.
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - generic [ref=f1e43]:
+          - generic [ref=f1e44]: "01"
+          - generic [ref=f1e45]:
+            - heading "Empieza" [level=3] [ref=f1e46]
+            - paragraph [ref=f1e47]: Puedes empezar con una receta, una idea, una comida pendiente, un menú guardado o un día vacío.
+            - generic [ref=f1e48]:
+              - generic [ref=f1e49]:
+                - generic [ref=f1e50]: Qué haces
+                - list [ref=f1e51]:
+                  - listitem [ref=f1e52]: • Creas un menú manual.
+                  - listitem [ref=f1e53]: • Importas una receta o pides resolver una comida.
+              - generic [ref=f1e54]:
+                - generic [ref=f1e55]: Qué queda listo
+                - list [ref=f1e56]:
+                  - listitem [ref=f1e57]: • Una primera comida editable.
+                  - listitem [ref=f1e58]: • Una base para planificar.
+        - img "Empieza" [ref=f1e61]
+      - generic [ref=f1e62]:
+        - generic [ref=f1e63]:
+          - generic [ref=f1e64]: "02"
+          - generic [ref=f1e65]:
+            - heading "Resuelve" [level=3] [ref=f1e66]
+            - paragraph [ref=f1e67]: Cuando no quieres construir todo a mano, CookPilot puede ayudarte a resolver un menú, un momento de comida o un día.
+            - generic [ref=f1e68]:
+              - generic [ref=f1e69]:
+                - generic [ref=f1e70]: Qué haces
+                - list [ref=f1e71]:
+                  - listitem [ref=f1e72]: • Pides una propuesta.
+                  - listitem [ref=f1e73]: • Revisas y ajustas lo generado.
+              - generic [ref=f1e74]:
+                - generic [ref=f1e75]: Qué queda listo
+                - list [ref=f1e76]:
+                  - listitem [ref=f1e77]: • Un menú usable.
+                  - listitem [ref=f1e78]: • Un día con menos espacios vacíos.
+        - img "Resuelve" [ref=f1e81]
+      - generic [ref=f1e82]:
+        - generic [ref=f1e83]:
+          - generic [ref=f1e84]: "03"
+          - generic [ref=f1e85]:
+            - heading "Organiza" [level=3] [ref=f1e86]
+            - paragraph [ref=f1e87]: Los menús viven dentro de momentos del día, días y semanas. Así sabes qué toca y qué falta.
+            - generic [ref=f1e88]:
+              - generic [ref=f1e89]:
+                - generic [ref=f1e90]: Qué haces
+                - list [ref=f1e91]:
+                  - listitem [ref=f1e92]: • Ordenas desayunos, almuerzos, cenas o snacks.
+                  - listitem [ref=f1e93]: • Armas días y semanas.
+              - generic [ref=f1e94]:
+                - generic [ref=f1e95]: Qué queda listo
+                - list [ref=f1e96]:
+                  - listitem [ref=f1e97]: • Un plan claro.
+                  - listitem [ref=f1e98]: • Una estructura que puedes repetir.
+        - img "Organiza" [ref=f1e101]
+      - generic [ref=f1e102]:
+        - generic [ref=f1e103]:
+          - generic [ref=f1e104]: "04"
+          - generic [ref=f1e105]:
+            - heading "Compra" [level=3] [ref=f1e106]
+            - paragraph [ref=f1e107]: CookPilot transforma tus menús en cantidades, lista de compras y costos referenciales.
+            - generic [ref=f1e108]:
+              - generic [ref=f1e109]:
+                - generic [ref=f1e110]: Qué haces
+                - list [ref=f1e111]:
+                  - listitem [ref=f1e112]: • Revisas ingredientes.
+                  - listitem [ref=f1e113]: • Ajustas lo que necesitas comprar.
+              - generic [ref=f1e114]:
+                - generic [ref=f1e115]: Qué queda listo
+                - list [ref=f1e116]:
+                  - listitem [ref=f1e117]: • Una lista más clara.
+                  - listitem [ref=f1e118]: • Mejor referencia de costos.
+        - img "Compra" [ref=f1e121]
+      - generic [ref=f1e122]:
+        - generic [ref=f1e123]:
+          - generic [ref=f1e124]: "05"
+          - generic [ref=f1e125]:
+            - heading "Ajusta" [level=3] [ref=f1e126]
+            - paragraph [ref=f1e127]: Si tienes objetivos, puedes revisar kcal y macros, y ajustar cantidades sin rehacer todo el plato.
+            - generic [ref=f1e128]:
+              - generic [ref=f1e129]:
+                - generic [ref=f1e130]: Qué haces
+                - list [ref=f1e131]:
+                  - listitem [ref=f1e132]: • Revisas el encaje nutricional.
+                  - listitem [ref=f1e133]: • Modificas cantidades.
+              - generic [ref=f1e134]:
+                - generic [ref=f1e135]: Qué queda listo
+                - list [ref=f1e136]:
+                  - listitem [ref=f1e137]: • Un menú más alineado a tu objetivo.
+                  - listitem [ref=f1e138]: • Comida real, no una fórmula rara.
+        - img "Ajusta" [ref=f1e141]
+      - generic [ref=f1e142]:
+        - generic [ref=f1e143]:
+          - generic [ref=f1e144]: "06"
+          - generic [ref=f1e145]:
+            - heading "Cocina" [level=3] [ref=f1e146]
+            - paragraph [ref=f1e147]: Cuando ya sabes qué toca, CookPilot te guía con pasos, tiempos e ingredientes en contexto.
+            - generic [ref=f1e148]:
+              - generic [ref=f1e149]:
+                - generic [ref=f1e150]: Qué haces
+                - list [ref=f1e151]:
+                  - listitem [ref=f1e152]: • Abres CookMode.
+                  - listitem [ref=f1e153]: • Sigues la preparación.
+              - generic [ref=f1e154]:
+                - generic [ref=f1e155]: Qué queda listo
+                - list [ref=f1e156]:
+                  - listitem [ref=f1e157]: • Una comida preparada con menos desorden.
+                  - listitem [ref=f1e158]: • Un flujo más claro en cocina.
+        - img "Cocina" [ref=f1e161]
+      - generic [ref=f1e162]:
+        - generic [ref=f1e163]:
+          - generic [ref=f1e164]: "07"
+          - generic [ref=f1e165]:
+            - heading "Reutiliza" [level=3] [ref=f1e166]
+            - paragraph [ref=f1e167]: Una buena comida, día o semana no debería perderse después de usarla una vez.
+            - generic [ref=f1e168]:
+              - generic [ref=f1e169]:
+                - generic [ref=f1e170]: Qué haces
+                - list [ref=f1e171]:
+                  - listitem [ref=f1e172]: • Guardas, copias, pegas o fijas.
+                  - listitem [ref=f1e173]: • Buscas favoritos e importadas.
+              - generic [ref=f1e174]:
+                - generic [ref=f1e175]: Qué queda listo
+                - list [ref=f1e176]:
+                  - listitem [ref=f1e177]: • Menús reutilizables.
+                  - listitem [ref=f1e178]: • Menos trabajo la próxima vez.
+        - img "Reutiliza" [ref=f1e181]
+    - generic [ref=f1e183]:
+      - heading "No tienes que empezar siempre igual." [level=2] [ref=f1e185]
+      - paragraph [ref=f1e187]: CookPilot acepta varias entradas y las convierte en algo útil.
+      - generic [ref=f1e188]:
+        - generic [ref=f1e189]:
+          - generic [ref=f1e190]: Receta externa
+          - generic [ref=f1e191]: →
+          - generic [ref=f1e192]: Receta editable
+        - generic [ref=f1e193]:
+          - generic [ref=f1e194]: Idea suelta
+          - generic [ref=f1e195]: →
+          - generic [ref=f1e196]: Menú
+        - generic [ref=f1e197]:
+          - generic [ref=f1e198]: Día vacío
+          - generic [ref=f1e199]: →
+          - generic [ref=f1e200]: Plan
+        - generic [ref=f1e201]:
+          - generic [ref=f1e202]: Objetivo nutricional
+          - generic [ref=f1e203]: →
+          - generic [ref=f1e204]: Ajuste
+        - generic [ref=f1e205]:
+          - generic [ref=f1e206]: Menú útil
+          - generic [ref=f1e207]: →
+          - generic [ref=f1e208]: Plantilla
+        - generic [ref=f1e209]:
+          - generic [ref=f1e210]: Compra pendiente
+          - generic [ref=f1e211]: →
+          - generic [ref=f1e212]: Lista
+    - generic [ref=f1e215]:
+      - heading "Lo importante es lo que queda listo." [level=2] [ref=f1e217]
+      - paragraph [ref=f1e219]: "Después de usar CookPilot, deberías tener una respuesta clara: qué comer, qué comprar, cómo cocinarlo y qué puedes volver a usar."
+      - generic [ref=f1e221]:
+        - link "Descargar CookPilot" [ref=f1e222] [cursor=pointer]:
+          - /url: "#"
+        - link "Ver guías" [ref=f1e223] [cursor=pointer]:
+          - /url: /es/guias
+  - contentinfo [ref=f1e224]:
+    - generic [ref=f1e226]:
+      - generic [ref=f1e227]:
+        - link "Ícono de CookPilot Cook Pilot" [ref=f1e228] [cursor=pointer]:
+          - /url: /es
+          - img "Ícono de CookPilot" [ref=f1e229]
+          - generic [ref=f1e230]:
+            - generic [ref=f1e231]: Cook
+            - generic [ref=f1e232]: Pilot
+        - generic [ref=f1e233]:
+          - generic [ref=f1e234]: Hecho en Perú
+          - img "Perú" [ref=f1e235]
+        - paragraph [ref=f1e236]: © 2026 CookPilot.
+      - generic [ref=f1e237]:
+        - generic [ref=f1e238]:
+          - heading "Producto" [level=4] [ref=f1e239]
+          - list [ref=f1e240]:
+            - listitem [ref=f1e241]:
+              - link "Cómo funciona" [ref=f1e242] [cursor=pointer]:
+                - /url: /es/como-funciona
+            - listitem [ref=f1e243]:
+              - link "Pro" [ref=f1e244] [cursor=pointer]:
+                - /url: /es/pro
+            - listitem [ref=f1e245]:
+              - link "Descargar" [ref=f1e246] [cursor=pointer]:
+                - /url: /es/descargar
+        - generic [ref=f1e247]:
+          - heading "Aprende" [level=4] [ref=f1e248]
+          - list [ref=f1e249]:
+            - listitem [ref=f1e250]:
+              - link "Guías" [ref=f1e251] [cursor=pointer]:
+                - /url: /es/guias
+            - listitem [ref=f1e252]:
+              - link "FAQ" [ref=f1e253] [cursor=pointer]:
+                - /url: /es/faq
+            - listitem [ref=f1e254]:
+              - link "Comparativas" [ref=f1e255] [cursor=pointer]:
+                - /url: /es/comparativas
+        - generic [ref=f1e256]:
+          - heading "Legal" [level=4] [ref=f1e257]
+          - list [ref=f1e258]:
+            - listitem [ref=f1e259]:
+              - link "Privacidad y términos" [ref=f1e260] [cursor=pointer]:
+                - /url: /privacy-and-terms
+          - heading "Tiendas" [level=4] [ref=f1e261]
+          - list [ref=f1e262]:
+            - listitem [ref=f1e263]:
+              - link "Google Play" [ref=f1e264] [cursor=pointer]:
+                - /url: https://play.google.com/store
+            - listitem [ref=f1e265]:
+              - link "AppGallery" [ref=f1e266] [cursor=pointer]:
+                - /url: https://appgallery.huawei.com
+        - generic [ref=f1e267]:
+          - heading "Social" [level=4] [ref=f1e268]
+          - list [ref=f1e269]:
+            - listitem [ref=f1e270]:
+              - link "LinkedIn" [ref=f1e271] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/cookpilot/
+                - generic [ref=f1e272]: LinkedIn
+          - heading "Idioma" [level=4] [ref=f1e273]
+          - list [ref=f1e274]:
+            - listitem [ref=f1e275]:
+              - button "Español" [ref=f1e276] [cursor=pointer]
+            - listitem [ref=f1e277]:
+              - button "English" [ref=f1e278] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f1e284] [cursor=pointer]:
+    - img [ref=f1e285]
+  - alert [ref=f1e288]

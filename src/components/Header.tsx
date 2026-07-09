@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useState } from "react";
 import { Sun1, Moon } from "iconsax-reactjs";
@@ -31,25 +32,19 @@ export default function Header() {
     }
   };
 
-  const scrollToDemo = () => {
-    const el = document.getElementById("demo");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.assign("/#demo");
-      return;
-    }
-    window.dispatchEvent(new CustomEvent("cp-trigger-demo"));
-  };
-
-  const scrollToHero = () => {
-    const el = document.getElementById("hero");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.assign("/");
-    }
-  };
+  const menuItems = locale === "es"
+    ? [
+        { label: t.header.como_funciona, href: "/es/como-funciona" },
+        { label: t.header.guias, href: "/es/guias" },
+        { label: t.header.pro, href: "/es/pro" },
+        { label: t.header.faq, href: "/es/faq" },
+      ]
+    : [
+        { label: t.header.como_funciona, href: "/en/how-it-works" },
+        { label: t.header.guias, href: "/en/guides" },
+        { label: t.header.pro, href: "/en/pro" },
+        { label: t.header.faq, href: "/en/faq" },
+      ];
 
   return (
     <motion.header
@@ -59,12 +54,12 @@ export default function Header() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
     >
       <div className={styles.inner}>
-        <div className={styles.logo} onClick={scrollToHero} style={{ cursor: "pointer" }}>
+        <Link href={locale === "es" ? "/es" : "/en"} className={styles.logo}>
           <Image
             src="/images/img_app_icon.png"
             alt={t.header.logo_alt}
-            width={34}
-            height={34}
+            width={36}
+            height={36}
             className={styles.logoImage}
             priority
           />
@@ -72,7 +67,15 @@ export default function Header() {
             <span className="brand-cook">Cook</span>
             <span className="brand-pilot">Pilot</span>
           </span>
-        </div>
+        </Link>
+
+        <nav className={styles.nav}>
+          {menuItems.map((item) => (
+            <Link key={item.href} href={item.href} className={styles.navLink}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
         <div className={styles.actions}>
           <button
@@ -82,10 +85,10 @@ export default function Header() {
             title={t.header.toggle_language}
           >
             <Image
-              src={locale === "es" ? "/icons/peru-icon.png" : "/icons/usa-icon.png"}
+              src={locale === "es" ? "/icons/usa-icon.png" : "/icons/peru-icon.png"}
               alt=""
-              width={22}
-              height={22}
+              width={24}
+              height={24}
               className={styles.flagIcon}
               priority
             />
@@ -97,23 +100,18 @@ export default function Header() {
             aria-label={t.header.toggle_theme}
           >
             {theme === "dark" ? (
-              <Sun1 variant="Bulk" size={22} color="var(--cp-primary)" />
+              <Sun1 variant="Bold" size={24} color="var(--cp-primary)" />
             ) : (
-              <Moon variant="Bulk" size={22} color="var(--cp-dark)" />
+              <Moon variant="Bold" size={24} color="var(--cp-dark)" />
             )}
           </button>
 
-          <button className={styles.demoLink} onClick={scrollToDemo}>
-            <Image
-              src="/images/img_icon_demo.png"
-              alt=""
-              width={24}
-              height={24}
-              style={{ objectFit: "contain" }}
-              priority
-            />
-            {t.header.watch_demo}
-          </button>
+          <Link
+            href="#download-final"
+            className="cp-btn cp-btn--primary"
+          >
+            {t.header.descargar}
+          </Link>
         </div>
       </div>
     </motion.header>

@@ -3,6 +3,8 @@ import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 const outfit = Outfit({
   variable: "--cp-font-sans-loaded",
   subsets: ["latin"],
@@ -148,7 +150,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <Header />
+          {children}
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

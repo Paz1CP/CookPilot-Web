@@ -1,0 +1,188 @@
+- generic [active] [ref=f5e1]:
+  - banner [ref=f5e2]:
+    - generic [ref=f5e3]:
+      - link "Cook Pilot" [ref=f5e4] [cursor=pointer]:
+        - /url: /es
+        - generic [ref=f5e5]:
+          - generic [ref=f5e6]: Cook
+          - generic [ref=f5e7]: Pilot
+      - generic [ref=f5e8]:
+        - button "Cambiar idioma" [ref=f5e9]
+        - button "Cambiar tema" [ref=f5e10]:
+          - img [ref=f5e11]
+        - link "Descargar" [ref=f5e13] [cursor=pointer]:
+          - /url: /es/descargar
+  - main [ref=f5e14]:
+    - generic [ref=f5e16]:
+      - generic [ref=f5e18]: CookPilot paso a paso
+      - heading "CookPilot paso a paso" [level=1] [ref=f5e20]
+      - paragraph [ref=f5e22]: Guías rápidas para planificar, comprar, ajustar, cocinar, importar y reutilizar sin perderte entre funciones.
+      - paragraph [ref=f5e24]: Empieza por la guía que más se parece a lo que quieres hacer hoy.
+    - generic [ref=f5e27]:
+      - button "Primeros pasos 01 Primeros pasos Organiza tu primera comida sin configurar todo. Menú Día Guardar" [ref=f5e28] [cursor=pointer]:
+        - img "Primeros pasos" [ref=f5e30]
+        - generic [ref=f5e31]: "01"
+        - heading "Primeros pasos" [level=3] [ref=f5e32]
+        - paragraph [ref=f5e33]: Organiza tu primera comida sin configurar todo.
+        - generic [ref=f5e34]:
+          - generic [ref=f5e35]: Menú
+          - generic [ref=f5e36]: Día
+          - generic [ref=f5e37]: Guardar
+      - button "Planificación 02 Planificación Arma menús, días y semanas. Menús Días Semanas" [ref=f5e38] [cursor=pointer]:
+        - img "Planificación" [ref=f5e40]
+        - generic [ref=f5e41]: "02"
+        - heading "Planificación" [level=3] [ref=f5e42]
+        - paragraph [ref=f5e43]: Arma menús, días y semanas.
+        - generic [ref=f5e44]:
+          - generic [ref=f5e45]: Menús
+          - generic [ref=f5e46]: Días
+          - generic [ref=f5e47]: Semanas
+      - button "Generación de menús 03 Generación de menús Resuelve comidas cuando no quieres empezar desde cero. Resolver Completar Revisar" [ref=f5e48] [cursor=pointer]:
+        - img "Generación de menús" [ref=f5e50]
+        - generic [ref=f5e51]: "03"
+        - heading "Generación de menús" [level=3] [ref=f5e52]
+        - paragraph [ref=f5e53]: Resuelve comidas cuando no quieres empezar desde cero.
+        - generic [ref=f5e54]:
+          - generic [ref=f5e55]: Resolver
+          - generic [ref=f5e56]: Completar
+          - generic [ref=f5e57]: Revisar
+      - button "Compras y costos 04 Compras y costos Convierte planes en ingredientes y cantidades. Lista Costos Compra" [ref=f5e58] [cursor=pointer]:
+        - img "Compras y costos" [ref=f5e60]
+        - generic [ref=f5e61]: "04"
+        - heading "Compras y costos" [level=3] [ref=f5e62]
+        - paragraph [ref=f5e63]: Convierte planes en ingredientes y cantidades.
+        - generic [ref=f5e64]:
+          - generic [ref=f5e65]: Lista
+          - generic [ref=f5e66]: Costos
+          - generic [ref=f5e67]: Compra
+      - button "Nutrición y ajuste 05 Nutrición y ajuste Usa kcal y macros cuando realmente aportan. Kcal Macros Ajuste" [ref=f5e68] [cursor=pointer]:
+        - img "Nutrición y ajuste" [ref=f5e70]
+        - generic [ref=f5e71]: "05"
+        - heading "Nutrición y ajuste" [level=3] [ref=f5e72]
+        - paragraph [ref=f5e73]: Usa kcal y macros cuando realmente aportan.
+        - generic [ref=f5e74]:
+          - generic [ref=f5e75]: Kcal
+          - generic [ref=f5e76]: Macros
+          - generic [ref=f5e77]: Ajuste
+      - button "Cocina guiada 06 Cocina guiada Pasa del menú a la preparación. Pasos Tiempos Cocina" [ref=f5e78] [cursor=pointer]:
+        - img "Cocina guiada" [ref=f5e80]
+        - generic [ref=f5e81]: "06"
+        - heading "Cocina guiada" [level=3] [ref=f5e82]
+        - paragraph [ref=f5e83]: Pasa del menú a la preparación.
+        - generic [ref=f5e84]:
+          - generic [ref=f5e85]: Pasos
+          - generic [ref=f5e86]: Tiempos
+          - generic [ref=f5e87]: Cocina
+      - button "Importación 07 Importación Trae recetas externas a CookPilot. Web Video PDF" [ref=f5e88] [cursor=pointer]:
+        - img "Importación" [ref=f5e90]
+        - generic [ref=f5e91]: "07"
+        - heading "Importación" [level=3] [ref=f5e92]
+        - paragraph [ref=f5e93]: Trae recetas externas a CookPilot.
+        - generic [ref=f5e94]:
+          - generic [ref=f5e95]: Web
+          - generic [ref=f5e96]: Video
+          - generic [ref=f5e97]: PDF
+      - button "Biblioteca 08 Biblioteca Encuentra recetas, favoritos e importadas. Buscar Guardados Favoritos" [ref=f5e98] [cursor=pointer]:
+        - img "Biblioteca" [ref=f5e100]
+        - generic [ref=f5e101]: "08"
+        - heading "Biblioteca" [level=3] [ref=f5e102]
+        - paragraph [ref=f5e103]: Encuentra recetas, favoritos e importadas.
+        - generic [ref=f5e104]:
+          - generic [ref=f5e105]: Buscar
+          - generic [ref=f5e106]: Guardados
+          - generic [ref=f5e107]: Favoritos
+      - button "Reutilización 09 Reutilización Guarda lo que funciona y úsalo otra vez. Guardar Copiar Fijar" [ref=f5e108] [cursor=pointer]:
+        - img "Reutilización" [ref=f5e110]
+        - generic [ref=f5e111]: "09"
+        - heading "Reutilización" [level=3] [ref=f5e112]
+        - paragraph [ref=f5e113]: Guarda lo que funciona y úsalo otra vez.
+        - generic [ref=f5e114]:
+          - generic [ref=f5e115]: Guardar
+          - generic [ref=f5e116]: Copiar
+          - generic [ref=f5e117]: Fijar
+      - button "Pro, créditos y packs 10 Pro, créditos y packs Entiende qué desbloquea cada nivel. Pro Créditos Packs" [ref=f5e118] [cursor=pointer]:
+        - img "Pro, créditos y packs" [ref=f5e120]
+        - generic [ref=f5e121]: "10"
+        - heading "Pro, créditos y packs" [level=3] [ref=f5e122]
+        - paragraph [ref=f5e123]: Entiende qué desbloquea cada nivel.
+        - generic [ref=f5e124]:
+          - generic [ref=f5e125]: Pro
+          - generic [ref=f5e126]: Créditos
+          - generic [ref=f5e127]: Packs
+    - paragraph [ref=f5e131]: Selecciona una guía del mapa para ver el paso a paso.
+    - generic [ref=f5e134]:
+      - heading "Empieza con una comida." [level=2] [ref=f5e136]
+      - paragraph [ref=f5e138]: Elige una guía, abre CookPilot y convierte tu próxima comida en algo más claro.
+      - generic [ref=f5e140]:
+        - link "Descargar CookPilot" [ref=f5e141] [cursor=pointer]:
+          - /url: "#"
+        - link "Ver cómo funciona" [ref=f5e142] [cursor=pointer]:
+          - /url: /es/como-funciona
+  - contentinfo [ref=f5e143]:
+    - generic [ref=f5e145]:
+      - generic [ref=f5e146]:
+        - link "Ícono de CookPilot Cook Pilot" [ref=f5e147] [cursor=pointer]:
+          - /url: /es
+          - img "Ícono de CookPilot" [ref=f5e148]
+          - generic [ref=f5e149]:
+            - generic [ref=f5e150]: Cook
+            - generic [ref=f5e151]: Pilot
+        - generic [ref=f5e152]:
+          - generic [ref=f5e153]: Hecho en Perú
+          - img "Perú" [ref=f5e154]
+        - paragraph [ref=f5e155]: © 2026 CookPilot.
+      - generic [ref=f5e156]:
+        - generic [ref=f5e157]:
+          - heading "Producto" [level=4] [ref=f5e158]
+          - list [ref=f5e159]:
+            - listitem [ref=f5e160]:
+              - link "Cómo funciona" [ref=f5e161] [cursor=pointer]:
+                - /url: /es/como-funciona
+            - listitem [ref=f5e162]:
+              - link "Pro" [ref=f5e163] [cursor=pointer]:
+                - /url: /es/pro
+            - listitem [ref=f5e164]:
+              - link "Descargar" [ref=f5e165] [cursor=pointer]:
+                - /url: /es/descargar
+        - generic [ref=f5e166]:
+          - heading "Aprende" [level=4] [ref=f5e167]
+          - list [ref=f5e168]:
+            - listitem [ref=f5e169]:
+              - link "Guías" [ref=f5e170] [cursor=pointer]:
+                - /url: /es/guias
+            - listitem [ref=f5e171]:
+              - link "FAQ" [ref=f5e172] [cursor=pointer]:
+                - /url: /es/faq
+            - listitem [ref=f5e173]:
+              - link "Comparativas" [ref=f5e174] [cursor=pointer]:
+                - /url: /es/comparativas
+        - generic [ref=f5e175]:
+          - heading "Legal" [level=4] [ref=f5e176]
+          - list [ref=f5e177]:
+            - listitem [ref=f5e178]:
+              - link "Privacidad y términos" [ref=f5e179] [cursor=pointer]:
+                - /url: /privacy-and-terms
+          - heading "Tiendas" [level=4] [ref=f5e180]
+          - list [ref=f5e181]:
+            - listitem [ref=f5e182]:
+              - link "Google Play" [ref=f5e183] [cursor=pointer]:
+                - /url: https://play.google.com/store
+            - listitem [ref=f5e184]:
+              - link "AppGallery" [ref=f5e185] [cursor=pointer]:
+                - /url: https://appgallery.huawei.com
+        - generic [ref=f5e186]:
+          - heading "Social" [level=4] [ref=f5e187]
+          - list [ref=f5e188]:
+            - listitem [ref=f5e189]:
+              - link "LinkedIn" [ref=f5e190] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/cookpilot/
+                - generic [ref=f5e191]: LinkedIn
+          - heading "Idioma" [level=4] [ref=f5e192]
+          - list [ref=f5e193]:
+            - listitem [ref=f5e194]:
+              - button "Español" [ref=f5e195] [cursor=pointer]
+            - listitem [ref=f5e196]:
+              - button "English" [ref=f5e197] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f5e203] [cursor=pointer]:
+    - img [ref=f5e204]
+  - alert [ref=f5e207]

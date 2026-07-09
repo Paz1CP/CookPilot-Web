@@ -446,7 +446,7 @@ Estos proveedores pueden incluir, entre otros:
 * OpenRouter;
 * Google / Gemini;
 * OpenAI;
-* proveedores de pago como Google Play, Apple App Store o Huawei AppGallery, si aplica;
+* proveedores de pago como Google Play, Apple App Store o Huawei, si aplica;
 * otros proveedores técnicos necesarios para operar CookPilot.
 
 Estos proveedores pueden procesar información únicamente para prestar los servicios solicitados, operar la infraestructura, mantener seguridad, procesar solicitudes, prevenir abuso o cumplir obligaciones legales.
@@ -727,7 +727,7 @@ Las compras pueden ser procesadas por proveedores externos como:
 
 * Google Play;
 * Apple App Store;
-* Huawei AppGallery;
+* Huawei;
 * otros proveedores de pago autorizados, si se habilitan.
 
 CookPilot no almacena directamente datos completos de tarjeta, CVV ni información bancaria sensible cuando el pago se procesa mediante estas plataformas.
@@ -1000,7 +1000,7 @@ Si compras una suscripción o pack, la transacción puede ser procesada por plat
 
 * Google Play;
 * Apple App Store;
-* Huawei AppGallery;
+* Huawei;
 * otros proveedores de pago habilitados.
 
 Estos proveedores pueden procesar información de pago, facturación, impuestos, renovaciones, cancelaciones y reembolsos conforme a sus propias políticas.
@@ -1167,7 +1167,7 @@ La eliminación de cuenta es una acción permanente. Una vez completada, es posi
 
 ### 15.2 Suscripciones activas
 
-Eliminar tu cuenta de CookPilot no siempre cancela automáticamente una suscripción gestionada por una plataforma externa como Google Play, Apple App Store o Huawei AppGallery.
+Eliminar tu cuenta de CookPilot no siempre cancela automáticamente una suscripción gestionada por una plataforma externa como Google Play, Apple App Store o Huawei.
 
 Si tienes una suscripción activa, debes cancelarla desde la plataforma donde realizaste la compra para evitar futuras renovaciones, conforme a las reglas del proveedor correspondiente.
 
@@ -1285,7 +1285,7 @@ Estas transferencias pueden ocurrir cuando usamos proveedores como:
 * OpenAI;
 * Google Play;
 * Apple App Store;
-* Huawei AppGallery;
+* Huawei;
 * otros proveedores técnicos necesarios para operar CookPilot.
 
 Cuando transferimos o procesamos datos internacionalmente, buscamos utilizar proveedores confiables y medidas razonables de seguridad para proteger la información del usuario.
@@ -1304,7 +1304,7 @@ CookPilot puede actualizar esta Política de Privacidad ocasionalmente para refl
 * planes, suscripciones o packs;
 * requisitos legales;
 * prácticas de seguridad;
-* políticas de plataformas como Google Play, Apple App Store o Huawei AppGallery.
+* políticas de plataformas como Google Play, Apple App Store o Huawei.
 
 Cuando realicemos cambios relevantes, actualizaremos la fecha de “Última actualización” al inicio de esta página.
 
@@ -1365,7 +1365,7 @@ La eliminación de cuenta es permanente. Una vez completada, es posible que no p
 
 ### Importante sobre suscripciones
 
-Eliminar tu cuenta de CookPilot no siempre cancela automáticamente una suscripción gestionada por una plataforma externa como Google Play, Apple App Store o Huawei AppGallery.
+Eliminar tu cuenta de CookPilot no siempre cancela automáticamente una suscripción gestionada por una plataforma externa como Google Play, Apple App Store o Huawei.
 
 Si tienes una suscripción activa, debes cancelarla directamente desde la plataforma donde realizaste la compra para evitar futuras renovaciones.
 

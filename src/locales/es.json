@@ -3,9 +3,17 @@
     "logo_alt": "Ícono de CookPilot",
     "toggle_language": "Cambiar idioma",
     "toggle_theme": "Cambiar tema",
-    "watch_demo": "Ver demo"
+    "como_funciona": "Cómo funciona",
+    "guias": "Guías",
+    "pro": "Pro",
+    "faq": "FAQ",
+    "descargar": "Descargar"
   },
   "hero": {
+    "title": "Tu comida, organizada de principio a fin.",
+    "subtitle": "Menús listos, compra ordenada y cocina guiada.",
+    "download_google_play": "Descargar en Google Play",
+    "download_appgallery": "Descargar en Huawei",
     "slide_money_headline": "Cocina para ahorrar plata",
     "slide_money_support": "Menos improvisación. Más criterio. Más control sobre lo que gastas.",
     "slide_time_headline": "Cocina para ahorrar tiempo",
@@ -22,6 +30,20 @@
     "floating_icon_alt": "Elemento decorativo"
   },
   "pillars": {
+    "title": "Seis pilares para cocinar con ventaja",
+    "subtitle": "Todo el sistema de CookPilot trabaja en conjunto para hacerte la vida más fácil.",
+    "p1_title": "Planifica",
+    "p1_desc": "Diseña menús adaptados a tus gustos y rutinas en pocos minutos.",
+    "p2_title": "Ajusta",
+    "p2_desc": "Modifica porciones y equilibra los macros de forma automática.",
+    "p3_title": "Compra",
+    "p3_desc": "Genera una lista de compras organizada por pasillos con costos de referencia.",
+    "p4_title": "Cocina",
+    "p4_desc": "Sigue las recetas paso a paso con el temporizador y el modo manos libres (CookMode).",
+    "p5_title": "Importa",
+    "p5_desc": "Digitaliza y guarda recetas de videos, PDFs, fotos o sitios web en un clic.",
+    "p6_title": "Reutiliza",
+    "p6_desc": "Crea plantillas de tus semanas favoritas y replícalas sin esfuerzo.",
     "section_title_main": "Tres razones para ",
     "section_title_accent": "cocinar con ventaja",
     "section_support_suffix": " existe para ayudarte a ganar algo real cada semana.",
@@ -31,6 +53,84 @@
     "pillar_2_body": "Menos tiempo dudando qué cocinar. Menos vueltas. Menos improvisación a última hora. Más claridad desde el primer paso.",
     "pillar_3_title": "Come mejor sin romper tu realidad",
     "pillar_3_body": "Mejor nutrición no debería significar renunciar a tu cultura ni vivir a punta de culpa. CookPilot parte de comida real, contexto real y cocina real."
+  },
+  "summary": {
+    "title": "¿Qué es CookPilot?",
+    "new_body": "CookPilot te ayuda a organizar tu comida diaria: qué vas a comer, qué necesitas comprar, cómo encaja con tus objetivos y cómo prepararlo. Puedes planificar menús, importar recetas, revisar cantidades, usar listas de compra y cocinar paso a paso.",
+    "new_note": "Úsalo cuando quieras menos improvisación y más claridad. Porque cocinar en casa no debería empezar siempre desde una pantalla vacía, una lista incompleta o una pregunta repetida: “¿qué hago hoy?”",
+    "what_is_title": "¿Qué es CookPilot?",
+    "what_is_body": "La plataforma inteligente que te devuelve el control de tu cocina.",
+    "problem_title": "¿Qué problema ordena?",
+    "problem_body": "Elimina la improvisación, el desperdicio de comida y la indecisión diaria.",
+    "connects_title": "¿Qué conecta?",
+    "connects_body": "Enlaza planificación de menús, compras del supermercado, nutrición y cocina asistida."
+  },
+  "flow": {
+    "title": "Flujo general del sistema",
+    "subtitle": "Un ciclo completo y conectado para tu alimentación diaria.",
+    "step_1": "Planificar",
+    "step_2": "Generar / resolver",
+    "step_3": "Ajustar",
+    "step_4": "Comprar",
+    "step_5": "Cocinar",
+    "step_6": "Guardar",
+    "step_7": "Reutilizar"
+  },
+  "pro": {
+    "title": "CookPilot Pro",
+    "subtitle": "Más capacidad para organizar tu comida.",
+    "support_line": "Activa el sistema completo de CookPilot para planificar con más libertad, resolver menús, ajustar objetivos y mantener tu comida ordenada semana tras semana.",
+    "cta_label": "Ver CookPilot Pro"
+  },
+  "guides": {
+    "title": "Guías destacadas",
+    "subtitle": "Aprende a dominar CookPilot paso a paso.",
+    "g1": "Primeros pasos",
+    "g2": "Planificar una semana",
+    "g3": "Usar lista de compras",
+    "g4": "Ajustar macros",
+    "g5": "Cocinar con CookMode",
+    "g6": "Guardar y reutilizar"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Preguntas rápidas sobre CookPilot",
+    "q1": "¿Cómo empiezo a usar CookPilot?",
+    "a1": "Solo descarga la aplicación, crea una cuenta y planifica tu primer menú en un minuto.",
+    "q2": "¿Es obligatorio registrar macros de nutrición?",
+    "a2": "No, CookPilot es útil tanto para planificar comidas simples como para llevar un control estricto de macros.",
+    "q3": "¿Los costos de los ingredientes son reales?",
+    "a3": "Los costos son referenciales para ayudarte a estimar tu presupuesto al comprar.",
+    "q4": "¿Qué beneficios tiene el plan Pro?",
+    "a4": "Desbloquea planificaciones avanzadas, importaciones desde múltiples formatos y soporte prioritario.",
+    "q5": "¿En qué tiendas está disponible la aplicación?",
+    "a5": "Está disponible en Google Play para la mayoría de dispositivos y Huawei."
+  },
+  "download": {
+    "title": "Descarga la aplicación",
+    "subtitle": "Toma el control total de tu alimentación desde tu celular."
+  },
+  "footer": {
+    "logo_alt": "Ícono de CookPilot",
+    "made_in": "Hecho en Perú",
+    "privacy_terms": "Privacidad y términos",
+    "product_title": "Producto",
+    "como_funciona": "Cómo funciona",
+    "pro": "Pro",
+    "descargar": "Descargar",
+    "learn_title": "Aprende",
+    "guias": "Guías",
+    "faq": "FAQ",
+    "comparativas": "Comparativas",
+    "legal_title": "Legal",
+    "stores_title": "Tiendas",
+    "google_play": "Google Play",
+    "app_gallery": "AppGallery",
+    "social_title": "Social",
+    "linkedin": "LinkedIn",
+    "language_title": "Idioma",
+    "es": "Español",
+    "en": "English"
   },
   "how_it_works": {
     "section_title_main": "CookPilot no vende recetas.",
@@ -45,16 +145,6 @@
     "step_3_number": "03",
     "step_3_title": "Tú eliges con claridad",
     "step_3_support": "Menos duda. Más control. Mejor ejecución."
-  },
-  "demo": {
-    "section_title_prefix": "Mira ",
-    "section_title_suffix": " en acción",
-    "section_microcopy": "1 minuto. Plata, tiempo y salud, aterrizados en producto real.",
-    "thumbnail_alt": "Demo de CookPilot",
-    "iframe_title": "Demo de CookPilot",
-    "play_button_aria": "Reproducir video",
-    "summary_title": "En este demo",
-    "summary_body": "CookPilot muestra cómo una conversación simple puede ayudarte a ahorrar plata, ahorrar tiempo y comer mejor, resolviendo qué cocinar con más claridad desde tu contexto real."
   },
   "brand": {
     "section_title_main": "CookPilot existe para devolverle ",
@@ -89,9 +179,36 @@
     "error": "No se pudo guardar tu correo. Intenta otra vez.",
     "loading": "Guardando..."
   },
-  "footer": {
-    "logo_alt": "Ícono de CookPilot",
-    "made_in": "Hecho en Perú",
-    "privacy_terms": "Privacidad y términos"
+  "app_showcase": {
+    "section_title": "CookPilot ordena tu comida diaria.",
+    "section_subtitle": "Elige una parte del sistema y mira cómo se usa dentro de la app.",
+    "planifica_label": "1) Planifica",
+    "planifica_title": "Deja tu día armado.",
+    "planifica_subtitle": "Organiza menús por momento del día y completa tu semana sin reconstruir todo cada vez.",
+    "ajusta_label": "2) Ajusta",
+    "ajusta_title": "Ajusta sin rehacer el plato.",
+    "ajusta_subtitle": "Revisa kcal y macros, y modifica cantidades cuando tengas un objetivo claro.",
+    "compra_label": "3) Compra",
+    "compra_title": "Ten claro qué comprar.",
+    "compra_subtitle": "Convierte tus menús en ingredientes, cantidades y costos referenciales.",
+    "cocina_label": "4) Cocina",
+    "cocina_title": "Sigue la preparación.",
+    "cocina_subtitle": "Abre tu menú y cocina con pasos, tiempos e ingredientes en contexto.",
+    "importa_label": "5) Importa",
+    "importa_title": "Trae tus recetas.",
+    "importa_subtitle": "Importa recetas desde web, video, imagen, texto o PDF y guárdalas en CookPilot.",
+    "reutiliza_label": "6) Reutiliza",
+    "reutiliza_title": "Vuelve a usar lo que funcionó.",
+    "reutiliza_subtitle": "Encuentra guardados, favoritos e importadas para repetir sin buscar de nuevo."
+  },
+  "demo": {
+    "section_title_prefix": "Mira ",
+    "section_title_suffix": " en acción",
+    "section_microcopy": "1 minuto. Plata, tiempo y salud, aterrizados en producto real.",
+    "thumbnail_alt": "Demo de CookPilot",
+    "iframe_title": "Demo de CookPilot",
+    "play_button_aria": "Reproducir video",
+    "summary_title": "En este demo",
+    "summary_body": "CookPilot muestra cómo una conversación simple puede ayudarte a ahorrar plata, ahorrar tiempo y comer mejor, resolviendo qué cocinar con más claridad desde tu contexto real."
   }
 }

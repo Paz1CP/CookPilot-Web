@@ -1,259 +1,258 @@
 /*
-  CookPilot Typography Tokens
-  Translated from cook_typography.dart
-  Source mappings:
-  - font families Outfit and PermanentMarker
-  - sizes, weights, letter spacing, and line-height where defined
+  CookPilot Typography System
+  Strict scale, semantic aliases, and responsive helpers.
+  Allowed scale: 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80, 88.
 */
 
 :root {
+  /* Families */
   --cp-font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --cp-font-marker: "PermanentMarker", "Permanent Marker", cursive;
 
+  /* Weights */
   --cp-fw-light: 300;
   --cp-fw-regular: 400;
   --cp-fw-medium: 500;
   --cp-fw-semibold: 600;
   --cp-fw-bold: 700;
 
-  --cp-text-display-xxl-size: 56px;
-  --cp-text-display-xxl-letter-spacing: -0.8px;
+  /* Scale */
+  --cp-text-12: 12px;
+  --cp-text-14: 14px;
+  --cp-text-16: 16px;
+  --cp-text-18: 18px;
+  --cp-text-20: 20px;
+  --cp-text-24: 24px;
+  --cp-text-28: 28px;
+  --cp-text-32: 32px;
+  --cp-text-40: 40px;
+  --cp-text-48: 48px;
+  --cp-text-56: 56px;
+  --cp-text-64: 64px;
+  --cp-text-72: 72px;
+  --cp-text-80: 80px;
+  --cp-text-88: 88px;
 
-  --cp-text-display-xl-size: 48px;
-  --cp-text-display-xl-letter-spacing: -0.96px;
+  /* Tracking */
+  --cp-tracking-tight: -0.03em;
+  --cp-tracking-title: -0.01em;
+  --cp-tracking-body: 0;
+  --cp-tracking-label: 0.08em;
 
-  --cp-text-display-l-size: 40px;
-  --cp-text-display-l-letter-spacing: -0.8px;
+  /* Leading */
+  --cp-leading-display: 1.08;
+  --cp-leading-title: 1.18;
+  --cp-leading-body: 1.55;
+  --cp-leading-label: 1.25;
+  --cp-leading-button: 1.2;
 
-  --cp-text-display-m-size: 32px;
-  --cp-text-display-m-letter-spacing: -0.48px;
-
-  --cp-text-title-xl-size: 28px;
-  --cp-text-title-xl-letter-spacing: -0.28px;
-
-  --cp-text-title-l-size: 24px;
-  --cp-text-title-l-letter-spacing: -0.24px;
-
-  --cp-text-title-m-size: 20px;
-  --cp-text-title-m-letter-spacing: 0;
-
-  --cp-text-title-s-size: 16px;
-  --cp-text-title-s-letter-spacing: 0;
-
-  --cp-text-body-l-size: 16px;
-  --cp-text-body-l-letter-spacing: 0;
-
-  --cp-text-body-m-size: 16px;
-  --cp-text-body-m-letter-spacing: 0;
-
-  --cp-text-body-s-size: 14px;
-  --cp-text-body-s-letter-spacing: 0;
-
-  --cp-text-label-14-size: 14px;
-  --cp-text-label-14-letter-spacing: 0.12px;
-
-  --cp-text-caption-10-size: 10px;
-  --cp-text-caption-10-letter-spacing: 0.1px;
-
-  --cp-text-button-20-size: 20px;
-  --cp-text-button-20-letter-spacing: 0.1px;
-  --cp-text-button-20-line-height: 1.2;
-
-  --cp-text-button-16-size: 16px;
-  --cp-text-button-16-letter-spacing: 0.08px;
-
-  --cp-text-button-14-size: 14px;
-  --cp-text-button-14-letter-spacing: 0.07px;
-
-  --cp-text-button-12-size: 12px;
-  --cp-text-button-12-letter-spacing: 0;
-
-  --cp-text-label-12-size: 12px;
-  --cp-text-label-12-letter-spacing: 0.12px;
-  --cp-text-label-12-line-height: 1.1000000238;
-
-  --cp-text-highlight-xl-size: 32px;
-  --cp-text-highlight-l-size: 24px;
-  --cp-text-highlight-m-size: 16px;
+  /* Legacy token aliases for backward compatibility */
+  --cp-text-display-xxl-size: var(--cp-text-88);
+  --cp-text-display-xxl-letter-spacing: var(--cp-tracking-tight);
+  --cp-text-display-xl-size: var(--cp-text-72);
+  --cp-text-display-xl-letter-spacing: var(--cp-tracking-tight);
+  --cp-text-display-l-size: var(--cp-text-64);
+  --cp-text-display-l-letter-spacing: var(--cp-tracking-tight);
+  --cp-text-display-m-size: var(--cp-text-48);
+  --cp-text-display-m-letter-spacing: var(--cp-tracking-title);
+  --cp-text-title-xl-size: var(--cp-text-32);
+  --cp-text-title-xl-letter-spacing: var(--cp-tracking-title);
+  --cp-text-title-l-size: var(--cp-text-24);
+  --cp-text-title-l-letter-spacing: var(--cp-tracking-title);
+  --cp-text-title-m-size: var(--cp-text-20);
+  --cp-text-title-m-letter-spacing: var(--cp-tracking-title);
+  --cp-text-title-s-size: var(--cp-text-16);
+  --cp-text-title-s-letter-spacing: var(--cp-tracking-title);
+  --cp-text-body-l-size: var(--cp-text-18);
+  --cp-text-body-l-letter-spacing: var(--cp-tracking-body);
+  --cp-text-body-m-size: var(--cp-text-16);
+  --cp-text-body-m-letter-spacing: var(--cp-tracking-body);
+  --cp-text-body-s-size: var(--cp-text-14);
+  --cp-text-body-s-letter-spacing: var(--cp-tracking-body);
+  --cp-text-label-14-size: var(--cp-text-14);
+  --cp-text-label-14-letter-spacing: var(--cp-tracking-label);
+  --cp-text-caption-10-size: var(--cp-text-12);
+  --cp-text-caption-10-letter-spacing: var(--cp-tracking-label);
+  --cp-text-button-20-size: var(--cp-text-20);
+  --cp-text-button-20-letter-spacing: var(--cp-tracking-label);
+  --cp-text-button-20-line-height: var(--cp-leading-button);
+  --cp-text-button-16-size: var(--cp-text-16);
+  --cp-text-button-16-letter-spacing: var(--cp-tracking-label);
+  --cp-text-button-14-size: var(--cp-text-14);
+  --cp-text-button-14-letter-spacing: var(--cp-tracking-label);
+  --cp-text-button-12-size: var(--cp-text-12);
+  --cp-text-button-12-letter-spacing: var(--cp-tracking-label);
+  --cp-text-label-12-size: var(--cp-text-12);
+  --cp-text-label-12-letter-spacing: var(--cp-tracking-label);
+  --cp-text-label-12-line-height: var(--cp-leading-label);
+  --cp-text-highlight-xl-size: var(--cp-text-32);
+  --cp-text-highlight-l-size: var(--cp-text-24);
+  --cp-text-highlight-m-size: var(--cp-text-16);
 }
 
 /* Base utility families */
 .cp-font-sans { font-family: var(--cp-font-sans); }
 .cp-font-marker { font-family: var(--cp-font-marker); }
 
-/* Display */
+/* Display / hero */
 .cp-display-xxl {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-bold);
-  font-size: var(--cp-text-display-xxl-size);
-  letter-spacing: var(--cp-text-display-xxl-letter-spacing);
+  font-size: clamp(48px, 6.2vw, 88px);
+  letter-spacing: var(--cp-tracking-tight);
+  line-height: var(--cp-leading-display);
 }
 
 .cp-display-xl {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-bold);
-  font-size: var(--cp-text-display-xl-size);
-  letter-spacing: var(--cp-text-display-xl-letter-spacing);
+  font-size: clamp(40px, 5.2vw, 72px);
+  letter-spacing: var(--cp-tracking-tight);
+  line-height: var(--cp-leading-display);
 }
 
 .cp-display-l {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-bold);
-  font-size: var(--cp-text-display-l-size);
-  letter-spacing: var(--cp-text-display-l-letter-spacing);
+  font-size: clamp(36px, 4.6vw, 64px);
+  letter-spacing: var(--cp-tracking-tight);
+  line-height: var(--cp-leading-display);
 }
 
 .cp-display-m {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-bold);
-  font-size: var(--cp-text-display-m-size);
-  letter-spacing: var(--cp-text-display-m-letter-spacing);
+  font-size: clamp(28px, 3.6vw, 48px);
+  letter-spacing: var(--cp-tracking-title);
+  line-height: var(--cp-leading-title);
 }
 
-/* Titles */
-.cp-title-xl {
+/* Semantic page / section titles */
+.cp-page-title {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: clamp(32px, 3.8vw, 56px);
+  letter-spacing: var(--cp-tracking-title);
+  line-height: var(--cp-leading-title);
+}
+
+.cp-section-title {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: clamp(28px, 3.2vw, 48px);
+  letter-spacing: var(--cp-tracking-title);
+  line-height: var(--cp-leading-title);
+}
+
+/* Cards */
+.cp-card-title {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-title-xl-size);
-  letter-spacing: var(--cp-text-title-xl-letter-spacing);
+  font-size: clamp(20px, 2.4vw, 32px);
+  letter-spacing: var(--cp-tracking-title);
+  line-height: var(--cp-leading-title);
 }
 
-.cp-title-l {
-  font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-title-l-size);
-  letter-spacing: var(--cp-text-title-l-letter-spacing);
-}
-
-.cp-title-m {
+.cp-card-subtitle {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-medium);
-  font-size: var(--cp-text-title-m-size);
-  letter-spacing: var(--cp-text-title-m-letter-spacing);
+  font-size: clamp(18px, 2vw, 24px);
+  letter-spacing: var(--cp-tracking-title);
+  line-height: var(--cp-leading-title);
 }
 
-.cp-title-s {
+/* Lead / subtitles */
+.cp-section-lead {
   font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-medium);
-  font-size: var(--cp-text-title-s-size);
-  letter-spacing: var(--cp-text-title-s-letter-spacing);
+  font-weight: var(--cp-fw-regular);
+  font-size: clamp(18px, 2vw, 24px);
+  letter-spacing: var(--cp-tracking-body);
+  line-height: var(--cp-leading-body);
 }
 
 /* Body */
-.cp-body-l {
-  font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-body-l-size);
-  letter-spacing: var(--cp-text-body-l-letter-spacing);
-}
-
-.cp-body-m {
+.cp-body {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-regular);
-  font-size: var(--cp-text-body-m-size);
-  letter-spacing: var(--cp-text-body-m-letter-spacing);
+  font-size: clamp(16px, 1.9vw, 20px);
+  letter-spacing: var(--cp-tracking-body);
+  line-height: var(--cp-leading-body);
 }
 
-.cp-body-s {
+.cp-body-secondary {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-regular);
-  font-size: var(--cp-text-body-s-size);
-  letter-spacing: var(--cp-text-body-s-letter-spacing);
+  font-size: clamp(15px, 1.6vw, 18px);
+  letter-spacing: var(--cp-tracking-body);
+  line-height: var(--cp-leading-body);
 }
 
-/* Labels */
-.cp-label-14 {
+/* Meta / labels */
+.cp-meta {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-medium);
-  font-size: var(--cp-text-label-14-size);
-  letter-spacing: var(--cp-text-label-14-letter-spacing);
+  font-size: var(--cp-text-14);
+  letter-spacing: var(--cp-tracking-label);
+  line-height: var(--cp-leading-label);
 }
 
-.cp-label-12-light {
+.cp-chip {
   font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-light);
-  font-size: var(--cp-text-label-12-size);
-  line-height: var(--cp-text-label-12-line-height);
-  letter-spacing: var(--cp-text-label-12-letter-spacing);
+  font-weight: var(--cp-fw-medium);
+  font-size: var(--cp-text-14);
+  letter-spacing: var(--cp-tracking-label);
+  line-height: var(--cp-leading-label);
 }
 
-/* Captions */
-.cp-caption-10 {
+.cp-eyebrow {
   font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-regular);
-  font-size: var(--cp-text-caption-10-size);
-  letter-spacing: var(--cp-text-caption-10-letter-spacing);
+  font-weight: var(--cp-fw-semibold);
+  font-size: var(--cp-text-14);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: var(--cp-leading-label);
 }
 
 /* Buttons */
-.cp-button-20 {
+.cp-button {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-button-20-size);
-  line-height: var(--cp-text-button-20-line-height);
-  letter-spacing: var(--cp-text-button-20-letter-spacing);
-}
-
-.cp-button-16 {
-  font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-button-16-size);
+  font-size: var(--cp-text-16);
   letter-spacing: var(--cp-text-button-16-letter-spacing);
+  line-height: var(--cp-leading-button);
 }
 
-.cp-button-14 {
-  font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-button-14-size);
-  letter-spacing: var(--cp-text-button-14-letter-spacing);
-}
-
-.cp-button-12 {
-  font-family: var(--cp-font-sans);
-  font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-button-12-size);
-  letter-spacing: var(--cp-text-button-12-letter-spacing);
-}
-
-/* Marker highlights */
-.cp-highlight-xl {
-  font-family: var(--cp-font-marker);
-  font-weight: var(--cp-fw-regular);
-  font-size: var(--cp-text-highlight-xl-size);
-  letter-spacing: 0;
-}
-
-.cp-highlight-l {
-  font-family: var(--cp-font-marker);
-  font-weight: var(--cp-fw-regular);
-  font-size: var(--cp-text-highlight-l-size);
-  letter-spacing: 0;
-}
-
-.cp-highlight-m {
-  font-family: var(--cp-font-marker);
-  font-weight: var(--cp-fw-regular);
-  font-size: var(--cp-text-highlight-m-size);
-  letter-spacing: 0;
-}
-
-/* Semantic aliases for landing pages */
-.cp-hero-title { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-bold); font-size: var(--cp-text-display-xxl-size); letter-spacing: var(--cp-text-display-xxl-letter-spacing); }
-.cp-section-title { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-bold); font-size: var(--cp-text-display-m-size); letter-spacing: var(--cp-text-display-m-letter-spacing); }
-.cp-card-title { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-semibold); font-size: var(--cp-text-title-l-size); letter-spacing: var(--cp-text-title-l-letter-spacing); }
-.cp-lead { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-regular); font-size: 18px; letter-spacing: 0; }
-.cp-body { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-regular); font-size: var(--cp-text-body-m-size); letter-spacing: var(--cp-text-body-m-letter-spacing); }
-.cp-meta { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-medium); font-size: var(--cp-text-label-14-size); letter-spacing: var(--cp-text-label-14-letter-spacing); }
-.cp-cta { font-family: var(--cp-font-sans); font-weight: var(--cp-fw-semibold); font-size: var(--cp-text-button-16-size); letter-spacing: var(--cp-text-button-16-letter-spacing); }
-
-/* Optional responsive helpers */
+/* Responsive rescales */
 @media (max-width: 1024px) {
-  .cp-hero-title { font-size: 48px; letter-spacing: -0.96px; }
-  .cp-section-title { font-size: 28px; letter-spacing: -0.28px; }
+  .cp-display-xxl { font-size: clamp(40px, 7vw, 56px); }
+  .cp-display-xl { font-size: clamp(36px, 6vw, 48px); }
+  .cp-display-l { font-size: clamp(32px, 5vw, 42px); }
+  .cp-display-m { font-size: clamp(26px, 4vw, 34px); }
+  .cp-page-title { font-size: clamp(28px, 4.2vw, 40px); }
+  .cp-section-title { font-size: clamp(24px, 3.8vw, 32px); }
+  .cp-card-title { font-size: clamp(18px, 3vw, 24px); }
+  .cp-card-subtitle { font-size: clamp(16px, 2.4vw, 20px); }
+  .cp-section-lead { font-size: clamp(17px, 2.2vw, 20px); }
+  .cp-body { font-size: clamp(15px, 1.8vw, 17px); }
+  .cp-body-secondary { font-size: clamp(14px, 1.6vw, 16px); }
 }
 
 @media (max-width: 640px) {
-  .cp-hero-title { font-size: 40px; letter-spacing: -0.8px; }
+  .cp-display-xxl { font-size: 42px; }
+  .cp-display-xl { font-size: 36px; }
+  .cp-display-l { font-size: 32px; }
+  .cp-display-m { font-size: 26px; }
+  .cp-page-title { font-size: 28px; letter-spacing: -0.24px; }
   .cp-section-title { font-size: 24px; letter-spacing: -0.24px; }
-  .cp-lead { font-size: 16px; }
+  .cp-card-title { font-size: 20px; }
+  .cp-card-subtitle { font-size: 18px; }
+  .cp-section-lead { font-size: 17px; }
+  .cp-body { font-size: 15px; }
+  .cp-body-secondary { font-size: 14px; }
+  .cp-button { font-size: 15px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

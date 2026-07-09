@@ -1,27 +1,22 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Demo from "@/components/Demo";
-import Waitlist from "@/components/Waitlist";
-import Pillars from "@/components/Pillars";
-import HowItWorks from "@/components/HowItWorks";
-import Brand from "@/components/Brand";
-import FinalCTA from "@/components/FinalCTA";
-import Footer from "@/components/Footer";
+import { redirect } from "next/navigation";
+import { headers, cookies } from "next/headers";
 
-export default function Home() {
-  return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <Demo />
-        <Waitlist />
-        <Pillars />
-        <HowItWorks />
-        <Brand />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </>
-  );
+export default async function RootPage() {
+  const cookieStore = await cookies();
+  const savedLocale = cookieStore.get("cp-locale")?.value;
+
+  if (savedLocale === "en") {
+    redirect("/en");
+  } else if (savedLocale === "es") {
+    redirect("/es");
+  }
+
+  const headersList = await headers();
+  const acceptLanguage = headersList.get("accept-language") || "";
+
+  if (acceptLanguage.toLowerCase().startsWith("en")) {
+    redirect("/en");
+  } else {
+    redirect("/es");
+  }
 }

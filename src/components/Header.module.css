@@ -116,25 +116,68 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-.demoLink {
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navLink {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-medium);
-  font-size: 17px;
-  color: var(--cp-text-primary);
+  font-size: 15px;
+  color: var(--cp-text-secondary);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+  position: relative;
+}
+
+.navLink:hover {
+  color: var(--cp-primary);
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--cp-primary);
+  transform: scaleX(0);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center;
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.downloadBtn {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: 15px;
+  color: var(--cp-dark);
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 8px 18px;
   border-radius: 9999px;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  border: 1px solid transparent;
+  background: var(--cp-primary);
+  box-shadow: 0 4px 12px rgba(233, 168, 14, 0.2);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
 }
 
-.demoLink:hover {
-  color: var(--cp-primary);
-  border-color: rgba(233, 168, 14, 0.2);
-  background: rgba(233, 168, 14, 0.06);
+.downloadBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(233, 168, 14, 0.3);
+  background: var(--cp-primary-strong);
+}
+
+.downloadBtn img {
+  filter: brightness(0);
 }
 
 @media (max-width: 1024px) {
@@ -145,11 +188,23 @@
     height: 72px;
     width: 85%;
   }
+  .nav {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 860px) {
+  .nav {
+    display: none;
+  }
+  .header {
+    width: 90%;
+  }
 }
 
 @media (max-width: 640px) {
   .inner {
-    padding: 0 24px;
+    padding: 0 20px;
   }
   .header {
     height: 64px;
@@ -159,20 +214,18 @@
     display: none;
   }
   .logoText {
-    font-size: 24px;
+    font-size: 22px;
   }
   .actions {
-    gap: 12px;
+    gap: 8px;
     flex: 1;
     justify-content: flex-end;
   }
-  .demoLink {
-    padding: 0;
-    font-size: 14px;
-    border: none;
-    background: none !important;
+  .downloadBtn {
+    padding: 6px 12px;
+    font-size: 13px;
   }
-  .demoLink img {
+  .downloadBtn img {
     display: none;
   }
 }

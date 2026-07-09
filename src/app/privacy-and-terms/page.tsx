@@ -1,8 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import PrivacyAndTermsPage from "./PrivacyAndTermsPage";
 
 const SITE_URL = "https://cookpilot.pro";
@@ -50,17 +48,13 @@ export default async function PrivacyAndTermsRoute() {
   ]);
 
   return (
-    <>
-      <Header />
-      <main>
-        <PrivacyAndTermsPage
-          documents={{
-            es: spanishPolicy,
-            en: englishPolicy,
-          }}
-        />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <PrivacyAndTermsPage
+        documents={{
+          es: spanishPolicy,
+          en: englishPolicy,
+        }}
+      />
+    </main>
   );
 }

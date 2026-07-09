@@ -1,0 +1,1314 @@
+
+# Fase 2 — Páginas internas de CookPilot Web
+
+Incluye copy para:
+
+* `/es/como-funciona`
+* `/es/guias`
+* `/es/pro`
+* `/es/faq`
+* `/es/descargar`
+
+---
+
+# `/es/como-funciona`
+
+## Hero
+
+### Eyebrow
+
+Cómo funciona CookPilot
+
+### Título
+
+**De una comida suelta a un sistema organizado.**
+
+### Subtítulo
+
+CookPilot conecta planificación, generación de menús, compras, nutrición, cocina guiada y reutilización para que no tengas que empezar desde cero cada día.
+
+### Texto de apoyo
+
+Puedes usar CookPilot para resolver una comida puntual, organizar varios días, ajustar macros, importar recetas o preparar una lista de compras. Todo vuelve al mismo lugar: comida real convertida en un plan claro.
+
+### CTA principal
+
+Descargar CookPilot
+
+### CTA secundario
+
+Ver guías
+
+---
+
+## Sección 1 — Visión general
+
+### Título
+
+**CookPilot no funciona como una lista de recetas. Funciona como un sistema.**
+
+### Texto
+
+La mayoría de apps de cocina empiezan y terminan en una receta. CookPilot va más lejos: toma recetas, menús, ingredientes, objetivos, costos y pasos de cocina, y los conecta dentro de una experiencia organizada.
+
+La idea es simple: ayudarte a saber qué comer, qué comprar, cómo cocinarlo y cómo volver a usarlo cuando funcione.
+
+No necesitas organizar toda tu semana desde el primer día. Puedes empezar con una comida, un menú, un día o una receta importada. CookPilot convierte ese punto de entrada en algo más útil: una pieza que puedes guardar, ajustar, cocinar y reutilizar.
+
+---
+
+## Sección 2 — Crear o resolver comida
+
+### Título
+
+**Empieza con una comida, un menú o un día completo.**
+
+### Texto
+
+CookPilot te permite crear menús manualmente o pedir que el sistema resuelva una comida por ti. Puedes organizar un desayuno, almuerzo, cena, snack o un día completo según lo que necesites.
+
+Cuando no quieres llenar cada pieza a mano, la generación de menús inteligentes ayuda a proponer comidas reales dentro del plan. No se queda en ideas sueltas: la propuesta se convierte en contenido que puedes revisar, ajustar, guardar y llevar a cocina.
+
+CookMatch es el motor que ayuda a resolver menús y días dentro de CookPilot. No necesitas conocer el nombre para usarlo; lo importante es que reduce el trabajo de decidir y construir desde cero.
+
+### Bloques
+
+#### Crear un menú
+
+Arma una comida con recetas, ingredientes, cantidades y estructura propia.
+
+#### Resolver un menú
+
+Pide a CookPilot que complete una comida cuando no quieres decidir todo manualmente.
+
+#### Resolver un día
+
+Organiza varios momentos de comida en una sola acción y deja el día más claro.
+
+---
+
+## Sección 3 — Organizar día y semana
+
+### Título
+
+**La comida tiene más sentido cuando vive en un día real.**
+
+### Texto
+
+Una receta aislada puede ser útil, pero no siempre responde lo que necesitas: qué toca hoy, qué falta, qué comida va después, qué compras se repiten o cómo encaja todo en tu semana.
+
+CookPlan organiza menús dentro de momentos del día, días y semanas. Así puedes ver lo que ya está listo, lo que falta resolver y lo que puedes reutilizar.
+
+El objetivo no es llenar una agenda por llenar. Es reducir improvisación y hacer que tu comida tenga estructura antes de que llegue el hambre, la prisa o el caos.
+
+### Bloques
+
+#### Momentos de comida
+
+Organiza desayunos, almuerzos, cenas, snacks o los momentos que formen parte de tu rutina.
+
+#### Días
+
+Mira qué comidas tienes listas para hoy y qué espacios todavía necesitan resolverse.
+
+#### Semanas
+
+Construye una estructura más amplia para planificar, comprar y repetir con menos esfuerzo.
+
+---
+
+## Sección 4 — Revisar compra
+
+### Título
+
+**Del menú a la lista de compras.**
+
+### Texto
+
+Cuando tus comidas están organizadas, CookPilot puede ayudarte a convertirlas en ingredientes, cantidades y costos referenciales.
+
+CookList conecta la planificación con la compra. En vez de revisar receta por receta o comprar al ojo, puedes ver qué necesitas y prepararte con más claridad.
+
+Los costos y ahorros dentro de CookPilot son referenciales. Están pensados para orientar, comparar y ayudarte a comprar mejor, no para prometer una cifra exacta en cada tienda, ciudad o momento.
+
+### Bloques
+
+#### Ingredientes
+
+Visualiza qué necesitas para preparar tus menús.
+
+#### Cantidades
+
+Entiende mejor cuánto comprar según las comidas que planeaste.
+
+#### Costos referenciales
+
+Usa estimaciones realistas para tomar mejores decisiones antes de comprar.
+
+---
+
+## Sección 5 — Revisar nutrición
+
+### Título
+
+**Nutrición cuando la necesitas, sin invadir toda la experiencia.**
+
+### Texto
+
+CookPilot también puede ayudarte a entender calorías, proteína, carbohidratos y grasas dentro de tus recetas, menús y planes.
+
+La capa nutricional existe para dar claridad, no para convertir la comida en castigo. Puedes planificar y cocinar sin vivir pendiente de macros. Pero cuando tienes un objetivo, CookPilot puede ayudarte a revisar si tus comidas se acercan a lo que buscas.
+
+CookHealth aporta lectura nutricional útil. CookFit ayuda a ajustar cantidades para acercar un menú a tus objetivos sin destruir la identidad de la comida.
+
+### Bloques
+
+#### Calorías y macros
+
+Revisa la composición de tus comidas cuando necesitas más control.
+
+#### Objetivos
+
+Conecta tus menús con metas personales de alimentación.
+
+#### Ajuste automático
+
+Acerca tus comidas a tus objetivos modificando cantidades, no reemplazando todo por comida genérica.
+
+---
+
+## Sección 6 — Cocinar
+
+### Título
+
+**Cuando ya sabes qué toca, CookPilot te lleva a la cocina.**
+
+### Texto
+
+Planificar es solo una parte. En algún momento hay que cocinar.
+
+CookMode convierte una receta o menú organizado en una experiencia guiada. La idea es reducir confusión durante la preparación: pasos claros, ingredientes visibles, secuencia ordenada y menos fricción al ejecutar.
+
+Last Mile mejora esa etapa final donde una receta deja de ser texto y se vuelve cocina real. Te ayuda a seguir una estructura más clara para terminar la preparación sin perder el hilo.
+
+### Bloques
+
+#### Pasos claros
+
+Sigue la preparación con una estructura fácil de entender.
+
+#### Ingredientes en contexto
+
+Consulta lo que necesitas mientras avanzas.
+
+#### Menos caos al cocinar
+
+Pasa del plan a la ejecución sin reconstruir todo mentalmente.
+
+---
+
+## Sección 7 — Guardar y reutilizar
+
+### Título
+
+**Una buena decisión no debería perderse después de usarla una vez.**
+
+### Texto
+
+CookPilot se vuelve más útil cuando empieza a guardar lo que funciona para ti.
+
+Puedes guardar recetas, menús, días o semanas. Puedes aplicar contenido guardado dentro de tu plan. Puedes copiar, pegar o fijar estructuras que se repiten.
+
+La reutilización es clave porque la comida diaria suele tener patrones. No todo tiene que inventarse otra vez. Si un desayuno funciona, si un día encaja, si una semana fue práctica, CookPilot debe ayudarte a repetirla con menos esfuerzo.
+
+### Bloques
+
+#### Guardar
+
+Conserva recetas, menús, días o semanas para usarlos después.
+
+#### Aplicar
+
+Lleva algo guardado de vuelta a tu planificación.
+
+#### Copiar y pegar
+
+Reutiliza rápido una estructura sin convertirla en regla permanente.
+
+#### Fijar
+
+Mantén comidas o patrones recurrentes cuando forman parte de tu rutina.
+
+---
+
+## Sección 8 — Flujo completo resumido
+
+### Título
+
+**Todo vuelve a una idea: comida más organizada.**
+
+### Texto
+
+CookPilot puede empezar desde una receta, una idea, un menú, un objetivo, una lista o una semana vacía. Lo importante es lo que ocurre después: el sistema convierte esa entrada en algo que puedes usar.
+
+Planificas.
+Resuelves.
+Ajustas.
+Compras.
+Cocinas.
+Guardas.
+Reutilizas.
+
+Eso es CookPilot: menos comida dispersa, más comida lista para vivir en tu día real.
+
+### CTA principal
+
+Descargar CookPilot
+
+### CTA secundario
+
+Ver guías
+
+---
+
+# `/es/guias`
+
+## Hero
+
+### Eyebrow
+
+Guías de CookPilot
+
+### Título
+
+**Aprende a usar CookPilot sin perderte entre funciones.**
+
+### Subtítulo
+
+CookPilot conecta planificación, compras, nutrición, cocina guiada, importación y reutilización. Estas guías te ayudan a entender cada parte y usarla con intención.
+
+### Texto de apoyo
+
+No necesitas dominar todo el sistema desde el primer día. Empieza por una comida, una semana, una receta importada o una lista de compras. Luego conecta más capas según lo que necesites.
+
+---
+
+## Sección 1 — Primeros pasos
+
+### Título
+
+**Empieza con algo simple: una comida que necesitas resolver.**
+
+### Texto
+
+La forma más fácil de entender CookPilot es usarlo para organizar una comida real.
+
+Puedes crear un menú, resolver un almuerzo, importar una receta, revisar una lista o preparar algo que ya tenías guardado. Desde ahí, CookPilot empieza a mostrar su valor: todo puede conectarse con planificación, compra, nutrición, cocina y reutilización.
+
+No tienes que construir una semana perfecta desde el inicio. Empieza con una comida clara. Luego convierte esa decisión en algo que puedas repetir.
+
+### Guía
+
+#### Qué puedes hacer primero
+
+* Crear un menú.
+* Resolver un momento de comida.
+* Importar una receta.
+* Organizar un día.
+* Revisar ingredientes y cantidades.
+* Cocinar con guía.
+* Guardar lo que funcionó.
+
+### Cierre
+
+La primera victoria no es llenar toda la app. Es dejar una comida menos improvisada.
+
+---
+
+## Sección 2 — Planificación
+
+### Título
+
+**Cómo planificar comida con CookPilot.**
+
+### Texto
+
+La planificación en CookPilot gira alrededor de menús, momentos del día, días y semanas.
+
+Un menú representa una comida real. Un día reúne varios momentos. Una semana te permite ver más allá de lo inmediato y reducir decisiones repetidas.
+
+CookPlan existe para que tu comida no viva suelta. Te ayuda a organizar lo que vas a comer antes de improvisar, dejando claro qué ya está resuelto y qué falta.
+
+### Guía
+
+#### Para planificar una comida
+
+Crea un menú, agrega recetas o ingredientes, revisa cantidades y déjalo listo para cocinar o guardar.
+
+#### Para planificar un día
+
+Organiza varios momentos de comida y resuelve los espacios que todavía están vacíos.
+
+#### Para planificar una semana
+
+Repite estructuras que funcionen, copia días, reutiliza menús y arma una base que puedas ajustar después.
+
+### Cierre
+
+Planificar no significa controlar cada detalle para siempre. Significa quitar presión a las decisiones que se repiten.
+
+---
+
+## Sección 3 — Generación de menús inteligentes
+
+### Título
+
+**Cómo resolver menús cuando no quieres empezar desde cero.**
+
+### Texto
+
+A veces sabes que necesitas comer, pero no quieres construir un menú manualmente. Ahí entra la generación de menús inteligentes.
+
+Puedes pedir que CookPilot resuelva un menú, un momento de comida o un día completo. La propuesta no queda como idea suelta: puede entrar a tu planificación, ajustarse, convertirse en lista, cocinarse o guardarse.
+
+Esta función es útil cuando quieres avanzar rápido sin perder estructura.
+
+### Guía
+
+#### Cuándo usarla
+
+* Cuando no sabes qué preparar.
+* Cuando tienes un espacio vacío en el día.
+* Cuando quieres completar un menú.
+* Cuando necesitas organizar varias comidas con menos esfuerzo.
+* Cuando quieres opciones que puedan vivir dentro de tu plan.
+
+#### Cómo aprovecharla mejor
+
+Usa la generación como punto de partida. Revisa, ajusta, guarda y reutiliza lo que tenga sentido para ti.
+
+### Cierre
+
+El objetivo no es que CookPilot piense por ti para siempre. Es que te quite trabajo repetitivo cuando decidir se vuelve pesado.
+
+---
+
+## Sección 4 — Compras y costos
+
+### Título
+
+**Cómo pasar de menús a lista de compras.**
+
+### Texto
+
+Una comida organizada debe poder convertirse en compra.
+
+CookPilot transforma tus menús y planes en ingredientes, cantidades y costos referenciales. Esto te ayuda a saber qué necesitas antes de ir a comprar o pedir ingredientes.
+
+Los precios no son una promesa exacta. Son una herramienta de claridad. Sirven para comparar, anticipar y comprar con más orden.
+
+### Guía
+
+#### Qué puedes revisar
+
+* Ingredientes necesarios.
+* Cantidades.
+* Elementos repetidos.
+* Costos referenciales.
+* Ahorro referencial frente a otras opciones.
+* Qué falta por comprar.
+
+#### Cómo usarlo bien
+
+Primero organiza tus menús. Luego revisa la lista. Ajusta lo que ya tienes, elimina lo que no necesitas y usa los costos como referencia para decidir mejor.
+
+### Cierre
+
+Comprar mejor empieza antes de comprar: empieza cuando tu comida ya está ordenada.
+
+---
+
+## Sección 5 — Nutrición y ajuste
+
+### Título
+
+**Cómo usar macros y objetivos sin convertir tu comida en una hoja de cálculo.**
+
+### Texto
+
+CookPilot permite trabajar con calorías, proteína, carbohidratos y grasas cuando quieres más control.
+
+Puedes revisar la nutrición de recetas, menús y planes. También puedes usar objetivos para entender si lo que vas a comer se acerca a lo que buscas.
+
+CookFit ayuda a ajustar cantidades dentro de un menú para acercarlo a tus objetivos. La idea no es reemplazar tu comida por platos sin alma. La idea es que una comida real pueda adaptarse mejor.
+
+### Guía
+
+#### Qué puedes hacer
+
+* Revisar calorías.
+* Revisar macros.
+* Trabajar con objetivos.
+* Ajustar cantidades.
+* Comparar el menú contra lo que buscas.
+* Mantener identidad culinaria mientras haces ajustes.
+
+#### Cuándo usarlo
+
+Úsalo cuando quieras controlar mejor tu alimentación. Si solo quieres planificar y cocinar, la capa nutricional no tiene por qué dominar tu experiencia.
+
+### Cierre
+
+Nutrición útil no significa obsesión. Significa tener información clara cuando te ayuda a decidir mejor.
+
+---
+
+## Sección 6 — Cocina guiada
+
+### Título
+
+**Cómo cocinar con CookMode.**
+
+### Texto
+
+Cuando ya tienes una comida decidida, CookPilot puede acompañarte en la preparación.
+
+CookMode organiza la experiencia de cocina para que puedas seguir pasos, revisar ingredientes y avanzar con menos confusión. No se trata solo de leer una receta; se trata de ejecutar mejor lo que ya planeaste.
+
+Last Mile refuerza esa parte final donde el orden importa: qué hacer primero, qué sigue, qué conviene tener listo y cómo terminar sin perder el hilo.
+
+### Guía
+
+#### Qué te ayuda a hacer
+
+* Seguir pasos en orden.
+* Revisar ingredientes durante la preparación.
+* Mantener claridad mientras cocinas.
+* Evitar saltos confusos.
+* Pasar del plan a la ejecución.
+
+### Cierre
+
+CookPilot no termina cuando eliges qué comer. Termina cuando esa comida llega a la mesa.
+
+---
+
+## Sección 7 — Importación
+
+### Título
+
+**Cómo traer tus recetas externas a CookPilot.**
+
+### Texto
+
+Muchas recetas viven fuera de una app: videos, páginas web, imágenes, PDFs, notas, mensajes o textos guardados.
+
+CookImport existe para traer ese contenido al sistema. Una receta importada puede editarse, guardarse, buscarse, convertirse en menú, entrar a una semana, alimentar una lista de compras y cocinarse con guía.
+
+El valor no está solo en importar. Está en que esa receta deje de estar perdida.
+
+### Guía
+
+#### Qué puedes importar
+
+* Recetas desde web.
+* Videos.
+* Textos.
+* Imágenes.
+* PDFs.
+* Recetas copiadas desde otras fuentes.
+
+#### Qué hacer después
+
+Revísala, corrige si hace falta, guárdala y úsala como parte de tus menús o planificación.
+
+### Cierre
+
+Una receta externa se vuelve más útil cuando entra a un sistema que puede organizarla.
+
+---
+
+## Sección 8 — Biblioteca
+
+### Título
+
+**Cómo encontrar lo que ya guardaste.**
+
+### Texto
+
+CookSearch es la memoria operativa de CookPilot. Te ayuda a encontrar recetas, menús, favoritos, importadas y elementos guardados.
+
+La biblioteca evita que tu comida vuelva a dispersarse. Si algo funcionó, debe ser fácil encontrarlo y usarlo otra vez.
+
+### Guía
+
+#### Qué puedes buscar
+
+* Recetas guardadas.
+* Recetas importadas.
+* Favoritos.
+* Menús guardados.
+* Elementos reutilizables.
+* Opciones para planificar.
+
+### Cierre
+
+Guardar solo sirve si después puedes encontrar y aplicar lo guardado.
+
+---
+
+## Sección 9 — Reutilización
+
+### Título
+
+**Cómo guardar, aplicar, copiar, pegar y fijar.**
+
+### Texto
+
+La reutilización es una de las partes más importantes de CookPilot.
+
+Guardar conserva algo para después. Aplicar lo lleva de vuelta al plan. Copiar y pegar permite reutilizar rápido. Fijar mantiene una estructura recurrente.
+
+Estas acciones parecen simples, pero cambian la experiencia: dejan de obligarte a tomar la misma decisión una y otra vez.
+
+### Guía
+
+#### Guardar
+
+Conserva recetas, menús, días o semanas que quieres volver a usar.
+
+#### Aplicar
+
+Convierte algo guardado en contenido real dentro de tu planificación.
+
+#### Copiar y pegar
+
+Reutiliza estructuras rápidamente sin crear una regla permanente.
+
+#### Fijar
+
+Mantén comidas, menús o patrones que forman parte de tu rutina.
+
+### Cierre
+
+CookPilot mejora cuando empieza a recordar lo que funciona para ti.
+
+---
+
+## Sección 10 — Pro, créditos y packs
+
+### Título
+
+**Cómo entender Pro sin perderte en límites.**
+
+### Texto
+
+CookPilot Pro desbloquea el sistema completo para uso recurrente.
+
+Los créditos existen para sostener funciones que consumen más recursos, como generación de menús o capacidades avanzadas. Los packs sirven para usuarios que necesitan más volumen en ciertas acciones.
+
+La idea principal es simple: Pro es el acceso al sistema completo. Los packs amplían uso cuando necesitas más.
+
+### Guía
+
+#### Pro
+
+Para quienes quieren usar CookPilot con frecuencia y desbloquear planificación, generación, ajuste, nutrición, importación, cocina y reutilización de forma más completa.
+
+#### Créditos
+
+Para funciones que requieren capacidad limitada o uso intensivo.
+
+#### Packs
+
+Para ampliar uso cuando Pro no alcanza para tu ritmo.
+
+### Cierre
+
+No necesitas entender toda la mecánica el primer día. Lo importante es saber qué desbloquea cada nivel y usar CookPilot según tu necesidad real.
+
+---
+
+# `/es/pro`
+
+## Hero
+
+### Eyebrow
+
+CookPilot Pro
+
+### Título
+
+**El sistema completo para organizar comida de forma recurrente.**
+
+### Subtítulo
+
+Pro desbloquea más planificación, generación de menús, ajuste de macros, nutrición avanzada, importación, cocina guiada y uso intensivo dentro de CookPilot.
+
+### Texto de apoyo
+
+CookPilot Pro no existe para vender funciones sueltas. Existe para que puedas sostener tu comida organizada semana tras semana.
+
+### CTA principal
+
+Descargar CookPilot
+
+### CTA secundario
+
+Ver qué incluye Pro
+
+---
+
+## Sección 1 — Qué es Pro
+
+### Título
+
+**Pro es CookPilot sin quedarse a medias.**
+
+### Texto
+
+La versión gratuita puede ayudarte a entender el producto y empezar a organizar comida. Pro está pensado para quienes quieren usar CookPilot de forma recurrente: planificar más, resolver más menús, ajustar objetivos, importar más contenido y cocinar con una experiencia más completa.
+
+Pro desbloquea el sistema para que CookPilot pueda convertirse en tu lugar principal de organización alimentaria.
+
+No pagas por una receta.
+Pagas por reducir trabajo repetido.
+
+---
+
+## Sección 2 — Qué desbloquea Pro
+
+### Título
+
+**Todo lo necesario para planificar, ajustar, comprar y cocinar con más continuidad.**
+
+### Bloque 1 — Planificación completa
+
+Organiza menús, días, semanas y estructuras reutilizables con mayor libertad.
+
+### Bloque 2 — Generación de menús inteligentes
+
+Resuelve menús, momentos de comida o días completos cuando no quieres construir todo manualmente.
+
+### Bloque 3 — Ajuste de macros automático
+
+Ajusta cantidades para acercar tus comidas a objetivos de calorías, proteína, carbohidratos o grasas sin deformar el plato.
+
+### Bloque 4 — Nutrición avanzada
+
+Entiende mejor ingredientes, recetas, menús y planes con información nutricional conectada a lo que vas a comer.
+
+### Bloque 5 — Importaciones avanzadas
+
+Convierte recetas externas en contenido editable, guardable y útil dentro de CookPilot.
+
+### Bloque 6 — Cocina guiada
+
+Lleva tus menús a una preparación más clara con CookMode, Last Mile y asistencia durante cocina.
+
+### Bloque 7 — Reutilización
+
+Guarda, aplica, copia, pega, fija y repite estructuras para no empezar de cero cada vez.
+
+### Bloque 8 — Capacidades visuales y avanzadas
+
+Usa herramientas visuales y de asistencia para mejorar la experiencia de cocinar, revisar y organizar.
+
+---
+
+## Sección 3 — Plan mensual
+
+### Título
+
+**Para organizar tu comida mes a mes.**
+
+### Texto
+
+El plan mensual es para quienes quieren probar CookPilot como sistema recurrente sin comprometerse por más tiempo.
+
+Te permite usar Pro para planificar, resolver menús, ajustar macros, importar recetas y cocinar con más continuidad.
+
+### Ideal para
+
+* Empezar a usar CookPilot en serio.
+* Organizar varias comidas por semana.
+* Probar planificación, nutrición y cocina guiada.
+* Entender si CookPilot encaja con tu rutina.
+
+### CTA
+
+Ver en la app
+
+---
+
+## Sección 4 — Plan anual
+
+### Título
+
+**Para quien quiere convertir CookPilot en su sistema de comida.**
+
+### Texto
+
+El plan anual tiene sentido cuando CookPilot deja de ser una app que pruebas y empieza a ser el lugar donde organizas tu comida.
+
+Si planificas con frecuencia, reutilizas menús, trabajas con objetivos o quieres sostener una rutina más clara, el anual convierte Pro en una base estable para todo el año.
+
+### Ideal para
+
+* Organizar comida de forma constante.
+* Reducir decisiones repetidas semana tras semana.
+* Mantener menús, compras, macros y cocina en un solo sistema.
+* Usar CookPilot como parte real de tu rutina.
+
+### CTA
+
+Ver en la app
+
+---
+
+## Sección 5 — Créditos
+
+### Título
+
+**Créditos para funciones de generación y uso intensivo.**
+
+### Texto
+
+Algunas capacidades de CookPilot consumen créditos porque requieren procesamiento adicional. La generación de menús inteligentes es una de las funciones principales donde los créditos permiten sostener el uso.
+
+Los créditos no son la promesa principal. Son la forma en que CookPilot administra funciones costosas sin convertir todo el producto en límites confusos.
+
+### Qué debes saber
+
+* Pro incluye créditos para usar funciones avanzadas.
+* Algunas acciones consumen créditos.
+* Los créditos ayudan a sostener generación y capacidades intensivas.
+* Puedes ampliar uso con packs cuando lo necesites.
+
+---
+
+## Sección 6 — Packs
+
+### Título
+
+**Packs para cuando necesitas más capacidad.**
+
+### Texto
+
+Los packs existen para usuarios que usan más ciertas funciones y necesitan ampliar su capacidad sin cambiar la lógica principal de Pro.
+
+Pro es el sistema.
+Los packs son expansión de uso.
+
+### Cuándo tienen sentido
+
+* Si generas muchos menús.
+* Si importas mucho contenido.
+* Si usas capacidades avanzadas con frecuencia.
+* Si tu ritmo supera lo incluido en tu plan.
+
+### CTA
+
+Ver packs en la app
+
+---
+
+## Sección 7 — Por qué Pro importa
+
+### Título
+
+**CookPilot será más valioso mientras más comida organices dentro.**
+
+### Texto
+
+CookPilot no se vuelve útil solo porque abre una pantalla bonita. Se vuelve útil cuando guarda tu forma de comer, tus menús, tus recetas, tus objetivos, tus compras y tus estructuras repetibles.
+
+Pro permite que ese sistema crezca contigo. Cuanto más lo usas, más trabajo queda dentro y menos tienes que reconstruir.
+
+La recurrencia nace cuando abandonar CookPilot significa perder orden.
+
+---
+
+## Sección 8 — FAQ de Pro
+
+### Pregunta 1
+
+¿Necesito Pro para usar CookPilot?
+
+### Respuesta
+
+Puedes empezar sin Pro y entender el producto. Pro está pensado para quienes quieren usar CookPilot de forma más completa y recurrente.
+
+### Pregunta 2
+
+¿Qué diferencia hay entre Pro y packs?
+
+### Respuesta
+
+Pro desbloquea el sistema completo. Los packs amplían capacidad para acciones de uso intensivo.
+
+### Pregunta 3
+
+¿Los créditos son lo más importante?
+
+### Respuesta
+
+No. Los créditos administran funciones específicas. La promesa principal de Pro es organizar comida de forma más completa y recurrente.
+
+### Pregunta 4
+
+¿Pro es solo para personas fitness?
+
+### Respuesta
+
+No. Pro sirve para planificación, compra, cocina, importación, reutilización y nutrición. Puedes usar macros si los necesitas, pero no son el único valor.
+
+### CTA final
+
+Descargar CookPilot
+
+---
+
+# `/es/faq`
+
+## Hero
+
+### Eyebrow
+
+FAQ
+
+### Título
+
+**Preguntas frecuentes sobre CookPilot.**
+
+### Subtítulo
+
+Respuestas claras sobre planificación, nutrición, compras, cocina, importaciones, Pro y disponibilidad.
+
+---
+
+## Sección 1 — General
+
+### Pregunta
+
+¿Qué es CookPilot?
+
+### Respuesta
+
+CookPilot es una app para organizar comida real: menús, días, semanas, compras, nutrición, cocina guiada, importaciones y reutilización.
+
+No es solo una app de recetas. Es un sistema para que tu comida deje de estar dispersa.
+
+### Pregunta
+
+¿CookPilot es para todos?
+
+### Respuesta
+
+CookPilot sirve especialmente para personas que cocinan o quieren organizar comida con más claridad: para sí mismas, para una casa, para cumplir objetivos nutricionales o para reducir improvisación diaria.
+
+### Pregunta
+
+¿Tengo que saber cocinar mucho?
+
+### Respuesta
+
+No. CookPilot puede ayudarte a organizar qué comer y guiarte durante la preparación. Si ya sabes cocinar, te ayuda a ordenar mejor. Si estás aprendiendo, te da estructura.
+
+### Pregunta
+
+¿CookPilot decide todo por mí?
+
+### Respuesta
+
+No. CookPilot puede ayudarte a resolver menús o días, pero tú puedes revisar, editar, guardar, ajustar y reutilizar. La idea es reducir trabajo, no quitarte control.
+
+---
+
+## Sección 2 — Planificación
+
+### Pregunta
+
+¿Qué puedo planificar en CookPilot?
+
+### Respuesta
+
+Puedes organizar menús, momentos de comida, días y semanas. También puedes guardar estructuras que funcionaron para volver a usarlas después.
+
+### Pregunta
+
+¿Qué es un menú dentro de CookPilot?
+
+### Respuesta
+
+Un menú es una comida real. Puede incluir una o varias recetas, ingredientes directos, cantidades, costos y datos nutricionales cuando corresponda.
+
+### Pregunta
+
+¿Puedo planificar solo una comida?
+
+### Respuesta
+
+Sí. Puedes empezar con una sola comida, un menú o un momento del día. No necesitas llenar toda la semana para obtener valor.
+
+### Pregunta
+
+¿Puedo reutilizar comidas?
+
+### Respuesta
+
+Sí. Puedes guardar, aplicar, copiar, pegar, fijar y reutilizar menús, días, semanas o plantillas según lo que quieras repetir.
+
+---
+
+## Sección 3 — Nutrición
+
+### Pregunta
+
+¿CookPilot cuenta calorías y macros?
+
+### Respuesta
+
+CookPilot puede mostrar calorías, proteína, carbohidratos y grasas en recetas, menús y planes cuando usas la capa nutricional.
+
+### Pregunta
+
+¿Tengo que usar macros para usar CookPilot?
+
+### Respuesta
+
+No. Puedes usar CookPilot solo para organizar comida, compras y cocina. La nutrición está disponible cuando quieres más control.
+
+### Pregunta
+
+¿Qué hace el ajuste de macros automático?
+
+### Respuesta
+
+Ajusta cantidades dentro de un menú para acercarlo a tus objetivos nutricionales sin convertir tu comida en algo irreconocible.
+
+### Pregunta
+
+¿CookPilot reemplaza a un nutricionista?
+
+### Respuesta
+
+No. CookPilot entrega información y herramientas para organizar mejor tu alimentación. No diagnostica ni reemplaza atención profesional.
+
+---
+
+## Sección 4 — Compras y costos
+
+### Pregunta
+
+¿CookPilot crea listas de compras?
+
+### Respuesta
+
+Sí. Puede convertir menús, recetas, días o semanas en ingredientes y cantidades para comprar con más claridad.
+
+### Pregunta
+
+¿Los costos son exactos?
+
+### Respuesta
+
+No deben tomarse como exactos. Son estimaciones referenciales basadas en datos disponibles. Sirven para orientar, comparar y comprar mejor.
+
+### Pregunta
+
+¿Qué significa ahorro referencial?
+
+### Respuesta
+
+Es una comparación estimada que ayuda a entender posibles diferencias de costo. No es una garantía de ahorro exacto.
+
+### Pregunta
+
+¿Puedo usar CookPilot aunque los precios cambien en mi ciudad?
+
+### Respuesta
+
+Sí. Los precios sirven como referencia. La utilidad principal está en ordenar ingredientes, cantidades y decisiones de compra.
+
+---
+
+## Sección 5 — Cocina
+
+### Pregunta
+
+¿Qué es CookMode?
+
+### Respuesta
+
+CookMode es la experiencia de cocina guiada de CookPilot. Te ayuda a seguir pasos, revisar ingredientes y avanzar con más claridad durante la preparación.
+
+### Pregunta
+
+¿Qué es Last Mile?
+
+### Respuesta
+
+Last Mile ordena la parte final de la ejecución: cómo seguir la preparación, qué viene después y cómo terminar con menos confusión.
+
+### Pregunta
+
+¿CookPilot solo planifica o también ayuda a cocinar?
+
+### Respuesta
+
+Ayuda en ambas partes. Puedes organizar comida antes de cocinar y luego pasar a una experiencia guiada para prepararla.
+
+---
+
+## Sección 6 — Importaciones
+
+### Pregunta
+
+¿Puedo importar mis propias recetas?
+
+### Respuesta
+
+Sí. CookPilot permite traer recetas externas y convertirlas en contenido que puedes revisar, editar, guardar y usar dentro del sistema.
+
+### Pregunta
+
+¿Qué tipos de contenido puedo importar?
+
+### Respuesta
+
+Puedes trabajar con recetas desde fuentes externas como web, video, imagen, texto o PDF, según las capacidades disponibles en la app.
+
+### Pregunta
+
+¿Qué pasa después de importar una receta?
+
+### Respuesta
+
+Puedes guardarla, buscarla, convertirla en menú, usarla en un plan, revisarla nutricionalmente, llevarla a lista de compras o cocinarla con guía.
+
+---
+
+## Sección 7 — Pro y packs
+
+### Pregunta
+
+¿Qué incluye CookPilot Pro?
+
+### Respuesta
+
+Pro desbloquea el sistema completo para uso recurrente: generación de menús inteligentes, ajuste de macros, nutrición avanzada, importaciones avanzadas, cocina guiada, reutilización y más capacidad de uso.
+
+### Pregunta
+
+¿Qué son los créditos?
+
+### Respuesta
+
+Los créditos permiten usar funciones que consumen más recursos, como generación de menús o capacidades avanzadas.
+
+### Pregunta
+
+¿Qué son los packs?
+
+### Respuesta
+
+Los packs amplían capacidad para usuarios que usan más ciertas funciones. Pro es el sistema principal; los packs son expansión de uso.
+
+### Pregunta
+
+¿Pro es solo para personas con objetivos fitness?
+
+### Respuesta
+
+No. Pro sirve para planificar, comprar, cocinar, importar, reutilizar y ajustar nutrición cuando lo necesitas.
+
+---
+
+## Sección 8 — Disponibilidad
+
+### Pregunta
+
+¿CookPilot está disponible para Android?
+
+### Respuesta
+
+Sí. CookPilot está enfocado en Android y estará disponible desde Google Play y Huawei.
+
+### Pregunta
+
+¿Está disponible en español e inglés?
+
+### Respuesta
+
+Sí. CookPilot Web y la experiencia del producto soportan español e inglés.
+
+### Pregunta
+
+¿Dónde descargo CookPilot?
+
+### Respuesta
+
+Puedes descargarlo desde Google Play o Huawei cuando los enlaces oficiales estén disponibles en esta página.
+
+---
+
+# `/es/descargar`
+
+## Hero
+
+### Eyebrow
+
+Descargar CookPilot
+
+### Título
+
+**Empieza a organizar tu comida desde tu Android.**
+
+### Subtítulo
+
+Descarga CookPilot y organiza menús, compras, macros, recetas y cocina guiada desde una sola app.
+
+### Texto de apoyo
+
+Puedes empezar con una comida, un menú, una receta importada o una semana. CookPilot te ayuda a convertir eso en algo claro, comprable, cocinable y reutilizable.
+
+---
+
+## Sección 1 — Tiendas
+
+### Título
+
+**Disponible para Android.**
+
+### Texto
+
+CookPilot se distribuye desde tiendas oficiales para que puedas instalarlo de forma segura y mantenerlo actualizado.
+
+### Botón 1
+
+Descargar en Google Play
+
+### Botón 2
+
+Descargar en Huawei
+
+### Nota
+
+Los enlaces oficiales estarán disponibles aquí.
+
+---
+
+## Sección 2 — Qué puedes hacer después de instalar
+
+### Título
+
+**Tu primera comida organizada puede empezar simple.**
+
+### Texto
+
+No necesitas configurar todo desde el primer día. Elige una acción concreta y deja que CookPilot empiece a ordenar tu comida.
+
+### Acciones
+
+#### Crear un menú
+
+Arma una comida con recetas, ingredientes y cantidades.
+
+#### Resolver un día
+
+Deja que CookPilot te ayude a completar varios momentos de comida.
+
+#### Importar una receta
+
+Trae una receta externa y conviértela en parte de tu biblioteca.
+
+#### Revisar compra
+
+Convierte tus menús en ingredientes, cantidades y costos referenciales.
+
+#### Cocinar con guía
+
+Pasa de la decisión a la preparación con CookMode.
+
+#### Guardar y reutilizar
+
+Conserva lo que funcionó para no empezar desde cero otra vez.
+
+---
+
+## Sección 3 — Idiomas
+
+### Título
+
+**Disponible en español e inglés.**
+
+### Texto
+
+CookPilot está preparado para usuarios que prefieren usar la app en español o inglés. Puedes elegir el idioma según tu experiencia y configuración.
+
+---
+
+## Sección 4 — Requisitos
+
+### Título
+
+**Requisitos básicos.**
+
+### Texto
+
+CookPilot está diseñado para Android. Para una mejor experiencia, usa una versión actualizada del sistema operativo y descarga la app desde tiendas oficiales.
+
+---
+
+## Sección 5 — Preguntas rápidas
+
+### Pregunta
+
+¿Necesito Pro para empezar?
+
+### Respuesta
+
+No necesariamente. Puedes empezar con la experiencia disponible y pasar a Pro cuando quieras usar CookPilot de forma más completa y recurrente.
+
+### Pregunta
+
+¿Puedo usar CookPilot sin macros?
+
+### Respuesta
+
+Sí. Puedes planificar, comprar y cocinar sin usar objetivos nutricionales. La capa de macros está disponible cuando la necesitas.
+
+### Pregunta
+
+¿Los enlaces de descarga son oficiales?
+
+### Respuesta
+
+Sí. Esta página debe apuntar únicamente a enlaces oficiales de Google Play y Huawei.
+
+### Pregunta
+
+¿CookPilot está disponible para iPhone?
+
+### Respuesta
+
+CookPilot está enfocado primero en Android.
+
+---
+
+## CTA final
+
+### Título
+
+**Organiza tu próxima comida antes de improvisar.**
+
+### Texto
+
+Descarga CookPilot y empieza con una comida, un menú o una semana. Lo importante es dejar de reconstruir todo desde cero.
+
+### Botones
+
+Descargar en Google Play
+
+Descargar en AppGallery

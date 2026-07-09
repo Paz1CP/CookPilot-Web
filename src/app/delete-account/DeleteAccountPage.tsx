@@ -27,7 +27,7 @@ const copy = {
       "Deleting your account permanently deletes CookPilot account data, including profile, recipes, shopping lists, menus, CookMode sessions, uploaded files, generated images, AI history, preferences, packs, and usage data.",
     subscriptionsTitle: "Subscriptions",
     subscriptionsBody:
-      "Deleting your CookPilot account may not automatically cancel subscriptions managed by Google Play, Apple App Store, or Huawei AppGallery.",
+      "Deleting your CookPilot account may not automatically cancel subscriptions managed by Google Play, Apple App Store, or Huawei.",
     retentionTitle: "Limited retention",
     retentionBody:
       "Limited technical or transaction-related information may be retained for up to 30 days for security, fraud prevention, legal compliance, dispute resolution, or completion of the deletion process.",
@@ -71,7 +71,7 @@ const copy = {
       "Eliminar tu cuenta borra permanentemente los datos de cuenta de CookPilot, incluidos perfil, recetas, listas de compras, menus, sesiones de CookMode, archivos subidos, imagenes generadas, historial de AI, preferencias, packs y datos de uso.",
     subscriptionsTitle: "Suscripciones",
     subscriptionsBody:
-      "Eliminar tu cuenta de CookPilot puede no cancelar automaticamente suscripciones administradas por Google Play, Apple App Store o Huawei AppGallery.",
+      "Eliminar tu cuenta de CookPilot puede no cancelar automaticamente suscripciones administradas por Google Play, Apple App Store o Huawei.",
     retentionTitle: "Retencion limitada",
     retentionBody:
       "Informacion tecnica o relacionada con transacciones puede conservarse hasta por 30 dias por seguridad, prevencion de fraude, cumplimiento legal, resolucion de disputas o finalizacion del proceso de eliminacion.",

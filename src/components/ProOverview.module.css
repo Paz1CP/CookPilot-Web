@@ -1,0 +1,108 @@
+.pro {
+  padding: var(--cp-section-pad-y) var(--cp-section-pad-x);
+  background: var(--cp-layer-base);
+  border-top: 1px solid var(--cp-border-subtle);
+}
+
+.inner {
+  max-width: var(--cp-section-max);
+  margin: 0 auto;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: var(--cp-space-8);
+  align-items: center;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-2);
+  align-items: flex-start;
+}
+
+.title {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-bold);
+  font-size: var(--cp-text-display-xl-size);
+  letter-spacing: var(--cp-text-display-xl-letter-spacing);
+  color: var(--cp-text-primary);
+  margin: 0;
+  line-height: var(--cp-leading-display);
+}
+
+.brandPilot {
+  color: var(--cp-primary);
+}
+
+.subtitle {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-semibold);
+  font-size: clamp(20px, 2.2vw, 28px);
+  letter-spacing: var(--cp-tracking-title);
+  color: var(--cp-primary);
+  line-height: var(--cp-leading-title);
+  margin: 0;
+  max-width: 520px;
+}
+
+.supportLine {
+  font-family: var(--cp-font-sans);
+  font-weight: var(--cp-fw-regular);
+  font-size: var(--cp-text-body-l-size);
+  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  color: var(--cp-text-secondary);
+  line-height: var(--cp-leading-body);
+  margin: 0;
+  max-width: 520px;
+}
+
+.visualCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual {
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .pro {
+    padding: var(--cp-space-10) 28px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: var(--cp-space-5);
+    text-align: center;
+  }
+
+  .textCol {
+    align-items: center;
+  }
+
+  .subtitle {
+    max-width: 100%;
+  }
+
+  .supportLine {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .pro {
+    padding: var(--cp-space-8) 20px;
+  }
+
+  .visual {
+    max-height: 380px;
+  }
+}
