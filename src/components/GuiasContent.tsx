@@ -84,7 +84,7 @@ export default function GuiasContent({ content }: { content: GuiasData }) {
 
       <section className={styles.readerSection} id="guide-reader">
         <div className={styles.inner}>
-          <Reader />
+          <Reader activeId={activeId} guides={content.guides} />
         </div>
       </section>
     </main>
@@ -128,13 +128,22 @@ function GuideCard({ guide, index }: { guide: Guide; index: number }) {
   );
 }
 
-function Reader() {
+function Reader({ activeId, guides }: { activeId: string | null; guides: Guide[] }) {
   const [guide, setGuide] = useState<Guide | null>(null);
 
   useEffect(() => {
-    const found = activeId ? content.guides.find((g) => g.id === activeId) || null : null;
+    const found = activeId ? guides.find((g) => g.id === activeId) || null : null;
     setGuide(found);
-  }, [activeId, content.guides]);
+  }, [activeId, guides]);
+
+  useEffect(() => {
+    const onActiveChange = (e: Event) => {
+      const detail = (e as CustomEvent<Guide>).detail;
+      setGuide(detail ?? null);
+    };
+    window.addEventListener("active-guide-change", onActiveChange);
+    return () => window.removeEventListener("active-guide-change", onActiveChange);
+  }, []);
 
   if (!guide) {
     return null;

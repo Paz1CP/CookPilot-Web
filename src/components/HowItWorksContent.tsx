@@ -155,30 +155,32 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
         </div>
       </section>
 
-      <section className={styles.finalCtaSection} id="download-final">
-        <div className={styles.inner}>
-          <div className={styles.finalCtaBox}>
-            <Reveal variants={fadeUp}>
-              <h2 className={styles.finalCtaTitle}>{content.finalCta.title}</h2>
-            </Reveal>
-            <div className={styles.finalCtaText}>
-              {content.finalCta.text.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-            <Reveal variants={fadeUp} delay={0.2}>
-              <div className={styles.finalCtaButtons}>
-                <a href="#" className="cp-btn cp-btn--primary">
-                  {content.finalCta.ctaPrimary}
-                </a>
-                <Link href={es ? "/es/guias" : "/en/guides"} className="cp-btn cp-btn--ghost">
-                  {content.finalCta.ctaSecondary}
-                </Link>
+      {content.finalCta && (
+        <section className={styles.finalCtaSection} id="download-final">
+          <div className={styles.inner}>
+            <div className={styles.finalCtaBox}>
+              <Reveal variants={fadeUp}>
+                <h2 className={styles.finalCtaTitle}>{content.finalCta.title}</h2>
+              </Reveal>
+              <div className={styles.finalCtaText}>
+                {content.finalCta.text?.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
               </div>
-            </Reveal>
+              <Reveal variants={fadeUp} delay={0.2}>
+                <div className={styles.finalCtaButtons}>
+                  <a href="#" className="cp-btn cp-btn--primary">
+                    {content.finalCta.ctaPrimary}
+                  </a>
+                  <Link href={es ? "/es/guias" : "/en/guides"} className="cp-btn cp-btn--ghost">
+                    {content.finalCta.ctaSecondary}
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
   );
 }
