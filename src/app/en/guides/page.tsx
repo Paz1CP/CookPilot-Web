@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { guiasContent } from "@/content/guias";
 import GuiasContent from "@/components/GuiasContent";
 
@@ -15,5 +16,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <GuiasContent content={guiasContent.en} />;
+  return (
+    <Suspense fallback={null}>
+      <GuiasContent content={guiasContent.en} />
+    </Suspense>
+  );
 }
