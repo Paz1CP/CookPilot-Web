@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
 import DeleteAccountPage from "@/features/account-deletion/DeleteAccountPage";
+import { createUtilityMetadata } from "@/shared/config/metadata";
 
-export const metadata: Metadata = {
-  title: "Delete CookPilot account | CookPilot",
-  description:
-    "Self-serve instructions and verification flow to permanently delete a CookPilot account.",
-  alternates: {
-    canonical: "https://cookpilot.pro/delete-account",
-  },
-};
+export const metadata: Metadata = createUtilityMetadata("deleteAccount");
 
 export default function Page() {
   return (
@@ -17,3 +11,4 @@ export default function Page() {
     </main>
   );
 }
+

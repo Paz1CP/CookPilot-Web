@@ -68,7 +68,7 @@ Choose one direction and refine it. Do not build two alternatives.
 - Avoid arbitrary tracking changes across sections.
 - Use weight and scale to guide scanning before adding decorative UI.
 - Keep translated copy visually viable; do not optimize only for one language.
-
+- NOR ONE TEXT HAS TO BE HARDCODED ALWAYS USE L18N OR I18N, NEVER PUT STRINGS DIRECTLY IN THE CODE, ALWAYS USE THE TRANSLATION FILES. IF YOU SEE THIS RULE IS BEING BROKEN, FIX IT INMEDIATELY.
 # Imagery and assets
 
 - Inspect actual assets before using them.

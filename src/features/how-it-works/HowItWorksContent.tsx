@@ -76,7 +76,7 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
       <section className={styles.timelineSection}>
         <div className={styles.inner}>
           <div className={styles.timeline}>
-            {content.steps.map((step, idx) => (
+            {content.steps.map((step) => (
               <div key={step.number} className={styles.stepRow}>
                 <div className={styles.stepMeta}>
                   <span className={styles.stepNumber}>{step.number}</span>
@@ -109,7 +109,6 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
                     alt=""
                     width={480}
                     height={960}
-                    priority={idx < 2}
                     className={styles.stepImage}
                   />
                 </div>

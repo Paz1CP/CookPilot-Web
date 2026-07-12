@@ -4,6 +4,7 @@ import Image from "next/image";
 import { type ButtonHTMLAttributes, type ReactNode, useEffect, useRef } from "react";
 import { CloseCircle } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
+import { siteConfig } from "@/shared/config/site";
 import styles from "./DownloadExperience.module.css";
 
 const DOWNLOAD_EVENT = "cookpilot:download";
@@ -88,14 +89,14 @@ export default function DownloadExperience() {
         </p>
 
         <div className={styles.stores}>
-          <a href="https://play.google.com/store" target="_blank" rel="noreferrer">
+          <a href={siteConfig.publicData.stores.googlePlay} target="_blank" rel="noreferrer">
             <Image src="/icons/play-store.png" alt="" width={48} height={48} />
             <span>
               <small>{t.download_experience.available_on}</small>
               <strong>Google Play</strong>
             </span>
           </a>
-          <a href="https://appgallery.huawei.com" target="_blank" rel="noreferrer">
+          <a href={siteConfig.publicData.stores.appGallery} target="_blank" rel="noreferrer">
             <Image src="/icons/huawei-gallery.png" alt="" width={48} height={48} />
             <span>
               <small>{t.download_experience.available_on}</small>

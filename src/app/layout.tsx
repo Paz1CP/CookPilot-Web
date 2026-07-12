@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Header from "@/shared/layout/Header";
 import Footer from "@/shared/layout/Footer";
 import DownloadExperience from "@/shared/download/DownloadExperience";
+import { absoluteUrl, siteConfig } from "@/shared/config/site";
+import { getDocumentLocale, getHtmlLanguage } from "@/shared/config/metadata";
+
 const outfit = Outfit({
   variable: "--cp-font-sans-loaded",
   subsets: ["latin"],
@@ -19,68 +23,54 @@ const permanentMarker = Permanent_Marker({
   display: "swap",
 });
 
-const SITE_URL = "https://cookpilot.pro";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: "CookPilot — Recupera el control de tu cocina",
-  description:
-    "Ahorra plata, tiempo y come mejor. CookPilot resuelve decisiones de cocina con claridad, contexto real y cultura peruana.",
-  applicationName: "CookPilot",
-  referrer: "origin-when-cross-origin",
-  creator: "CookPilot",
-  publisher: "CookPilot",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+  metadataBase: new URL(siteConfig.publicUrl),
+  title: {
+    default: siteConfig.localizedPageMetadata.es.home.title,
+    template: `%s`,
   },
-  alternates: {
-    canonical: "/",
-    languages: {
-      "es-PE": "/",
-      "en-US": "/",
-    },
+  description: siteConfig.baseDescription.es,
+  applicationName: siteConfig.productName,
+  referrer: "origin-when-cross-origin",
+  creator: siteConfig.productName,
+  publisher: siteConfig.productName,
+  icons: {
+    icon: [
+      {
+        url: "/images/img_favicon.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+    ],
+    apple: "/images/img_app_icon.png",
   },
   openGraph: {
-    title: "CookPilot — Recupera el control de tu cocina",
-    description:
-      "Ahorra plata, tiempo y come mejor. CookPilot resuelve qué cocinar con claridad, contexto real y cultura peruana.",
-    url: SITE_URL,
-    siteName: "CookPilot",
+    title: siteConfig.localizedPageMetadata.es.home.title,
+    description: siteConfig.localizedPageMetadata.es.home.description,
+    url: absoluteUrl(siteConfig.localizedRoutes.es.home),
+    siteName: siteConfig.productName,
     locale: "es_PE",
-    alternateLocale: "en_US",
+    alternateLocale: ["en_US"],
     type: "website",
     images: [
       {
-        url: "/images/img_app_icon.png",
-        width: 1200,
-        height: 630,
-        alt: "CookPilot — Cocina con control, ahorra plata, tiempo y come mejor",
+        url: absoluteUrl(siteConfig.defaultOpenGraphImage.path),
+        width: siteConfig.defaultOpenGraphImage.width,
+        height: siteConfig.defaultOpenGraphImage.height,
+        alt: siteConfig.defaultOpenGraphImage.alt.es,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CookPilot — Recupera el control de tu cocina",
-    description:
-      "Ahorra plata, tiempo y come mejor. CookPilot resuelve decisiones de cocina con claridad.",
-    images: ["/images/img_app_icon.png"],
-  },
-  icons: {
-    icon: "/images/img_favicon.png",
-    apple: "/images/img_app_icon.png",
-  },
-  appleWebApp: {
-    capable: true,
-    title: "CookPilot",
-    statusBarStyle: "black-translucent",
+    title: siteConfig.localizedPageMetadata.es.home.title,
+    description: siteConfig.localizedPageMetadata.es.home.description,
+    images: [
+      {
+        url: absoluteUrl(siteConfig.defaultOpenGraphImage.path),
+        alt: siteConfig.defaultOpenGraphImage.alt.es,
+      },
+    ],
   },
 };
 
@@ -94,52 +84,49 @@ export const viewport: Viewport = {
   ],
 };
 
-/* ── JSON-LD Structured Data ── */
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
-      name: "CookPilot",
-      url: SITE_URL,
-      logo: `${SITE_URL}/images/img_app_icon.png`,
-      description:
-        "CookPilot ayuda a decidir qué cocinar con más claridad, ahorrando plata, tiempo y mejorando la alimentación.",
+      "@id": `${siteConfig.publicUrl}/#organization`,
+      name: siteConfig.publicData.name,
+      url: siteConfig.publicUrl,
+      logo: absoluteUrl("/images/img_app_icon.png"),
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: siteConfig.publicData.contactEmail,
+        contactType: "customer support",
+      },
+      sameAs: [siteConfig.publicData.social.linkedin],
     },
     {
       "@type": "WebSite",
-      name: "CookPilot",
-      url: SITE_URL,
-      inLanguage: ["es-PE", "en-US"],
-      description:
-        "Ahorra plata, tiempo y come mejor. CookPilot resuelve decisiones de cocina con claridad, contexto real y cultura peruana.",
-    },
-    {
-      "@type": "SoftwareApplication",
-      name: "CookPilot",
-      applicationCategory: "LifestyleApplication",
-      operatingSystem: "Android, iOS",
-      description:
-        "Aplicación de cocina inteligente que ayuda a resolver qué cocinar con criterio, reduciendo costo, tiempo y mejorando la nutrición.",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "PEN",
-        availability: "https://schema.org/PreOrder",
+      "@id": `${siteConfig.publicUrl}/#website`,
+      name: siteConfig.productName,
+      url: siteConfig.publicUrl,
+      publisher: {
+        "@id": `${siteConfig.publicUrl}/#organization`,
       },
       inLanguage: ["es", "en"],
     },
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const locale =
+    requestHeaders.get("x-cp-locale") === "en"
+      ? "en"
+      : getDocumentLocale(requestHeaders.get("x-cp-pathname"));
+
   return (
     <html
-      lang="es"
+      lang={getHtmlLanguage(locale)}
       data-theme="dark"
       className={`${outfit.variable} ${permanentMarker.variable}`}
     >

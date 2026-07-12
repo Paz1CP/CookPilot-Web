@@ -18,7 +18,7 @@ interface FAQSection {
 
 interface FAQPageData {
   hero: {
-    eyebrow: string;
+    eyebrow?: string;
     title: string;
     subtitle: string;
   };

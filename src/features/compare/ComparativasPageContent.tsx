@@ -22,7 +22,7 @@ interface CompareBlock {
 
 interface ComparePageData {
   hero: {
-    eyebrow: string;
+    eyebrow?: string;
     title: string;
     subtitle: string;
     supportText: string;
@@ -40,9 +40,11 @@ export default function ComparativasPageContent({ content }: { content: CompareP
       <section className={styles.hero}>
         <div className={styles.heroBg} />
         <div className={styles.inner}>
-          <Reveal variants={fadeUp}>
-            <span className={styles.eyebrow}>{content.hero.eyebrow}</span>
-          </Reveal>
+          {content.hero.eyebrow ? (
+            <Reveal variants={fadeUp}>
+              <span className={styles.eyebrow}>{content.hero.eyebrow}</span>
+            </Reveal>
+          ) : null}
           <Reveal variants={fadeUp} delay={0.1}>
             <h1 className={styles.title}>{content.hero.title}</h1>
           </Reveal>

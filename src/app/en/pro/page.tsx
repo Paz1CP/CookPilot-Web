@@ -1,19 +1,11 @@
 import type { Metadata } from "next";
 import { proContent } from "@/content/pro";
 import ProPageContent from "@/features/pro/ProPageContent";
+import { createLocalizedMetadata } from "@/shared/config/metadata";
 
-export const metadata: Metadata = {
-  title: "Pro | CookPilot",
-  description: "Unlock the complete CookPilot system to plan, adjust, shop, and cook on a recurring basis.",
-  alternates: {
-    canonical: "https://cookpilot.pro/en/pro",
-    languages: {
-      "es": "https://cookpilot.pro/es/pro",
-      "en": "https://cookpilot.pro/en/pro",
-    },
-  },
-};
+export const metadata: Metadata = createLocalizedMetadata("pro", "en");
 
 export default function Page() {
   return <ProPageContent content={proContent.en} />;
 }
+

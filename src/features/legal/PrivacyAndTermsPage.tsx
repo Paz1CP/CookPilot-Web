@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import {
-  DocumentText,
   Global,
   InfoCircle,
   Lock,
@@ -12,6 +11,7 @@ import {
   Trash,
 } from "iconsax-reactjs";
 import { useLocale, type Locale } from "@/contexts/LanguageContext";
+import { siteConfig } from "@/shared/config/site";
 import styles from "./PrivacyAndTermsPage.module.css";
 
 type Documents = Record<Locale, string>;
@@ -58,7 +58,7 @@ const ui = {
       "Todo el copy legal de CookPilot, organizado para que puedas revisar datos, AI, pagos, derechos y eliminación de cuenta sin enfrentarte a una pared de texto.",
     updatedLabel: "Última actualización",
     contactLabel: "Contacto",
-    contactValue: "support@cookpilot.pro",
+    contactValue: siteConfig.publicData.contactEmail,
     tabs: {
       full: "Documento completo",
       account: "Eliminar cuenta",
@@ -104,7 +104,7 @@ const ui = {
       "CookPilot's full legal copy, structured so you can review data, AI, payments, rights, and account deletion without digging through a flat document.",
     updatedLabel: "Last updated",
     contactLabel: "Contact",
-    contactValue: "support@cookpilot.pro",
+    contactValue: siteConfig.publicData.contactEmail,
     tabs: {
       full: "Full document",
       account: "Delete account",

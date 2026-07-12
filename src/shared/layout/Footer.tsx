@@ -6,6 +6,7 @@ import { Reveal, fadeUp } from "@/shared/motion/motion";
 import styles from "./Footer.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
 import { getLocalizedRoute } from "@/shared/config/routes";
+import { siteConfig } from "@/shared/config/site";
 
 export default function Footer() {
   const { t, locale, toggleLocale } = useLocale();
@@ -113,7 +114,7 @@ export default function Footer() {
               <ul className={styles.list}>
                 <li>
                   <a
-                    href="https://play.google.com/store"
+                    href={siteConfig.publicData.stores.googlePlay}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.link}
@@ -123,7 +124,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://appgallery.huawei.com"
+                    href={siteConfig.publicData.stores.appGallery}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.link}
@@ -140,7 +141,7 @@ export default function Footer() {
               <ul className={styles.list}>
                 <li>
                   <a
-                    href="https://www.linkedin.com/company/cookpilot/"
+                    href={siteConfig.publicData.social.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.socialLinkLink}

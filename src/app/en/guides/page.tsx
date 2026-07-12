@@ -2,18 +2,9 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { guiasContent } from "@/content/guias";
 import GuiasContent from "@/features/guides/GuiasContent";
+import { createLocalizedMetadata } from "@/shared/config/metadata";
 
-export const metadata: Metadata = {
-  title: "Guides | CookPilot",
-  description: "Learn how to master CookPilot step by step: planning, shopping, nutrition, guided cooking, import, and reuse.",
-  alternates: {
-    canonical: "https://cookpilot.pro/en/guides",
-    languages: {
-      "es": "https://cookpilot.pro/es/guias",
-      "en": "https://cookpilot.pro/en/guides",
-    },
-  },
-};
+export const metadata: Metadata = createLocalizedMetadata("guides", "en");
 
 export default function Page() {
   return (
@@ -22,3 +13,4 @@ export default function Page() {
     </Suspense>
   );
 }
+

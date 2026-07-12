@@ -1,6 +1,6 @@
 export type AppLocale = "es" | "en";
 
-type LocalizedRouteKey =
+export type LocalizedRouteKey =
   | "home"
   | "howItWorks"
   | "guides"
@@ -8,7 +8,7 @@ type LocalizedRouteKey =
   | "faq"
   | "compare";
 
-const localizedRoutes = {
+export const localizedRoutes = {
   es: {
     home: "/es",
     howItWorks: "/es/como-funciona",
@@ -26,6 +26,9 @@ const localizedRoutes = {
     compare: "/en/compare",
   },
 } as const satisfies Record<AppLocale, Record<LocalizedRouteKey, string>>;
+
+export const appLocales = ["es", "en"] as const satisfies readonly AppLocale[];
+export const defaultLocale = "es" satisfies AppLocale;
 
 const alternateRoutes = Object.fromEntries(
   Object.keys(localizedRoutes.es).flatMap((key) => [
