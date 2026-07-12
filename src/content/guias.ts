@@ -210,7 +210,7 @@ export const guiasContent = {
   },
   en: {
     hero: {
-      eyebrow: "CookPilot Step by Step",
+     
       title: "CookPilot Step by Step",
       subtitle: "Quick guides to plan, shop, adjust, cook, import, and reuse without getting lost between features.",
       supportText: "Start with the guide that matches what you want to do today.",

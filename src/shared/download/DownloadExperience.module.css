@@ -77,13 +77,15 @@
   display: grid;
   place-items: center;
   border-radius: 32px;
+  overflow: hidden;
   background: transparent;
   box-shadow: none;
 }
 
 .brand img {
-  width: 132px;
-  height: 132px;
+  width: 128px;
+  height: 128px;
+  border-radius: inherit;
   object-fit: contain;
   filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.18));
 }
@@ -110,14 +112,15 @@
 }
 
 .stores a {
-  min-height: 92px;
-  padding: 16px 20px;
+  min-height: 76px;
+  padding: 10px 18px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  border-radius: 24px;
-  background: var(--cp-dark);
-  color: var(--cp-light);
+  gap: 14px;
+  border: 1px solid color-mix(in srgb, var(--cp-foreground-light) 18%, transparent);
+  border-radius: 14px;
+  background: #050303;
+  color: var(--cp-foreground-light-soft);
   text-align: left;
   text-decoration: none;
   transition: transform 180ms ease, box-shadow 180ms ease;
@@ -140,13 +143,16 @@
 }
 
 .stores small {
-  color: var(--cp-gray-soft);
+  color: color-mix(in srgb, var(--cp-foreground-light-soft) 82%, transparent);
   font-size: var(--cp-text-12);
+  line-height: 1;
 }
 
 .stores strong {
-  font-size: var(--cp-text-20);
+  color: var(--cp-foreground-light-soft);
+  font-size: clamp(24px, 2vw, 30px);
   font-weight: var(--cp-fw-semibold);
+  line-height: 1;
 }
 
 @media (max-width: 640px) {
@@ -190,7 +196,7 @@
   }
 
   .stores a {
-    min-height: 80px;
+    min-height: 72px;
   }
 }
 

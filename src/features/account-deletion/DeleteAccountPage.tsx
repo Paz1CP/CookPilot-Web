@@ -15,7 +15,6 @@ type Step = "email" | "otp" | "confirm" | "success";
 
 const copy = {
   en: {
-    eyebrow: "Self-serve account deletion",
     title: "Delete account",
     intro:
       "Use this page to request and confirm permanent deletion of your CookPilot account. You do not need to reinstall or open the mobile app.",
@@ -59,7 +58,6 @@ const copy = {
     finalStep: "Confirm",
   },
   es: {
-    eyebrow: "Eliminacion de cuenta autoservicio",
     title: "Eliminar cuenta",
     intro:
       "Usa esta pagina para solicitar y confirmar la eliminacion permanente de tu cuenta de CookPilot. No necesitas reinstalar ni abrir la app movil.",
@@ -385,10 +383,7 @@ export default function DeleteAccountPage() {
       <div className={styles.shell}>
         <div className={styles.hero}>
           <div className={styles.heroText}>
-            <div className={styles.eyebrow}>
-              <ShieldTick variant="Bulk" size={18} color="var(--cp-primary)" />
-              {t.eyebrow}
-            </div>
+          
             <h1>{t.title}</h1>
             <p>{t.intro}</p>
           </div>

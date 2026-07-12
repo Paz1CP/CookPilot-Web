@@ -52,7 +52,6 @@ interface PrivacyAndTermsPageProps {
 
 const ui = {
   es: {
-    eyebrow: "Políticas oficiales",
     titleA: "Privacidad y términos",
     titleB: "sin letra chica visual",
     intro:
@@ -99,7 +98,6 @@ const ui = {
     deletionCtaAction: "Ir a eliminar cuenta",
   },
   en: {
-    eyebrow: "Official policies",
     titleA: "Privacy and terms",
     titleB: "without the wall of text",
     intro:
@@ -384,10 +382,7 @@ export default function PrivacyAndTermsPage({ documents }: PrivacyAndTermsPagePr
     <section className={styles.page}>
       <div className={styles.heroShell}>
         <div className={styles.heroCopy}>
-          <div className={styles.eyebrow}>
-            <DocumentText variant="Bulk" size={18} color="var(--cp-primary)" />
-            {copy.eyebrow}
-          </div>
+         
           <h1>
             {copy.titleA}
             <span>{copy.titleB}</span>

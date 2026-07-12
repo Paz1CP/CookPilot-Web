@@ -73,7 +73,7 @@
   border: 0;
   border-radius: 999px;
   background: var(--cp-primary);
-  color: var(--cp-on-primary);
+  color: var(--cp-dark);
   font-family: var(--cp-font-sans);
   font-size: var(--cp-text-18);
   font-weight: var(--cp-fw-bold);

@@ -1,22 +1,22 @@
 export const comoFuncionaContent = {
   es: {
     hero: {
-      title: "CÃ³mo funciona CookPilot",
-      subtitle: "Empieza con una receta, una idea o un dÃ­a vacÃ­o. CookPilot lo convierte en menÃº, compra, cocina y reutilizaciÃ³n.",
+      title: "Cómo funciona CookPilot",
+      subtitle: "Empieza con una receta, una idea o un día vacío. CookPilot lo convierte en menú, compra, cocina y reutilización.",
       ctaPrimary: "Descargar CookPilot",
-      ctaSecondary: "Ver guÃ­as",
+      ctaSecondary: "Ver guías",
     },
     section1: {
-      title: "Del primer menÃº a una semana organizada.",
+      title: "Del primer menú a una semana organizada.",
       subtitle: "CookPilot no trabaja en pantallas sueltas. Cada paso deja algo listo para el siguiente.",
     },
     steps: [
       {
         number: "01",
         title: "Empieza",
-        description: "Puedes empezar con una receta, una idea, una comida pendiente, un menÃº guardado o un dÃ­a vacÃ­o.",
+        description: "Puedes empezar con una receta, una idea, una comida pendiente, un menú guardado o un día vacío.",
         whatYouDo: [
-          "Creas un menÃº manual.",
+          "Creas un menú manual.",
           "Importas una receta o pides resolver una comida.",
         ],
         whatGetsReady: [
@@ -28,24 +28,24 @@ export const comoFuncionaContent = {
       {
         number: "02",
         title: "Resuelve",
-        description: "Cuando no quieres construir todo a mano, CookPilot puede ayudarte a resolver un menÃº, un momento de comida o un dÃ­a.",
+        description: "Cuando no quieres construir todo a mano, CookPilot puede ayudarte a resolver un menú, un momento de comida o un día.",
         whatYouDo: [
           "Pides una propuesta.",
           "Revisas y ajustas lo generado.",
         ],
         whatGetsReady: [
-          "Un menÃº usable.",
-          "Un dÃ­a con menos espacios vacÃ­os.",
+          "Un menú usable.",
+          "Un día con menos espacios vacíos.",
         ],
         image: "/images/app/cookhome.png",
       },
       {
         number: "03",
         title: "Organiza",
-        description: "Los menÃºs viven dentro de momentos del dÃ­a, dÃ­as y semanas. AsÃ­ sabes quÃ© toca y quÃ© falta.",
+        description: "Los menús viven dentro de momentos del día, días y semanas. Así sabes qué toca y qué falta.",
         whatYouDo: [
           "Ordenas desayunos, almuerzos, cenas o snacks.",
-          "Armas dÃ­as y semanas.",
+          "Armas días y semanas.",
         ],
         whatGetsReady: [
           "Un plan claro.",
@@ -56,13 +56,13 @@ export const comoFuncionaContent = {
       {
         number: "04",
         title: "Compra",
-        description: "CookPilot transforma tus menÃºs en cantidades, lista de compras y costos referenciales.",
+        description: "CookPilot transforma tus menús en cantidades, lista de compras y costos referenciales.",
         whatYouDo: [
           "Revisas ingredientes.",
           "Ajustas lo que necesitas comprar.",
         ],
         whatGetsReady: [
-          "Una lista mÃ¡s clara.",
+          "Una lista más clara.",
           "Mejor referencia de costos.",
         ],
         image: "/images/app/cooklist.png",
@@ -76,60 +76,59 @@ export const comoFuncionaContent = {
           "Modificas cantidades.",
         ],
         whatGetsReady: [
-          "Un menÃº mÃ¡s alineado a tu objetivo.",
-          "Comida real, no una fÃ³rmula rara.",
+          "Un menú más alineado a tu objetivo.",
+          "Comida real, no una fórmula rara.",
         ],
         image: "/images/app/cookfit.png",
       },
       {
         number: "06",
         title: "Cocina",
-        description: "Cuando ya sabes quÃ© toca, CookPilot te guÃ­a con pasos, tiempos e ingredientes en contexto.",
+        description: "Cuando ya sabes qué toca, CookPilot te guía con pasos, tiempos e ingredientes en contexto.",
         whatYouDo: [
           "Abres CookMode.",
-          "Sigues la preparaciÃ³n.",
+          "Sigues la preparación.",
         ],
         whatGetsReady: [
           "Una comida preparada con menos desorden.",
-          "Un flujo mÃ¡s claro en cocina.",
+          "Un flujo más claro en cocina.",
         ],
         image: "/images/app/cookmode.png",
       },
       {
         number: "07",
         title: "Reutiliza",
-        description: "Una buena comida, dÃ­a o semana no deberÃ­a perderse despuÃ©s de usarla una vez.",
+        description: "Una buena comida, día o semana no debería perderse después de usarla una vez.",
         whatYouDo: [
           "Guardas, copias, pegas o fijas.",
           "Buscas favoritos e importadas.",
         ],
         whatGetsReady: [
-          "MenÃºs reutilizables.",
-          "Menos trabajo la prÃ³xima vez.",
+          "Menús reutilizables.",
+          "Menos trabajo la próxima vez.",
         ],
         image: "/images/app/cooksearch.png",
       },
     ],
     entryMappings: {
       title: "No tienes que empezar siempre igual.",
-      subtitle: "CookPilot acepta varias entradas y las convierte en algo Ãºtil.",
+      subtitle: "CookPilot acepta varias entradas y las convierte en algo útil.",
       items: [
         { from: "Receta externa", to: "Receta editable" },
-        { from: "Idea suelta", to: "MenÃº" },
-        { from: "DÃ­a vacÃ­o", to: "Plan" },
+        { from: "Idea suelta", to: "Menú" },
+        { from: "Día vacío", to: "Plan" },
         { from: "Objetivo nutricional", to: "Ajuste" },
-        { from: "MenÃº Ãºtil", to: "Plantilla" },
+        { from: "Menú útil", to: "Plantilla" },
         { from: "Compra pendiente", to: "Lista" },
       ],
     },
     labels: {
-      whatYouDo: "QuÃ© haces",
-      whatGetsReady: "QuÃ© queda listo",
+      whatYouDo: "Qué haces",
+      whatGetsReady: "Qué queda listo",
     },
   },
   en: {
     hero: {
-      eyebrow: "How CookPilot works",
       title: "How CookPilot Works",
       subtitle: "Start with a recipe, an idea, or an empty day. CookPilot turns it into a menu, shopping, cooking, and reuse.",
       ctaPrimary: "Download CookPilot",

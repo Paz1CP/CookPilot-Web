@@ -80,7 +80,7 @@ export default function DownloadExperience() {
         </button>
 
         <div className={styles.brand} aria-hidden="true">
-          <Image src="/images/img_app_icon.png" alt="" width={128} height={128} border-radius="32px" />
+          <Image src="/images/img_app_icon.png" alt="" width={128} height={128} />
         </div>
         <h2 id="download-dialog-title">{t.download_experience.title}</h2>
         <p id="download-dialog-description" className={styles.description}>
