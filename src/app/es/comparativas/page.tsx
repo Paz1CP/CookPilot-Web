@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { comparativasContent } from "@/content/comparativas";
-import ComparativasPageContent from "@/components/ComparativasPageContent";
+import ComparativasPageContent from "@/features/compare/ComparativasPageContent";
 
 export const metadata: Metadata = {
   title: "Comparativas | CookPilot",

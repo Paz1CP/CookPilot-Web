@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { faqContent } from "@/content/faq";
-import FaqPageContent from "@/components/FaqPageContent";
+import FaqPageContent from "@/features/faq/FaqPageContent";
 
 export const metadata: Metadata = {
   title: "FAQ | CookPilot",

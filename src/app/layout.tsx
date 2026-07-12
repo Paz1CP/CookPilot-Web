@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import DownloadExperience from "@/components/DownloadExperience";
+import Header from "@/shared/layout/Header";
+import Footer from "@/shared/layout/Footer";
+import DownloadExperience from "@/shared/download/DownloadExperience";
 const outfit = Outfit({
   variable: "--cp-font-sans-loaded",
   subsets: ["latin"],

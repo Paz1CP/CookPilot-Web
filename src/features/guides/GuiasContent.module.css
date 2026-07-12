@@ -1,0 +1,1497 @@
+.main {
+  --guides-shell: var(--cp-section-max);
+  --guides-gutter: var(--cp-section-pad-x);
+  --guides-section-y: var(--cp-section-pad-y);
+  --guides-radius: var(--cp-card-radius);
+
+  --guides-shadow:
+    0 20px 56px color-mix(in srgb, var(--cp-dark) 10%, transparent);
+
+  --guides-shadow-hover:
+    0 28px 72px color-mix(in srgb, var(--cp-dark) 16%, transparent);
+
+  min-height: 100vh;
+  padding-top: 80px;
+  overflow: hidden;
+  background: var(--cp-layer-base);
+  color: var(--cp-text-primary);
+  font-family: var(--cp-font-sans);
+}
+
+:where(.main h1, .main h2, .main h3, .main p) {
+  margin: 0;
+}
+
+.inner {
+  width: min(
+    calc(100% - (var(--guides-gutter) * 2)),
+    var(--guides-shell)
+  );
+  margin-inline: auto;
+}
+
+/* Hero */
+
+.hero {
+  position: relative;
+  padding-block:
+    var(--cp-space-10)
+    var(--cp-space-8);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.heroCtas {
+  display: flex;
+  justify-content: center;
+  gap: var(--cp-space-3);
+  margin-top: var(--cp-space-2);
+}
+
+.heroContent {
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cp-space-3);
+  text-align: left;
+}
+
+.eyebrow,
+.mapEyebrow {
+  color: var(--cp-primary);
+  font-size: var(--cp-text-14);
+  font-weight: var(--cp-fw-semibold);
+  line-height: var(--cp-leading-label);
+  letter-spacing: var(--cp-tracking-label);
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 14ch;
+  color: var(--cp-text-primary);
+  font-size: var(--cp-text-display-l-size);
+  font-weight: var(--cp-fw-bold);
+  line-height: var(--cp-leading-display);
+  letter-spacing: var(--cp-text-display-l-letter-spacing);
+  text-wrap: balance;
+}
+
+.subtitle {
+  max-width: 820px;
+  color: var(--cp-text-tertiary);
+  font-size: var(--cp-text-body-l-size);
+  font-weight: var(--cp-fw-regular);
+  line-height: var(--cp-leading-body);
+  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  text-wrap: pretty;
+}
+
+.supportText {
+  max-width: 760px;
+  color: var(--cp-text-primary);
+  font-size: var(--cp-text-body-m-size);
+  font-weight: var(--cp-fw-medium);
+  line-height: var(--cp-leading-body);
+  letter-spacing: var(--cp-text-body-m-letter-spacing);
+}
+
+/* Editorial map */
+
+.mapSection {
+  padding-block:
+    var(--cp-space-8)
+    var(--guides-section-y);
+}
+
+.mapHeading {
+  max-width: 760px;
+  margin-bottom: var(--cp-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-2);
+}
+
+.mapSupport {
+  color: var(--cp-text-tertiary);
+  font-size: var(--cp-text-body-l-size);
+  line-height: var(--cp-leading-body);
+}
+
+.guidesGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  gap: var(--cp-space-3);
+}
+
+.guideCard {
+  position: relative;
+  min-width: 0;
+  padding: var(--cp-space-5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--cp-space-6);
+  border: 0;
+  border-radius: var(--guides-radius);
+  background:
+    radial-gradient(
+      circle at 88% 90%,
+      color-mix(in srgb, var(--cp-primary) 10%, transparent),
+      transparent 42%
+    ),
+    var(--cp-layer-raised);
+  color: var(--cp-text-primary);
+  box-shadow: var(--guides-shadow);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease,
+    background 260ms ease;
+}
+
+.guideCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--cp-primary) 9%, transparent),
+      transparent 48%
+    );
+  transition: opacity 260ms ease;
+}
+
+.guideCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--guides-shadow-hover);
+}
+
+.guideCard:hover::after {
+  opacity: 1;
+}
+
+.guideCard:focus-visible {
+  outline: 3px solid var(--cp-primary);
+  outline-offset: 4px;
+}
+
+.guideCardSelected {
+  box-shadow:
+    0 0 0 2px var(--cp-primary),
+    var(--guides-shadow);
+}
+
+.guideCardFeatured {
+  grid-column: span 7;
+  grid-row: span 2;
+  min-height: 520px;
+  padding: var(--cp-space-7);
+}
+
+.guideCardWide {
+  grid-column: span 5;
+  min-height: 252px;
+}
+
+.guideCardStandard {
+  grid-column: span 4;
+  min-height: 272px;
+}
+
+.guideCardCompact {
+  grid-column: span 3;
+  min-height: 236px;
+  padding: var(--cp-space-4);
+}
+
+.cardTopRow {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardNum {
+  color: var(--cp-primary);
+  font-size: var(--cp-text-14);
+  font-weight: var(--cp-fw-semibold);
+  line-height: var(--cp-leading-label);
+  letter-spacing: var(--cp-tracking-label);
+}
+
+.cardArrow {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  background: color-mix(
+    in srgb,
+    var(--cp-layer-base) 88%,
+    transparent
+  );
+  color: var(--cp-text-primary);
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    color 220ms ease;
+}
+
+.guideCard:hover .cardArrow {
+  transform: translateX(4px);
+  background: var(--cp-primary);
+  color: var(--cp-dark);
+}
+
+.cardCopy {
+  position: relative;
+  z-index: 3;
+  max-width: 68%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-2);
+}
+
+.cardTitle {
+  color: var(--cp-text-primary);
+  font-size: var(--cp-text-title-l-size);
+  font-weight: var(--cp-fw-bold);
+  line-height: var(--cp-leading-title);
+  letter-spacing: var(--cp-text-title-l-letter-spacing);
+  text-wrap: balance;
+}
+
+.cardDesc {
+  color: var(--cp-text-tertiary);
+  font-size: var(--cp-text-body-m-size);
+  line-height: var(--cp-leading-body);
+  letter-spacing: var(--cp-text-body-m-letter-spacing);
+  text-wrap: pretty;
+}
+
+.cardVisual {
+  position: absolute;
+  z-index: 1;
+  right: calc(var(--cp-space-4) * -1);
+  bottom: calc(var(--cp-space-4) * -1);
+  width: 46%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.cardIcon {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(
+      0 20px 28px
+      color-mix(in srgb, var(--cp-dark) 22%, transparent)
+    );
+  transition:
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.guideCard:hover .cardIcon {
+  transform: translateY(-4px) scale(1.045) rotate(1deg);
+}
+
+.guideCardFeatured .cardCopy {
+  max-width: 56%;
+}
+
+.guideCardFeatured .cardTitle {
+  font-size: var(--cp-text-display-m-size);
+  letter-spacing: var(--cp-text-display-m-letter-spacing);
+}
+
+.guideCardFeatured .cardDesc {
+  max-width: 540px;
+  font-size: var(--cp-text-body-l-size);
+}
+
+.guideCardFeatured .cardVisual {
+  right: calc(var(--cp-space-3) * -1);
+  bottom: calc(var(--cp-space-5) * -1);
+  width: 48%;
+}
+
+.guideCardWide .cardVisual {
+  width: 38%;
+}
+
+.guideCardStandard .cardCopy {
+  max-width: 72%;
+}
+
+.guideCardStandard .cardVisual {
+  width: 42%;
+}
+
+.guideCardCompact {
+  gap: var(--cp-space-4);
+}
+
+.guideCardCompact .cardCopy {
+  max-width: 76%;
+}
+
+.guideCardCompact .cardTitle {
+  font-size: var(--cp-text-title-m-size);
+  letter-spacing: var(--cp-text-title-m-letter-spacing);
+}
+
+.guideCardCompact .cardDesc {
+  font-size: var(--cp-text-body-m-size);
+}
+
+.guideCardCompact .cardVisual {
+  width: 38%;
+}
+
+/* Guide reader */
+
+.readerSection {
+  scroll-margin-top: 112px;
+  margin-top: var(--cp-space-7);
+  padding-block: calc(var(--guides-section-y) + var(--cp-space-2)) var(--guides-section-y);
+  background:
+    linear-gradient(
+      180deg,
+      var(--cp-layer-raised),
+      var(--cp-layer-base)
+    );
+}
+
+.reader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-8);
+}
+
+.readerHeader {
+  min-height: 440px;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.12fr)
+    minmax(320px, 0.88fr);
+  gap: var(--cp-space-7);
+  align-items: center;
+}
+
+.readerHeaderCopy {
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cp-space-3);
+}
+
+.readerNum {
+  color: var(--cp-primary);
+  font-size: var(--cp-text-14);
+  font-weight: var(--cp-fw-semibold);
+  letter-spacing: var(--cp-tracking-label);
+}
+
+.readerTitle {
+  color: var(--cp-text-primary);
+  font-size: var(--cp-text-display-m-size);
+  font-weight: var(--cp-fw-bold);
+  line-height: var(--cp-leading-display);
+  letter-spacing: var(--cp-text-display-m-letter-spacing);
+  text-wrap: balance;
+}
+
+.readerSummary {
+  max-width: 720px;
+  color: var(--cp-text-tertiary);
+  font-size: var(--cp-text-body-l-size);
+  line-height: var(--cp-leading-body);
+  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  text-wrap: pretty;
+}
+
+.readerVisual {
+  position: relative;
+  min-height: 380px;
+  padding: var(--cp-space-5);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border-radius: var(--guides-radius);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--cp-primary) 7%, var(--cp-layer-base)),
+      color-mix(in srgb, var(--cp-secondary) 5%, var(--cp-layer-raised))
+    );
+  isolation: isolate;
+}
+
+.readerVisualGlow {
+  position: absolute;
+  z-index: -1;
+  width: 72%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--cp-primary) 28%, transparent),
+      color-mix(in srgb, var(--cp-secondary) 8%, transparent) 46%,
+      transparent 72%
+    );
+  filter: blur(var(--cp-blur-24));
+}
+
+.readerIcon {
+  width: min(82%, 340px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(
+      0 28px 40px
+      color-mix(in srgb, var(--cp-dark) 24%, transparent)
+    );
+}
+
+.readerBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-7);
+}
+
+.readerActions {
+  padding-top: var(--cp-space-6);
+  border-top: 1px solid var(--cp-border-subtle);
+}
+
+.readerSectionHeading {
+  margin-bottom: var(--cp-space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--cp-space-2);
+}
+
+.readerBlockTitle {
+  color: var(--cp-text-primary);
+  font-size: var(--cp-text-title-l-size);
+  font-weight: var(--cp-fw-semibold);
+  line-height: var(--cp-leading-title);
+  letter-spacing: var(--cp-text-title-l-letter-spacing);
+}
+
+.readerMiniGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--cp-space-3);
+}
+
+.miniCard {
+  min-height: 180px;
+  padding: var(--cp-space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--cp-space-4);
+  border-radius: var(--guides-radius);
+  background: var(--cp-layer-base);
+  box-shadow:
+    inset 0 0 0 1px var(--cp-border-subtle);
+}
+
+.miniCardNum {
+  color: var(--cp-primary);
+  font-size: var(--cp-text-14);
+  font-weight: var(--cp-fw-semibold);
+  letter-spacing: var(--cp-tracking-label);
+}
+
+.miniCardText {
+  color: var(--cp-text-primary);
+  font-size: var(--cp-text-body-l-size);
+  font-weight: var(--cp-fw-medium);
+  line-height: var(--cp-leading-body);
+  letter-spacing: var(--cp-text-body-l-letter-spacing);
+}
+
+.readerSplit {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cp-space-3);
+}
+
+.contextPanel,
+.resultsPanel {
+  min-height: 300px;
+  padding: var(--cp-space-5);
+  border-radius: var(--guides-radius);
+}
+
+.contextPanel {
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--cp-primary) 8%, var(--cp-layer-raised)),
+      var(--cp-layer-raised)
+    );
+}
+
+.resultsPanel {
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--cp-secondary) 6%, var(--cp-layer-raised)),
+      var(--cp-layer-raised)
+    );
+}
+
+.readerBlockText {
+  max-width: 640px;
+  color: var(--cp-text-tertiary);
+  font-size: var(--cp-text-body-l-size);
+  line-height: var(--cp-leading-body);
+  letter-spacing: var(--cp-text-body-l-letter-spacing);
+}
+
+.readerChecks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-3);
+}
+
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cp-space-2);
+  color: var(--cp-text-primary);
+  font-size: var(--cp-text-body-l-size);
+  line-height: var(--cp-leading-body);
+}
+
+.checkDot {
+  width: 10px;
+  height: 10px;
+  margin-top: 0.55em;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--cp-primary);
+  box-shadow:
+    0 0 0 5px
+    color-mix(in srgb, var(--cp-primary) 12%, transparent);
+}
+
+.tipPanel {
+  padding: var(--cp-space-5);
+  display: grid;
+  grid-template-columns: minmax(180px, 0.32fr) minmax(0, 1fr);
+  gap: var(--cp-space-5);
+  align-items: center;
+  border-radius: var(--guides-radius);
+  background:
+    radial-gradient(
+      circle at 100% 100%,
+      color-mix(in srgb, var(--cp-primary) 18%, transparent),
+      transparent 36%
+    ),
+    var(--cp-dark);
+  color: var(--cp-light);
+}
+
+.tipLabel {
+  color: var(--cp-primary);
+  font-size: var(--cp-text-title-m-size);
+  font-weight: var(--cp-fw-semibold);
+  line-height: var(--cp-leading-title);
+}
+
+.tipText {
+  max-width: 820px;
+  color: var(--cp-foreground-light-strong);
+  font-size: var(--cp-text-body-l-size);
+  line-height: var(--cp-leading-body);
+}
+
+/* Final CTA */
+
+.finalCtaSection {
+  padding-block:
+    0
+    var(--guides-section-y);
+  background: var(--cp-layer-base);
+}
+
+.finalCtaBox {
+  padding: var(--cp-space-7);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--cp-space-6);
+  align-items: center;
+  border-radius: var(--guides-radius);
+  background:
+    radial-gradient(
+      circle at 86% 50%,
+      color-mix(in srgb, var(--cp-primary) 18%, transparent),
+      transparent 34%
+    ),
+    var(--cp-dark);
+  color: var(--cp-light);
+  box-shadow: var(--guides-shadow);
+}
+
+.finalCtaCopy {
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-2);
+}
+
+.finalCtaTitle {
+  color: var(--cp-light);
+  font-size: var(--cp-text-display-m-size);
+  font-weight: var(--cp-fw-bold);
+  line-height: var(--cp-leading-display);
+  letter-spacing: var(--cp-text-display-m-letter-spacing);
+  text-wrap: balance;
+}
+
+.finalCtaText {
+  max-width: 680px;
+  color: var(--cp-foreground-light-strong);
+  font-size: var(--cp-text-body-l-size);
+  line-height: var(--cp-leading-body);
+}
+
+.finalCtaButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--cp-space-2);
+}
+
+.primaryButton,
+.secondaryButton {
+  min-height: 56px;
+  padding-inline: var(--cp-space-4);
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cp-space-2);
+  font-family: var(--cp-font-sans);
+  font-size: var(--cp-text-18);
+  font-weight: var(--cp-fw-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    color 220ms ease;
+}
+
+.primaryButton {
+  border: 0;
+  background: var(--cp-primary);
+  color: var(--cp-dark);
+}
+
+.secondaryButton {
+  border:
+    1px solid
+    color-mix(in srgb, var(--cp-light) 28%, transparent);
+  background: transparent;
+  color: var(--cp-light);
+}
+
+.primaryButton:hover,
+.secondaryButton:hover {
+  transform: translateY(-2px);
+}
+
+.secondaryButton:hover {
+  background: var(--cp-light);
+  color: var(--cp-dark);
+}
+
+/* Responsive */
+
+@media (max-width: 1100px) {
+  .guidesGrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .guideCardFeatured {
+    grid-column: span 6;
+    grid-row: auto;
+    min-height: 420px;
+  }
+
+  .guideCardWide,
+  .guideCardStandard,
+  .guideCardCompact {
+    grid-column: span 3;
+    min-height: 270px;
+  }
+
+  .readerHeader {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(280px, 0.72fr);
+  }
+
+  .finalCtaBox {
+    grid-template-columns: 1fr;
+  }
+
+  .finalCtaButtons {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 820px) {
+  .main {
+    --guides-gutter: 28px;
+  }
+
+  .hero {
+    padding-block:
+      var(--cp-space-8)
+      var(--cp-space-6);
+  }
+
+  .title {
+    font-size: var(--cp-text-display-m-size);
+    letter-spacing: var(--cp-text-display-m-letter-spacing);
+  }
+
+  .guidesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .guideCardFeatured {
+    grid-column: span 2;
+  }
+
+  .guideCardWide,
+  .guideCardStandard,
+  .guideCardCompact {
+    grid-column: span 1;
+    min-height: 300px;
+  }
+
+  .guideCardFeatured .cardCopy {
+    max-width: 62%;
+  }
+
+  .readerHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .readerVisual {
+    min-height: 340px;
+  }
+
+  .readerMiniGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .miniCard {
+    min-height: 0;
+  }
+
+  .readerSplit {
+    grid-template-columns: 1fr;
+  }
+
+  .contextPanel,
+  .resultsPanel {
+    min-height: 0;
+  }
+
+  .tipPanel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .main {
+    --guides-gutter: 20px;
+    --guides-radius: 28px;
+  }
+
+  .heroContent {
+    gap: var(--cp-space-2);
+  }
+
+  .subtitle,
+  .supportText,
+  .mapSupport,
+  .readerSummary,
+  .readerBlockText,
+  .miniCardText,
+  .checkItem,
+  .tipText,
+  .finalCtaText {
+    font-size: var(--cp-text-body-m-size);
+    letter-spacing: var(--cp-text-body-m-letter-spacing);
+  }
+
+  .guidesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .guideCardFeatured,
+  .guideCardWide,
+  .guideCardStandard,
+  .guideCardCompact {
+    grid-column: auto;
+    min-height: 300px;
+    padding: var(--cp-space-4);
+  }
+
+  .guideCardFeatured {
+    min-height: 390px;
+  }
+
+  .guideCardFeatured .cardCopy,
+  .guideCardWide .cardCopy,
+  .guideCardStandard .cardCopy,
+  .guideCardCompact .cardCopy {
+    max-width: 72%;
+  }
+
+  .guideCardFeatured .cardTitle {
+    font-size: var(--cp-text-title-l-size);
+    letter-spacing: var(--cp-text-title-l-letter-spacing);
+  }
+
+  .guideCardFeatured .cardDesc {
+    font-size: var(--cp-text-body-m-size);
+  }
+
+  .cardVisual,
+  .guideCardFeatured .cardVisual,
+  .guideCardWide .cardVisual,
+  .guideCardStandard .cardVisual,
+  .guideCardCompact .cardVisual {
+    width: 46%;
+  }
+
+  .readerSection {
+    scroll-margin-top: 96px;
+  }
+
+  .readerHeader {
+    min-height: 0;
+    gap: var(--cp-space-5);
+  }
+
+  .readerTitle {
+    font-size: var(--cp-text-display-m-size);
+  }
+
+  .readerVisual {
+    min-height: 300px;
+    padding: var(--cp-space-4);
+  }
+
+  .readerIcon {
+    width: min(78%, 280px);
+  }
+
+  .readerActions {
+    padding-top: var(--cp-space-5);
+  }
+
+  .miniCard,
+  .contextPanel,
+  .resultsPanel,
+  .tipPanel {
+    padding: var(--cp-space-4);
+  }
+
+  .finalCtaBox {
+    padding: var(--cp-space-5);
+  }
+
+  .finalCtaTitle {
+    font-size: var(--cp-text-title-l-size);
+    letter-spacing: var(--cp-text-title-l-letter-spacing);
+  }
+
+  .finalCtaButtons {
+    width: 100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guideCard,
+  .cardArrow,
+  .cardIcon,
+  .primaryButton,
+  .secondaryButton {
+    transition: none;
+  }
+
+  .guideCard:hover,
+  .guideCard:hover .cardIcon,
+  .primaryButton:hover,
+  .secondaryButton:hover {
+    transform: none;
+  }
+}
+
+/* Editorial alignment pass */
+.main {
+  --guides-shell: 1440px;
+  --guides-gutter: clamp(24px, 5vw, 80px);
+  --guides-section-y: clamp(88px, 8vw, 136px);
+  --guides-radius: 36px;
+}
+
+.inner {
+  width: min(100%, var(--guides-shell));
+  padding-inline: var(--guides-gutter);
+}
+
+.hero {
+  padding-block: clamp(96px, 10vw, 152px) clamp(64px, 7vw, 104px);
+}
+
+.heroContent {
+  max-width: 1040px;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.title {
+  max-width: 12ch;
+  font-size: clamp(64px, 6.5vw, 104px);
+  line-height: 0.98;
+  letter-spacing: var(--cp-tracking-tight);
+}
+
+.subtitle {
+  max-width: 900px;
+  font-size: clamp(20px, 1.45vw, 24px);
+  font-weight: var(--cp-fw-medium);
+  line-height: 1.48;
+  color: var(--cp-text-secondary);
+}
+
+.supportText {
+  max-width: 860px;
+  font-size: clamp(18px, 1.25vw, 21px);
+  line-height: 1.5;
+}
+
+.mapSection {
+  padding-block: clamp(72px, 7vw, 112px) var(--guides-section-y);
+}
+
+.mapHeading {
+  max-width: 900px;
+  margin-bottom: clamp(44px, 5vw, 72px);
+  gap: var(--cp-space-3);
+}
+
+.mapEyebrow {
+  color: var(--cp-text-tertiary);
+  font-size: clamp(18px, 1.3vw, 22px);
+  font-weight: var(--cp-fw-medium);
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.mapSupport {
+  max-width: 760px;
+  font-size: clamp(18px, 1.25vw, 21px);
+  font-weight: var(--cp-fw-medium);
+  color: var(--cp-text-secondary);
+}
+
+.guidesGrid {
+  gap: clamp(22px, 2vw, 32px);
+  align-items: stretch;
+}
+
+.guideCard {
+  padding: clamp(28px, 3vw, 44px);
+  gap: clamp(24px, 3vw, 44px);
+  border-radius: var(--guides-radius);
+  background:
+    radial-gradient(
+      560px 420px at 82% 78%,
+      color-mix(in srgb, var(--cp-primary) 13%, transparent),
+      transparent 58%
+    ),
+    var(--cp-layer-raised);
+}
+
+.guideCardFeatured {
+  min-height: clamp(520px, 38vw, 640px);
+  padding: clamp(36px, 4vw, 64px);
+}
+
+.guideCardWide {
+  min-height: clamp(250px, 18vw, 310px);
+}
+
+.guideCardStandard {
+  min-height: clamp(280px, 20vw, 340px);
+}
+
+.guideCardCompact {
+  min-height: clamp(250px, 18vw, 300px);
+}
+
+.cardTopRow {
+  align-items: flex-start;
+}
+
+.cardNum {
+  font-size: var(--cp-text-16);
+  letter-spacing: 0;
+}
+
+.cardCopy {
+  max-width: 62%;
+  gap: var(--cp-space-2);
+}
+
+.cardTitle {
+  font-size: clamp(26px, 2vw, 34px);
+  line-height: 1.04;
+  letter-spacing: var(--cp-tracking-tight);
+}
+
+.cardDesc {
+  max-width: 460px;
+  font-size: clamp(17px, 1.18vw, 20px);
+  font-weight: var(--cp-fw-medium);
+  line-height: 1.48;
+  color: var(--cp-text-secondary);
+}
+
+.cardVisual {
+  right: clamp(20px, 2vw, 34px);
+  bottom: clamp(20px, 2vw, 34px);
+  width: 36%;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardIcon {
+  max-height: 100%;
+}
+
+.guideCardFeatured .cardCopy {
+  max-width: min(58%, 560px);
+  margin-top: auto;
+}
+
+.guideCardFeatured .cardTitle {
+  font-size: clamp(44px, 4.2vw, 72px);
+  line-height: 0.98;
+  letter-spacing: var(--cp-tracking-tight);
+}
+
+.guideCardFeatured .cardDesc {
+  max-width: 620px;
+  font-size: clamp(19px, 1.4vw, 23px);
+}
+
+.guideCardFeatured .cardVisual {
+  right: clamp(36px, 4vw, 68px);
+  bottom: clamp(44px, 4.5vw, 78px);
+  width: min(42%, 360px);
+}
+
+.guideCardWide .cardCopy {
+  max-width: 58%;
+}
+
+.guideCardWide .cardVisual {
+  width: min(32%, 190px);
+}
+
+.guideCardStandard .cardCopy,
+.guideCardCompact .cardCopy {
+  max-width: 66%;
+}
+
+.guideCardStandard .cardVisual,
+.guideCardCompact .cardVisual {
+  width: min(36%, 170px);
+}
+
+.readerSection {
+  padding-block: var(--guides-section-y);
+}
+
+.reader {
+  gap: clamp(56px, 6vw, 92px);
+}
+
+.readerHeader {
+  min-height: clamp(420px, 34vw, 560px);
+  gap: clamp(56px, 7vw, 112px);
+}
+
+.readerTitle {
+  font-size: clamp(52px, 5vw, 82px);
+  line-height: 0.98;
+  letter-spacing: var(--cp-tracking-tight);
+}
+
+.readerSummary {
+  font-size: clamp(20px, 1.45vw, 24px);
+  font-weight: var(--cp-fw-medium);
+  line-height: 1.5;
+  color: var(--cp-text-secondary);
+}
+
+.readerVisual {
+  min-height: clamp(420px, 34vw, 540px);
+  padding: clamp(36px, 4vw, 64px);
+}
+
+.readerIcon {
+  width: min(92%, 420px);
+}
+
+.readerBody {
+  gap: clamp(48px, 5vw, 76px);
+}
+
+.readerSectionHeading {
+  margin-bottom: clamp(22px, 2.5vw, 34px);
+}
+
+.readerBlockTitle {
+  font-size: clamp(28px, 2.4vw, 40px);
+  letter-spacing: var(--cp-tracking-tight);
+}
+
+.readerMiniGrid {
+  gap: clamp(20px, 2vw, 30px);
+}
+
+.miniCard,
+.contextPanel,
+.resultsPanel,
+.tipPanel {
+  padding: clamp(28px, 3vw, 44px);
+  border-radius: var(--guides-radius);
+}
+
+.miniCard {
+  min-height: 210px;
+}
+
+.miniCardText,
+.readerBlockText,
+.checkItem,
+.tipText {
+  font-size: clamp(18px, 1.3vw, 22px);
+  line-height: 1.5;
+}
+
+.readerSplit {
+  gap: clamp(20px, 2vw, 32px);
+}
+
+.contextPanel,
+.resultsPanel {
+  min-height: 340px;
+}
+
+.finalCtaSection {
+  padding-block: 0 var(--guides-section-y);
+}
+
+@media (max-width: 1100px) {
+  .guideCardFeatured .cardVisual {
+    width: min(38%, 300px);
+  }
+
+  .readerHeader {
+    gap: var(--cp-space-6);
+  }
+}
+
+@media (max-width: 820px) {
+  .title {
+    font-size: clamp(52px, 10vw, 76px);
+  }
+
+  .guideCardFeatured,
+  .guideCardWide,
+  .guideCardStandard,
+  .guideCardCompact {
+    min-height: 340px;
+  }
+
+  .guideCardFeatured {
+    min-height: 460px;
+  }
+
+  .guideCardFeatured .cardCopy,
+  .guideCardWide .cardCopy,
+  .guideCardStandard .cardCopy,
+  .guideCardCompact .cardCopy {
+    max-width: 64%;
+  }
+
+  .readerVisual {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding-inline: 20px;
+  }
+
+  .hero {
+    padding-block: 88px 64px;
+  }
+
+  .title {
+    font-size: clamp(44px, 14vw, 62px);
+  }
+
+  .guideCardFeatured,
+  .guideCardWide,
+  .guideCardStandard,
+  .guideCardCompact {
+    min-height: 340px;
+  }
+
+  .guideCardFeatured .cardCopy,
+  .guideCardWide .cardCopy,
+  .guideCardStandard .cardCopy,
+  .guideCardCompact .cardCopy {
+    max-width: 68%;
+  }
+
+  .guideCardFeatured .cardTitle,
+  .cardTitle {
+    font-size: clamp(30px, 9vw, 40px);
+  }
+
+  .cardDesc,
+  .guideCardFeatured .cardDesc {
+    font-size: var(--cp-text-16);
+  }
+
+  .cardVisual,
+  .guideCardFeatured .cardVisual,
+  .guideCardWide .cardVisual,
+  .guideCardStandard .cardVisual,
+  .guideCardCompact .cardVisual {
+    right: 18px;
+    bottom: 18px;
+    width: min(38%, 150px);
+  }
+
+  .readerTitle {
+    font-size: clamp(40px, 12vw, 56px);
+  }
+
+  .readerVisual {
+    min-height: 320px;
+  }
+}
+
+/* Compact editorial correction */
+.main {
+  --guides-shell: 1440px;
+}
+
+.hero {
+  padding-block: var(--cp-space-10) var(--cp-space-8);
+}
+
+.heroContent {
+  max-width: 980px;
+  margin-inline: auto;
+  align-items: center;
+  gap: var(--cp-space-3);
+  text-align: center;
+}
+
+.title {
+  max-width: 13ch;
+}
+
+.subtitle,
+.supportText {
+  max-width: 840px;
+}
+
+.mapHeading {
+  max-width: 980px;
+  margin-inline: auto;
+  margin-bottom: var(--cp-space-5);
+  text-align: center;
+}
+
+.reader {
+  gap: var(--cp-space-6);
+}
+
+.readerHeader {
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.58fr);
+  gap: var(--cp-space-6);
+  align-items: center;
+}
+
+.readerHeaderCopy {
+  gap: var(--cp-space-2);
+}
+
+.readerVisual {
+  min-height: 0;
+  padding: var(--cp-space-4);
+  align-self: center;
+}
+
+.readerIcon {
+  width: min(100%, 440px);
+}
+
+.readerBody {
+  gap: var(--cp-space-5);
+}
+
+.readerActions {
+  padding-top: var(--cp-space-5);
+}
+
+.readerSectionHeading {
+  margin-bottom: var(--cp-space-3);
+}
+
+.readerMiniGrid {
+  gap: var(--cp-space-3);
+}
+
+.miniCard {
+  min-height: 0;
+  padding: var(--cp-space-4);
+  justify-content: flex-start;
+  gap: var(--cp-space-3);
+}
+
+.miniCardText {
+  max-width: 26ch;
+}
+
+.readerSplit {
+  gap: var(--cp-space-3);
+  align-items: start;
+}
+
+.contextPanel,
+.resultsPanel {
+  min-height: 0;
+  padding: var(--cp-space-4);
+}
+
+.readerChecks {
+  gap: var(--cp-space-2);
+}
+
+.tipPanel {
+  width: min(100%, 860px);
+  padding: var(--cp-space-4);
+  grid-template-columns: 1fr;
+  gap: var(--cp-space-3);
+  justify-self: start;
+  border-radius: var(--guides-radius);
+  background:
+    radial-gradient(
+      circle at 0% 50%,
+      color-mix(in srgb, var(--cp-primary) 16%, transparent),
+      transparent 42%
+    ),
+    var(--cp-dark);
+}
+
+.tipCopy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cp-space-1);
+}
+
+.tipLabel {
+  font-size: var(--cp-text-14);
+  line-height: var(--cp-leading-label);
+  letter-spacing: var(--cp-tracking-label);
+  text-transform: uppercase;
+}
+
+.tipText {
+  max-width: 680px;
+  font-weight: var(--cp-fw-medium);
+}
+
+@media (max-width: 820px) {
+  .heroContent,
+  .mapHeading {
+    text-align: center;
+  }
+
+  .heroCtas {
+    flex-wrap: wrap;
+  }
+
+  .readerHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .readerVisual {
+    justify-self: center;
+    width: min(100%, 420px);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-block: var(--cp-space-8) var(--cp-space-6);
+  }
+
+  .readerSection {
+    margin-top: var(--cp-space-5);
+  }
+
+  .readerVisual {
+    min-height: 0;
+  }
+
+  .tipPanel { width: 100%; }
+}

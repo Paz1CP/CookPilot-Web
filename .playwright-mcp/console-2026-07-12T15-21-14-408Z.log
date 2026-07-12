@@ -12,3 +12,1180 @@ Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ 
 [   56453ms] [LOG] [Fast Refresh] done in 180ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
 [   56636ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
 [   56639ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  441085ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  442391ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442391ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442391ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442396ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442398ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442399ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442399ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442399ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442402ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442403ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442403ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442403ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442404ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442404ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442405ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442413ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442531ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442531ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442532ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442532ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442532ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442532ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442532ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442532ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442533ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/es/como-funciona?_rsc=1gh96:0
+[  442636ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/es/como-funciona?_rsc=1gh96:0
+[  442644ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  442669ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442669ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442670ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442670ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442670ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442670ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442670ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442670ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442705ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442705ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442705ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442705ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442706ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442706ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442706ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442706ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:3272
+[  442817ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  442854ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/es/como-funciona:0
+[  443199ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_react-dom_0sw20vk._.js:15305
+[  443274ms] Error: ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at Object.getCompilationErrors (file://C:\Users\paz1dv\Desktop\dev\CookPilot Web\node_modules\next\dist\server\dev\hot-reloader-turbopack.js:1186:59)
+    at DevBundlerService.getCompilationError (file://C:\Users\paz1dv\Desktop\dev\CookPilot Web\node_modules\next\dist\server\lib\dev-bundler-service.js:44:55)
+    at DevServer.getCompilationError (file://C:\Users\paz1dv\Desktop\dev\CookPilot Web\node_modules\next\dist\server\dev\next-dev-server.js:719:42)
+    at DevServer.findPageComponents (file://C:\Users\paz1dv\Desktop\dev\CookPilot Web\node_modules\next\dist\server\dev\next-dev-server.js:689:43)
+    at async DevServer.renderErrorToResponseImpl (file://C:\Users\paz1dv\Desktop\dev\CookPilot Web\node_modules\next\dist\server\base-server.js:1745:26)
+[  443272ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1226
+[  443279ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443280ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443281ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443281ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443281ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443282ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443282ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443282ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443282ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443283ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443283ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443284ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443285ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443285ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443285ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443285ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443290ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/favicon.ico:0
+[  443331ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443331ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443331ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443331ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443332ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443332ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443332ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443332ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:7:1
+Module not found: Can't resolve '@/components/DownloadExperience'
+   5 | .../components/Header";
+   6 | .../components/Footer";
+>  7 | ...ence from "@/components...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | ...({
+   9 | ...t-sans-loaded",
+  10 | ...
+
+Import map: aliased to relative './src/components/DownloadExperience' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:6:1
+Module not found: Can't resolve '@/components/Footer'
+  4 | ... LanguageProvider } from...
+  5 | ...eader from "@/components...
+> 6 | ...ooter from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+  9 | ...le: "--cp-font-sans-load...
+
+Import map: aliased to relative './src/components/Footer' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/guias/page.tsx:4:1
+Module not found: Can't resolve '@/components/GuiasContent'
+  2 | ...nse } from "react";
+  3 | ...Content } from "@/conten...
+> 4 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | ...
+  6 | ...etadata: Metadata = {
+  7 | ...as | CookPilot",
+
+Import map: aliased to relative './src/components/GuiasContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/layout.tsx:5:1
+Module not found: Can't resolve '@/components/Header'
+  3 | ..../globals.css";
+  4 | ... LanguageProvider } from...
+> 5 | ...eader from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...ooter from "@/components...
+  7 | ...ownloadExperience from "...
+  8 | ...tfit = Outfit({
+
+Import map: aliased to relative './src/components/Header' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/pro/page.tsx:3:1
+Module not found: Can't resolve '@/components/ProPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/pro";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...CookPilot",
+
+Import map: aliased to relative './src/components/ProPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/como-funciona/page.tsx:3:1
+Module not found: Can't resolve '@/components/HowItWorksContent'
+  1 | ...ata } from "next";
+  2 | ...naContent } from "@/cont...
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...ta: Metadata = {
+  6 | ...ciona | CookPilot",
+
+Import map: aliased to relative './src/components/HowItWorksContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/page.tsx:2:1
+Module not found: Can't resolve '@/components/HomePageContent'
+  1 | ...adata } from "next";
+> 2 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | ...
+  4 | ...data: Metadata = {
+  5 | ...ot — Organiza tu cocina,...
+
+Import map: aliased to relative './src/components/HomePageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443416ms] [ERROR] ./Desktop/dev/CookPilot Web/src/app/es/faq/page.tsx:3:1
+Module not found: Can't resolve '@/components/FaqPageContent'
+  1 | ...tadata } from "next";
+  2 | ...ent } from "@/content/faq";
+> 3 | ...ntent from "@/components...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | ...
+  5 | ...adata: Metadata = {
+  6 | ...tas frecuentes | CookPil...
+
+Import map: aliased to relative './src/components/FaqPageContent' inside of [project]/Desktop/dev/CookPilot Web
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1945
+[  443454ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1226
+[  483472ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1226
+[  485118ms] [LOG] [Fast Refresh] done in 1780ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1226
+[  485287ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1226
+[  485651ms] [LOG] [Fast Refresh] done in 471ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0.hkhaa._.js:1226
+[  485843ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  485947ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  606690ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  607282ms] [LOG] [Fast Refresh] done in 729ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  693969ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  694349ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  694359ms] [LOG] [Fast Refresh] done in 494ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  694699ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  695325ms] [LOG] [Fast Refresh] done in 741ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  695528ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  695654ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  831848ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  833418ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  833420ms] [LOG] [Fast Refresh] done in 1673ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  833525ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  833738ms] [LOG] [Fast Refresh] done in 316ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  833910ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  834200ms] [LOG] [Fast Refresh] done in 396ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  834303ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  834515ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  834636ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  870571ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  870780ms] [LOG] [Fast Refresh] done in 42ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  925789ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  926498ms] [LOG] [Fast Refresh] done in 816ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  926611ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  926876ms] [LOG] [Fast Refresh] done in 374ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  931214ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[  932295ms] [LOG] [Fast Refresh] done in 1193ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1079216ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1079696ms] [LOG] [Fast Refresh] done in 582ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1170805ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1171188ms] [LOG] [Fast Refresh] done in 484ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1171407ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1171494ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1172267ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1172298ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1172959ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1173254ms] [LOG] [Fast Refresh] done in 399ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1173395ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1173429ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1174105ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1174430ms] [LOG] [Fast Refresh] done in 436ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1174519ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1174545ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1175192ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1175549ms] [LOG] [Fast Refresh] done in 462ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1175625ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1175664ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1176311ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1176987ms] [LOG] [Fast Refresh] done in 780ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1177192ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1177235ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1177872ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1178283ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1178441ms] [LOG] [Fast Refresh] done in 671ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1178554ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1178585ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1179247ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1179761ms] [LOG] [Fast Refresh] done in 624ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1179841ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1179870ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1180525ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1181121ms] [LOG] [Fast Refresh] done in 704ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1181202ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1181224ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1181898ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1182424ms] [LOG] [Fast Refresh] done in 630ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1182485ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1182512ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1207038ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1207072ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1208128ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1212313ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1212725ms] [LOG] [Fast Refresh] done in 514ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1212861ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1212910ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1216408ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1216705ms] [LOG] [Fast Refresh] done in 400ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1243717ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1244213ms] [LOG] [Fast Refresh] done in 597ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1480838ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1480862ms] [LOG] [Fast Refresh] done in 91ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1480981ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1481167ms] [LOG] [Fast Refresh] done in 301ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1508477ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1508700ms] [LOG] [Fast Refresh] done in 32ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1533815ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1533973ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1533975ms] [LOG] [Fast Refresh] done in 269ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1534080ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1534288ms] [LOG] [Fast Refresh] done in 313ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1534413ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1534809ms] [LOG] [Fast Refresh] done in 504ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1535147ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1535209ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1677918ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1677945ms] [LOG] [Fast Refresh] done in 92ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1678065ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431
+[ 1678205ms] [LOG] [Fast Refresh] done in 254ms @ http://localhost:3000/_next/static/chunks/0w-c_next_dist_0p-2-1e._.js:2431

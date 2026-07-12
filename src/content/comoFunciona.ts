@@ -1,22 +1,22 @@
 export const comoFuncionaContent = {
   es: {
     hero: {
-      title: "Cómo funciona CookPilot",
-      subtitle: "Empieza con una receta, una idea o un día vacío. CookPilot lo convierte en menú, compra, cocina y reutilización.",
+      title: "CÃ³mo funciona CookPilot",
+      subtitle: "Empieza con una receta, una idea o un dÃ­a vacÃ­o. CookPilot lo convierte en menÃº, compra, cocina y reutilizaciÃ³n.",
       ctaPrimary: "Descargar CookPilot",
-      ctaSecondary: "Ver guías",
+      ctaSecondary: "Ver guÃ­as",
     },
     section1: {
-      title: "Del primer menú a una semana organizada.",
+      title: "Del primer menÃº a una semana organizada.",
       subtitle: "CookPilot no trabaja en pantallas sueltas. Cada paso deja algo listo para el siguiente.",
     },
     steps: [
       {
         number: "01",
         title: "Empieza",
-        description: "Puedes empezar con una receta, una idea, una comida pendiente, un menú guardado o un día vacío.",
+        description: "Puedes empezar con una receta, una idea, una comida pendiente, un menÃº guardado o un dÃ­a vacÃ­o.",
         whatYouDo: [
-          "Creas un menú manual.",
+          "Creas un menÃº manual.",
           "Importas una receta o pides resolver una comida.",
         ],
         whatGetsReady: [
@@ -28,24 +28,24 @@ export const comoFuncionaContent = {
       {
         number: "02",
         title: "Resuelve",
-        description: "Cuando no quieres construir todo a mano, CookPilot puede ayudarte a resolver un menú, un momento de comida o un día.",
+        description: "Cuando no quieres construir todo a mano, CookPilot puede ayudarte a resolver un menÃº, un momento de comida o un dÃ­a.",
         whatYouDo: [
           "Pides una propuesta.",
           "Revisas y ajustas lo generado.",
         ],
         whatGetsReady: [
-          "Un menú usable.",
-          "Un día con menos espacios vacíos.",
+          "Un menÃº usable.",
+          "Un dÃ­a con menos espacios vacÃ­os.",
         ],
         image: "/images/app/cookhome.png",
       },
       {
         number: "03",
         title: "Organiza",
-        description: "Los menús viven dentro de momentos del día, días y semanas. Así sabes qué toca y qué falta.",
+        description: "Los menÃºs viven dentro de momentos del dÃ­a, dÃ­as y semanas. AsÃ­ sabes quÃ© toca y quÃ© falta.",
         whatYouDo: [
           "Ordenas desayunos, almuerzos, cenas o snacks.",
-          "Armas días y semanas.",
+          "Armas dÃ­as y semanas.",
         ],
         whatGetsReady: [
           "Un plan claro.",
@@ -56,13 +56,13 @@ export const comoFuncionaContent = {
       {
         number: "04",
         title: "Compra",
-        description: "CookPilot transforma tus menús en cantidades, lista de compras y costos referenciales.",
+        description: "CookPilot transforma tus menÃºs en cantidades, lista de compras y costos referenciales.",
         whatYouDo: [
           "Revisas ingredientes.",
           "Ajustas lo que necesitas comprar.",
         ],
         whatGetsReady: [
-          "Una lista más clara.",
+          "Una lista mÃ¡s clara.",
           "Mejor referencia de costos.",
         ],
         image: "/images/app/cooklist.png",
@@ -76,60 +76,55 @@ export const comoFuncionaContent = {
           "Modificas cantidades.",
         ],
         whatGetsReady: [
-          "Un menú más alineado a tu objetivo.",
-          "Comida real, no una fórmula rara.",
+          "Un menÃº mÃ¡s alineado a tu objetivo.",
+          "Comida real, no una fÃ³rmula rara.",
         ],
         image: "/images/app/cookfit.png",
       },
       {
         number: "06",
         title: "Cocina",
-        description: "Cuando ya sabes qué toca, CookPilot te guía con pasos, tiempos e ingredientes en contexto.",
+        description: "Cuando ya sabes quÃ© toca, CookPilot te guÃ­a con pasos, tiempos e ingredientes en contexto.",
         whatYouDo: [
           "Abres CookMode.",
-          "Sigues la preparación.",
+          "Sigues la preparaciÃ³n.",
         ],
         whatGetsReady: [
           "Una comida preparada con menos desorden.",
-          "Un flujo más claro en cocina.",
+          "Un flujo mÃ¡s claro en cocina.",
         ],
         image: "/images/app/cookmode.png",
       },
       {
         number: "07",
         title: "Reutiliza",
-        description: "Una buena comida, día o semana no debería perderse después de usarla una vez.",
+        description: "Una buena comida, dÃ­a o semana no deberÃ­a perderse despuÃ©s de usarla una vez.",
         whatYouDo: [
           "Guardas, copias, pegas o fijas.",
           "Buscas favoritos e importadas.",
         ],
         whatGetsReady: [
-          "Menús reutilizables.",
-          "Menos trabajo la próxima vez.",
+          "MenÃºs reutilizables.",
+          "Menos trabajo la prÃ³xima vez.",
         ],
         image: "/images/app/cooksearch.png",
       },
     ],
     entryMappings: {
       title: "No tienes que empezar siempre igual.",
-      subtitle: "CookPilot acepta varias entradas y las convierte en algo útil.",
+      subtitle: "CookPilot acepta varias entradas y las convierte en algo Ãºtil.",
       items: [
         { from: "Receta externa", to: "Receta editable" },
-        { from: "Idea suelta", to: "Menú" },
-        { from: "Día vacío", to: "Plan" },
+        { from: "Idea suelta", to: "MenÃº" },
+        { from: "DÃ­a vacÃ­o", to: "Plan" },
         { from: "Objetivo nutricional", to: "Ajuste" },
-        { from: "Menú útil", to: "Plantilla" },
+        { from: "MenÃº Ãºtil", to: "Plantilla" },
         { from: "Compra pendiente", to: "Lista" },
       ],
     },
     labels: {
-      whatYouDo: "Qué haces",
-      whatGetsReady: "Qué queda listo",
-    },
-    finalCta: {
-      title: "Después de usar CookPilot, deberías tener una respuesta clara: qué comer, qué comprar, cómo cocinarlo y qué puedes volver a usar.",
-      ctaPrimary: "Ver guías",
-      ctaSecondary: "Ver cómo funciona"
+      whatYouDo: "QuÃ© haces",
+      whatGetsReady: "QuÃ© queda listo",
     },
   },
   en: {
@@ -259,14 +254,6 @@ export const comoFuncionaContent = {
     labels: {
       whatYouDo: "What you do",
       whatGetsReady: "What gets ready",
-    },
-    finalCta: {
-      title: "What matters is what gets ready.",
-      text: [
-        "After using CookPilot, you should have a clear answer: what to eat, what to buy, how to cook it, and what you can reuse.",
-      ],
-      ctaPrimary: "Download CookPilot",
-      ctaSecondary: "View Guides",
     },
   },
 };

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { proContent } from "@/content/pro";
-import ProPageContent from "@/components/ProPageContent";
+import ProPageContent from "@/features/pro/ProPageContent";
 
 export const metadata: Metadata = {
   title: "Pro | CookPilot",

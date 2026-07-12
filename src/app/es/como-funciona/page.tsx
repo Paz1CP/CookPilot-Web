@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { comoFuncionaContent } from "@/content/comoFunciona";
-import HowItWorksContent from "@/components/HowItWorksContent";
+import HowItWorksContent from "@/features/how-it-works/HowItWorksContent";
 
 export const metadata: Metadata = {
   title: "Cómo funciona | CookPilot",

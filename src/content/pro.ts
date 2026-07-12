@@ -64,6 +64,7 @@ export const proContent = {
     },
     faq: {
       title: "Preguntas frecuentes de Pro",
+      subtitle: "Respuestas claras sobre Pro, sus planes y sus packs.",
       items: [
         { q: "¿El anual entrega todos los usos del año de golpe?", a: "No. El anual se paga una vez al año, pero los usos incluidos se renuevan cada mes." },
         { q: "¿Los packs reemplazan Pro?", a: "No. Los packs son para usuarios Pro que necesitan más capacidad en funciones específicas." },
@@ -120,6 +121,7 @@ export const proContent = {
     },
     faq: {
       title: "Pro FAQ",
+      subtitle: "Clear answers about Pro, its plans, and its packs.",
       items: [
         { q: "Does the yearly plan give all yearly usage upfront?", a: "No. The yearly plan is paid once per year, but included usage renews every month." },
         { q: "Do packs replace Pro?", a: "No. Packs are for Pro users who need more capacity for specific features." },

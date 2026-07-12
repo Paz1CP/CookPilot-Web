@@ -212,7 +212,7 @@ async function readVerificationToken(value: unknown) {
       return null;
     }
     return payload as DeletionVerificationPayload;
-  } catch (_) {
+  } catch {
     return null;
   }
 }

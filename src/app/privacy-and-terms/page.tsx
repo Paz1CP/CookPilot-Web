@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Metadata } from "next";
-import PrivacyAndTermsPage from "./PrivacyAndTermsPage";
+import PrivacyAndTermsPage from "@/features/legal/PrivacyAndTermsPage";
 
 const SITE_URL = "https://cookpilot.pro";
 
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 
 async function readPolicyFile(fileName: string) {
   return readFile(
-    join(process.cwd(), "src", "app", "privacy-and-terms", "content", fileName),
+    join(process.cwd(), "src", "features", "legal", "content", fileName),
     "utf8",
   );
 }

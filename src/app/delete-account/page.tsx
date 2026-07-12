@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import DeleteAccountPage from "./DeleteAccountPage";
+import DeleteAccountPage from "@/features/account-deletion/DeleteAccountPage";
 
 export const metadata: Metadata = {
   title: "Delete CookPilot account | CookPilot",

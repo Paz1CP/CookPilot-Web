@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { guiasContent } from "@/content/guias";
-import GuiasContent from "@/components/GuiasContent";
+import GuiasContent from "@/features/guides/GuiasContent";
 
 export const metadata: Metadata = {
   title: "Guides | CookPilot",

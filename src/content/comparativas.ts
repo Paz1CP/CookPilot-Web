@@ -3,46 +3,47 @@ export const comparativasContent = {
     hero: {
       eyebrow: "Comparativas",
       title: "CookPilot frente a otras alternativas.",
-      subtitle: "Compara cómo se organiza tu alimentación diaria usando CookPilot en comparación con métodos, apps y herramientas tradicionales.",
-      supportText: "No vendemos recetas ni dietas rígidas. Ofrecemos un sistema integrado. Mira cómo se compara CookPilot frente a lo que usas hoy."
+      subtitle: "Compara cÃ³mo se organiza tu alimentaciÃ³n diaria usando CookPilot en comparaciÃ³n con mÃ©todos, apps y herramientas tradicionales.",
+      supportText: "No vendemos recetas ni dietas rÃ­gidas. Ofrecemos un sistema integrado. Mira cÃ³mo se compara CookPilot frente a lo que usas hoy."
     },
     section1: {
-      title: "Elige una opción para comparar",
+      contrastLabel: "Con CookPilot:",
+      title: "Elige una opciÃ³n para comparar",
       blocks: [
         {
           title: "Apps de recetas",
           desc: "Las aplicaciones tradicionales se enfocan en darte una lista interminable de ideas, pero te dejan solo a la hora de planificar la semana, consolidar compras y cocinar.",
-          contrast: "CookPilot conecta las recetas directamente con tus menús, lista de ingredientes consolidada y el asistente de preparación CookMode.",
+          contrast: "CookPilot conecta las recetas directamente con tus menÃºs, lista de ingredientes consolidada y el asistente de preparaciÃ³n CookMode.",
           slug: "apps-de-recetas"
         },
         {
           title: "Planners de comida",
-          desc: "La mayoría de planificadores son plantillas vacías donde debes escribir cada plato de forma manual sin conexión con tus compras o macros reales.",
-          contrast: "CookPilot permite automatizar la planificación con generación inteligente y ajustar automáticamente las proporciones nutricionales.",
+          desc: "La mayorÃ­a de planificadores son plantillas vacÃ­as donde debes escribir cada plato de forma manual sin conexiÃ³n con tus compras o macros reales.",
+          contrast: "CookPilot permite automatizar la planificaciÃ³n con generaciÃ³n inteligente y ajustar automÃ¡ticamente las proporciones nutricionales.",
           slug: "planners-de-comida"
         },
         {
           title: "Trackers de macros",
-          desc: "Los contadores de calorías suelen tratar la alimentación como una hoja de cálculo tediosa donde registras cada ingrediente individual después de comer.",
-          contrast: "CookPilot integra los macros en la fase de planificación de menús, adaptando porciones de forma proactiva antes de que cocines.",
+          desc: "Los contadores de calorÃ­as suelen tratar la alimentaciÃ³n como una hoja de cÃ¡lculo tediosa donde registras cada ingrediente individual despuÃ©s de comer.",
+          contrast: "CookPilot integra los macros en la fase de planificaciÃ³n de menÃºs, adaptando porciones de forma proactiva antes de que cocines.",
           slug: "trackers-de-macros"
         },
         {
           title: "Listas de compras",
-          desc: "Las herramientas de notas básicas o listas de compras no entienden de menús ni recetas, obligándote a calcular cantidades a mano.",
-          contrast: "CookList extrae automáticamente los ingredientes de tu planificación semanal, agrupando por pasillos con costos referenciales.",
+          desc: "Las herramientas de notas bÃ¡sicas o listas de compras no entienden de menÃºs ni recetas, obligÃ¡ndote a calcular cantidades a mano.",
+          contrast: "CookList extrae automÃ¡ticamente los ingredientes de tu planificaciÃ³n semanal, agrupando por pasillos con costos referenciales.",
           slug: "listas-de-compras"
         },
         {
           title: "Notas / Excel",
           desc: "Llevar un documento local o un cuaderno requiere alta disciplina y trabajo manual cada semana para actualizar recetas, compras y macros.",
-          contrast: "CookPilot centraliza todo el ciclo de alimentación en una experiencia fluida que recuerda tus hábitos y recetas para reutilizarlas.",
+          contrast: "CookPilot centraliza todo el ciclo de alimentaciÃ³n en una experiencia fluida que recuerda tus hÃ¡bitos y recetas para reutilizarlas.",
           slug: "notas-excel"
         },
         {
           title: "Delivery / comer fuera",
-          desc: "Depender de comida a domicilio o restaurantes ahorra tiempo de cocina, pero eleva los costos drásticamente y reduce el control nutricional.",
-          contrast: "CookPilot te ayuda a planificar y cocinar comida real en casa con bajo mental load y estimación clara de tus costos y ahorros.",
+          desc: "Depender de comida a domicilio o restaurantes ahorra tiempo de cocina, pero eleva los costos drÃ¡sticamente y reduce el control nutricional.",
+          contrast: "CookPilot te ayuda a planificar y cocinar comida real en casa con bajo mental load y estimaciÃ³n clara de tus costos y ahorros.",
           slug: "delivery"
         }
       ]
@@ -56,6 +57,7 @@ export const comparativasContent = {
       supportText: "We don't sell recipes or rigid diets. We offer an integrated system. See how CookPilot compares to what you use today."
     },
     section1: {
+      contrastLabel: "Con CookPilot:",
       title: "Select an option to compare",
       blocks: [
         {

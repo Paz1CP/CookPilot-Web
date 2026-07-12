@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomePageContent from "@/components/HomePageContent";
+import HomePageContent from "@/features/home/HomePageContent";
 
 export const metadata: Metadata = {
   title: "CookPilot — Organize your kitchen, shopping and nutrition",
