@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./HowItWorksContent.module.css";
+import FinalDownload from "./FinalDownload";
+import EditorialHero from "./EditorialHero";
 import { useLocale } from "@/contexts/LanguageContext";
 
 type Step = {
@@ -38,6 +39,10 @@ type HowItWorksData = {
     subtitle: string;
     items: EntryMapping[];
   };
+  labels: {
+    whatYouDo: string;
+    whatGetsReady: string;
+  };
   finalCta?: {
     title: string;
     text?: string[];
@@ -52,29 +57,16 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero}>
-        <div className={styles.inner}>
-          <Reveal variants={fadeUp}>
-            <span className={styles.eyebrow}>{content.hero.eyebrow}</span>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.1}>
-            <h1 className={styles.title}>{content.hero.title}</h1>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.2}>
-            <p className={styles.subtitle}>{content.hero.subtitle}</p>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.3}>
-            <div className={styles.heroCtas}>
-              <a href="#download-final" className="cp-btn cp-btn--primary">
-                {content.hero.ctaPrimary}
-              </a>
-              <Link href={es ? "/es/guias" : "/en/guides"} className="cp-btn cp-btn--ghost">
-                {content.hero.ctaSecondary}
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <EditorialHero
+        eyebrow={content.hero.eyebrow}
+        title={content.hero.title}
+        subtitle={content.hero.subtitle}
+        primaryCta={content.hero.ctaPrimary}
+        secondaryCta={{
+          label: content.hero.ctaSecondary,
+          href: es ? "/es/guias" : "/en/guides",
+        }}
+      />
 
       <section className={styles.introSection}>
         <div className={styles.inner}>
@@ -99,7 +91,7 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
                     <p className={styles.stepDescription}>{step.description}</p>
                     <div className={styles.stepBullets}>
                       <div className={styles.bulletBlock}>
-                        <span className={styles.bulletLabel}>Qué haces</span>
+                        <span className={styles.bulletLabel}>{content.labels.whatYouDo}</span>
                         <ul className={styles.bulletList}>
                           {step.whatYouDo.map((item, i) => (
                             <li key={i}>{item}</li>
@@ -107,7 +99,7 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
                         </ul>
                       </div>
                       <div className={styles.bulletBlock}>
-                        <span className={styles.bulletLabel}>Qué queda listo</span>
+                        <span className={styles.bulletLabel}>{content.labels.whatGetsReady}</span>
                         <ul className={styles.bulletList}>
                           {step.whatGetsReady.map((item, i) => (
                             <li key={i}>{item}</li>
@@ -117,17 +109,15 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
                     </div>
                   </div>
                 </div>
-                <div className={styles.stepVisual}>
-                  <div className={styles.stepImageWrap}>
-                    <Image
-                      src={step.image}
-                      alt={step.title}
-                      width={480}
-                      height={960}
-                      priority={idx < 2}
-                      className={styles.stepImage}
-                    />
-                  </div>
+                <div className={styles.stepVisual} aria-hidden="true">
+                  <Image
+                    src={step.image}
+                    alt=""
+                    width={480}
+                    height={960}
+                    priority={idx < 2}
+                    className={styles.stepImage}
+                  />
                 </div>
               </div>
             ))}
@@ -147,40 +137,14 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
             {content.entryMappings.items.map((item, idx) => (
               <div key={idx} className={styles.mappingItem}>
                 <span className={styles.mappingFrom}>{item.from}</span>
-                <span className={styles.mappingArrow}>→</span>
+                <span className={styles.mappingArrow} aria-hidden="true">→</span>
                 <span className={styles.mappingTo}>{item.to}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {content.finalCta && (
-        <section className={styles.finalCtaSection} id="download-final">
-          <div className={styles.inner}>
-            <div className={styles.finalCtaBox}>
-              <Reveal variants={fadeUp}>
-                <h2 className={styles.finalCtaTitle}>{content.finalCta.title}</h2>
-              </Reveal>
-              <div className={styles.finalCtaText}>
-                {content.finalCta.text?.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-              <Reveal variants={fadeUp} delay={0.2}>
-                <div className={styles.finalCtaButtons}>
-                  <a href="#" className="cp-btn cp-btn--primary">
-                    {content.finalCta.ctaPrimary}
-                  </a>
-                  <Link href={es ? "/es/guias" : "/en/guides"} className="cp-btn cp-btn--ghost">
-                    {content.finalCta.ctaSecondary}
-                  </Link>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-      )}
+      <FinalDownload />
     </main>
   );
 }

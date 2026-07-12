@@ -1,0 +1,1047 @@
+Rediseña y termina la Home de CookPilot con una mejora visual inequívoca, de nivel estudio internacional, utilizando el producto, contenido, Design System, assets y arquitectura que ya existen en el repositorio.
+
+No quiero una reconstrucción caprichosa ni una sucesión de pequeños retoques. Quiero una **recomposición editorial completa de la landing**, reconocible como CookPilot, pero con una dirección artística mucho más madura, memorable y deseable.
+
+Trabaja de forma autónoma hasta dejarla terminada. No presentes alternativas. Toma decisiones, impleméntalas, obsérvalas en el navegador y corrige lo que no alcance el nivel esperado.
+
+---
+
+# 1. Fuentes canónicas obligatorias
+
+Antes de modificar código, lee:
+
+- `docs/cookpilot_web_canonical_documentation.md`
+- `docs/cookpilot_artistic_direction.md`
+
+
+También revisa:
+
+- los tokens tipográficos;
+- los tokens de diseño;
+- los componentes actuales de la Home;
+- el sistema de idioma ES/EN;
+- los componentes compartidos;
+- los assets disponibles;
+- el comportamiento actual en navegador.
+
+El documento de dirección artística manda sobre cualquier solución visual genérica existente.
+
+---
+
+# 2. Scope
+
+Rediseña exclusivamente la landing principal localizada:
+
+- `/es`
+- `/en`
+
+Puedes modificar componentes compartidos que participan directamente en la Home —por ejemplo Header, botones, modal de descarga o primitives visuales— solo cuando sea necesario para mejorar la landing y sin romper las páginas internas.
+
+No rediseñes:
+
+- Cómo funciona;
+- Guías;
+- Pro;
+- FAQ;
+- Descargar;
+- Comparativas;
+- legal;
+- otras páginas internas.
+
+No agregues nuevas páginas.
+
+Puedes:
+
+- recomponer profundamente las secciones actuales;
+- cambiar su silueta, distribución, ritmo, escala y comportamiento;
+- reorganizar el orden si existe una mejora narrativa evidente;
+- eliminar wrappers, bordes, adornos o elementos redundantes;
+- crear componentes visuales nuevos;
+- introducir una o dos secciones nuevas como máximo, únicamente si aportan valor real y no repiten conceptos.
+
+Una nueva sección ya aprobada es el bloque editorial de **comida real**, descrito más adelante.
+
+No conviertas la Home en otra página de documentación.
+
+---
+
+# 3. Objetivo estratégico
+
+La Home debe funcionar simultáneamente como:
+
+1. superficie de conversión para usuarios reales;
+2. demostración silenciosa de la madurez y del valor estratégico del producto.
+
+Un usuario debe entender, desear y descargar CookPilot.
+
+Un potencial comprador, partner o empresa debe inferir, sin ver un pitch corporativo, que CookPilot ya posee:
+
+- producto real;
+- identidad propia;
+- profundidad funcional;
+- coherencia;
+- calidad de ejecución;
+- capacidad de monetización;
+- una marca que merece adquirirse, no reconstruirse.
+
+No introduzcas lenguaje para inversionistas, métricas inventadas, logos falsos, claims corporativos ni contenido de pitch deck. Esa percepción debe surgir de la calidad del producto y de la dirección visual.
+
+---
+
+# 4. Dirección artística
+
+La mezcla visual objetivo es:
+
+- 65% lujo silencioso;
+- 35% sabor CookPilot.
+
+Debe sentirse como un **producto editorial premium**, cálido, gastronómico, expresivo y técnicamente sofisticado.
+
+La imagen y el producto gobiernan. El texto orienta.
+
+La landing debe tener:
+
+- jerarquía tipográfica contundente;
+- ilustraciones y mockups con gran presencia;
+- fotografía gastronómica de alta calidad;
+- cambios de clima entre secciones;
+- glows cálidos como parte de la identidad;
+- composiciones distintas bajo un sistema común;
+- movimiento protagonista;
+- densidad controlada;
+- momentos claros de impacto y respiración;
+- uno o varios momentos WOW sin perder usabilidad.
+
+No debe sentirse como:
+
+- plantilla SaaS;
+- grid de cards genéricas;
+- documentación técnica;
+- producto infantil;
+- catálogo plano de funciones;
+- landing construida solo con rectángulos, bordes e iconos pequeños;
+- copia perezosa de Apple;
+- “AI slop”.
+
+---
+
+# 5. Referencias visuales y patrones aprovechables
+
+Puedes tomar y adaptar estructuras, layouts o patrones comprobados de las siguientes referencias. No es necesario evitar una estructura solo porque recuerde a otra web; una composición validada puede reutilizarse si se adapta correctamente a CookPilot.
+
+## Flighty
+
+Extraer:
+
+- jerarquía tipográfica excepcional;
+- mockup central o protagonista;
+- contenido del teléfono que cambia con el scroll;
+- segmented selector ligado a una secuencia;
+- transiciones de fondo y tema durante el recorrido;
+- cards visuales muy contenidas y cercanas;
+- imagen como superficie de card;
+- patrón editorial de frase inicial en negrita seguida por texto regular;
+- abundancia visual controlada;
+- composición compacta con lujo silencioso.
+
+## Opal
+
+Extraer:
+
+- glows profundos y premium detrás del producto;
+- contraste fuerte entre fondo y mockup;
+- movimiento ambiental;
+- escenas hero cinematográficas;
+- producto flotando con profundidad sin wrappers innecesarios;
+- botones de tiendas que respetan el lenguaje visual de los badges nativos.
+
+## Gentler Streak
+
+Extraer:
+
+- cards con vida;
+- colores, ilustraciones y gradientes con función;
+- variación entre módulos;
+- imágenes grandes;
+- superficies que parecen piezas editoriales, no componentes de UI genéricos;
+- interacción y hover que enriquecen cada pieza.
+
+## Endel
+
+Extraer:
+
+- grandes composiciones visuales;
+- mosaicos o grids densos de contenido;
+- cierre de landing mediante abundancia visual;
+- uso de muchas imágenes como una sola escena coherente.
+
+## Phantom
+
+Extraer:
+
+- movimiento juguetón;
+- carruseles grandes;
+- cards con desplazamiento, rebote o respuesta al scroll;
+- composición menos rígida;
+- personalidad sin perder legibilidad.
+
+## Popcorn
+
+Extraer:
+
+- cierre limpio y memorable;
+- transición elegante hacia footer;
+- escala final;
+- composición que termina la página con intención en lugar de simplemente agotarse.
+
+No intentes mezclar todos los patrones en cada sección. Selecciona el recurso que mejor resuelva cada momento.
+
+---
+
+# 6. Design System
+
+La foundation está congelada. Si es necesario ordenarla para asegurar consistencia, hazlo, es de los principal y fuandamental que se debe de trabajar
+
+No cambies:
+
+- color primario de CookPilot;
+- familias tipográficas;
+- paleta fundacional;
+- identidad general;
+- escala base con valores arbitrarios;
+- tokens globales para acomodar un único layout.
+
+Sí puedes:
+
+- crear o ajustar aliases semánticos;
+- usar tamaños fluidos;
+- mapear correctamente roles visuales a los tokens existentes;
+- ampliar la capa semántica cuando exista una necesidad real;
+- eliminar estilos locales que contradicen el sistema;
+- unificar botones, títulos, cuerpos, labels y superficies.
+
+No uses valores aleatorios como:
+
+- `23px`;
+- `27px`;
+- `15px` de radio;
+- gaps arbitrarios;
+- tamaños ligeramente distintos sin razón;
+- decenas de hardcodes locales.
+
+Usa una escala consistente y reconocible.
+
+El espaciado puede tener libertad editorial, pero debe derivar de una progresión racional. No conviertas el sitio en un régimen rígido que mate la composición, pero tampoco uses números caprichosos.
+
+Las cards no deben depender de contornos. Prioriza:
+
+- contraste de superficie;
+- imagen;
+- gradiente;
+- composición;
+- profundidad;
+- separación espacial;
+- radio pronunciado cuando corresponda.
+
+Usa borde únicamente cuando cumpla una función clara.
+
+---
+
+# 7. Escala y legibilidad
+
+Nada importante debe verse diminuto.
+
+La landing se revisará en un monitor de 27 pulgadas a 100% de zoom. En ese contexto:
+
+- los títulos deben mandar;
+- los cuerpos deben leerse sin esfuerzo;
+- los botones deben tener presencia;
+- los labels no deben parecer residuos de UI;
+- los iconos no deben perderse;
+- los mockups no deben parecer miniaturas flotando en un océano vacío.
+
+No aumentes todo de forma indiscriminada. Construye una jerarquía clara entre:
+
+- hero;
+- títulos de sección;
+- títulos de contenido;
+- leads;
+- body;
+- CTAs;
+- labels;
+- captions;
+- metadata.
+
+Usa tipografía fluida y composiciones propias por breakpoint.
+
+Desktop es prioritario, pero mobile no puede ser una pila mediocre de la versión grande. Diseñaras  para que en tablet y mobile, luzca igual de genail, RESPONSIVE FIRST, no des como terminada la tarea, si la webe netera no es responsive.
+
+---
+
+# 8. Hero
+
+Puedes reimaginar el Hero con libertad editorial alta.
+
+Puede conservar mockups actuales, combinarlos de otra manera, cambiar su posición, escala y relación con el texto o utilizar una secuencia más ambiciosa.
+
+No estás obligado a mantener:
+
+- texto a la izquierda;
+- teléfono a la derecha;
+- estructura actual;
+- avatar en la esquina;
+- CTAs actuales;
+- la misma distribución.
+
+El Hero debe tener:
+
+- impacto inmediato;
+- tipografía grande;
+- un protagonista visual claro;
+- producto real;
+- profundidad;
+- una escena coherente;
+- un CTA único;
+- una primera impresión memorable.
+
+Fondos disponibles:
+
+### Tema oscuro
+
+`/images/backgrounds/ckp_hero_bg.png`
+
+Es una escena gastronómica nocturna premium, con mesa editorial de comida peruana, espacio negativo y concentración visual de platos en una zona de la composición.
+
+### Tema claro
+
+`/images/backgrounds/ckp_hero_light_bg.png`
+
+Es la versión clara equivalente, destinada al Hero cuando el usuario usa el tema light.
+
+Utiliza el fondo correspondiente al tema. Puedes:
+
+- recortarlo;
+- reposicionarlo;
+- escalarlo;
+- usar overlays;
+- aplicar máscaras;
+- controlar contraste;
+- añadir glows con CSS;
+- combinarlo con mockups;
+- hacer transiciones suaves entre temas.
+
+No hornees nuevos desenfoques en los assets. Si necesitas blur, opacidad, oscurecimiento o profundidad, contrólalos mediante código.
+
+El fondo no debe competir con el contenido. Tampoco debe desaparecer hasta volverse irrelevante.
+
+El Hero puede adoptar una estructura inspirada directamente en Flighty, Opal u otra referencia si mejora realmente el resultado.
+
+---
+
+# 9. CTA de descarga
+
+La Home debe usar un único CTA principal:
+
+- ES: `Descargar`
+- EN: `Download`
+
+Al activarlo, abre un modal o superficie de descarga con dos opciones equivalentes:
+
+- Google Play;
+- AppGallery.
+
+Reglas:
+
+- ninguna tienda es secundaria;
+- misma jerarquía visual;
+- mismo tamaño;
+- mismo tratamiento;
+- diferenciación mediante logo y nombre;
+- no mostrar Huawei como alternativa menor;
+- no usar una opción outline y otra sólida;
+- no usar imágenes completas de badges como botones si el resultado pierde coherencia;
+- construir botones que respeten la proporción y dignidad de los badges oficiales;
+- icono y texto deben tener buena escala;
+- comportamiento accesible;
+- cerrar con Escape;
+- cerrar con backdrop;
+- focus correcto;
+- comportamiento móvil adecuado.
+
+Si los enlaces oficiales aún no existen, conserva el mecanismo seguro actual. No inventes URLs.
+
+Revisa también el botón `Descargar` del Header: actualmente no debe perder padding, altura ni presencia por overrides locales.
+
+---
+
+# 10. Contenido y copy
+
+Conserva la promesa, las features y la intención del contenido existente.
+
+Puedes realizar un pulido quirúrgico:
+
+- acortar repeticiones;
+- mejorar títulos;
+- ajustar saltos;
+- reducir párrafos;
+- fortalecer jerarquía;
+- fusionar ideas redundantes;
+- alinear la versión inglesa con precisión.
+
+No puedes:
+
+- inventar funciones;
+- eliminar pilares importantes;
+- convertir el contenido en manifiestos;
+- introducir lenguaje aspiracional vacío;
+- llenar secciones con explicaciones largas;
+- cambiar el posicionamiento del producto.
+
+La regla es:
+
+**menos texto, mejor dirigido.**
+
+No dejes una sección débil únicamente porque eliminaste demasiado. Sustituye densidad verbal por composición, imagen, interacción y jerarquía.
+
+Mantén ES y EN alineados semánticamente. No traduzcas palabra por palabra cuando el inglés natural requiera otra construcción. Primero haz la web en español, luego al final ya traduces y alineas con ingles.
+
+---
+
+# 11. Assets disponibles
+
+Inspecciona visualmente los archivos antes de decidir dónde usarlos. No asumas su contenido solo por el nombre.
+
+## Mockups del producto
+
+Ruta:
+
+`/public/images/app/`
+
+Archivos principales:
+
+- `cookplan.png` — planificación de menús, momentos del día, días y semanas.
+- `cookfit.png` — ajuste de cantidades según kcal y macros.
+- `cooklist.png` — ingredientes, cantidades, precios y organización de compra.
+- `cookhome.png` — menú organizado y listo para cocinar.
+- `cookimport.png` — receta importada y convertida en contenido útil.
+- `cooksearch.png` — búsqueda, biblioteca, guardados e importaciones.
+- `cookbilling.png` — experiencia Pro, plan anual y packs dentro de la app.
+
+Son mockups ya enmarcados como teléfonos. No los encierres automáticamente en otra capa o marco. La mayoría funciona mejor sin wrappers innecesarios.
+
+Puedes:
+
+- escalarlos;
+- superponerlos;
+- recortarlos mediante contenedores;
+- moverlos con scroll;
+- cambiar qué mockup domina;
+- convertirlos en una secuencia;
+- mostrar fragmentos mediante CSS;
+- crear escenas con varios.
+
+No hagas que todos tengan la misma composición.
+
+## Iconos de funciones
+
+Ruta:
+
+`/public/icons/actions/`
+
+Representan conceptos como:
+
+- primeros pasos;
+- planificación;
+- menús;
+- compras;
+- cocina;
+- nutrición;
+- importación;
+- biblioteca;
+- reutilización;
+- Pro;
+- usuario.
+
+Úsalos únicamente cuando ayuden a reconocer o enriquecer una pieza. No construyas otra cuadrícula de diez cards pequeñas solo porque existen diez iconos.
+
+## Iconos de billing
+
+Ruta:
+
+`/public/icons/billing/`
+
+Incluye recursos visuales para:
+
+- CookLive;
+- importaciones;
+- cocina visual;
+- asistencia de cocina.
+
+Son assets con personalidad y pueden apoyar momentos de Pro o contenido editorial. No conviertas la Home en una paywall.
+
+## Avatar y marca CookPilot
+
+Ruta:
+
+`/public/images/cookpilot/`
+
+Incluye:
+
+- pose con brazos cruzados;
+- pose ofreciendo ayuda;
+- rostro/logo;
+- avatar de cuerpo;
+- gesto de aprobación;
+- gesto de sabor;
+- cierre o saludo.
+
+El avatar es un acento de marca. Úsalo pocas veces y con intención.
+
+No:
+
+- repetirlo en todas las secciones;
+- pegarlo como sticker sobre mockups sin integración;
+- dejarlo diminuto;
+- usarlo para rellenar huecos.
+
+Puede aparecer dos o tres veces si cada aparición cumple un rol distinto.
+
+## Fotografías gastronómicas
+
+Ruta:
+
+`/public/images/food_images/`
+
+Contiene fotografías editoriales 1:1 y 3:4 de platos, bebidas, entradas y postres.
+
+Son assets de marca, no decoración genérica.
+
+Selecciona solo las imágenes más fuertes. Prioriza:
+
+- lectura visual clara;
+- contraste;
+- variedad;
+- comida auténtica;
+- apetito;
+- coherencia cromática;
+- calidad suficiente para mostrarse grande.
+
+No uses todas.
+
+## Platos sin fondo
+
+Ruta:
+
+`/public/images/food_images/transparent_bg/`
+
+Contiene cinco platos circulares 4K sin fondo, entre ellos preparaciones peruanas como:
+
+- ají de gallina;
+- ceviche;
+- ensalada;
+- lomo saltado;
+- papa a la huancaína.
+
+Pueden usarse a gran escala, superpuestos, animados o como piezas de profundidad. No los conviertas automáticamente en una fila de iconos. Son imágenes grandes de comida y deben conservar dignidad visual.
+
+## Assets de tiendas y navegación
+
+Dentro de `/public/icons/` existen:
+
+- logo de Google Play;
+- logo de Huawei AppGallery;
+- flags;
+- LinkedIn;
+- otros assets utilitarios.
+
+Úsalos de manera consistente y con la escala correcta.
+
+---
+
+# 12. Assets específicos todavía inexistentes
+
+Si una composición necesita:
+
+- una ilustración nueva;
+- un icono nuevo;
+- un fragmento de UI preparado;
+- una imagen editorial específica;
+- una pose nueva;
+- otro recurso personalizado;
+
+no detengas el rediseño y no fabriques un asset mediocre.
+
+Usa temporalmente:
+
+- un placeholder visual coherente;
+- un asset genérico existente;
+- una forma o icono provisional;
+- un contenedor claramente reemplazable.
+
+No agregues texto visible del tipo “asset pendiente”.
+
+Al finalizar, incluye en el informe una lista breve:
+
+- ubicación;
+- intención visual;
+- formato o relación recomendada;
+- asset que debe reemplazar el placeholder.
+
+El usuario generará los recursos finales después de ver la composición terminada.
+
+No diseñes toda la Home alrededor de placeholders.
+
+---
+
+# 13. Cards y módulos
+
+No uses una única gramática para toda la landing.
+
+Mezcla:
+
+- piezas editoriales de imagen completa;
+- superficies limpias de información;
+- composiciones sin card;
+- paneles inmersivos;
+- carruseles;
+- mosaicos;
+- mockups libres;
+- bloques visuales ligados al scroll.
+
+Una card de imagen puede usar:
+
+- imagen como superficie completa;
+- radio generoso;
+- texto superpuesto;
+- primera frase en negrita;
+- continuación en regular;
+- gradientes de legibilidad;
+- interacción sutil o movimiento.
+
+Una card informativa debe:
+
+- tener una función real;
+- ser legible;
+- tener jerarquía;
+- no parecer una plantilla de dashboard;
+- no depender de borde visible;
+- no contener iconos diminutos.
+
+No uses chips por decorar.
+
+No introduzcas eyebrows, badges o labels si no mejoran realmente la comprensión.
+
+---
+
+# 14. Movimiento
+
+El movimiento es protagonista.
+
+Puedes implementar:
+
+- scroll-driven animation -> OBLIGATORIO;
+- sticky scenes;
+- mockups que cambian con el recorrido;
+- screenshots que se sustituyen dentro de un teléfono;
+- transiciones de fondo;
+- cambios dark/warm/light;
+- desplazamiento de platos;
+- parallax;
+- carruseles;
+- cards con movimiento elástico;
+- reveals;
+- escalado;
+- máscaras;
+- depth;
+- transiciones de tema;
+- microinteracciones ricas.
+
+No te limites a fades básicos si una sección pide algo más ambicioso.
+
+El movimiento debe:
+
+- dirigir atención;
+- explicar;
+- crear ritmo;
+- dar vida;
+- elevar el valor percibido.
+
+No debe:
+
+- marear;
+- interferir con la lectura;
+- romper responsive;
+- bloquear navegación;
+- generar scroll artificial interminable;
+- existir únicamente para demostrar técnica.
+
+Respeta `prefers-reduced-motion`.
+
+Usa CSS y APIs nativas cuando sea suficiente. Evita introducir una dependencia grande sin necesidad real. Si ya existe una herramienta adecuada en el proyecto, reutilízala.
+
+---
+
+# 15. Cambios de fondo y tema
+
+La Home debe tener ritmo cromático.
+
+No la mantengas completamente oscura y uniforme.
+
+Puede alternar entre:
+
+- dark;
+- warm;
+- light;
+- escenas cromáticas más intensas;
+- zonas de descanso.
+
+Los cambios deben sentirse intencionales y conectados, no como páginas distintas pegadas.
+
+El tema seleccionado por el usuario sigue siendo relevante. Diseña las composiciones de dark y light con criterio, no mediante inversión automática.
+
+Los glows actuales forman parte del lenguaje de CookPilot. Puedes conservarlos y elevarlos. Evita:
+
+- neón;
+- halos arbitrarios;
+- manchas pequeñas sin propósito;
+- gradientes de plantilla;
+- exceso de brillo.
+
+Los glows deben sentirse como iluminación ambiental gastronómica.
+
+---
+
+# 16. Secciones existentes
+
+Conserva el contenido esencial de:
+
+- Hero;
+- definición de CookPilot;
+- presentación del sistema/producto;
+- showcase de funciones;
+- Pro;
+- guías;
+- FAQ;
+- descarga/cierre.
+
+No necesitas mantener sus actuales layouts.
+
+En particular:
+
+## Definición de CookPilot
+
+Debe conservar el copy aprobado o su versión quirúrgicamente pulida. No volver a cambiar el título por abstracciones como “La solución para tu alimentación”.
+
+El avatar puede acompañar esta sección, pero debe sentirse integrado y con escala suficiente.
+
+## Showcase del producto
+
+El actual segmented selector es un patrón válido y puede evolucionar.
+
+Puedes:
+
+- transformarlo en secuencia scroll-driven;
+- mantener selector manual;
+- cambiar screenshot al desplazarse;
+- combinar interacción y scroll;
+- darle mayor escala;
+- acercarlo al nivel de Flighty.
+
+Mantén los seis conceptos funcionales y su claridad.
+
+## Pro
+
+Debe convertirse en un momento visual premium.
+
+No repetir pricing detallado ni convertirlo en paywall.
+
+Debe transmitir:
+
+- profundidad;
+- sistema completo;
+- continuidad;
+- valor;
+- monetización real.
+
+Usa `cookbilling.png` con escala y composición dignas.
+
+## Guías destacadas
+
+No deben sentirse como pequeñas cards de catálogo.
+
+Tienes libertad para convertirlas en:
+
+- piezas editoriales;
+- carrusel;
+- cards visuales grandes;
+- una guía protagonista con otras secundarias;
+- composición más gráfica.
+
+## FAQ
+
+Debe ser legible y útil, pero no necesita competir como momento visual principal.
+
+## Cierre
+
+La landing debe terminar con intención, no con una caja genérica y un footer.
+
+Puedes inspirarte en Popcorn, Endel u otra referencia para construir un final memorable que conduzca naturalmente a descarga y footer.
+
+---
+
+# 17. Nueva sección aprobada: comida real
+
+Agrega una sola sección editorial nueva dedicada a la comida real de CookPilot, preferiblemente cerca del tramo final de la Home.
+
+No debe explicar otra vez las funciones.
+
+Objetivo:
+
+- aumentar deseo;
+- demostrar riqueza visual;
+- reforzar identidad gastronómica;
+- aprovechar el banco de recetas;
+- crear un momento memorable antes del cierre.
+
+Usa las fotografías de:
+
+`/images/food_images/`
+
+y, cuando ayude:
+
+`/images/food_images/transparent_bg/`
+
+La composición puede inspirarse en:
+
+- mosaico de Endel;
+- cards de Gentler Streak;
+- carrusel de Phantom;
+- collage editorial;
+- rail horizontal;
+- escena vinculada al scroll.
+
+Debe mostrar abundancia sin caos.
+
+Copy mínimo:
+
+- un título fuerte;
+- como máximo una línea de apoyo.
+
+La comida gobierna esta sección.
+
+No agregues una segunda sección nueva salvo que, durante el diseño, descubras una oportunidad excepcional que:
+
+- aporte valor nuevo;
+- no repita el showcase;
+- no repita Cómo funciona;
+- no sea otro grid de features;
+- mejore claramente conversión o percepción de marca.
+
+---
+
+# 18. Responsive
+
+Diseña desktop first, pero crea composiciones propias para:
+
+- desktop amplio;
+- laptop;
+- tablet;
+- móvil.
+
+No apiles mecánicamente todo.
+
+En móvil:
+
+- conserva impacto;
+- mantén escala tipográfica fuerte;
+- adapta la coreografía;
+- simplifica motion donde corresponda;
+- evita que los mockups pierdan protagonismo;
+- evita carruseles imposibles;
+- evita zonas verticales interminables;
+- el modal de tiendas debe ser cómodo;
+- no permitas overflow.
+
+En desktop amplio:
+
+- aprovecha la escala;
+- no concentres todo en una columna pequeña;
+- evita enormes zonas vacías sin intención;
+- no hagas que contenido importante parezca miniatura.
+
+---
+
+# 19. Rendimiento y accesibilidad
+
+No sacrifiques la experiencia por el espectáculo.
+
+Cuida:
+
+- carga de imágenes;
+- `next/image` cuando corresponda;
+- tamaños adecuados;
+- `priority` solo para assets críticos;
+- lazy loading;
+- layout shift;
+- contrastes;
+- textos alternativos;
+- navegación con teclado;
+- focus visible;
+- reduced motion;
+- semántica;
+- modal accesible.
+
+No comprimas los assets de forma destructiva.
+
+No conviertas toda la página en canvas o video.
+
+---
+
+# 20. Proceso de trabajo
+
+Trabaja por grandes bloques.
+
+Ejemplo de Proceso obligatorio:
+
+1. inspecciona la Home completa y sus componentes;
+2. revisa assets y Design System;
+3. define internamente una tesis visual única;
+4. rediseña el Hero;
+5. revisa el Hero en browser y corrígelo;
+6. continúa con uno o varios bloques mayores;
+7. revisa esos bloques juntos;
+8. continúa hasta el cierre;
+9. inspecciona el recorrido completo;
+10. corrige ritmo, jerarquía, motion y responsive;
+11. valida ES/EN y dark/light;
+
+No abras el navegador compulsivamente después de cada card. Termina una composición importante, revísala y ajusta antes de seguir.
+
+No construyas dos alternativas. Elige una dirección y perfecciónala.
+
+No pares en la primera implementación funcional.
+
+---
+
+# 21. Viewports obligatorios
+
+Revisa como mínimo:
+
+- 1920 × 1080;
+- 1440 × 900;
+- 1024 × 768;
+- 390 × 844;
+- 360 × 800.
+
+Además, prueba tema oscuro y claro.
+
+Observa especialmente:
+
+- escala;
+- saltos de línea;
+- ritmo vertical;
+- alineación;
+- mockups;
+- navegación;
+- modal;
+- motion;
+- fondos;
+- cards;
+- cierre;
+- footer;
+- overflow.
+
+---
+
+# 22. Criterios de aceptación
+
+La tarea no está terminada solo porque compile.
+
+Debe cumplirse todo esto:
+
+## Identidad
+
+- Se reconoce como CookPilot.
+- No parece una plantilla.
+- La comida, el producto y la marca conviven.
+- Hay lujo silencioso y sabor.
+
+## Jerarquía
+
+- Cada sección tiene un foco inequívoco.
+- Los títulos mandan.
+- El body se lee cómodamente.
+- Nada relevante se ve diminuto.
+
+## Composición
+
+- Las secciones tienen siluetas distintas.
+- No hay monotonía de grids.
+- No hay wrappers innecesarios.
+- Los mockups tienen escala suficiente.
+- El avatar nunca parece un sticker perdido.
+
+## Producto
+
+- La app es protagonista.
+- Los mockups se ven reales y útiles.
+- Las funciones forman un sistema, no una lista dispersa.
+
+## Motion
+
+- Hay momentos de movimiento protagonista.
+- El scroll tiene ritmo.
+- Las transiciones enriquecen la experiencia.
+- Reduced motion funciona.
+
+## Conversión
+
+- Existe un único CTA principal coherente.
+- El modal presenta ambas tiendas en paridad.
+- Pro se siente valioso.
+- El cierre conduce naturalmente a descarga.
+
+## Responsive
+
+- Desktop amplio se siente aprovechado.
+- Mobile conserva personalidad.
+- No hay desbordes.
+- No hay miniaturización absurda.
+
+## Calidad
+
+- Foundation intacta.
+- Semántica coherente.
+- Sin valores arbitrarios.
+- Sin hardcodes tipográficos desperdigados.
+- Sin copy redundante.
+- Sin nuevas features inventadas.
+- Sin regresiones funcionales.
+- Build correcto.
+
+La prueba final es sencilla:
+
+**La Home debe seguir siendo CookPilot, pero debe sentirse diseñada por un gran estudio y producir al menos un momento visual de verdadero WOW.**
+
+---
+
+# 23. Informe final
+
+Cuando termines, devuelve un informe conciso con:
+
+1. tesis visual aplicada;
+2. principales recomposiciones realizadas;
+3. secciones reordenadas, eliminadas o agregadas;
+4. funcionamiento del nuevo Hero;
+5. motion y scroll-driven interactions implementadas;
+6. tratamiento de dark/light;
+7. funcionamiento del modal de descarga;
+8. aliases semánticos creados o ajustados;
+9. assets principales utilizados;
+10. placeholders que requieren un asset final, con ubicación e intención;
+11. comportamiento responsive;
+12. revisión de ES/EN;
+13. archivos modificados;
+14. resultado del build.
+
+No incluyas un diario de cada pequeño cambio. Describe únicamente las decisiones importantes y el estado final.

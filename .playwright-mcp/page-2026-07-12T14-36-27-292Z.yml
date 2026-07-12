@@ -1,0 +1,204 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - link "Ícono de CookPilot Cook Pilot" [ref=f1e4] [cursor=pointer]:
+        - /url: /es
+        - img "Ícono de CookPilot" [ref=f1e5]
+        - generic [ref=f1e6]:
+          - generic [ref=f1e7]: Cook
+          - generic [ref=f1e8]: Pilot
+      - navigation [ref=f1e9]:
+        - link "Cómo funciona" [ref=f1e10] [cursor=pointer]:
+          - /url: /es/como-funciona
+        - link "Guías" [ref=f1e11] [cursor=pointer]:
+          - /url: /es/guias
+        - link "Pro" [ref=f1e12] [cursor=pointer]:
+          - /url: /es/pro
+        - link "FAQ" [ref=f1e13] [cursor=pointer]:
+          - /url: /es/faq
+      - generic [ref=f1e14]:
+        - button "Cambiar idioma" [ref=f1e15]
+        - button "Cambiar tema" [ref=f1e16]
+        - button "Descargar" [ref=f1e19] [cursor=pointer]
+  - main [ref=f1e20]:
+    - generic [ref=f1e22]:
+      - generic [ref=f1e23]: FAQ
+      - heading "Preguntas frecuentes sobre CookPilot." [level=1] [ref=f1e25]
+      - paragraph [ref=f1e27]: Respuestas claras sobre planificación, nutrición, compras, cocina, importaciones, Pro y disponibilidad.
+    - generic [ref=f1e30]:
+      - generic [ref=f1e31]:
+        - heading "General" [level=2] [ref=f1e33]
+        - generic [ref=f1e34]:
+          - generic [ref=f1e36]:
+            - button "¿Qué es CookPilot?" [ref=f1e37] [cursor=pointer]
+            - paragraph [ref=f1e42]: "CookPilot es una app para organizar comida real: menús, días, semanas, compras, nutrición, cocina guiada, importaciones y reutilización. No es solo una app de recetas. Es un sistema para que tu comida deje de estar dispersa."
+          - generic [ref=f1e44]:
+            - button "¿CookPilot es para todos?" [ref=f1e45] [cursor=pointer]
+            - paragraph [ref=f1e50]: "CookPilot sirve especialmente para personas que cocinan o quieren organizar comida con más claridad: para sí mismas, para una casa, para cumplir objetivos nutricionales o para reducir improvisación diaria."
+          - generic [ref=f1e52]:
+            - button "¿Tengo que saber cocinar mucho?" [ref=f1e53] [cursor=pointer]
+            - paragraph [ref=f1e58]: No. CookPilot puede ayudarte a organizar qué comer y guiarte durante la preparación. Si ya sabes cocinar, te ayuda a ordenar mejor. Si estás aprendiendo, te da estructura.
+          - generic [ref=f1e60]:
+            - button "¿CookPilot decide todo por mí?" [ref=f1e61] [cursor=pointer]
+            - paragraph [ref=f1e66]: No. CookPilot puede ayudarte a resolver menús o días, pero tú puedes revisar, editar, guardar, ajustar y reutilizar. La idea es reducir trabajo, no quitarte control.
+      - generic [ref=f1e67]:
+        - heading "Planificación" [level=2] [ref=f1e69]
+        - generic [ref=f1e70]:
+          - generic [ref=f1e72]:
+            - button "¿Qué puedo planificar en CookPilot?" [ref=f1e73] [cursor=pointer]
+            - paragraph [ref=f1e78]: Puedes organizar menús, momentos de comida, días y semanas. También puedes guardar estructuras que funcionaron para volver a usarlas después.
+          - generic [ref=f1e80]:
+            - button "¿Qué es un menú dentro de CookPilot?" [ref=f1e81] [cursor=pointer]
+            - paragraph [ref=f1e86]: Un menú es una comida real. Puede incluir una o varias recetas, ingredientes directos, cantidades, costos y datos nutricionales cuando corresponda.
+          - generic [ref=f1e88]:
+            - button "¿Puedo planificar solo una comida?" [ref=f1e89] [cursor=pointer]
+            - paragraph [ref=f1e94]: Sí. Puedes empezar con una sola comida, un menú o un momento del día. No necesitas llenar toda la semana para obtener valor.
+          - generic [ref=f1e96]:
+            - button "¿Puedo reutilizar comidas?" [ref=f1e97] [cursor=pointer]
+            - paragraph [ref=f1e102]: Sí. Puedes guardar, aplicar, copiar, pegar, fijar y reutilizar menús, días, semanas o plantillas según lo que quieras repetir.
+      - generic [ref=f1e103]:
+        - heading "Nutrición" [level=2] [ref=f1e105]
+        - generic [ref=f1e106]:
+          - generic [ref=f1e108]:
+            - button "¿CookPilot cuenta calorías y macros?" [ref=f1e109] [cursor=pointer]
+            - paragraph [ref=f1e114]: CookPilot puede mostrar calorías, proteína, carbohidratos y grasas en recetas, menús y planes cuando usas la capa nutricional.
+          - generic [ref=f1e116]:
+            - button "¿Tengo que usar macros para usar CookPilot?" [ref=f1e117] [cursor=pointer]
+            - paragraph [ref=f1e122]: No. Puedes usar CookPilot solo para organizar comida, compras y cocina. La nutrición está disponible cuando quieres más control.
+          - generic [ref=f1e124]:
+            - button "¿Qué hace el ajuste de macros automático?" [ref=f1e125] [cursor=pointer]
+            - paragraph [ref=f1e130]: Ajusta cantidades dentro de un menú para acercarlo a tus objetivos nutricionales sin convertir tu comida en algo irreconocible.
+          - generic [ref=f1e132]:
+            - button "¿CookPilot reemplaza a un nutricionista?" [ref=f1e133] [cursor=pointer]
+            - paragraph [ref=f1e138]: No. CookPilot entrega información y herramientas para organizar mejor tu alimentación. No diagnostica ni reemplaza atención profesional.
+      - generic [ref=f1e139]:
+        - heading "Compras y costos" [level=2] [ref=f1e141]
+        - generic [ref=f1e142]:
+          - generic [ref=f1e144]:
+            - button "¿CookPilot crea listas de compras?" [ref=f1e145] [cursor=pointer]
+            - paragraph [ref=f1e150]: Sí. Puede convertir menús, recetas, días o semanas en ingredientes y cantidades para comprar con más claridad.
+          - generic [ref=f1e152]:
+            - button "¿Los costos son exactos?" [ref=f1e153] [cursor=pointer]
+            - paragraph [ref=f1e158]: No deben tomarse como exactos. Son estimaciones referenciales basadas en datos disponibles. Sirven para orientar, comparar y comprar mejor.
+          - generic [ref=f1e160]:
+            - button "¿Qué significa ahorro referencial?" [ref=f1e161] [cursor=pointer]
+            - paragraph [ref=f1e166]: Es una comparación estimada que ayuda a entender posibles diferencias de costo. No es una garantía de ahorro exacto.
+          - generic [ref=f1e168]:
+            - button "¿Puedo usar CookPilot aunque los precios cambien en mi ciudad?" [ref=f1e169] [cursor=pointer]
+            - paragraph [ref=f1e174]: Sí. Los precios sirven como referencia. La utilidad principal está en ordenar ingredientes, cantidades y decisiones de compra.
+      - generic [ref=f1e175]:
+        - heading "Cocina" [level=2] [ref=f1e177]
+        - generic [ref=f1e178]:
+          - generic [ref=f1e180]:
+            - button "¿Qué es CookMode?" [ref=f1e181] [cursor=pointer]
+            - paragraph [ref=f1e186]: CookMode es la experiencia de cocina guiada de CookPilot. Te ayuda a seguir pasos, revisar ingredientes y avanzar con más claridad durante la preparación.
+          - generic [ref=f1e188]:
+            - button "¿Qué es Last Mile?" [ref=f1e189] [cursor=pointer]
+            - paragraph [ref=f1e194]: "Last Mile ordena la parte final de la ejecución: cómo seguir la preparación, qué viene después y cómo terminar con menos confusión."
+          - generic [ref=f1e196]:
+            - button "¿CookPilot solo planifica o también ayuda a cocinar?" [ref=f1e197] [cursor=pointer]
+            - paragraph [ref=f1e202]: Ayuda en ambas partes. Puedes organizar comida antes de cocinar y luego pasar a una experiencia guiada para prepararla.
+      - generic [ref=f1e203]:
+        - heading "Importaciones" [level=2] [ref=f1e205]
+        - generic [ref=f1e206]:
+          - generic [ref=f1e208]:
+            - button "¿Puedo importar mis propias recetas?" [ref=f1e209] [cursor=pointer]
+            - paragraph [ref=f1e214]: Sí. CookPilot permite traer recetas externas y convertirlas en contenido que puedes revisar, editar, guardar y usar dentro del sistema.
+          - generic [ref=f1e216]:
+            - button "¿Qué tipos de contenido puedo importar?" [ref=f1e217] [cursor=pointer]
+            - paragraph [ref=f1e222]: Puedes trabajar con recetas desde fuentes externas como web, video, imagen, texto o PDF, según las capacidades disponibles en la app.
+          - generic [ref=f1e224]:
+            - button "¿Qué pasa después de importar una receta?" [ref=f1e225] [cursor=pointer]
+            - paragraph [ref=f1e230]: Puedes guardarla, buscarla, convertirla en menú, usarla en un plan, revisarla nutricionalmente, llevarla a lista de compras o cocinarla con guía.
+      - generic [ref=f1e231]:
+        - heading "Pro y packs" [level=2] [ref=f1e233]
+        - generic [ref=f1e234]:
+          - generic [ref=f1e236]:
+            - button "¿Qué incluye CookPilot Pro?" [ref=f1e237] [cursor=pointer]
+            - paragraph [ref=f1e242]: "Pro desbloquea el sistema completo para uso recurrente: generación de menús inteligentes, ajuste de macros, nutrición avanzada, importaciones avanzadas, cocina guiada, reutilización y más capacidad de uso."
+          - generic [ref=f1e244]:
+            - button "¿Qué son los créditos?" [ref=f1e245] [cursor=pointer]
+            - paragraph [ref=f1e250]: Los créditos permiten usar funciones que consumen más recursos, como generación de menús o capacidades avanzadas.
+          - generic [ref=f1e252]:
+            - button "¿Qué son los packs?" [ref=f1e253] [cursor=pointer]
+            - paragraph [ref=f1e258]: Los packs amplían capacidad para usuarios que usan más ciertas funciones. Pro es el sistema principal; los packs son expansión de uso.
+          - generic [ref=f1e260]:
+            - button "¿Pro es solo para personas con objetivos fitness?" [ref=f1e261] [cursor=pointer]
+            - paragraph [ref=f1e266]: No. Pro sirve para planificar, comprar, cocinar, importar, reutilizar y ajustar nutrición cuando lo necesitas.
+      - generic [ref=f1e267]:
+        - heading "Disponibilidad" [level=2] [ref=f1e269]
+        - generic [ref=f1e270]:
+          - generic [ref=f1e272]:
+            - button "¿CookPilot está disponible para Android?" [ref=f1e273] [cursor=pointer]
+            - paragraph [ref=f1e278]: Sí. CookPilot está enfocado en Android y estará disponible desde Google Play y Huawei.
+          - generic [ref=f1e280]:
+            - button "¿Está disponible en español e inglés?" [ref=f1e281] [cursor=pointer]
+            - paragraph [ref=f1e286]: Sí. CookPilot Web y la experiencia del producto soportan español e inglés.
+          - generic [ref=f1e288]:
+            - button "¿Dónde descargo CookPilot?" [ref=f1e289] [cursor=pointer]
+            - paragraph [ref=f1e294]: Puedes descargarlo desde Google Play o Huawei cuando los enlaces oficiales estén disponibles en esta página.
+  - contentinfo [ref=f1e295]:
+    - generic [ref=f1e297]:
+      - generic [ref=f1e298]:
+        - link "Ícono de CookPilot Cook Pilot" [ref=f1e299] [cursor=pointer]:
+          - /url: /es
+          - img "Ícono de CookPilot" [ref=f1e300]
+          - generic [ref=f1e301]:
+            - generic [ref=f1e302]: Cook
+            - generic [ref=f1e303]: Pilot
+        - generic [ref=f1e304]:
+          - generic [ref=f1e305]: Hecho en Perú
+          - img "Perú" [ref=f1e306]
+        - paragraph [ref=f1e307]: © 2026 CookPilot.
+      - generic [ref=f1e308]:
+        - generic [ref=f1e309]:
+          - heading "Producto" [level=4] [ref=f1e310]
+          - list [ref=f1e311]:
+            - listitem [ref=f1e312]:
+              - link "Cómo funciona" [ref=f1e313] [cursor=pointer]:
+                - /url: /es/como-funciona
+            - listitem [ref=f1e314]:
+              - link "Pro" [ref=f1e315] [cursor=pointer]:
+                - /url: /es/pro
+            - listitem [ref=f1e316]:
+              - link "Descargar" [ref=f1e317] [cursor=pointer]:
+                - /url: "#download-final"
+        - generic [ref=f1e318]:
+          - heading "Aprende" [level=4] [ref=f1e319]
+          - list [ref=f1e320]:
+            - listitem [ref=f1e321]:
+              - link "Guías" [ref=f1e322] [cursor=pointer]:
+                - /url: /es/guias
+            - listitem [ref=f1e323]:
+              - link "FAQ" [ref=f1e324] [cursor=pointer]:
+                - /url: /es/faq
+            - listitem [ref=f1e325]:
+              - link "Comparativas" [ref=f1e326] [cursor=pointer]:
+                - /url: /es/comparativas
+        - generic [ref=f1e327]:
+          - heading "Legal" [level=4] [ref=f1e328]
+          - list [ref=f1e329]:
+            - listitem [ref=f1e330]:
+              - link "Privacidad y términos" [ref=f1e331] [cursor=pointer]:
+                - /url: /privacy-and-terms
+          - heading "Tiendas" [level=4] [ref=f1e332]
+          - list [ref=f1e333]:
+            - listitem [ref=f1e334]:
+              - link "Google Play" [ref=f1e335] [cursor=pointer]:
+                - /url: https://play.google.com/store
+            - listitem [ref=f1e336]:
+              - link "AppGallery" [ref=f1e337] [cursor=pointer]:
+                - /url: https://appgallery.huawei.com
+        - generic [ref=f1e338]:
+          - heading "Social" [level=4] [ref=f1e339]
+          - list [ref=f1e340]:
+            - listitem [ref=f1e341]:
+              - link "LinkedIn" [ref=f1e342] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/cookpilot/
+          - heading "Idioma" [level=4] [ref=f1e344]
+          - list [ref=f1e345]:
+            - listitem [ref=f1e346]:
+              - button "Español" [ref=f1e347] [cursor=pointer]
+            - listitem [ref=f1e348]:
+              - button "English" [ref=f1e349] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f1e355] [cursor=pointer]

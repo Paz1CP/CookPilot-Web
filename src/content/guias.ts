@@ -1,10 +1,9 @@
 export const guiasContent = {
   es: {
     hero: {
-      eyebrow: "CookPilot paso a paso",
       title: "CookPilot paso a paso",
       subtitle: "Guías rápidas para planificar, comprar, ajustar, cocinar, importar y reutilizar sin perderte entre funciones.",
-      supportText: "Empieza por la guía que más se parece a lo que quieres hacer hoy.",
+   
     },
     guides: [
       {
@@ -13,7 +12,7 @@ export const guiasContent = {
         title: "Primeros pasos",
         description: "Organiza tu primera comida sin configurar todo.",
         chips: ["Menú", "Día", "Guardar"],
-        icon: "/icons/actions/first-menu.png",
+        icon: "/icons/actions/simple_menu.png",
         summary: "Crea o resuelve una comida real y déjala lista para planificar, comprar o cocinar.",
         whatYouDo: [
           "Crea un menú manual con recetas e ingredientes.",
@@ -223,7 +222,7 @@ export const guiasContent = {
         title: "Getting started",
         description: "Organize your first meal without setting up everything.",
         chips: ["Menu", "Day", "Save"],
-        icon: "/icons/actions/first-menu.png",
+        icon: "/icons/actions/simple_menu.png",
         summary: "Create or resolve one real meal and leave it ready to plan, shop, or cook.",
         whatYouDo: [
           "Create a menu manually with recipes and ingredients.",

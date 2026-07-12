@@ -1,0 +1,202 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Ícono de CookPilot Cook Pilot" [ref=e4] [cursor=pointer]:
+        - /url: /es
+        - img "Ícono de CookPilot" [ref=e5]
+        - generic [ref=e6]:
+          - generic [ref=e7]: Cook
+          - generic [ref=e8]: Pilot
+      - navigation [ref=e9]:
+        - link "Cómo funciona" [ref=e10] [cursor=pointer]:
+          - /url: /es/como-funciona
+        - link "Guías" [ref=e11] [cursor=pointer]:
+          - /url: /es/guias
+        - link "Pro" [ref=e12] [cursor=pointer]:
+          - /url: /es/pro
+        - link "FAQ" [ref=e13] [cursor=pointer]:
+          - /url: /es/faq
+      - generic [ref=e14]:
+        - button "Cambiar idioma" [ref=e15]
+        - button "Cambiar tema" [ref=e16]
+        - button "Descargar" [ref=e19] [cursor=pointer]
+  - main [ref=e20]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - heading "Tu comida, organizada de principio a fin." [level=1] [ref=e25]
+        - paragraph [ref=e26]: Menús listos, compra ordenada y cocina guiada.
+        - button "Descargar" [ref=e27] [cursor=pointer]
+      - generic "CookPilot organizando un menú, la semana y la compra" [ref=e30]:
+        - img "CookPilot organizando un menú, la semana y la compra" [ref=e33]
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - heading "¿Qué es CookPilot?" [level=2] [ref=e37]
+        - paragraph [ref=e38]: CookPilot organiza en un solo lugar lo que vas a comer, lo que necesitas comprar y cómo prepararlo. Puedes planificar menús, ajustar cantidades, importar recetas, generar listas de compra y cocinar paso a paso, sin empezar desde cero cada día.
+        - link "Conocer más" [ref=e39] [cursor=pointer]:
+          - /url: /es/guias
+      - img "¿Qué es CookPilot?" [ref=e43]
+    - generic [ref=e45]:
+      - heading "CookPilot ordena tu comida diaria." [level=2] [ref=e47]
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - paragraph [ref=e50]: "01"
+          - heading "Deja tu día armado." [level=3] [ref=e51]
+          - paragraph [ref=e52]: Organiza menús por momento del día y completa tu semana sin reconstruir todo cada vez.
+        - generic [ref=e53]:
+          - generic:
+            - img "Deja tu día armado."
+      - tablist "CookPilot ordena tu comida diaria." [ref=e54]:
+        - tab "01 Planifica" [selected] [ref=e55] [cursor=pointer]:
+          - generic [ref=e56]: "01"
+          - text: Planifica
+        - tab "02 Ajusta" [ref=e57] [cursor=pointer]:
+          - generic [ref=e58]: "02"
+          - text: Ajusta
+        - tab "03 Compra" [ref=e59] [cursor=pointer]:
+          - generic [ref=e60]: "03"
+          - text: Compra
+        - tab "04 Cocina" [ref=e61] [cursor=pointer]:
+          - generic [ref=e62]: "04"
+          - text: Cocina
+        - tab "05 Importa" [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]: "05"
+          - text: Importa
+        - tab "06 Reutiliza" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]: "06"
+          - text: Reutiliza
+    - generic [ref=e68]:
+      - generic [ref=e69]:
+        - heading "CookPilot Pro" [level=2] [ref=e70]
+        - paragraph [ref=e71]: Planifica más comidas, resuelve menús, ajusta tus objetivos e importa recetas con mayor capacidad dentro de la app.
+        - link "Ver CookPilot Pro" [ref=e72] [cursor=pointer]:
+          - /url: /es/pro
+      - img "CookPilot Pro" [ref=e77]
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - heading "Guías destacadas" [level=2] [ref=e81]
+        - paragraph [ref=e82]: Aprende a dominar CookPilot paso a paso.
+      - generic [ref=e83]:
+        - link "Primeros pasos 01 Primeros pasos Empieza con claridad y llega más rápido a tu primera semana organizada." [ref=e84] [cursor=pointer]:
+          - /url: /es/guias
+          - img "Primeros pasos" [ref=e85]
+          - generic [ref=e87]: "01"
+          - generic [ref=e91]:
+            - heading "Primeros pasos" [level=3] [ref=e92]
+            - paragraph [ref=e93]: Empieza con claridad y llega más rápido a tu primera semana organizada.
+        - link "Planificar una semana 02 Planificar una semana" [ref=e94] [cursor=pointer]:
+          - /url: /es/guias
+          - img "Planificar una semana" [ref=e95]
+          - generic [ref=e97]: "02"
+          - heading "Planificar una semana" [level=3] [ref=e102]
+        - link "Usar lista de compras 03 Usar lista de compras" [ref=e103] [cursor=pointer]:
+          - /url: /es/guias
+          - img "Usar lista de compras" [ref=e104]
+          - generic [ref=e106]: "03"
+          - heading "Usar lista de compras" [level=3] [ref=e111]
+        - link "Ajustar macros 04 Ajustar macros" [ref=e112] [cursor=pointer]:
+          - /url: /es/guias
+          - img "Ajustar macros" [ref=e113]
+          - generic [ref=e115]: "04"
+          - heading "Ajustar macros" [level=3] [ref=e120]
+        - link "Cocinar con CookMode 05 Cocinar con CookMode" [ref=e121] [cursor=pointer]:
+          - /url: /es/guias
+          - img "Cocinar con CookMode" [ref=e122]
+          - generic [ref=e124]: "05"
+          - heading "Cocinar con CookMode" [level=3] [ref=e129]
+        - link "Guardar y reutilizar 06 Guardar y reutilizar" [ref=e130] [cursor=pointer]:
+          - /url: /es/guias
+          - img "Guardar y reutilizar" [ref=e131]
+          - generic [ref=e133]: "06"
+          - heading "Guardar y reutilizar" [level=3] [ref=e138]
+    - generic [ref=e140]:
+      - generic [ref=e141]:
+        - heading "Todo empieza con algo que sí quieres comer." [level=2] [ref=e142]
+        - paragraph [ref=e143]: Platos reales, cultura real y una forma más clara de llevarlos a tu mesa.
+      - generic [ref=e144]:
+        - figure [ref=e145]
+        - figure [ref=e146]
+        - figure [ref=e147]
+        - figure [ref=e148]
+        - figure [ref=e149]
+        - figure [ref=e150]
+    - generic [ref=e152]:
+      - generic [ref=e153]:
+        - heading "Preguntas frecuentes" [level=2] [ref=e154]
+        - paragraph [ref=e155]: Preguntas rápidas sobre CookPilot
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - button "¿Cómo empiezo a usar CookPilot?" [expanded] [ref=e158] [cursor=pointer]
+          - paragraph [ref=e163]: Solo descarga la aplicación, crea una cuenta y planifica tu primer menú en un minuto.
+        - button "¿Es obligatorio registrar macros de nutrición?" [ref=e165] [cursor=pointer]
+        - button "¿Los costos de los ingredientes son reales?" [ref=e170] [cursor=pointer]
+        - button "¿Qué beneficios tiene el plan Pro?" [ref=e175] [cursor=pointer]
+        - button "¿En qué tiendas está disponible la aplicación?" [ref=e180] [cursor=pointer]
+    - generic [ref=e187]:
+      - heading "Descarga la aplicación" [level=2] [ref=e188]
+      - paragraph [ref=e189]: Toma el control total de tu alimentación desde tu celular.
+      - button "Descargar" [ref=e190] [cursor=pointer]
+  - contentinfo [ref=e195]:
+    - generic [ref=e197]:
+      - generic [ref=e198]:
+        - link "Ícono de CookPilot Cook Pilot" [ref=e199] [cursor=pointer]:
+          - /url: /es
+          - img "Ícono de CookPilot" [ref=e200]
+          - generic [ref=e201]:
+            - generic [ref=e202]: Cook
+            - generic [ref=e203]: Pilot
+        - generic [ref=e204]:
+          - generic [ref=e205]: Hecho en Perú
+          - img "Perú" [ref=e206]
+        - paragraph [ref=e207]: © 2026 CookPilot.
+      - generic [ref=e208]:
+        - generic [ref=e209]:
+          - heading "Producto" [level=4] [ref=e210]
+          - list [ref=e211]:
+            - listitem [ref=e212]:
+              - link "Cómo funciona" [ref=e213] [cursor=pointer]:
+                - /url: /es/como-funciona
+            - listitem [ref=e214]:
+              - link "Pro" [ref=e215] [cursor=pointer]:
+                - /url: /es/pro
+            - listitem [ref=e216]:
+              - link "Descargar" [ref=e217] [cursor=pointer]:
+                - /url: "#download-final"
+        - generic [ref=e218]:
+          - heading "Aprende" [level=4] [ref=e219]
+          - list [ref=e220]:
+            - listitem [ref=e221]:
+              - link "Guías" [ref=e222] [cursor=pointer]:
+                - /url: /es/guias
+            - listitem [ref=e223]:
+              - link "FAQ" [ref=e224] [cursor=pointer]:
+                - /url: /es/faq
+            - listitem [ref=e225]:
+              - link "Comparativas" [ref=e226] [cursor=pointer]:
+                - /url: /es/comparativas
+        - generic [ref=e227]:
+          - heading "Legal" [level=4] [ref=e228]
+          - list [ref=e229]:
+            - listitem [ref=e230]:
+              - link "Privacidad y términos" [ref=e231] [cursor=pointer]:
+                - /url: /privacy-and-terms
+          - heading "Tiendas" [level=4] [ref=e232]
+          - list [ref=e233]:
+            - listitem [ref=e234]:
+              - link "Google Play" [ref=e235] [cursor=pointer]:
+                - /url: https://play.google.com/store
+            - listitem [ref=e236]:
+              - link "AppGallery" [ref=e237] [cursor=pointer]:
+                - /url: https://appgallery.huawei.com
+        - generic [ref=e238]:
+          - heading "Social" [level=4] [ref=e239]
+          - list [ref=e240]:
+            - listitem [ref=e241]:
+              - link "LinkedIn" [ref=e242] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/cookpilot/
+          - heading "Idioma" [level=4] [ref=e244]
+          - list [ref=e245]:
+            - listitem [ref=e246]:
+              - button "Español" [ref=e247] [cursor=pointer]
+            - listitem [ref=e248]:
+              - button "English" [ref=e249] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e255] [cursor=pointer]

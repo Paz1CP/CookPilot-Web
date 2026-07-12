@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./FaqPageContent.module.css";
-import { ArrowDown2, ArrowUp2, InfoCircle, MessageQuestion } from "iconsax-reactjs";
+import { ArrowDown2, ArrowUp2 } from "iconsax-reactjs";
+import EditorialHero from "./EditorialHero";
 
 interface FAQItem {
   q: string;
@@ -34,24 +35,10 @@ export default function FaqPageContent({ content }: { content: FAQPageData }) {
 
   return (
     <main className={styles.main}>
-      {/* Hero */}
-      <section className={styles.hero}>
-        <div className={styles.heroBg} />
-        <div className={styles.inner}>
-          <Reveal variants={fadeUp}>
-            <div className={styles.faqBadge}>
-              <MessageQuestion size={16} variant="Bulk" className={styles.faqIcon} />
-              <span>{content.hero.eyebrow}</span>
-            </div>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.1}>
-            <h1 className={styles.title}>{content.hero.title}</h1>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.2}>
-            <p className={styles.subtitle}>{content.hero.subtitle}</p>
-          </Reveal>
-        </div>
-      </section>
+      <EditorialHero
+        title={content.hero.title}
+        subtitle={content.hero.subtitle}
+      />
 
       {/* FAQ Categories & Items */}
       <section className={styles.faqContent}>

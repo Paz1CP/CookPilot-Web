@@ -59,8 +59,9 @@
   },
   "summary": {
     "title": "What is CookPilot?",
-    "new_body": "CookPilot helps you organize your daily food: what you are going to eat, what you need to buy, how it fits your goals, and how to prepare it. You can plan menus, import recipes, review quantities, use shopping lists, and cook step by step.",
+    "new_body": "CookPilot organizes in one place what you are going to eat, what you need to buy, and how to prepare it. You can plan menus, adjust quantities, import recipes, generate shopping lists, and cook step by step, without starting from scratch every day. ",
     "new_note": "Use it when you want less improvisation and more clarity. Because cooking at home should not always start from an empty screen, an incomplete list, or the same repeated question: 'what should I make today?'",
+    "learn_more": "Learn more",
     "what_is_title": "What is CookPilot?",
     "what_is_body": "The smart platform that gives you back control of your kitchen.",
     "problem_title": "What problem does it solve?",
@@ -81,7 +82,7 @@
   },
   "pro": {
     "title": "CookPilot Pro",
-    "subtitle": "More capacity to organize your food.",
+    "subtitle": "Plan more meals, resolve menus, adjust your goals, and import recipes with more capacity inside the app.",
     "support_line": "Activate the full CookPilot system to plan with more freedom, resolve menus, adjust goals, and keep your meals organized week after week.",
     "cta_label": "View CookPilot Pro"
   },
@@ -185,24 +186,42 @@
   "app_showcase": {
     "section_title": "CookPilot organizes your daily food.",
     "section_subtitle": "Choose a part of the system and see how it's used inside the app.",
-    "planifica_label": "1) Plan",
+    "planifica_label": "Plan",
     "planifica_title": "Get your day planned.",
     "planifica_subtitle": "Organize menus by time of day and complete your week without rebuilding everything each time.",
-    "ajusta_label": "2) Adjust",
+    "ajusta_label": "Adjust",
     "ajusta_title": "Adjust without remaking the dish.",
     "ajusta_subtitle": "Check kcal and macros, and modify quantities when you have a clear goal.",
-    "compra_label": "3) Shop",
+    "compra_label": "Shop",
     "compra_title": "Know exactly what to buy.",
     "compra_subtitle": "Turn your menus into ingredients, quantities, and reference costs.",
-    "cocina_label": "4) Cook",
+    "cocina_label": "Cook",
     "cocina_title": "Follow the preparation.",
     "cocina_subtitle": "Open your menu and cook with steps, times, and ingredients in context.",
-    "importa_label": "5) Import",
+    "importa_label": "Import",
     "importa_title": "Bring in your recipes.",
     "importa_subtitle": "Import recipes from web, video, image, text, or PDF and save them in CookPilot.",
-    "reutiliza_label": "6) Reuse",
+    "reutiliza_label": "Reuse",
     "reutiliza_title": "Use what worked again.",
     "reutiliza_subtitle": "Find saved, favorite, and imported recipes to repeat without searching again."
+  },
+  "home_editorial": {
+    "hero_visual_alt": "CookPilot organizing a menu, the week, and the shopping list",
+    "summary_stamp": "Less improvising. More clarity.",
+    "pro_point_1": "More freedom to plan and resolve menus.",
+    "pro_point_2": "Nutrition, imports, and guided cooking working together.",
+    "pro_point_3": "Continuity to keep food organized week after week.",
+    "guide_feature_support": "Start with clarity and reach your first organized week faster.",
+    "food_title": "It all starts with something you actually want to eat.",
+    "food_support": "Real dishes, real culture, and a clearer way to bring them to your table."
+  },
+  "download_experience": {
+    "kicker": "Download CookPilot",
+    "title": "Choose where to download",
+    "description": "CookPilot is available on Google Play and AppGallery with the same experience.",
+    "available_on": "Available on",
+    "note": "Links open the official stores. CookPilot's specific listing will be added when published.",
+    "close": "Close download options"
   },
   "demo": {
     "section_title_prefix": "Watch ",

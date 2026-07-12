@@ -733,32 +733,6 @@ Trackers de macros
 Listas de compras
 Notas / Excel
 Delivery / comer fuera
-
-
-## Subpáginas futuras
-
-### Español
-
-
-/es/comparativas/apps-de-recetas
-/es/comparativas/planners-de-comida
-/es/comparativas/trackers-de-macros
-/es/comparativas/listas-de-compras
-/es/comparativas/notas-excel
-/es/comparativas/delivery
-
-
-### Inglés
-
-
-/en/compare/recipe-apps
-/en/compare/meal-planners
-/en/compare/macro-trackers
-/en/compare/grocery-list-apps
-/en/compare/notes-excel
-/en/compare/delivery
-
-
 ---
 
 # 13. Legal

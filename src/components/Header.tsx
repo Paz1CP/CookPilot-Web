@@ -7,9 +7,12 @@ import { useState } from "react";
 import { Sun1, Moon } from "iconsax-reactjs";
 import styles from "./Header.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
+import { usePathname } from "next/navigation";
+import { DownloadButton } from "./DownloadExperience";
 
 export default function Header() {
   const { t, locale, toggleLocale } = useLocale();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
   const [theme, setTheme] = useState(() => {
@@ -71,7 +74,12 @@ export default function Header() {
 
         <nav className={styles.nav}>
           {menuItems.map((item) => (
-            <Link key={item.href} href={item.href} className={styles.navLink}>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`${styles.navLink} ${pathname === item.href ? styles.navLinkActive : ""}`}
+              aria-current={pathname === item.href ? "page" : undefined}
+            >
               {item.label}
             </Link>
           ))}
@@ -106,12 +114,9 @@ export default function Header() {
             )}
           </button>
 
-          <Link
-            href="#download-final"
-            className="cp-btn cp-btn--primary"
-          >
+          <DownloadButton className={styles.downloadBtn}>
             {t.header.descargar}
-          </Link>
+          </DownloadButton>
         </div>
       </div>
     </motion.header>

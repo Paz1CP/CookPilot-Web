@@ -36,7 +36,7 @@
 .hero h1 {
   margin-top: 12px;
   color: var(--cp-text-primary);
-  font-size: clamp(42px, 8vw, 80px);
+  font-size: clamp(38px, 6vw, 76px);
   font-weight: var(--cp-fw-black);
   line-height: 0.94;
   letter-spacing: 0;
@@ -274,7 +274,7 @@
   }
 
   .hero h1 {
-    font-size: 44px;
+    font-size: 40px;
   }
 
   .hero p {
@@ -289,6 +289,14 @@
 
   .inputRow {
     grid-template-columns: 1fr;
+  }
+
+  .inputRow button {
+    width: 100%;
+    height: auto;
+    min-height: 56px;
+    padding: 14px 18px;
+    white-space: normal;
   }
 
   .accountPanel {

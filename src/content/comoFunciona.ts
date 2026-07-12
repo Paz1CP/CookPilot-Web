@@ -1,7 +1,6 @@
 export const comoFuncionaContent = {
   es: {
     hero: {
-      eyebrow: "Cómo funciona CookPilot",
       title: "Cómo funciona CookPilot",
       subtitle: "Empieza con una receta, una idea o un día vacío. CookPilot lo convierte en menú, compra, cocina y reutilización.",
       ctaPrimary: "Descargar CookPilot",
@@ -38,7 +37,7 @@ export const comoFuncionaContent = {
           "Un menú usable.",
           "Un día con menos espacios vacíos.",
         ],
-        image: "/images/app/cookplan.png",
+        image: "/images/app/cookhome.png",
       },
       {
         number: "03",
@@ -94,7 +93,7 @@ export const comoFuncionaContent = {
           "Una comida preparada con menos desorden.",
           "Un flujo más claro en cocina.",
         ],
-        image: "/images/app/cookhome.png",
+        image: "/images/app/cookmode.png",
       },
       {
         number: "07",
@@ -122,6 +121,10 @@ export const comoFuncionaContent = {
         { from: "Menú útil", to: "Plantilla" },
         { from: "Compra pendiente", to: "Lista" },
       ],
+    },
+    labels: {
+      whatYouDo: "Qué haces",
+      whatGetsReady: "Qué queda listo",
     },
     finalCta: {
       title: "Después de usar CookPilot, deberías tener una respuesta clara: qué comer, qué comprar, cómo cocinarlo y qué puedes volver a usar.",
@@ -252,6 +255,10 @@ export const comoFuncionaContent = {
         { from: "Useful menu", to: "Template" },
         { from: "Pending shopping", to: "List" },
       ],
+    },
+    labels: {
+      whatYouDo: "What you do",
+      whatGetsReady: "What gets ready",
     },
     finalCta: {
       title: "What matters is what gets ready.",

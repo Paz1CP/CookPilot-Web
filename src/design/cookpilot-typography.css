@@ -55,6 +55,29 @@
   --cp-text-display-l-letter-spacing: var(--cp-tracking-tight);
   --cp-text-display-m-size: var(--cp-text-48);
   --cp-text-display-m-letter-spacing: var(--cp-tracking-title);
+}
+
+/* Responsive display token rescales (preserve desktop, scale down tablet/phone).
+   Overriding the tokens on :root makes every component that consumes them
+   responsive without per-component media queries. */
+@media (max-width: 1024px) {
+  :root {
+    --cp-text-display-xxl-size: clamp(48px, 6vw, 72px);
+    --cp-text-display-xl-size: clamp(40px, 5.4vw, 64px);
+    --cp-text-display-l-size: clamp(34px, 5.4vw, 58px);
+    --cp-text-display-m-size: clamp(28px, 3.8vw, 46px);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --cp-text-display-xxl-size: 42px;
+    --cp-text-display-xl-size: 38px;
+    --cp-text-display-l-size: 32px;
+    --cp-text-display-m-size: 26px;
+}
+
+:root {
   --cp-text-title-xl-size: var(--cp-text-32);
   --cp-text-title-xl-letter-spacing: var(--cp-tracking-title);
   --cp-text-title-l-size: var(--cp-text-24);
@@ -255,4 +278,5 @@
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 }

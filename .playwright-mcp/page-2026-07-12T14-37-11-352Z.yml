@@ -1,0 +1,88 @@
+- generic [active] [ref=f7e1]:
+  - banner [ref=f7e2]:
+    - generic [ref=f7e3]:
+      - link "Ícono de CookPilot Cook Pilot" [ref=f7e4] [cursor=pointer]:
+        - /url: /es
+        - img "Ícono de CookPilot" [ref=f7e5]
+        - generic [ref=f7e6]:
+          - generic [ref=f7e7]: Cook
+          - generic [ref=f7e8]: Pilot
+      - navigation [ref=f7e9]:
+        - link "Cómo funciona" [ref=f7e10] [cursor=pointer]:
+          - /url: /es/como-funciona
+        - link "Guías" [ref=f7e11] [cursor=pointer]:
+          - /url: /es/guias
+        - link "Pro" [ref=f7e12] [cursor=pointer]:
+          - /url: /es/pro
+        - link "FAQ" [ref=f7e13] [cursor=pointer]:
+          - /url: /es/faq
+      - generic [ref=f7e14]:
+        - button "Cambiar idioma" [ref=f7e15]
+        - button "Cambiar tema" [ref=f7e16]
+        - button "Descargar" [ref=f7e19] [cursor=pointer]
+  - contentinfo [ref=f7e20]:
+    - generic [ref=f7e22]:
+      - generic [ref=f7e23]:
+        - link "Ícono de CookPilot Cook Pilot" [ref=f7e24] [cursor=pointer]:
+          - /url: /es
+          - img "Ícono de CookPilot" [ref=f7e25]
+          - generic [ref=f7e26]:
+            - generic [ref=f7e27]: Cook
+            - generic [ref=f7e28]: Pilot
+        - generic [ref=f7e29]:
+          - generic [ref=f7e30]: Hecho en Perú
+          - img "Perú" [ref=f7e31]
+        - paragraph [ref=f7e32]: © 2026 CookPilot.
+      - generic [ref=f7e33]:
+        - generic [ref=f7e34]:
+          - heading "Producto" [level=4] [ref=f7e35]
+          - list [ref=f7e36]:
+            - listitem [ref=f7e37]:
+              - link "Cómo funciona" [ref=f7e38] [cursor=pointer]:
+                - /url: /es/como-funciona
+            - listitem [ref=f7e39]:
+              - link "Pro" [ref=f7e40] [cursor=pointer]:
+                - /url: /es/pro
+            - listitem [ref=f7e41]:
+              - link "Descargar" [ref=f7e42] [cursor=pointer]:
+                - /url: "#download-final"
+        - generic [ref=f7e43]:
+          - heading "Aprende" [level=4] [ref=f7e44]
+          - list [ref=f7e45]:
+            - listitem [ref=f7e46]:
+              - link "Guías" [ref=f7e47] [cursor=pointer]:
+                - /url: /es/guias
+            - listitem [ref=f7e48]:
+              - link "FAQ" [ref=f7e49] [cursor=pointer]:
+                - /url: /es/faq
+            - listitem [ref=f7e50]:
+              - link "Comparativas" [ref=f7e51] [cursor=pointer]:
+                - /url: /es/comparativas
+        - generic [ref=f7e52]:
+          - heading "Legal" [level=4] [ref=f7e53]
+          - list [ref=f7e54]:
+            - listitem [ref=f7e55]:
+              - link "Privacidad y términos" [ref=f7e56] [cursor=pointer]:
+                - /url: /privacy-and-terms
+          - heading "Tiendas" [level=4] [ref=f7e57]
+          - list [ref=f7e58]:
+            - listitem [ref=f7e59]:
+              - link "Google Play" [ref=f7e60] [cursor=pointer]:
+                - /url: https://play.google.com/store
+            - listitem [ref=f7e61]:
+              - link "AppGallery" [ref=f7e62] [cursor=pointer]:
+                - /url: https://appgallery.huawei.com
+        - generic [ref=f7e63]:
+          - heading "Social" [level=4] [ref=f7e64]
+          - list [ref=f7e65]:
+            - listitem [ref=f7e66]:
+              - link "LinkedIn" [ref=f7e67] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/cookpilot/
+          - heading "Idioma" [level=4] [ref=f7e69]
+          - list [ref=f7e70]:
+            - listitem [ref=f7e71]:
+              - button "Español" [ref=f7e72] [cursor=pointer]
+            - listitem [ref=f7e73]:
+              - button "English" [ref=f7e74] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f7e80] [cursor=pointer]
+  - alert [ref=f7e84]

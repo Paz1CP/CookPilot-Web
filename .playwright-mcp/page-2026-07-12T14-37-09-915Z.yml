@@ -1,0 +1,214 @@
+- generic [active] [ref=f6e1]:
+  - banner [ref=f6e2]:
+    - generic [ref=f6e3]:
+      - link "Ícono de CookPilot Cook Pilot" [ref=f6e4] [cursor=pointer]:
+        - /url: /es
+        - img "Ícono de CookPilot" [ref=f6e5]
+        - generic [ref=f6e6]:
+          - generic [ref=f6e7]: Cook
+          - generic [ref=f6e8]: Pilot
+      - navigation [ref=f6e9]:
+        - link "Cómo funciona" [ref=f6e10] [cursor=pointer]:
+          - /url: /es/como-funciona
+        - link "Guías" [ref=f6e11] [cursor=pointer]:
+          - /url: /es/guias
+        - link "Pro" [ref=f6e12] [cursor=pointer]:
+          - /url: /es/pro
+        - link "FAQ" [ref=f6e13] [cursor=pointer]:
+          - /url: /es/faq
+      - generic [ref=f6e14]:
+        - button "Cambiar idioma" [ref=f6e15]
+        - button "Cambiar tema" [ref=f6e16]
+        - button "Descargar" [ref=f6e19] [cursor=pointer]
+  - main [ref=f6e20]:
+    - generic [ref=f6e21]:
+      - generic [ref=f6e22]:
+        - heading "CookPilot completo, sin quedarte corto." [level=1] [ref=f6e24]
+        - paragraph [ref=f6e26]: Planifica, resuelve menús, ajusta objetivos, importa recetas y cocina con más capacidad semana tras semana.
+        - generic [ref=f6e28]:
+          - button "Descargar CookPilot" [ref=f6e29] [cursor=pointer]
+          - link "Ver planes" [ref=f6e30] [cursor=pointer]:
+            - /url: "#plans"
+      - img "CookPilot completo, sin quedarte corto." [ref=f6e32]
+    - generic [ref=f6e35]:
+      - generic [ref=f6e36]:
+        - generic [ref=f6e37]:
+          - heading "Mensual" [level=3] [ref=f6e38]
+          - generic [ref=f6e39]:
+            - generic [ref=f6e40]: S/19.90
+            - generic [ref=f6e41]: al mes
+        - paragraph [ref=f6e42]: Usa CookPilot Pro con flexibilidad mes a mes.
+        - list [ref=f6e43]:
+          - listitem [ref=f6e44]: ✓ Acceso completo a las funciones Pro.
+          - listitem [ref=f6e45]: ✓ Capacidad renovada cada mes.
+          - listitem [ref=f6e46]: ✓ Packs disponibles cuando necesites ampliar.
+          - listitem [ref=f6e47]: ✓ Sin compromiso anual.
+        - link "Ver en app" [ref=f6e48] [cursor=pointer]:
+          - /url: "#download-final"
+      - generic [ref=f6e49]:
+        - generic [ref=f6e50]: Recomendado
+        - generic [ref=f6e51]:
+          - heading "Anual" [level=3] [ref=f6e52]
+          - generic [ref=f6e53]:
+            - generic [ref=f6e54]: S/190
+            - generic [ref=f6e55]: al año
+        - paragraph [ref=f6e56]: Convierte CookPilot en tu sistema de comida durante todo el año.
+        - list [ref=f6e57]:
+          - listitem [ref=f6e58]: ✓ El mismo acceso completo a Pro.
+          - listitem [ref=f6e59]: ✓ Capacidad renovada cada mes.
+          - listitem [ref=f6e60]: ✓ Ahorro aproximado de S/49.
+          - listitem [ref=f6e61]: ✓ Mejor valor para uso recurrente.
+        - link "Ver en app" [ref=f6e62] [cursor=pointer]:
+          - /url: "#download-final"
+    - generic [ref=f6e64]:
+      - heading "Más capacidad para organizar tu comida." [level=2] [ref=f6e66]
+      - paragraph [ref=f6e68]: Pro amplía las funciones que más utilizas cuando planificas de forma recurrente.
+      - generic [ref=f6e69]:
+        - generic [ref=f6e71]:
+          - heading "Genera más menús" [level=3] [ref=f6e72]
+          - paragraph [ref=f6e73]: Resuelve comidas y días con mayor libertad.
+        - generic [ref=f6e75]:
+          - heading "Importa más recetas" [level=3] [ref=f6e76]
+          - paragraph [ref=f6e77]: Convierte contenido externo en recetas útiles dentro de CookPilot.
+        - generic [ref=f6e79]:
+          - heading "Compra con claridad" [level=3] [ref=f6e80]
+          - paragraph [ref=f6e81]: Organiza listas, cantidades, precios y referencias de compra.
+        - generic [ref=f6e83]:
+          - heading "Ajusta tus objetivos" [level=3] [ref=f6e84]
+          - paragraph [ref=f6e85]: Trabaja con calorías, macros y nutrición cuando lo necesites.
+        - generic [ref=f6e87]:
+          - heading "Cocina con guía" [level=3] [ref=f6e88]
+          - paragraph [ref=f6e89]: Lleva tus menús a una preparación más clara y acompañada.
+        - generic [ref=f6e91]:
+          - heading "Amplía tu capacidad" [level=3] [ref=f6e92]
+          - paragraph [ref=f6e93]: Usa packs cuando tu ritmo supera lo incluido en Pro.
+    - generic [ref=f6e95]:
+      - heading "Packs para ampliar lo que más usas." [level=2] [ref=f6e97]
+      - paragraph [ref=f6e99]: Amplía funciones concretas cuando tu ritmo supera la capacidad incluida en Pro.
+      - paragraph
+      - generic [ref=f6e100]:
+        - generic [ref=f6e102]:
+          - img "Pack Menús Inteligentes" [ref=f6e104]
+          - generic [ref=f6e105]:
+            - heading "Pack Menús Inteligentes" [level=3] [ref=f6e106]
+            - generic [ref=f6e107]: Desde S/9.90
+          - paragraph [ref=f6e108]: Más capacidad para resolver menús y seguir organizando comidas.
+          - link "Ver en app" [ref=f6e109] [cursor=pointer]:
+            - /url: "#download-final"
+        - generic [ref=f6e111]:
+          - img "Pack Importa Más" [ref=f6e113]
+          - generic [ref=f6e114]:
+            - heading "Pack Importa Más" [level=3] [ref=f6e115]
+            - generic [ref=f6e116]: Desde S/9.90
+          - paragraph [ref=f6e117]: Más importaciones para recetas, videos, textos y listas.
+          - link "Ver en app" [ref=f6e118] [cursor=pointer]:
+            - /url: "#download-final"
+        - generic [ref=f6e120]:
+          - img "Pack Cocina Visual" [ref=f6e122]
+          - generic [ref=f6e123]:
+            - heading "Pack Cocina Visual" [level=3] [ref=f6e124]
+            - generic [ref=f6e125]: Desde S/9.90
+          - paragraph [ref=f6e126]: Más imágenes para recetas y referencias visuales.
+          - link "Ver en app" [ref=f6e127] [cursor=pointer]:
+            - /url: "#download-final"
+        - generic [ref=f6e129]:
+          - img "Pack CookLive" [ref=f6e131]
+          - generic [ref=f6e132]:
+            - heading "Pack CookLive" [level=3] [ref=f6e133]
+            - generic [ref=f6e134]: Desde S/9.90
+          - paragraph [ref=f6e135]: Más tiempo de asistencia en vivo al cocinar.
+          - link "Ver en app" [ref=f6e136] [cursor=pointer]:
+            - /url: "#download-final"
+    - generic [ref=f6e138]:
+      - heading "Preguntas frecuentes de Pro" [level=2] [ref=f6e140]
+      - paragraph [ref=f6e142]: Respuestas claras sobre Pro, sus planes y sus packs.
+      - generic [ref=f6e143]:
+        - generic [ref=f6e145]:
+          - button "¿El anual entrega todos los usos del año de golpe? +" [ref=f6e146] [cursor=pointer]:
+            - generic [ref=f6e147]: ¿El anual entrega todos los usos del año de golpe?
+            - generic [ref=f6e148]: +
+          - paragraph [ref=f6e149]: No. El anual se paga una vez al año, pero los usos incluidos se renuevan cada mes.
+        - generic [ref=f6e151]:
+          - button "¿Los packs reemplazan Pro? +" [ref=f6e152] [cursor=pointer]:
+            - generic [ref=f6e153]: ¿Los packs reemplazan Pro?
+            - generic [ref=f6e154]: +
+          - paragraph [ref=f6e155]: No. Los packs son para usuarios Pro que necesitan más capacidad en funciones específicas.
+        - generic [ref=f6e157]:
+          - button "¿Pro es solo para contar macros? +" [ref=f6e158] [cursor=pointer]:
+            - generic [ref=f6e159]: ¿Pro es solo para contar macros?
+            - generic [ref=f6e160]: +
+          - paragraph [ref=f6e161]: No. Pro sirve para planificar, importar, comprar, cocinar y reutilizar. La nutrición está disponible cuando la necesitas.
+        - generic [ref=f6e163]:
+          - button "¿Dónde veo mis usos incluidos? +" [ref=f6e164] [cursor=pointer]:
+            - generic [ref=f6e165]: ¿Dónde veo mis usos incluidos?
+            - generic [ref=f6e166]: +
+          - paragraph [ref=f6e167]: Los usos disponibles y detalles del plan se muestran dentro de la app.
+    - generic [ref=f6e171]:
+      - heading "Descarga la aplicación" [level=2] [ref=f6e172]
+      - paragraph [ref=f6e173]: Toma el control total de tu alimentación desde tu celular.
+      - button "Descargar" [ref=f6e174] [cursor=pointer]
+  - contentinfo [ref=f6e179]:
+    - generic [ref=f6e181]:
+      - generic [ref=f6e182]:
+        - link "Ícono de CookPilot Cook Pilot" [ref=f6e183] [cursor=pointer]:
+          - /url: /es
+          - img "Ícono de CookPilot" [ref=f6e184]
+          - generic [ref=f6e185]:
+            - generic [ref=f6e186]: Cook
+            - generic [ref=f6e187]: Pilot
+        - generic [ref=f6e188]:
+          - generic [ref=f6e189]: Hecho en Perú
+          - img "Perú" [ref=f6e190]
+        - paragraph [ref=f6e191]: © 2026 CookPilot.
+      - generic [ref=f6e192]:
+        - generic [ref=f6e193]:
+          - heading "Producto" [level=4] [ref=f6e194]
+          - list [ref=f6e195]:
+            - listitem [ref=f6e196]:
+              - link "Cómo funciona" [ref=f6e197] [cursor=pointer]:
+                - /url: /es/como-funciona
+            - listitem [ref=f6e198]:
+              - link "Pro" [ref=f6e199] [cursor=pointer]:
+                - /url: /es/pro
+            - listitem [ref=f6e200]:
+              - link "Descargar" [ref=f6e201] [cursor=pointer]:
+                - /url: "#download-final"
+        - generic [ref=f6e202]:
+          - heading "Aprende" [level=4] [ref=f6e203]
+          - list [ref=f6e204]:
+            - listitem [ref=f6e205]:
+              - link "Guías" [ref=f6e206] [cursor=pointer]:
+                - /url: /es/guias
+            - listitem [ref=f6e207]:
+              - link "FAQ" [ref=f6e208] [cursor=pointer]:
+                - /url: /es/faq
+            - listitem [ref=f6e209]:
+              - link "Comparativas" [ref=f6e210] [cursor=pointer]:
+                - /url: /es/comparativas
+        - generic [ref=f6e211]:
+          - heading "Legal" [level=4] [ref=f6e212]
+          - list [ref=f6e213]:
+            - listitem [ref=f6e214]:
+              - link "Privacidad y términos" [ref=f6e215] [cursor=pointer]:
+                - /url: /privacy-and-terms
+          - heading "Tiendas" [level=4] [ref=f6e216]
+          - list [ref=f6e217]:
+            - listitem [ref=f6e218]:
+              - link "Google Play" [ref=f6e219] [cursor=pointer]:
+                - /url: https://play.google.com/store
+            - listitem [ref=f6e220]:
+              - link "AppGallery" [ref=f6e221] [cursor=pointer]:
+                - /url: https://appgallery.huawei.com
+        - generic [ref=f6e222]:
+          - heading "Social" [level=4] [ref=f6e223]
+          - list [ref=f6e224]:
+            - listitem [ref=f6e225]:
+              - link "LinkedIn" [ref=f6e226] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/cookpilot/
+          - heading "Idioma" [level=4] [ref=f6e228]
+          - list [ref=f6e229]:
+            - listitem [ref=f6e230]:
+              - button "Español" [ref=f6e231] [cursor=pointer]
+            - listitem [ref=f6e232]:
+              - button "English" [ref=f6e233] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f6e239] [cursor=pointer]

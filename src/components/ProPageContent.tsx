@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { ArrowDown2, ArrowRight } from "iconsax-reactjs";
 import { Reveal, fadeUp } from "./motion";
 import styles from "./ProPageContent.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
+import FinalDownload from "./FinalDownload";
+import EditorialHero from "./EditorialHero";
 
 type FeatureItem = {
   title: string;
@@ -36,12 +39,10 @@ type PlanData = {
 
 type ProPageData = {
   hero: {
-    eyebrow: string;
     title: string;
     claim: string;
-    supportBefore: string;
-    supportAfter: string;
     cta: string;
+    plansCta: string;
     ctaAnchor: string;
     image: string;
   };
@@ -60,20 +61,9 @@ type ProPageData = {
     note: string;
     items: PackItem[];
   };
-  compare: {
-    title: string;
-    free: { label: string; items: string[] };
-    pro: { label: string; items: string[] };
-  };
   faq: {
     title: string;
     items: FAQItem[];
-  };
-  finalCta: {
-    title: string;
-    subtitle: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
   };
 };
 
@@ -88,43 +78,23 @@ export default function ProPageContent({ content }: { content: ProPageData }) {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero} id="pro">
-        <div className={styles.inner}>
-          <div className={styles.heroLayout}>
-            <div className={styles.heroText}>
-              <Reveal variants={fadeUp}>
-                <h1 className={styles.title}>{content.hero.title}</h1>
-              </Reveal>
-              <Reveal variants={fadeUp} delay={0.1}>
-                <p className={styles.claim}>{content.hero.claim}</p>
-              </Reveal>
-              <Reveal variants={fadeUp} delay={0.15}>
-                <p className={styles.supportText}>{content.hero.supportBefore}</p>
-              </Reveal>
-              <Reveal variants={fadeUp} delay={0.2}>
-                <p className={styles.supportText}>{content.hero.supportAfter}</p>
-              </Reveal>
-              <Reveal variants={fadeUp} delay={0.3}>
-                <a href={content.hero.ctaAnchor} className="cp-btn cp-btn--primary">
-                  {content.hero.cta}
-                </a>
-              </Reveal>
-            </div>
-            <Reveal variants={fadeUp} delay={0.2}>
-              <div className={styles.heroVisual}>
-                <Image
-                  src={content.hero.image}
-                  alt={content.hero.title}
-                  width={884}
-                  height={1600}
-                  priority
-                  className={styles.heroImage}
-                />
-              </div>
-            </Reveal>
-          </div>
+      <EditorialHero
+        title={content.hero.title}
+        subtitle={content.hero.claim}
+        primaryCta={content.hero.cta}
+        secondaryCta={{ label: content.hero.plansCta, href: "#plans" }}
+      >
+        <div className={styles.heroVisual}>
+          <Image
+            src={content.hero.image}
+            alt={content.hero.title}
+            width={884}
+            height={1600}
+            priority
+            className={styles.heroImage}
+          />
         </div>
-      </section>
+      </EditorialHero>
 
       <section className={styles.plansSection} id="plans">
         <div className={styles.inner}>
@@ -147,6 +117,14 @@ export default function ProPageContent({ content }: { content: ProPageData }) {
             {content.features.items.map((item, idx) => (
               <Reveal key={idx} variants={fadeUp} delay={0.05 * idx}>
                 <div className={styles.featureCard}>
+                  <div className={styles.featureMeta} aria-hidden="true">
+                    <span className={styles.featureNum}>
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className={styles.featureArrow}>
+                      <ArrowRight size={18} />
+                    </span>
+                  </div>
                   <h3 className={styles.featureTitle}>{item.title}</h3>
                   <p className={styles.featureDesc}>{item.desc}</p>
                 </div>
@@ -164,6 +142,7 @@ export default function ProPageContent({ content }: { content: ProPageData }) {
           <Reveal variants={fadeUp} delay={0.1}>
             <p className={styles.sectionSubtitle}>{content.packs.subtitle}</p>
           </Reveal>
+          <p className={styles.packsNote}>{content.packs.note}</p>
           <div className={styles.packsGrid}>
             {content.packs.items.map((item, idx) => (
               <Reveal key={idx} variants={fadeUp} delay={0.05 * idx}>
@@ -178,33 +157,51 @@ export default function ProPageContent({ content }: { content: ProPageData }) {
                     <span className={styles.packPrice}>{item.price}</span>
                   </div>
                   <p className={styles.packDesc}>{item.desc}</p>
-                  <a href={content.hero.ctaAnchor} className={`cp-btn cp-btn--ghost ${styles.packCta}`}>
-                    {content.hero.cta}
+                  <a href={content.plans.monthly.ctaAnchor} className={`cp-btn cp-btn--ghost ${styles.packCta}`}>
+                    {content.plans.monthly.cta}
                   </a>
                 </div>
               </Reveal>
             ))}
           </div>
-          <p className={styles.packsNote}>{content.packs.note}</p>
         </div>
       </section>
 
       <section className={styles.faqSection}>
-        <div className={styles.inner}>
-          <Reveal variants={fadeUp}>
-            <h2 className={styles.sectionTitle}>{content.faq.title}</h2>
-          </Reveal>
-          <div className={styles.accordion}>
+        <div className={styles.faqInner}>
+          <header className={styles.faqIntro}>
+            <h2 className={styles.faqTitle}>{content.faq.title}</h2>
+            <p className={styles.faqSubtitle}>{es ? "Respuestas claras sobre Pro, sus planes y sus packs." : "Clear answers about Pro, its plans, and its packs."}</p>
+          </header>
+
+          <div className={styles.faqList}>
             {content.faq.items.map((faq, idx) => {
               const isOpen = openFaqIdx === idx;
+              const answerId = `pro-faq-${idx}`;
+
               return (
                 <Reveal key={idx} variants={fadeUp} delay={0.05 * idx}>
                   <div className={`${styles.faqItem} ${isOpen ? styles.faqItemOpen : ""}`}>
-                    <button className={styles.faqBtn} onClick={() => toggleFaq(idx)}>
+                    <button
+                      className={styles.faqBtn}
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={answerId}
+                      onClick={() => toggleFaq(idx)}
+                    >
                       <span className={styles.faqQ}>{faq.q}</span>
-                      <span className={styles.faqArrow}>{isOpen ? "−" : "+"}</span>
+                      <ArrowDown2
+                        className={`${styles.faqArrow} ${isOpen ? styles.faqArrowOpen : ""}`}
+                        size={24}
+                        aria-hidden="true"
+                      />
                     </button>
-                    <div className={styles.faqAnswer} style={{ maxHeight: isOpen ? "200px" : "0" }}>
+
+                    <div
+                      id={answerId}
+                      className={styles.faqAnswer}
+                      hidden={!isOpen}
+                    >
                       <p>{faq.a}</p>
                     </div>
                   </div>
@@ -215,28 +212,7 @@ export default function ProPageContent({ content }: { content: ProPageData }) {
         </div>
       </section>
 
-      <section className={styles.finalCtaSection} id={es ? "descarga-app" : "download-app"}>
-        <div className={styles.inner}>
-          <div className={styles.finalCtaBox}>
-            <Reveal variants={fadeUp}>
-              <h2 className={styles.finalCtaTitle}>{content.finalCta.title}</h2>
-            </Reveal>
-            <Reveal variants={fadeUp} delay={0.1}>
-              <p className={styles.finalCtaSubtitle}>{content.finalCta.subtitle}</p>
-            </Reveal>
-            <Reveal variants={fadeUp} delay={0.2}>
-              <div className={styles.finalCtaButtons}>
-                <a href="#" className="cp-btn cp-btn--primary">
-                  {content.finalCta.ctaPrimary}
-                </a>
-                <a href="#" className="cp-btn cp-btn--ghost">
-                  {content.finalCta.ctaSecondary}
-                </a>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      <FinalDownload />
     </main>
   );
 }
@@ -264,4 +240,3 @@ function PlanCard({ plan, featured }: { plan: PlanData; featured?: boolean }) {
     </div>
   );
 }
-
