@@ -12,7 +12,7 @@ Al usar CookPilot, aceptas el tratamiento de tus datos conforme a esta Política
 
 ## 1. Quiénes somos y contacto
 
-CookPilot es una aplicación desarrollada y operada por **Christopher Paz**, desarrollador registrado en Google Play Console.
+CookPilot es una aplicación desarrollada y operada por **Christopher Jeffersson Lenin Paz Leon**, el desarrollador responsable de publicar y operar CookPilot.
 
 Para consultas relacionadas con privacidad, datos personales, eliminación de cuenta o cualquier solicitud relacionada con esta Política de Privacidad, puedes contactarnos en:
 

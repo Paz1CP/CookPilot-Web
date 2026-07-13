@@ -53,9 +53,11 @@ interface PrivacyAndTermsPageProps {
 const ui = {
   es: {
     titleA: "Privacidad y términos",
-    titleB: "sin letra chica visual",
+    titleB: "sin letra chica",
     intro:
       "Todo el copy legal de CookPilot, organizado para que puedas revisar datos, AI, pagos, derechos y eliminación de cuenta sin enfrentarte a una pared de texto.",
+    developerLabel: "Responsable desarrollador",
+    developerValue: "Christopher Jeffersson Lenin Paz Leon",
     updatedLabel: "Última actualización",
     contactLabel: "Contacto",
     contactValue: siteConfig.publicData.contactEmail,
@@ -99,9 +101,11 @@ const ui = {
   },
   en: {
     titleA: "Privacy and terms",
-    titleB: "without the wall of text",
+    titleB: "without noise",
     intro:
       "CookPilot's full legal copy, structured so you can review data, AI, payments, rights, and account deletion without digging through a flat document.",
+    developerLabel: "Responsible developer",
+    developerValue: "Christopher Jeffersson Lenin Paz Leon",
     updatedLabel: "Last updated",
     contactLabel: "Contact",
     contactValue: siteConfig.publicData.contactEmail,
@@ -390,6 +394,10 @@ export default function PrivacyAndTermsPage({ documents }: PrivacyAndTermsPagePr
           <p>{copy.intro}</p>
 
           <div className={styles.metaGrid}>
+            <div className={`${styles.metaItem} ${styles.metaFeatured}`}>
+              <span>{copy.developerLabel}</span>
+              <strong>{copy.developerValue}</strong>
+            </div>
             <div className={styles.metaItem}>
               <span>{copy.updatedLabel}</span>
               <strong>{policy.updatedAt}</strong>

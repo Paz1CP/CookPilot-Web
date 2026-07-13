@@ -81,6 +81,10 @@
   background: rgba(255, 255, 255, 0.035);
 }
 
+.metaFeatured {
+  grid-column: 1 / -1;
+}
+
 :global([data-theme="light"]) .metaItem {
   background: rgba(255, 255, 255, 0.64);
 }
