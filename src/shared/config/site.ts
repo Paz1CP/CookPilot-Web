@@ -48,8 +48,8 @@ export const siteConfig = {
       linkedin: "https://www.linkedin.com/company/cookpilot/",
     },
     stores: {
-      googlePlay: "https://play.google.com/store",
-      appGallery: "https://appgallery.huawei.com",
+      googlePlay: "https://play.google.com/store/apps/details?id=com.cookpilot.pe",
+      appGallery: "https://appgallery.cloud.huawei.com/ag/n/app/C118044413",
     },
   },
   lastModified: "2026-07-12",
