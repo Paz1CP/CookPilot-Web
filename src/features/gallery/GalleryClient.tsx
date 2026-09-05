@@ -366,7 +366,7 @@ export default function GalleryClient({
       {items.length ? (
         <div className={styles.grid}>
           {items.map((item, index) => (
-            <Link key={`${item.objectType}-${item.objectId}`} href={item.href} className={styles.card}>
+            <Link key={`${item.objectType}-${item.href}`} href={item.href} className={styles.card}>
               <div className={styles.media}>{cardImage(item, index, Boolean(state.cursor))}</div>
               <div className={styles.body}>
                 <span className={styles.type}>{cardTypeLabel(item, state.locale)}</span>

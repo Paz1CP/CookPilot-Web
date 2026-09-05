@@ -102,7 +102,8 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
               {Boolean(component.is_preview) ? <span className={styles.locked}>{locale === "es" ? "Contenido Pro" : "Pro content"}</span> : null}
             </>
           );
-          return identity?.canonical_path ? <Link href={identity.canonical_path} key={component.object_id ?? index} className={styles.componentCard}>{content}</Link> : <article key={component.object_id ?? index} className={styles.componentCard}>{content}</article>;
+          const key = `${component.object_type}-${identity?.canonical_path ?? index}`;
+          return identity?.canonical_path ? <Link href={identity.canonical_path} key={key} className={styles.componentCard}>{content}</Link> : <article key={key} className={styles.componentCard}>{content}</article>;
         })}
       </div>
     </section>
