@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Purchases, type Offering, type Package } from "@revenuecat/purchases-js";
-import { revenueCatConfig } from "@/lib/supabase/config";
+import { publicRevenueCatConfig } from "@/lib/supabase/public-config";
 import styles from "./CookPaywall.module.css";
 
 interface CookPaywallProps {
@@ -27,7 +27,7 @@ export default function CookPaywall({ locale, context, appUserId, onUnlocked }: 
   const [message, setMessage] = useState<string | null>(null);
 
   const loadOffering = async () => {
-    if (!revenueCatConfig.publicKey || !appUserId) {
+    if (!publicRevenueCatConfig.publicKey || !appUserId) {
       setMessage(locale === "es" ? "Inicia sesión para ver los planes." : "Sign in to see the plans.");
       return;
     }
@@ -36,9 +36,9 @@ export default function CookPaywall({ locale, context, appUserId, onUnlocked }: 
     try {
       const purchases = Purchases.isConfigured()
         ? Purchases.getSharedInstance()
-        : Purchases.configure({ apiKey: revenueCatConfig.publicKey, appUserId });
-      const offerings = await purchases.getOfferings({ offeringIdentifier: revenueCatConfig.offeringId });
-      const selected = offerings.all[revenueCatConfig.offeringId] ?? offerings.current;
+        : Purchases.configure({ apiKey: publicRevenueCatConfig.publicKey, appUserId });
+      const offerings = await purchases.getOfferings({ offeringIdentifier: publicRevenueCatConfig.offeringId });
+      const selected = offerings.all[publicRevenueCatConfig.offeringId] ?? offerings.current;
       setOffering(selected ?? null);
       if (selected) purchases.trackCustomPaywallImpression({ offering: selected });
       if (!selected) setMessage(locale === "es" ? "No hay planes disponibles ahora." : "No plans are available right now.");

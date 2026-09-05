@@ -1,15 +1,15 @@
 "use client";
 
 import { createBrowserClient } from "@supabase/ssr";
-import { supabaseConfig } from "./config";
+import { publicSupabaseConfig } from "./public-config";
 
 let browserClient: ReturnType<typeof createBrowserClient> | undefined;
 
 export function createSupabaseBrowserClient() {
   if (!browserClient) {
     browserClient = createBrowserClient(
-      supabaseConfig.url,
-      supabaseConfig.publishableKey,
+      publicSupabaseConfig.url,
+      publicSupabaseConfig.publishableKey,
       {
         auth: {
           autoRefreshToken: true,

@@ -1,6 +1,6 @@
 import { supabaseBrowser } from "@/lib/supabase/browser";
-import { supabaseConfig } from "@/lib/supabase/config";
+import { publicSupabaseConfig } from "@/lib/supabase/public-config";
 
 export const supabase = supabaseBrowser;
-export const SUPABASE_URL = supabaseConfig.url;
-export const SUPABASE_PUBLISHABLE_KEY = supabaseConfig.publishableKey;
+export const SUPABASE_URL = publicSupabaseConfig.url;
+export const SUPABASE_PUBLISHABLE_KEY = publicSupabaseConfig.publishableKey;
