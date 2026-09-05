@@ -140,8 +140,8 @@ ul, ol {
 .cp-section-title {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-bold);
-  font-size: var(--cp-text-display-m-size);
-  letter-spacing: var(--cp-text-display-m-letter-spacing);
+  font-size: var(--cp-display-m-size);
+  letter-spacing: var(--cp-display-m-letter-spacing);
   color: var(--cp-text-primary);
   margin: 0 0 var(--cp-space-12) 0;
   line-height: 1.15;
@@ -150,8 +150,8 @@ ul, ol {
 .cp-section-subtitle {
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-regular);
-  font-size: var(--cp-text-body-l-size);
-  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  font-size: var(--cp-body-l-size);
+  letter-spacing: var(--cp-body-l-letter-spacing);
   color: var(--cp-text-primary);
   margin: 0;
   line-height: 1.5;
@@ -251,8 +251,8 @@ ul, ol {
   border-radius: 9999px;
   font-family: var(--cp-font-sans);
   font-weight: var(--cp-fw-semibold);
-  font-size: var(--cp-text-button-16-size);
-  letter-spacing: var(--cp-text-button-16-letter-spacing);
+  font-size: var(--cp-button-16-size);
+  letter-spacing: var(--cp-button-16-letter-spacing);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;

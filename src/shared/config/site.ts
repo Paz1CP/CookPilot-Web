@@ -14,11 +14,15 @@ type PageMeta = {
 };
 
 type SitemapConfig = {
-  changeFrequency: "weekly" | "monthly";
+  changeFrequency: "daily" | "weekly" | "monthly";
   priority: number;
 };
 
-const publicUrl = "https://cookpilot.pro";
+const publicUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+if (!publicUrl) {
+  throw new Error("Missing required environment variable: NEXT_PUBLIC_SITE_URL");
+}
 
 export const siteConfig = {
   publicUrl,
@@ -85,6 +89,11 @@ export const siteConfig = {
         description:
           "Compara cómo se organiza tu alimentación diaria con CookPilot frente a apps de recetas, planners, trackers, notas y delivery.",
       },
+      gallery: {
+        title: "Galería de recetas | CookPilot",
+        description:
+          "Descubre recetas reales de CookPilot, con ideas claras para organizar tu cocina y cocinar mejor.",
+      },
     },
     en: {
       home: {
@@ -116,6 +125,11 @@ export const siteConfig = {
         title: "Compare | CookPilot",
         description:
           "Compare how your daily food is organized using CookPilot versus recipe apps, meal planners, macro trackers, notes, and delivery.",
+      },
+      gallery: {
+        title: "Recipe gallery | CookPilot",
+        description:
+          "Discover real CookPilot recipes and clear ideas for organizing your kitchen and cooking better.",
       },
     },
   } satisfies Record<AppLocale, Record<LocalizedRouteKey, PageMeta>>,
@@ -153,6 +167,7 @@ export const siteConfig = {
     pro: { changeFrequency: "weekly", priority: 0.9 },
     faq: { changeFrequency: "weekly", priority: 0.7 },
     compare: { changeFrequency: "weekly", priority: 0.8 },
+    gallery: { changeFrequency: "daily", priority: 0.9 },
   } satisfies Record<LocalizedRouteKey, SitemapConfig>,
 } as const;
 
@@ -161,4 +176,3 @@ export function absoluteUrl(path = "") {
   if (path.startsWith("http")) return path;
   return `${siteConfig.publicUrl}${path.startsWith("/") ? path : `/${path}`}`;
 }
-

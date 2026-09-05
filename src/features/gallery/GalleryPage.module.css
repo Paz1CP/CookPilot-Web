@@ -1,0 +1,5 @@
+.page { min-height: 100vh; padding: 154px 24px 96px; background: var(--cp-layer-base); }
+.shell { width: min(1180px, 100%); margin: 0 auto; }
+.shell h1 { margin: 12px 0 12px; font-size: clamp(44px, 7vw, 86px); letter-spacing: var(--cp-tracking-tight); line-height: .98; }
+.lead { max-width: 650px; margin: 0 0 42px; color: var(--cp-text-secondary); font-size: 19px; line-height: var(--cp-leading-body); }
+@media (max-width: 620px) { .page { padding-top: 124px; } }

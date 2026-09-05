@@ -12,6 +12,7 @@ import es from "@/locales/es.json";
 import en from "@/locales/en.json";
 import {
   getAlternateLocalizedRoute,
+  switchCookShareLocalePath,
   type AppLocale,
 } from "@/shared/config/routes";
 
@@ -57,9 +58,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const next: Locale = locale === "es" ? "en" : "es";
     setFallbackLocale(next);
 
-    const targetPath = getAlternateLocalizedRoute(pathname);
+    const targetPath = getAlternateLocalizedRoute(pathname) ?? switchCookShareLocalePath(pathname, next);
     if (targetPath) {
-      router.push(targetPath);
+      router.push(`${targetPath}${typeof window === "undefined" ? "" : window.location.search}`);
     }
   };
 

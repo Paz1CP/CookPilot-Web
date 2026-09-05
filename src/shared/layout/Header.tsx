@@ -10,6 +10,7 @@ import { useLocale } from "@/contexts/LanguageContext";
 import { usePathname } from "next/navigation";
 import { DownloadButton } from "@/shared/download/DownloadExperience";
 import { getLocalizedRoute } from "@/shared/config/routes";
+import AuthDialog from "@/features/auth-web/AuthDialog";
 
 export default function Header() {
   const { t, locale, toggleLocale } = useLocale();
@@ -41,6 +42,7 @@ export default function Header() {
     { label: t.header.guias, href: getLocalizedRoute(locale, "guides") },
     { label: t.header.pro, href: getLocalizedRoute(locale, "pro") },
     { label: t.header.faq, href: getLocalizedRoute(locale, "faq") },
+    { label: t.header.gallery, href: getLocalizedRoute(locale, "gallery") },
   ];
 
   return (
@@ -107,6 +109,8 @@ export default function Header() {
               <Moon variant="Bold" size={24} color="var(--cp-dark)" />
             )}
           </button>
+
+          <AuthDialog label={t.header.iniciar_sesion} locale={locale} />
 
           <DownloadButton className={styles.downloadBtn}>
             {t.header.descargar}

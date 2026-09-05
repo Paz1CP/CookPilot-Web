@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -567,10 +568,11 @@ function FAQ() {
   );
 }
 
-export default function HomePageContent() {
+export default function HomePageContent({ heroAfter }: { heroAfter?: ReactNode } = {}) {
   return (
     <main className={styles.home}>
       <Hero />
+      {heroAfter}
       <Definition />
       <ProductStory />
       <ProMoment />

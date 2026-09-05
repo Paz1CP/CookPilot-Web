@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@revenuecat/purchases-js": "^1.58.0",
+    "@supabase/ssr": "^0.12.6",
     "@supabase/supabase-js": "^2.110.2",
     "iconsax-reactjs": "^0.0.8",
     "motion": "^12.38.0",

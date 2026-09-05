@@ -163,7 +163,7 @@
   font-size: var(--cp-text-20);
   font-weight: var(--cp-fw-semibold);
   line-height: 1.2;
-  letter-spacing: var(--cp-text-title-s-letter-spacing);
+  letter-spacing: var(--cp-title-s-letter-spacing);
 }
 
 .bulletList {
@@ -183,7 +183,7 @@
   font-size: clamp(17px, 1.2vw, 20px);
   font-weight: var(--cp-fw-regular);
   line-height: 1.48;
-  letter-spacing: var(--cp-text-body-m-letter-spacing);
+  letter-spacing: var(--cp-body-m-letter-spacing);
 }
 
 .bulletList li::before {

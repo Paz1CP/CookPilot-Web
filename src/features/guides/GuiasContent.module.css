@@ -70,30 +70,30 @@
 .title {
   max-width: 14ch;
   color: var(--cp-text-primary);
-  font-size: var(--cp-text-display-l-size);
+  font-size: var(--cp-display-l-size);
   font-weight: var(--cp-fw-bold);
   line-height: var(--cp-leading-display);
-  letter-spacing: var(--cp-text-display-l-letter-spacing);
+  letter-spacing: var(--cp-display-l-letter-spacing);
   text-wrap: balance;
 }
 
 .subtitle {
   max-width: 820px;
   color: var(--cp-text-tertiary);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   font-weight: var(--cp-fw-regular);
   line-height: var(--cp-leading-body);
-  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  letter-spacing: var(--cp-body-l-letter-spacing);
   text-wrap: pretty;
 }
 
 .supportText {
   max-width: 760px;
   color: var(--cp-text-primary);
-  font-size: var(--cp-text-body-m-size);
+  font-size: var(--cp-body-m-size);
   font-weight: var(--cp-fw-medium);
   line-height: var(--cp-leading-body);
-  letter-spacing: var(--cp-text-body-m-letter-spacing);
+  letter-spacing: var(--cp-body-m-letter-spacing);
 }
 
 /* Editorial map */
@@ -114,7 +114,7 @@
 
 .mapSupport {
   color: var(--cp-text-tertiary);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   line-height: var(--cp-leading-body);
 }
 
@@ -265,18 +265,18 @@
 
 .cardTitle {
   color: var(--cp-text-primary);
-  font-size: var(--cp-text-title-l-size);
+  font-size: var(--cp-title-l-size);
   font-weight: var(--cp-fw-bold);
   line-height: var(--cp-leading-title);
-  letter-spacing: var(--cp-text-title-l-letter-spacing);
+  letter-spacing: var(--cp-title-l-letter-spacing);
   text-wrap: balance;
 }
 
 .cardDesc {
   color: var(--cp-text-tertiary);
-  font-size: var(--cp-text-body-m-size);
+  font-size: var(--cp-body-m-size);
   line-height: var(--cp-leading-body);
-  letter-spacing: var(--cp-text-body-m-letter-spacing);
+  letter-spacing: var(--cp-body-m-letter-spacing);
   text-wrap: pretty;
 }
 
@@ -315,13 +315,13 @@
 }
 
 .guideCardFeatured .cardTitle {
-  font-size: var(--cp-text-display-m-size);
-  letter-spacing: var(--cp-text-display-m-letter-spacing);
+  font-size: var(--cp-display-m-size);
+  letter-spacing: var(--cp-display-m-letter-spacing);
 }
 
 .guideCardFeatured .cardDesc {
   max-width: 540px;
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
 }
 
 .guideCardFeatured .cardVisual {
@@ -351,12 +351,12 @@
 }
 
 .guideCardCompact .cardTitle {
-  font-size: var(--cp-text-title-m-size);
-  letter-spacing: var(--cp-text-title-m-letter-spacing);
+  font-size: var(--cp-title-m-size);
+  letter-spacing: var(--cp-title-m-letter-spacing);
 }
 
 .guideCardCompact .cardDesc {
-  font-size: var(--cp-text-body-m-size);
+  font-size: var(--cp-body-m-size);
 }
 
 .guideCardCompact .cardVisual {
@@ -410,19 +410,19 @@
 
 .readerTitle {
   color: var(--cp-text-primary);
-  font-size: var(--cp-text-display-m-size);
+  font-size: var(--cp-display-m-size);
   font-weight: var(--cp-fw-bold);
   line-height: var(--cp-leading-display);
-  letter-spacing: var(--cp-text-display-m-letter-spacing);
+  letter-spacing: var(--cp-display-m-letter-spacing);
   text-wrap: balance;
 }
 
 .readerSummary {
   max-width: 720px;
   color: var(--cp-text-tertiary);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   line-height: var(--cp-leading-body);
-  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  letter-spacing: var(--cp-body-l-letter-spacing);
   text-wrap: pretty;
 }
 
@@ -491,10 +491,10 @@
 
 .readerBlockTitle {
   color: var(--cp-text-primary);
-  font-size: var(--cp-text-title-l-size);
+  font-size: var(--cp-title-l-size);
   font-weight: var(--cp-fw-semibold);
   line-height: var(--cp-leading-title);
-  letter-spacing: var(--cp-text-title-l-letter-spacing);
+  letter-spacing: var(--cp-title-l-letter-spacing);
 }
 
 .readerMiniGrid {
@@ -525,10 +525,10 @@
 
 .miniCardText {
   color: var(--cp-text-primary);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   font-weight: var(--cp-fw-medium);
   line-height: var(--cp-leading-body);
-  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  letter-spacing: var(--cp-body-l-letter-spacing);
 }
 
 .readerSplit {
@@ -565,9 +565,9 @@
 .readerBlockText {
   max-width: 640px;
   color: var(--cp-text-tertiary);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   line-height: var(--cp-leading-body);
-  letter-spacing: var(--cp-text-body-l-letter-spacing);
+  letter-spacing: var(--cp-body-l-letter-spacing);
 }
 
 .readerChecks {
@@ -581,7 +581,7 @@
   align-items: flex-start;
   gap: var(--cp-space-2);
   color: var(--cp-text-primary);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   line-height: var(--cp-leading-body);
 }
 
@@ -616,7 +616,7 @@
 
 .tipLabel {
   color: var(--cp-primary);
-  font-size: var(--cp-text-title-m-size);
+  font-size: var(--cp-title-m-size);
   font-weight: var(--cp-fw-semibold);
   line-height: var(--cp-leading-title);
 }
@@ -624,7 +624,7 @@
 .tipText {
   max-width: 820px;
   color: var(--cp-foreground-light-strong);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   line-height: var(--cp-leading-body);
 }
 
@@ -664,17 +664,17 @@
 
 .finalCtaTitle {
   color: var(--cp-light);
-  font-size: var(--cp-text-display-m-size);
+  font-size: var(--cp-display-m-size);
   font-weight: var(--cp-fw-bold);
   line-height: var(--cp-leading-display);
-  letter-spacing: var(--cp-text-display-m-letter-spacing);
+  letter-spacing: var(--cp-display-m-letter-spacing);
   text-wrap: balance;
 }
 
 .finalCtaText {
   max-width: 680px;
   color: var(--cp-foreground-light-strong);
-  font-size: var(--cp-text-body-l-size);
+  font-size: var(--cp-body-l-size);
   line-height: var(--cp-leading-body);
 }
 
@@ -776,8 +776,8 @@
   }
 
   .title {
-    font-size: var(--cp-text-display-m-size);
-    letter-spacing: var(--cp-text-display-m-letter-spacing);
+    font-size: var(--cp-display-m-size);
+    letter-spacing: var(--cp-display-m-letter-spacing);
   }
 
   .guidesGrid {
@@ -848,8 +848,8 @@
   .checkItem,
   .tipText,
   .finalCtaText {
-    font-size: var(--cp-text-body-m-size);
-    letter-spacing: var(--cp-text-body-m-letter-spacing);
+    font-size: var(--cp-body-m-size);
+    letter-spacing: var(--cp-body-m-letter-spacing);
   }
 
   .guidesGrid {
@@ -877,12 +877,12 @@
   }
 
   .guideCardFeatured .cardTitle {
-    font-size: var(--cp-text-title-l-size);
-    letter-spacing: var(--cp-text-title-l-letter-spacing);
+    font-size: var(--cp-title-l-size);
+    letter-spacing: var(--cp-title-l-letter-spacing);
   }
 
   .guideCardFeatured .cardDesc {
-    font-size: var(--cp-text-body-m-size);
+    font-size: var(--cp-body-m-size);
   }
 
   .cardVisual,
@@ -903,7 +903,7 @@
   }
 
   .readerTitle {
-    font-size: var(--cp-text-display-m-size);
+    font-size: var(--cp-display-m-size);
   }
 
   .readerVisual {
@@ -931,8 +931,8 @@
   }
 
   .finalCtaTitle {
-    font-size: var(--cp-text-title-l-size);
-    letter-spacing: var(--cp-text-title-l-letter-spacing);
+    font-size: var(--cp-title-l-size);
+    letter-spacing: var(--cp-title-l-letter-spacing);
   }
 
   .finalCtaButtons {

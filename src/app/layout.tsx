@@ -113,6 +113,8 @@ const jsonLd = {
   ],
 };
 
+const serializedJsonLd = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -133,7 +135,7 @@ export default async function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializedJsonLd }}
         />
       </head>
       <body>

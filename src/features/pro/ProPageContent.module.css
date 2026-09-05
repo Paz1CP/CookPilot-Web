@@ -127,7 +127,7 @@
 
 .planTitle { font-size: var(--cp-text-24); }
 .planPrice { display: flex; align-items: baseline; gap: var(--cp-space-2); }
-.planPriceValue { font-size: var(--cp-text-display-m-size); font-weight: var(--cp-fw-bold); letter-spacing: var(--cp-tracking-tight); }
+.planPriceValue { font-size: var(--cp-display-m-size); font-weight: var(--cp-fw-bold); letter-spacing: var(--cp-tracking-tight); }
 .planPricePeriod { color: var(--cp-text-tertiary); font-size: var(--cp-text-16); }
 .planDescription { margin: 0; color: var(--cp-text-tertiary); font-size: var(--cp-text-18); line-height: var(--cp-leading-body); }
 
@@ -401,7 +401,7 @@
   .planCard { padding: var(--cp-space-5); }
   .featureCard { min-height: 220px; }
   .packCard { min-height: 320px; }
-  .sectionTitle { font-size: var(--cp-text-display-s-size); }
+  .sectionTitle { font-size: var(--cp-display-s-size); }
   .faqSection {
     padding-top: var(--cp-space-8);
     padding-bottom: var(--cp-space-8);

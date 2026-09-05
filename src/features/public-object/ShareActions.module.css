@@ -1,0 +1,4 @@
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 20px 0 0; }
+.actions button { padding: 10px 14px; border: 1px solid var(--cp-border-subtle); border-radius: 999px; color: var(--cp-text-primary); cursor: pointer; }
+.actions button:hover { border-color: var(--cp-primary); color: var(--cp-primary); }
+.actions span { color: var(--cp-secondary); font-size: 13px; }
