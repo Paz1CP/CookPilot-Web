@@ -25,6 +25,13 @@ export default async function HandleGallery({
   });
   const page = await getGalleryPage(state);
   if (!page.ownerId) notFound();
+  const clientPage = {
+    items: page.items,
+    nextCursor: page.nextCursor,
+    state: page.state,
+    hasMore: page.hasMore,
+    facetOptions: page.facetOptions,
+  };
   return (
     <main className={styles.page}>
       <div className={styles.shell}>
@@ -36,7 +43,7 @@ export default async function HandleGallery({
           </div>
           <span className={styles.publicBadge}>{locale === "es" ? "Perfil CookShare" : "CookShare profile"}</span>
         </div>
-        <GalleryClient initial={page} basePath={buildHandlePath(locale, normalizedHandle)} />
+        <GalleryClient initial={clientPage} basePath={buildHandlePath(locale, normalizedHandle)} />
       </div>
     </main>
   );

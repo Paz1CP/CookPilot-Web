@@ -40,7 +40,7 @@ function RecipeDetails({ recipe, locale }: { recipe: RecipeProjection; locale: A
         {ingredients.length ? (
           <ul className={styles.ingredientList}>
             {ingredients.map((item, index) => (
-              <li key={item.rci_id ?? index}>
+              <li key={`${item.ingredient_name ?? "ingredient"}-${index}`}>
                 <span>{item.display_quantity ?? item.quantity ?? ""} {item.display_unit ?? item.unit ?? ""}</span>
                 <strong>{item.ingredient_name ?? ""}</strong>
               </li>

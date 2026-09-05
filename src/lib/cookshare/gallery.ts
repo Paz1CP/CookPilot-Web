@@ -235,7 +235,6 @@ async function resolveRow(
     if (!handle) return null;
     return {
       objectType: "handle" as const,
-      objectId: row.object_id,
       title: row.title ?? `@${handle}`,
       description: null,
       imageUrl: null,
@@ -257,7 +256,6 @@ async function resolveRow(
     : null;
   return {
     objectType,
-    objectId: row.object_id,
     title,
     description: state.locale === "en"
       ? row.description_en ?? row.description ?? null

@@ -118,7 +118,6 @@ export interface GalleryState {
 
 export interface GalleryCard {
   objectType: CookShareObjectType | "handle";
-  objectId: string;
   title: string;
   description: string | null;
   imageUrl: string | null;
@@ -139,7 +138,6 @@ export interface GalleryPage {
 
 export interface HandleGalleryCard {
   objectType: CookShareObjectType;
-  objectId: string;
   title: string;
   href: string;
   imageUrl: string | null;
