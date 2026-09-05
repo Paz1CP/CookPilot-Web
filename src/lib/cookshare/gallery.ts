@@ -129,7 +129,10 @@ async function getCanonicalRecipeGallery(state: GalleryState, boundedLimit: numb
     .not("canonical_name", "is", null)
     .order("canonical_name", { ascending: true })
     .limit(500);
-  if (result.error || !Array.isArray(result.data)) return { items: [], nextCursor: null, state };
+  if (result.error || !Array.isArray(result.data)) {
+    console.error("CookShare canonical gallery query failed", result.error?.code, result.error?.message);
+    return { items: [], nextCursor: null, state };
+  }
 
   const rows = (result.data as RecipeRow[])
     .filter((row) => row.id && canonicalSlug(row.canonical_name))
@@ -202,7 +205,10 @@ export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Pr
     .select("*")
     .order("bank_rank", { ascending: true })
     .limit(500);
-  if (bankResult.error || !Array.isArray(bankResult.data)) return getCanonicalRecipeGallery(state, boundedLimit);
+  if (bankResult.error || !Array.isArray(bankResult.data)) {
+    console.error("CookShare bank gallery query failed", bankResult.error?.code, bankResult.error?.message);
+    return getCanonicalRecipeGallery(state, boundedLimit);
+  }
 
   const bankRows = (bankResult.data as BankRow[])
     .filter((row) => row.recipe_id && (!row.component_type || row.component_type === "recipe"))
@@ -225,7 +231,10 @@ export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Pr
     internal.schema("home").from("cookshare_public_routes").select("object_id,handle,slug,route_kind,is_current").eq("object_type", "recipe").eq("is_current", true).eq("route_kind", "current").in("object_id", ids),
   ]);
 
-  if (recipesResult.error || routesResult.error) return getCanonicalRecipeGallery(state, boundedLimit);
+  if (recipesResult.error || routesResult.error) {
+    console.error("CookShare gallery detail query failed", recipesResult.error?.code ?? routesResult.error?.code, recipesResult.error?.message ?? routesResult.error?.message);
+    return getCanonicalRecipeGallery(state, boundedLimit);
+  }
   const recipes = new Map((recipesResult.data as RecipeRow[]).map((recipe) => [recipe.id, recipe]));
   const routes = new Map((routesResult.data as RouteRow[]).map((route) => [route.object_id, route]));
   const items: GalleryCard[] = [];
