@@ -1,4 +1,112 @@
-.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 20px 0 0; }
-.actions button { padding: 10px 14px; border: 1px solid var(--cp-border-subtle); border-radius: 999px; color: var(--cp-text-primary); cursor: pointer; }
-.actions button:hover { border-color: var(--cp-primary); color: var(--cp-primary); }
-.actions span { color: var(--cp-secondary); font-size: 13px; }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: var(--cp-space-3);
+}
+
+.actionLink {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  border: 1px solid var(--cp-border-subtle);
+  border-radius: var(--cp-radius-pill);
+  background: transparent;
+  color: var(--cp-text-primary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  text-decoration: none;
+  transition: border-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.actionLink:hover {
+  border-color: var(--cp-primary);
+  color: var(--cp-primary);
+  transform: translateY(-1px);
+}
+
+.actionLink:focus-visible,
+.close:focus-visible {
+  outline: 2px solid var(--cp-primary);
+  outline-offset: 3px;
+}
+
+.actions button:disabled {
+  cursor: wait;
+  opacity: .62;
+}
+
+.status {
+  color: var(--cp-secondary);
+  font-size: 13px;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: color-mix(in srgb, var(--cp-dark) 72%, transparent);
+}
+
+.qrDialog {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  width: min(380px, 100%);
+  padding: 32px;
+  border: 1px solid var(--cp-border-subtle);
+  border-radius: var(--cp-card-radius);
+  background: var(--cp-layer-raised);
+  color: var(--cp-text-primary);
+  text-align: center;
+  box-shadow: var(--cp-shadow-deep);
+}
+
+.qrDialog h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.qrDialog p:last-child {
+  margin: 0;
+  color: var(--cp-text-secondary);
+  font-size: 14px;
+}
+
+.qr {
+  width: 280px;
+  height: 280px;
+  border-radius: 12px;
+  background: var(--cp-light-soft);
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--cp-text-primary);
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .actions > * {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  .actions .status {
+    flex-basis: 100%;
+  }
+}

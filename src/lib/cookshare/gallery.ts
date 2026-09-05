@@ -1,50 +1,50 @@
 import { supabaseConfig } from "@/lib/supabase/config";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseInternalClient } from "@/lib/supabase/internal";
-import { buildCookSharePath, type AppLocale } from "@/shared/config/routes";
+import { createSupabaseServerClient, getRequestUser } from "@/lib/supabase/server";
+import { buildCookSharePath, buildHandlePath, type AppLocale } from "@/shared/config/routes";
+import {
+  emptyGalleryFacets,
+  galleryQueryFingerprint,
+  hasActiveGalleryFacets,
+} from "./gallery-query";
 import type {
+  CookShareObjectType,
   GalleryCard,
+  GalleryFacetOptions,
   GalleryPage,
   GalleryState,
-  GalleryType,
-  HandleGalleryCard,
 } from "./types";
 
+export { parseGalleryState } from "./gallery-query";
+
 const PAGE_SIZE = 24;
+const RPC_LIMIT = 600;
 
-type BankRow = {
-  component_type?: string | null;
-  bank_rank?: number | null;
-  recipe_id?: string | null;
-  title?: string | null;
-  title_norm?: string | null;
-  time_minutes?: number | null;
-  total_minutes?: number | null;
-  kcal?: number | null;
-  protein?: number | null;
-  carbs?: number | null;
-  fat?: number | null;
-  fiber?: number | null;
-};
-
-type RecipeRow = {
-  id: string;
-  title?: string | null;
-  title_en?: string | null;
-  canonical_name?: string | null;
-  description?: string | null;
-  description_en?: string | null;
-  cover_photo_url?: string | null;
-  is_free_recipe?: boolean | null;
-  origin?: string | null;
-};
-
-type RouteRow = {
+type GalleryRpcRow = {
+  object_type: string;
   object_id: string;
+  owner_id?: string | null;
   handle?: string | null;
   slug: string;
-  route_kind?: string | null;
-  is_current?: boolean | null;
+  title?: string | null;
+  title_en?: string | null;
+  description?: string | null;
+  description_en?: string | null;
+  image_url?: string | null;
+  is_free?: boolean | null;
+  time_minutes?: number | null;
+  nutrition?: Record<string, number | string | null> | null;
+  rank?: number | null;
+  component?: string | null;
+  slot_profile?: Record<string, number | string | null> | null;
+  ingredients?: string[] | null;
+};
+
+type GalleryCursor = {
+  rank: number;
+  title: string;
+  id: string;
+  objectType?: string;
 };
 
 function normalizeText(value: string) {
@@ -57,257 +57,285 @@ function normalizeText(value: string) {
     .trim();
 }
 
-function encodeCursor(row: BankRow) {
-  const value = JSON.stringify({
-    rank: row.bank_rank ?? 0,
-    title: row.title_norm ?? normalizeText(row.title ?? ""),
-    id: row.recipe_id ?? "",
-  });
-  return Buffer.from(value, "utf8").toString("base64url");
-}
-
-function encodeRecipeCursor(row: RecipeRow) {
-  const value = JSON.stringify({
-    rank: 0,
-    title: normalizeText(row.title ?? row.title_en ?? ""),
-    id: row.id,
-  });
-  return Buffer.from(value, "utf8").toString("base64url");
-}
-
-function decodeCursor(cursor: string | null) {
-  if (!cursor) return null;
-  try {
-    const parsed = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8"));
-    if (typeof parsed.rank !== "number" || typeof parsed.title !== "string" || typeof parsed.id !== "string") return null;
-    return parsed as { rank: number; title: string; id: string };
-  } catch {
-    return null;
-  }
-}
-
-function compareRow(row: BankRow, cursor: { rank: number; title: string; id: string }) {
-  const rank = row.bank_rank ?? 0;
-  const title = row.title_norm ?? normalizeText(row.title ?? "");
-  const id = row.recipe_id ?? "";
-  if (rank !== cursor.rank) return rank - cursor.rank;
-  if (title !== cursor.title) return title.localeCompare(cursor.title);
-  return id.localeCompare(cursor.id);
+function normalizeHandle(value: string | null | undefined) {
+  const handle = value?.replace(/^@/, "").trim().toLowerCase() ?? "";
+  return /^[a-z0-9][a-z0-9._-]{2,29}$/.test(handle) ? handle : null;
 }
 
 function mediaUrl(value: string | null | undefined) {
   if (!value) return null;
   try {
-    const url = new URL(value, supabaseConfig.mediaBaseUrl);
-    return url.origin === new URL(supabaseConfig.mediaBaseUrl).origin ? url.toString() : null;
+    const expected = new URL(supabaseConfig.mediaBaseUrl);
+    const candidate = new URL(value, expected);
+    return candidate.protocol === "https:" && candidate.origin === expected.origin
+      ? candidate.toString()
+      : null;
   } catch {
     return null;
   }
 }
 
-function canonicalSlug(value: string | null | undefined) {
-  if (!value) return null;
-  const slug = value
-    .replace(/_/g, "-")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9-]/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 64);
-  return /^[a-z0-9][a-z0-9-]{0,63}$/.test(slug) ? slug : null;
+function numberValue(value: unknown) {
+  const number = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(number) ? number : null;
 }
 
-async function getCanonicalRecipeGallery(state: GalleryState, boundedLimit: number): Promise<GalleryPage> {
-  const client = await createSupabaseServerClient();
-  const result = await client
-    .schema("menu")
-    .from("recipes")
-    .select("id,title,title_en,canonical_name,description,description_en,cover_photo_url,is_free_recipe,origin")
-    .eq("origin", "official")
-    .not("canonical_name", "is", null)
-    .order("canonical_name", { ascending: true })
-    .limit(500);
-  if (result.error || !Array.isArray(result.data)) {
-    return { items: [], nextCursor: null, state };
+function encodeCursor(row: GalleryRpcRow) {
+  return Buffer.from(JSON.stringify({
+    rank: numberValue(row.rank) ?? 0,
+    title: normalizeText(row.title ?? row.title_en ?? ""),
+    id: row.object_id,
+    objectType: row.object_type,
+  }), "utf8").toString("base64url");
+}
+
+function decodeCursor(cursor: string | null): GalleryCursor | null {
+  if (!cursor) return null;
+  try {
+    const parsed = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8")) as Partial<GalleryCursor>;
+    if (typeof parsed.rank !== "number" || typeof parsed.title !== "string" || typeof parsed.id !== "string") return null;
+    return parsed as GalleryCursor;
+  } catch {
+    return null;
   }
+}
 
-  const rows = (result.data as RecipeRow[])
-    .filter((row) => row.id && canonicalSlug(row.canonical_name))
-    .filter((row) => !state.q || normalizeText(`${row.title ?? ""} ${row.title_en ?? ""}`).includes(state.q))
-    .sort((a, b) => {
-      const title = normalizeText(a.title ?? a.title_en ?? "").localeCompare(normalizeText(b.title ?? b.title_en ?? ""));
-      return title || a.id.localeCompare(b.id);
-    });
+function compareRows(a: GalleryRpcRow, b: GalleryRpcRow) {
+  const rank = (numberValue(a.rank) ?? 0) - (numberValue(b.rank) ?? 0);
+  if (rank) return rank;
+  const title = normalizeText(a.title ?? a.title_en ?? "").localeCompare(normalizeText(b.title ?? b.title_en ?? ""));
+  if (title) return title;
+  const id = a.object_id.localeCompare(b.object_id);
+  return id || a.object_type.localeCompare(b.object_type);
+}
 
-  const decoded = decodeCursor(state.cursor);
-  const afterCursor = decoded
-    ? rows.filter((row) => compareRow({ bank_rank: 0, title: row.title, title_norm: normalizeText(row.title ?? row.title_en ?? ""), recipe_id: row.id }, decoded) > 0)
-    : rows;
-  const pageRows = afterCursor.slice(0, boundedLimit);
-  const items: GalleryCard[] = pageRows.flatMap((row) => {
-    const slug = canonicalSlug(row.canonical_name);
-    if (!slug) return [];
-    const title = state.locale === "en" ? row.title_en || row.title || "CookPilot recipe" : row.title || row.title_en || "Receta CookPilot";
-    const description = state.locale === "en" ? row.description_en || row.description || null : row.description || row.description_en || null;
-    return [{
-      objectType: "recipe" as const,
-      objectId: row.id,
-      title,
-      description,
-      imageUrl: mediaUrl(row.cover_photo_url),
-      href: buildCookSharePath({ locale: state.locale, objectType: "recipe", slug }),
-      isFree: Boolean(row.is_free_recipe),
-      timeMinutes: null,
-      nutrition: null,
-    }];
-  });
-  const lastRow = pageRows.at(-1);
+function compareCursor(row: GalleryRpcRow, cursor: GalleryCursor) {
+  const rank = (numberValue(row.rank) ?? 0) - cursor.rank;
+  if (rank) return rank;
+  const title = normalizeText(row.title ?? row.title_en ?? "").localeCompare(cursor.title);
+  if (title) return title;
+  const id = row.object_id.localeCompare(cursor.id);
+  return id || row.object_type.localeCompare(cursor.objectType ?? "");
+}
+
+function emptyFacetOptions(locale: AppLocale): GalleryFacetOptions {
+  const labels = locale === "es"
+    ? {
+      meals: ["Desayuno", "Media mañana", "Almuerzo", "Merienda", "Cena", "Noche"],
+      components: ["Plato principal", "Entrada", "Acompañamiento", "Ensalada", "Bebida", "Salsa", "Postre", "Aderezo"],
+    }
+    : {
+      meals: ["Breakfast", "Morning snack", "Lunch", "Afternoon snack", "Dinner", "Late night"],
+      components: ["Main dish", "Appetizer", "Side dish", "Salad", "Beverage", "Sauce", "Dessert", "Dressing"],
+    };
   return {
-    items,
-    nextCursor: afterCursor.length > boundedLimit && lastRow ? encodeRecipeCursor(lastRow) : null,
-    state,
+    categories: [],
+    meals: [
+      "breakfast",
+      "morning_snack",
+      "lunch",
+      "afternoon_snack",
+      "dinner",
+      "late_night",
+    ].map((value, index) => ({ value, label: labels.meals[index] })),
+    components: [
+      "main_dish",
+      "appetizer",
+      "side_dish",
+      "salad",
+      "beverage",
+      "sauce",
+      "dessert",
+      "dressing",
+    ].map((value, index) => ({ value, label: labels.components[index] })),
+    times: [15, 30, 45, 60],
   };
 }
 
-export function parseGalleryState(locale: AppLocale, searchParams: Record<string, string | string[] | undefined>): GalleryState {
-  const rawQ = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q;
-  const rawType = Array.isArray(searchParams.type) ? searchParams.type[0] : searchParams.type;
-  const type: GalleryType = ["all", "recipes", "menus", "days", "weeks", "ingredients"].includes(rawType ?? "")
-    ? (rawType as GalleryType)
-    : "all";
-  const rawCursor = Array.isArray(searchParams.cursor) ? searchParams.cursor[0] : searchParams.cursor;
+async function getFacetOptions(locale: AppLocale, internal: ReturnType<typeof createSupabaseInternalClient> | null) {
+  const options = emptyFacetOptions(locale);
+  if (!internal) return options;
+  const result = await internal.schema("menu").from("recipe_categories")
+    .select("slug,name,name_en,sort_order")
+    .order("sort_order", { ascending: true })
+    .limit(100);
+  if (result.error || !Array.isArray(result.data)) return options;
+  options.categories = (result.data as Array<{ slug?: string | null; name?: string | null; name_en?: string | null }>).flatMap((row) => {
+    if (!row.slug) return [];
+    return [{ value: row.slug.toLowerCase(), label: locale === "en" ? row.name_en || row.name || row.slug : row.name || row.name_en || row.slug }];
+  });
+  return options;
+}
+
+async function getSearchHandleRows(
+  state: GalleryState,
+  client: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  internal: ReturnType<typeof createSupabaseInternalClient> | null,
+): Promise<GalleryRpcRow[]> {
+  if (!internal || state.type !== "all" || !state.q || state.scope !== "global") return [];
+  const result = await internal.schema("home").from("cookshare_public_routes")
+    .select("object_type,object_id,owner_id,handle,slug,route_kind,is_current")
+    .eq("is_current", true)
+    .eq("route_kind", "current")
+    .not("handle", "is", null)
+    .ilike("handle", `%${state.q}%`)
+    .limit(60);
+  if (result.error || !Array.isArray(result.data)) return [];
+  const seen = new Set<string>();
+  const rows: GalleryRpcRow[] = [];
+  for (const [index, raw] of (result.data as RouteRow[]).entries()) {
+    const handle = normalizeHandle(raw.handle);
+    if (!handle || seen.has(handle) || !raw.owner_id) continue;
+    const check = await client.schema("home").rpc("fn_cookshare_effective_public", {
+      p_object_type: raw.object_type,
+      p_object_id: raw.object_id,
+      p_actor_id: null,
+    });
+    if (check.error || check.data !== true) continue;
+    seen.add(handle);
+    rows.push({
+      object_type: "handle",
+      object_id: raw.owner_id,
+      owner_id: raw.owner_id,
+      handle,
+      slug: handle,
+      title: `@${handle}`,
+      title_en: `@${handle}`,
+      description: null,
+      description_en: null,
+      image_url: null,
+      is_free: false,
+      time_minutes: null,
+      nutrition: null,
+      rank: 40000 + index,
+      component: null,
+      slot_profile: null,
+      ingredients: [],
+    });
+  }
+  return rows;
+}
+
+type RouteRow = {
+  object_type: string;
+  object_id: string;
+  owner_id?: string | null;
+  handle?: string | null;
+  slug: string;
+  route_kind?: string | null;
+  is_current?: boolean | null;
+};
+
+async function resolveRow(
+  row: GalleryRpcRow,
+  state: GalleryState,
+): Promise<GalleryCard | null> {
+  if (row.object_type === "handle") {
+    const handle = normalizeHandle(row.handle);
+    if (!handle) return null;
+    return {
+      objectType: "handle" as const,
+      objectId: row.object_id,
+      title: row.title ?? `@${handle}`,
+      description: null,
+      imageUrl: null,
+      href: buildHandlePath(state.locale, handle),
+      isFree: false,
+      timeMinutes: null,
+      nutrition: null,
+    } satisfies GalleryCard;
+  }
+  const objectType = row.object_type as CookShareObjectType;
+  if (!row.slug || (objectType !== "recipe" && objectType !== "ingredient" && objectType !== "category" && !normalizeHandle(row.handle))) return null;
+  const handle = normalizeHandle(row.handle);
+  const title = state.locale === "en"
+    ? row.title_en ?? row.title ?? row.slug
+    : row.title ?? row.title_en ?? row.slug;
+  const href = buildCookSharePath({ locale: state.locale, objectType, handle, slug: row.slug });
+  const nutrition = row.nutrition
+    ? Object.fromEntries(Object.entries(row.nutrition).map(([key, value]) => [key, numberValue(value)]))
+    : null;
   return {
-    locale,
-    q: normalizeText((rawQ ?? "").slice(0, 80)),
-    type,
-    cursor: decodeCursor(rawCursor ?? null) ? rawCursor ?? null : null,
+    objectType,
+    objectId: row.object_id,
+    title,
+    description: state.locale === "en"
+      ? row.description_en ?? row.description ?? null
+      : row.description ?? row.description_en ?? null,
+    imageUrl: mediaUrl(row.image_url),
+    href,
+    isFree: Boolean(row.is_free),
+    timeMinutes: numberValue(row.time_minutes),
+    nutrition,
+  } satisfies GalleryCard;
+}
+
+function emptyPage(state: GalleryState, facetOptions: GalleryFacetOptions, ownerId: string | null = null): GalleryPage {
+  return {
+    items: [],
+    nextCursor: null,
+    state,
+    hasMore: false,
+    facetOptions,
+    ownerId,
   };
 }
 
 export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Promise<GalleryPage> {
   const boundedLimit = Math.min(Math.max(limit, 1), PAGE_SIZE);
-  if (state.type !== "all" && state.type !== "recipes") {
-    return { items: [], nextCursor: null, state };
+  const request = await getRequestUser();
+  const internal = (() => {
+    try { return createSupabaseInternalClient(); } catch { return null; }
+  })();
+  const normalizedState = { ...state, facets: state.facets ?? emptyGalleryFacets() };
+  const facetOptions = await getFacetOptions(normalizedState.locale, internal);
+  const type = normalizedState.type;
+  const handle = normalizedState.scope === "handle" ? normalizeHandle(normalizedState.handle) : null;
+  const rpcArgs = {
+    p_locale: normalizedState.locale,
+    p_type: type,
+    p_query: normalizedState.q || null,
+    p_handle: handle,
+    p_categories: normalizedState.facets.categories,
+    p_meals: normalizedState.facets.meals,
+    p_components: normalizedState.facets.components,
+    p_ingredients: normalizedState.facets.ingredients,
+    p_excluded_ingredients: normalizedState.facets.excludedIngredients,
+    p_min_time: normalizedState.facets.minTime,
+    p_max_time: normalizedState.facets.maxTime,
+    p_access: normalizedState.facets.access,
+    p_limit: RPC_LIMIT,
+  };
+  const result = await request.client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs);
+  if (result.error || !Array.isArray(result.data)) return emptyPage(normalizedState, facetOptions);
+  let rows = result.data as GalleryRpcRow[];
+  if (normalizedState.scope === "handle" && !handle) return emptyPage(normalizedState, facetOptions);
+  if (normalizedState.scope === "global" && normalizedState.type === "all" && !normalizedState.q) {
+    rows = rows.filter((row) => row.object_type === "recipe");
   }
-
-  let internal: ReturnType<typeof createSupabaseInternalClient>;
-  try {
-    internal = createSupabaseInternalClient();
-  } catch {
-    return getCanonicalRecipeGallery(state, boundedLimit);
-  }
-  const bankResult = await internal
-    .schema("home")
-    .from("cookmatch_recipe_bank")
-    .select("*")
-    .order("bank_rank", { ascending: true })
-    .limit(500);
-  if (bankResult.error || !Array.isArray(bankResult.data)) {
-    return getCanonicalRecipeGallery(state, boundedLimit);
-  }
-
-  const bankRows = (bankResult.data as BankRow[])
-    .filter((row) => row.recipe_id && (!row.component_type || row.component_type === "recipe"))
-    .filter((row) => !state.q || normalizeText(row.title_norm ?? row.title ?? "").includes(state.q))
-    .sort((a, b) => {
-      const rank = (a.bank_rank ?? 0) - (b.bank_rank ?? 0);
-      if (rank) return rank;
-      const title = (a.title_norm ?? "").localeCompare(b.title_norm ?? "");
-      return title || (a.recipe_id ?? "").localeCompare(b.recipe_id ?? "");
-    });
-
-  if (!bankRows.length) return getCanonicalRecipeGallery(state, boundedLimit);
-
-  const decoded = decodeCursor(state.cursor);
-  const afterCursor = decoded ? bankRows.filter((row) => compareRow(row, decoded) > 0) : bankRows;
-  const pageRows = afterCursor.slice(0, boundedLimit);
-  const ids = pageRows.map((row) => row.recipe_id!).filter(Boolean);
-  if (!ids.length) return { items: [], nextCursor: null, state };
-
-  const [recipesResult, routesResult] = await Promise.all([
-    internal.schema("menu").from("recipes").select("id,title,title_en,description,description_en,cover_photo_url,is_free_recipe").in("id", ids),
-    internal.schema("home").from("cookshare_public_routes").select("object_id,handle,slug,route_kind,is_current").eq("object_type", "recipe").eq("is_current", true).eq("route_kind", "current").in("object_id", ids),
-  ]);
-
-  if (recipesResult.error || routesResult.error) {
-    return getCanonicalRecipeGallery(state, boundedLimit);
-  }
-  const recipes = new Map((recipesResult.data as RecipeRow[]).map((recipe) => [recipe.id, recipe]));
-  const routes = new Map((routesResult.data as RouteRow[]).map((route) => [route.object_id, route]));
-  const items: GalleryCard[] = [];
-
-  for (const row of pageRows) {
-    const recipe = recipes.get(row.recipe_id!);
-    const route = routes.get(row.recipe_id!);
-    if (!recipe || !route) continue;
-    const title = state.locale === "en" ? recipe.title_en || recipe.title || row.title || "CookPilot recipe" : recipe.title || recipe.title_en || row.title || "Receta CookPilot";
-    const description = state.locale === "en" ? recipe.description_en || recipe.description || null : recipe.description || recipe.description_en || null;
-    items.push({
-      objectType: "recipe",
-      objectId: recipe.id,
-      title,
-      description,
-      imageUrl: mediaUrl(recipe.cover_photo_url),
-      href: buildCookSharePath({ locale: state.locale, objectType: "recipe", handle: route.handle, slug: route.slug }),
-      isFree: Boolean(recipe.is_free_recipe),
-      timeMinutes: row.total_minutes ?? row.time_minutes ?? null,
-      nutrition: {
-        kcal: row.kcal ?? null,
-        protein: row.protein ?? null,
-        carbs: row.carbs ?? null,
-        fat: row.fat ?? null,
-        fiber: row.fiber ?? null,
-      },
-    });
-  }
-
-  const lastRow = pageRows.at(-1);
+  rows = [...rows, ...(await getSearchHandleRows(normalizedState, request.client, internal))].sort(compareRows);
+  const cursor = decodeCursor(normalizedState.cursor);
+  if (cursor) rows = rows.filter((row) => compareCursor(row, cursor) > 0);
+  const selected = rows.slice(0, boundedLimit);
+  const cards = (await Promise.all(selected.map((row) => resolveRow(row, normalizedState))))
+    .filter((card): card is GalleryCard => Boolean(card));
+  const lastRow = selected.at(-1);
+  const nextCursor = rows.length > boundedLimit && lastRow ? encodeCursor(lastRow) : null;
+  const ownerId = handle
+    ? rows.find((row) => row.owner_id)?.owner_id ?? null
+    : null;
   return {
-    items,
-    nextCursor: afterCursor.length > boundedLimit && lastRow ? encodeCursor(lastRow) : null,
-    state,
+    items: cards,
+    nextCursor,
+    state: normalizedState,
+    hasMore: Boolean(nextCursor),
+    facetOptions,
+    ownerId,
   };
 }
 
-export async function getHandleGallery(handle: string, locale: AppLocale, actorId: string | null): Promise<{ ownerId: string | null; cards: HandleGalleryCard[] }> {
-  const normalizedHandle = handle.replace(/^@/, "").trim().toLowerCase();
-  if (!/^[a-z0-9][a-z0-9._-]{2,29}$/.test(normalizedHandle)) return { ownerId: null, cards: [] };
-  let internal: ReturnType<typeof createSupabaseInternalClient>;
-  try {
-    internal = createSupabaseInternalClient();
-  } catch {
-    return { ownerId: null, cards: [] };
-  }
-  const routesResult = await internal.schema("home").from("cookshare_public_routes").select("object_type,object_id,owner_id,handle,slug,route_kind,is_current").eq("handle", normalizedHandle).eq("is_current", true).eq("route_kind", "current").limit(120);
-  if (routesResult.error || !Array.isArray(routesResult.data)) return { ownerId: null, cards: [] };
-  const routes = routesResult.data as Array<RouteRow & { object_type: string; owner_id?: string | null }>;
-  const ownerId = routes[0]?.owner_id ?? null;
-  const activeRoutes = await Promise.all(routes.map(async (route) => {
-    const owner = route.owner_id ?? ownerId;
-    const { data, error } = await internal.schema("home").rpc("fn_cookshare_effective_public", {
-      p_object_type: route.object_type,
-      p_object_id: route.object_id,
-      p_actor_id: actorId,
-    });
-    return { route, private: error ? true : data !== true, isOwner: Boolean(owner && owner === actorId) };
-  }));
-  const visible = activeRoutes.filter(({ private: isPrivate, isOwner }) => !isPrivate || isOwner);
-  const recipeIds = visible.filter(({ route }) => route.object_type === "recipe").map(({ route }) => route.object_id);
-  const recipeResult = recipeIds.length ? await internal.schema("menu").from("recipes").select("id,title,title_en,cover_photo_url").in("id", recipeIds) : { data: [], error: null };
-  const recipeMap = new Map((recipeResult.data as Array<{ id: string; title?: string | null; title_en?: string | null; cover_photo_url?: string | null }>).map((item) => [item.id, item]));
-  const cards = visible.flatMap(({ route, private: isPrivate }) => {
-    const recipe = recipeMap.get(route.object_id);
-    const title = recipe ? (locale === "en" ? recipe.title_en || recipe.title : recipe.title || recipe.title_en) : route.slug.replace(/-/g, " ");
-    return [{
-      objectType: route.object_type as HandleGalleryCard["objectType"],
-      objectId: route.object_id,
-      title: title || "CookPilot",
-      href: buildCookSharePath({ locale, objectType: route.object_type as HandleGalleryCard["objectType"], handle: normalizedHandle, slug: route.slug }),
-      imageUrl: recipe ? mediaUrl(recipe.cover_photo_url) : null,
-      isPrivate: isPrivate && Boolean(actorId),
-    }];
-  });
-  return { ownerId, cards };
+export function getGalleryFingerprint(state: GalleryState) {
+  return galleryQueryFingerprint(state);
 }
+
+export { hasActiveGalleryFacets };

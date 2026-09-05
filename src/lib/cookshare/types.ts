@@ -17,6 +17,32 @@ export type GalleryType =
   | "weeks"
   | "ingredients";
 
+export type GalleryScope = "global" | "handle";
+export type GalleryAccess = "all" | "free" | "pro";
+
+export interface GalleryFacetState {
+  categories: string[];
+  meals: string[];
+  components: string[];
+  ingredients: string[];
+  excludedIngredients: string[];
+  minTime: number | null;
+  maxTime: number | null;
+  access: GalleryAccess;
+}
+
+export interface GalleryFacetOption {
+  value: string;
+  label: string;
+}
+
+export interface GalleryFacetOptions {
+  categories: GalleryFacetOption[];
+  meals: GalleryFacetOption[];
+  components: GalleryFacetOption[];
+  times: number[];
+}
+
 export type EntitlementTier = "anonymous" | "free" | "pro" | string;
 
 export interface CookShareIdentity {
@@ -85,10 +111,13 @@ export interface GalleryState {
   q: string;
   type: GalleryType;
   cursor: string | null;
+  scope: GalleryScope;
+  handle: string | null;
+  facets: GalleryFacetState;
 }
 
 export interface GalleryCard {
-  objectType: "recipe";
+  objectType: CookShareObjectType | "handle";
   objectId: string;
   title: string;
   description: string | null;
@@ -103,6 +132,9 @@ export interface GalleryPage {
   items: GalleryCard[];
   nextCursor: string | null;
   state: GalleryState;
+  hasMore: boolean;
+  facetOptions: GalleryFacetOptions;
+  ownerId?: string | null;
 }
 
 export interface HandleGalleryCard {

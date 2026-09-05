@@ -33,8 +33,13 @@ export async function createSupabaseServerClient(): Promise<SupabaseClient> {
   );
 }
 
-export async function getRequestUser() {
-  const client = await createSupabaseServerClient();
+export async function getRequestUser(existingClient?: SupabaseClient) {
+  const client = existingClient ?? await createSupabaseServerClient();
+  const cookieStore = await cookies();
+  const hasAuthCookie = cookieStore.getAll().some(({ name }) =>
+    name.startsWith("sb-") || name.includes("auth-token"),
+  );
+  if (!hasAuthCookie) return { client, user: null, error: null };
   const { data, error } = await client.auth.getUser();
   return { client, user: data.user, error };
 }

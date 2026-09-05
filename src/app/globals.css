@@ -237,6 +237,7 @@ ul, ol {
   --cp-section-pad-x: 48px;
   --cp-section-max: 1200px;
   --cp-card-radius: 24px;
+  --cp-radius-pill: 9999px;
   --cp-card-pad: 32px;
 }
 

@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { getGalleryPage, parseGalleryState } from "@/lib/cookshare/gallery";
 import GalleryClient from "@/features/gallery/GalleryClient";
 import styles from "@/features/gallery/GalleryPage.module.css";
-import { createLocalizedMetadata } from "@/shared/config/metadata";
+import { createGalleryMetadata } from "@/shared/config/metadata";
 
-export const metadata: Metadata = createLocalizedMetadata("gallery", "en");
+export async function generateMetadata({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }): Promise<Metadata> {
+  const state = parseGalleryState("en", await searchParams);
+  return createGalleryMetadata("en", state);
+}
 export default async function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const state = parseGalleryState("en", await searchParams);
   const page = await getGalleryPage(state);
