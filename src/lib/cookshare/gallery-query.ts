@@ -13,7 +13,10 @@ const galleryTypes = new Set<GalleryType>([
   "menus",
   "days",
   "weeks",
+  "lists",
   "ingredients",
+  "categories",
+  "handles",
 ]);
 const accesses = new Set<GalleryAccess>(["all", "free", "pro"]);
 const mealValues = new Set([

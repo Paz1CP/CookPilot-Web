@@ -2,6 +2,7 @@ import { absoluteUrl, siteConfig } from "@/shared/config/site";
 import { publicDescription, publicTitle } from "./resolver";
 import type { AppLocale } from "@/shared/config/routes";
 import type { CookShareResolvedObject, RecipeProjection } from "./types";
+import { inlineMarkdownToText } from "./inline-markdown";
 
 function safeImage(value: unknown) {
   if (typeof value !== "string") return null;
@@ -31,7 +32,7 @@ function objectLinks(object: CookShareResolvedObject) {
 export function buildCookShareStructuredData(object: CookShareResolvedObject, locale: AppLocale) {
   const canonical = absoluteUrl(object.identity.canonical_path);
   const title = publicTitle(object, locale);
-  const description = publicDescription(object);
+  const description = inlineMarkdownToText(publicDescription(object));
   const image = safeImage(object.cover_photo_url ?? object.image_url);
   const graph: Record<string, unknown>[] = [{
     "@type": "BreadcrumbList",
@@ -60,7 +61,7 @@ export function buildCookShareStructuredData(object: CookShareResolvedObject, lo
         ? recipe.ingredients.map((item) => [item.display_quantity ?? item.quantity, item.display_unit ?? item.unit, item.ingredient_name].filter(Boolean).join(" "))
         : undefined,
       recipeInstructions: Array.isArray(recipe.steps)
-        ? recipe.steps.map((step) => ({ "@type": "HowToStep", position: step.step_number, text: step.instruction ?? "" }))
+        ? recipe.steps.map((step) => ({ "@type": "HowToStep", position: step.step_number, text: inlineMarkdownToText(step.instruction) }))
         : undefined,
     };
     if (recipe.nutrition) {
@@ -105,4 +106,3 @@ export function buildCookShareStructuredData(object: CookShareResolvedObject, lo
     "@graph": graph,
   };
 }
-

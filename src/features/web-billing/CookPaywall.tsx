@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Purchases, type Offering, type Package } from "@revenuecat/purchases-js";
+import { ErrorCode, Purchases, PurchasesError, type Offering, type Package } from "@revenuecat/purchases-js";
 import { publicRevenueCatConfig } from "@/lib/supabase/public-config";
 import styles from "./CookPaywall.module.css";
 
@@ -25,6 +25,17 @@ export default function CookPaywall({ locale, context, appUserId, onUnlocked }: 
   const [loading, setLoading] = useState(false);
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const purchaseInFlight = useRef(false);
+
+  const purchasesForUser = async () => {
+    const purchases = Purchases.isConfigured()
+      ? Purchases.getSharedInstance()
+      : Purchases.configure({ apiKey: publicRevenueCatConfig.publicKey, appUserId: appUserId! });
+    if (purchases.getAppUserId() !== appUserId) {
+      await purchases.changeUser(appUserId!);
+    }
+    return purchases;
+  };
 
   const loadOffering = async () => {
     if (!publicRevenueCatConfig.publicKey || !appUserId) {
@@ -34,9 +45,7 @@ export default function CookPaywall({ locale, context, appUserId, onUnlocked }: 
     setLoading(true);
     setMessage(null);
     try {
-      const purchases = Purchases.isConfigured()
-        ? Purchases.getSharedInstance()
-        : Purchases.configure({ apiKey: publicRevenueCatConfig.publicKey, appUserId });
+      const purchases = await purchasesForUser();
       const offerings = await purchases.getOfferings({ offeringIdentifier: publicRevenueCatConfig.offeringId });
       const selected = offerings.all[publicRevenueCatConfig.offeringId] ?? offerings.current;
       setOffering(selected ?? null);
@@ -50,10 +59,12 @@ export default function CookPaywall({ locale, context, appUserId, onUnlocked }: 
   };
 
   const purchase = async (packageInfo: Package) => {
+    if (purchaseInFlight.current || !appUserId) return;
+    purchaseInFlight.current = true;
     setPurchasing(packageInfo.identifier);
     setMessage(null);
     try {
-      const purchases = Purchases.getSharedInstance();
+      const purchases = await purchasesForUser();
       await purchases.purchase({ rcPackage: packageInfo, selectedLocale: locale, skipSuccessPage: false });
       const entitlementResponse = await fetch("/api/entitlement", { cache: "no-store" });
       const entitlement = await entitlementResponse.json() as { tier?: string };
@@ -64,9 +75,13 @@ export default function CookPaywall({ locale, context, appUserId, onUnlocked }: 
       } else {
         setMessage(locale === "es" ? "Estamos confirmando tu acceso. Vuelve a intentarlo en unos segundos." : "We are confirming your access. Try again in a few seconds.");
       }
-    } catch {
-      setMessage(locale === "es" ? "La compra no se completó." : "The purchase was not completed.");
+    } catch (error) {
+      const cancelled = error instanceof PurchasesError && error.errorCode === ErrorCode.UserCancelledError;
+      setMessage(cancelled
+        ? (locale === "es" ? "Compra cancelada." : "Purchase cancelled.")
+        : (locale === "es" ? "La compra no se completó." : "The purchase was not completed."));
     } finally {
+      purchaseInFlight.current = false;
       setPurchasing(null);
     }
   };

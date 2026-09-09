@@ -4,6 +4,7 @@ import type { AppLocale } from "@/shared/config/routes";
 import { publicDescription, publicTitle } from "@/lib/cookshare/resolver";
 import { buildCookShareStructuredData } from "@/lib/cookshare/structured-data";
 import type { CookShareResolvedObject, RecipeProjection } from "@/lib/cookshare/types";
+import { parseInlineMarkdown } from "@/lib/cookshare/inline-markdown";
 import CookPaywall from "@/features/web-billing/CookPaywall";
 import AuthDialog from "@/features/auth-web/AuthDialog";
 import ShareActions from "./ShareActions";
@@ -23,6 +24,25 @@ function objectTypeLabel(objectType: CookShareResolvedObject["object_type"], loc
     ? { recipe: "Receta", menu: "Menú", day: "Día", week: "Semana", list: "Lista", ingredient: "Ingrediente", category: "Categoría" }
     : { recipe: "Recipe", menu: "Menu", day: "Day", week: "Week", list: "List", ingredient: "Ingredient", category: "Category" };
   return labels[objectType];
+}
+
+function InlineMarkdown({ value }: { value: string | null | undefined }) {
+  return <>{parseInlineMarkdown(value).map((token, index) => {
+    if (token.type === "strong") return <strong key={`${token.type}-${index}`}>{token.value}</strong>;
+    if (token.type === "emphasis") return <em key={`${token.type}-${index}`}>{token.value}</em>;
+    return <span key={`${token.type}-${index}`}>{token.value}</span>;
+  })}</>;
+}
+
+function nutritionLabel(key: string, locale: AppLocale) {
+  const labels: Record<string, [string, string]> = {
+    kcal: ["Calorías", "Calories"],
+    protein_g: ["Proteína (g)", "Protein (g)"],
+    carbs_g: ["Carbohidratos (g)", "Carbohydrates (g)"],
+    fat_g: ["Grasa (g)", "Fat (g)"],
+    fiber_g: ["Fibra (g)", "Fiber (g)"],
+  };
+  return labels[key]?.[locale === "es" ? 0 : 1] ?? key.replace(/_/g, " ");
 }
 
 function RecipeDetails({ recipe, locale }: { recipe: RecipeProjection; locale: AppLocale }) {
@@ -56,7 +76,7 @@ function RecipeDetails({ recipe, locale }: { recipe: RecipeProjection; locale: A
           </div>
           <dl className={styles.nutrition}>
             {Object.entries(nutrition).filter(([, value]) => typeof value === "number").map(([key, value]) => (
-              <div key={key}><dt>{key.replace(/_/g, " ")}</dt><dd>{value}</dd></div>
+              <div key={key}><dt>{nutritionLabel(key, locale)}</dt><dd>{value}</dd></div>
             ))}
           </dl>
         </section>
@@ -68,7 +88,7 @@ function RecipeDetails({ recipe, locale }: { recipe: RecipeProjection; locale: A
             <h2 id="steps-title">{locale === "es" ? "Preparación" : "Preparation"}</h2>
           </div>
           <ol className={styles.steps}>
-            {steps.map((step, index) => <li key={`${step.step_number ?? index}`}><span>{step.step_number ?? index + 1}</span><p>{step.instruction}</p></li>)}
+            {steps.map((step, index) => <li key={`${step.step_number ?? index}`}><span>{step.step_number ?? index + 1}</span><p><InlineMarkdown value={step.instruction} /></p></li>)}
           </ol>
         </section>
       ) : null}
@@ -98,7 +118,7 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
             <>
               <span className={styles.componentType}>{objectTypeLabel(component.object_type, locale)}</span>
               <h3>{title}</h3>
-              {typeof component.description === "string" ? <p>{component.description}</p> : null}
+              {typeof component.description === "string" ? <p><InlineMarkdown value={component.description} /></p> : null}
               {Boolean(component.is_preview) ? <span className={styles.locked}>{locale === "es" ? "Contenido Pro" : "Pro content"}</span> : null}
             </>
           );
@@ -143,7 +163,7 @@ export default function PublicObjectRenderer({
         <div className={styles.heroGrid}>
           <div className={styles.copy}>
             <h1>{title}</h1>
-            {description ? <p className={styles.description}>{description}</p> : null}
+            {description ? <p className={styles.description}><InlineMarkdown value={description} /></p> : null}
             {recipe?.time ? (
               <div className={styles.meta} aria-label={locale === "es" ? "Datos rápidos" : "Quick facts"}>
                 {recipe.time.total_minutes ? <span>{recipe.time.total_minutes} min</span> : null}

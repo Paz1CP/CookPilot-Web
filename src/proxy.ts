@@ -10,6 +10,11 @@ function getLocale(pathname: string, savedLocale?: string): AppLocale {
 }
 
 export async function proxy(request: NextRequest) {
+  if (request.nextUrl.hostname === "www.cookpilot.pro") {
+    const canonical = request.nextUrl.clone();
+    canonical.hostname = "cookpilot.pro";
+    return NextResponse.redirect(canonical, 308);
+  }
   const requestHeaders = new Headers(request.headers);
   const hasAuthCookie = request.cookies.getAll().some(({ name }) =>
     name.startsWith("sb-") || name.includes("auth-token"),

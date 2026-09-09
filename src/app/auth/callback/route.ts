@@ -22,8 +22,16 @@ export async function GET(request: NextRequest) {
   });
 
   const code = request.nextUrl.searchParams.get("code");
-  if (code) await client.auth.exchangeCodeForSession(code);
-  clearContinuationCookie(response);
+  const result = code
+    ? await client.auth.exchangeCodeForSession(code)
+    : { error: new Error("missing_code") };
+  if (result.error) {
+    const failedDestination = new URL(destination, request.url);
+    failedDestination.searchParams.set("auth_error", "callback");
+    response.headers.set("Location", failedDestination.toString());
+  } else {
+    clearContinuationCookie(response);
+  }
   response.headers.set("Cache-Control", "private, no-store");
   return response;
 }

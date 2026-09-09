@@ -1,6 +1,6 @@
 import { supabaseConfig } from "@/lib/supabase/config";
 import { createSupabaseInternalClient } from "@/lib/supabase/internal";
-import { createSupabaseServerClient, getRequestUser } from "@/lib/supabase/server";
+import { getRequestUser } from "@/lib/supabase/server";
 import { buildCookSharePath, buildHandlePath, type AppLocale } from "@/shared/config/routes";
 import {
   emptyGalleryFacets,
@@ -18,7 +18,6 @@ import type {
 export { parseGalleryState } from "./gallery-query";
 
 const PAGE_SIZE = 24;
-const RPC_LIMIT = 600;
 
 type GalleryRpcRow = {
   object_type: string;
@@ -52,8 +51,6 @@ function normalizeText(value: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, " ")
-    .replace(/\s+/g, " ")
     .trim();
 }
 
@@ -98,24 +95,6 @@ function decodeCursor(cursor: string | null): GalleryCursor | null {
   } catch {
     return null;
   }
-}
-
-function compareRows(a: GalleryRpcRow, b: GalleryRpcRow) {
-  const rank = (numberValue(a.rank) ?? 0) - (numberValue(b.rank) ?? 0);
-  if (rank) return rank;
-  const title = normalizeText(a.title ?? a.title_en ?? "").localeCompare(normalizeText(b.title ?? b.title_en ?? ""));
-  if (title) return title;
-  const id = a.object_id.localeCompare(b.object_id);
-  return id || a.object_type.localeCompare(b.object_type);
-}
-
-function compareCursor(row: GalleryRpcRow, cursor: GalleryCursor) {
-  const rank = (numberValue(row.rank) ?? 0) - cursor.rank;
-  if (rank) return rank;
-  const title = normalizeText(row.title ?? row.title_en ?? "").localeCompare(cursor.title);
-  if (title) return title;
-  const id = row.object_id.localeCompare(cursor.id);
-  return id || row.object_type.localeCompare(cursor.objectType ?? "");
 }
 
 function emptyFacetOptions(locale: AppLocale): GalleryFacetOptions {
@@ -166,65 +145,6 @@ async function getFacetOptions(locale: AppLocale, internal: ReturnType<typeof cr
   });
   return options;
 }
-
-async function getSearchHandleRows(
-  state: GalleryState,
-  client: Awaited<ReturnType<typeof createSupabaseServerClient>>,
-  internal: ReturnType<typeof createSupabaseInternalClient> | null,
-): Promise<GalleryRpcRow[]> {
-  if (!internal || state.type !== "all" || !state.q || state.scope !== "global") return [];
-  const result = await internal.schema("home").from("cookshare_public_routes")
-    .select("object_type,object_id,owner_id,handle,slug,route_kind,is_current")
-    .eq("is_current", true)
-    .eq("route_kind", "current")
-    .not("handle", "is", null)
-    .ilike("handle", `%${state.q}%`)
-    .limit(60);
-  if (result.error || !Array.isArray(result.data)) return [];
-  const seen = new Set<string>();
-  const rows: GalleryRpcRow[] = [];
-  for (const [index, raw] of (result.data as RouteRow[]).entries()) {
-    const handle = normalizeHandle(raw.handle);
-    if (!handle || seen.has(handle) || !raw.owner_id) continue;
-    const check = await client.schema("home").rpc("fn_cookshare_effective_public", {
-      p_object_type: raw.object_type,
-      p_object_id: raw.object_id,
-      p_actor_id: null,
-    });
-    if (check.error || check.data !== true) continue;
-    seen.add(handle);
-    rows.push({
-      object_type: "handle",
-      object_id: raw.owner_id,
-      owner_id: raw.owner_id,
-      handle,
-      slug: handle,
-      title: `@${handle}`,
-      title_en: `@${handle}`,
-      description: null,
-      description_en: null,
-      image_url: null,
-      is_free: false,
-      time_minutes: null,
-      nutrition: null,
-      rank: 40000 + index,
-      component: null,
-      slot_profile: null,
-      ingredients: [],
-    });
-  }
-  return rows;
-}
-
-type RouteRow = {
-  object_type: string;
-  object_id: string;
-  owner_id?: string | null;
-  handle?: string | null;
-  slug: string;
-  route_kind?: string | null;
-  is_current?: boolean | null;
-};
 
 async function resolveRow(
   row: GalleryRpcRow,
@@ -289,6 +209,7 @@ export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Pr
   const facetOptions = await getFacetOptions(normalizedState.locale, internal);
   const type = normalizedState.type;
   const handle = normalizedState.scope === "handle" ? normalizeHandle(normalizedState.handle) : null;
+  const cursor = decodeCursor(normalizedState.cursor);
   const rpcArgs = {
     p_locale: normalizedState.locale,
     p_type: type,
@@ -302,18 +223,16 @@ export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Pr
     p_min_time: normalizedState.facets.minTime,
     p_max_time: normalizedState.facets.maxTime,
     p_access: normalizedState.facets.access,
-    p_limit: RPC_LIMIT,
+    p_limit: boundedLimit + 1,
+    p_after_rank: cursor?.rank ?? null,
+    p_after_title: cursor?.title ?? null,
+    p_after_id: cursor?.id ?? null,
+    p_after_object_type: cursor?.objectType ?? null,
   };
   const result = await request.client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs);
   if (result.error || !Array.isArray(result.data)) return emptyPage(normalizedState, facetOptions);
-  let rows = result.data as GalleryRpcRow[];
+  const rows = result.data as GalleryRpcRow[];
   if (normalizedState.scope === "handle" && !handle) return emptyPage(normalizedState, facetOptions);
-  if (normalizedState.scope === "global" && normalizedState.type === "all" && !normalizedState.q) {
-    rows = rows.filter((row) => row.object_type === "recipe");
-  }
-  rows = [...rows, ...(await getSearchHandleRows(normalizedState, request.client, internal))].sort(compareRows);
-  const cursor = decodeCursor(normalizedState.cursor);
-  if (cursor) rows = rows.filter((row) => compareCursor(row, cursor) > 0);
   const selected = rows.slice(0, boundedLimit);
   const cards = (await Promise.all(selected.map((row) => resolveRow(row, normalizedState))))
     .filter((card): card is GalleryCard => Boolean(card));

@@ -1,0 +1,45 @@
+/* The hero is a full-viewport stage; its scale follows the available canvas. */
+.hero.turntable {
+  --hero-unit: clamp(.75px, .069444vw, 3px);
+  height: 100svh;
+  min-height: 0;
+  max-height: none;
+  padding: 0;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.turntable-title { position:absolute; top:16svh; left:3%; width:94%; text-align:center; z-index:4; pointer-events:none; }
+.turntable-eyebrow { font-size:clamp(9px, .73vw, 28px); letter-spacing:.22em; color:#b6b8ad; margin-bottom:2.7svh; }
+.hero.turntable h1 { margin:0; font-size:min(9vw, 14svh); line-height:.94; letter-spacing:-.05em; word-spacing:.08em; white-space:normal; }
+.hero.turntable h1 span { display:block; color:var(--paper); }
+.hero.turntable h1 .title-intro { font-size:.68em; }
+.hero.turntable h1 .title-outro { margin-top:.04em; }
+.hero.turntable h1 em { color:var(--yellow); }
+.turntable-caption { position:absolute; top:44.8svh; left:10%; width:80%; height:5svh; z-index:5; text-align:center; }
+.dish-name { display:block; color:#e5e7dc; font-size:clamp(11px, .94vw, 36px); text-transform:uppercase; letter-spacing:.07em; }
+.dish-story { display:block; color:#8b8e80; font-size:clamp(7px, .56vw, 22px); letter-spacing:.16em; margin-top:.7svh; }
+.turntable-platter { position:absolute; top:51svh; width:min(76vw, 110svh); aspect-ratio:1; left:50%; margin-left:calc(min(76vw, 110svh) / -2); z-index:2; }
+.dish-sleeve { position:absolute; inset:0; transform-origin:50% 50%; will-change:transform,opacity; }
+.dish-disc { width:100%; height:100%; object-fit:contain; transform-origin:50% 50%; animation:platter-revolution 5s linear both; will-change:transform; }
+@keyframes platter-revolution { from {transform:rotate(0deg)} to {transform:rotate(360deg)} }
+.turntable-preload { position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
+.turntable-down { position:absolute; z-index:8; bottom:3.8svh; left:50%; transform:translateX(-50%); width:clamp(46px,4.5vw,172px); aspect-ratio:1; display:grid; place-items:center; border-radius:50%; color:#fff; background:#20221e80; backdrop-filter:blur(20px) saturate(1.4); box-shadow:inset 0 0 0 1px #ffffff40,0 7px 25px #0003; transition:background .16s,box-shadow .16s; }
+.turntable-down svg { width:40%; transition:transform .18s; }
+.turntable-down:hover {background:#3a3c30b0;box-shadow:inset 0 0 0 1px #ffffff75,0 10px 35px #0005;}
+.turntable-down:hover svg {transform:translateY(4px)}
+.turntable-origin {position:absolute;bottom:5.8svh;right:4.5%;z-index:6;font-size:clamp(8px,.69vw,26px);letter-spacing:.15em;color:#b8bcb0;}
+.turntable-origin span {padding:0 .35em;color:var(--yellow)}
+.nav {padding-top:calc(5 * clamp(.8px,.069444vw,3px));padding-bottom:calc(5 * clamp(.8px,.069444vw,3px));}
+@media (max-width:700px) {
+  .turntable-title {top:20svh;left:5%;width:90%}
+  .hero.turntable h1 {font-size:14vw;line-height:1}
+  .hero.turntable h1 .title-intro {font-size:.66em}
+  .turntable-eyebrow {font-size:9px;margin-bottom:2.5svh}
+  .turntable-caption {top:42svh}
+  .turntable-platter {top:49svh;width:116vw;margin-left:-58vw}
+  .turntable-origin {right:0;width:100%;text-align:center;bottom:2.4svh;font-size:7px}
+  .turntable-down {bottom:7svh;width:50px}
+}
+@media (prefers-reduced-motion:reduce) {.dish-disc{animation:none}.turntable-down svg{transition:none}}

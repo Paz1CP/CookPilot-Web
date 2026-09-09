@@ -1,30 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { type ButtonHTMLAttributes, type ReactNode, useEffect, useRef } from "react";
+import { type ButtonHTMLAttributes, type ReactNode, useEffect, useRef, useState } from "react";
 import { CloseCircle } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
-import { siteConfig } from "@/shared/config/site";
+import { buildCookShareInstallLinks } from "./cookshare-install-links";
 import styles from "./DownloadExperience.module.css";
 
 const DOWNLOAD_EVENT = "cookpilot:download";
 
-export function openDownloadExperience() {
-  window.dispatchEvent(new Event(DOWNLOAD_EVENT));
+type DownloadEventDetail = { canonicalPath?: string };
+
+export function openDownloadExperience(canonicalPath?: string) {
+  window.dispatchEvent(
+    new CustomEvent<DownloadEventDetail>(DOWNLOAD_EVENT, {
+      detail: canonicalPath ? { canonicalPath } : undefined,
+    }),
+  );
 }
 
 type DownloadButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> & {
   children: ReactNode;
+  cookSharePath?: string;
 };
 
-export function DownloadButton({ children, onClick, ...props }: DownloadButtonProps) {
+export function DownloadButton({ children, onClick, cookSharePath, ...props }: DownloadButtonProps) {
   return (
     <button
       type="button"
       {...props}
       onClick={(event) => {
         onClick?.(event);
-        if (!event.defaultPrevented) openDownloadExperience();
+        if (!event.defaultPrevented) openDownloadExperience(cookSharePath);
       }}
     >
       {children}
@@ -35,9 +42,12 @@ export function DownloadButton({ children, onClick, ...props }: DownloadButtonPr
 export default function DownloadExperience() {
   const { t } = useLocale();
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [canonicalPath, setCanonicalPath] = useState<string>();
 
   useEffect(() => {
-    const open = () => {
+    const open = (event: Event) => {
+      const detail = event instanceof CustomEvent ? event.detail as DownloadEventDetail | undefined : undefined;
+      setCanonicalPath(detail?.canonicalPath);
       const dialog = dialogRef.current;
       if (dialog && !dialog.open) dialog.showModal();
     };
@@ -55,6 +65,8 @@ export default function DownloadExperience() {
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, []);
+
+  const installLinks = buildCookShareInstallLinks(canonicalPath);
 
   return (
     <dialog
@@ -89,14 +101,14 @@ export default function DownloadExperience() {
         </p>
 
         <div className={styles.stores}>
-          <a href={siteConfig.publicData.stores.googlePlay} target="_blank" rel="noreferrer">
+          <a href={installLinks.googlePlay} target="_blank" rel="noreferrer">
             <Image src="/icons/play-store.png" alt="" width={48} height={48} />
             <span>
               <small>{t.download_experience.available_on}</small>
               <strong>Google Play</strong>
             </span>
           </a>
-          <a href={siteConfig.publicData.stores.appGallery} target="_blank" rel="noreferrer">
+          <a href={installLinks.appGallery} target="_blank" rel="noreferrer">
             <Image src="/icons/huawei-gallery.png" alt="" width={48} height={48} />
             <span>
               <small>{t.download_experience.available_on}</small>

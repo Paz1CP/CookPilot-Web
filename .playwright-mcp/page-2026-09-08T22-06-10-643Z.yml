@@ -1,0 +1,311 @@
+- main [ref=e2]:
+  - navigation [ref=e3]:
+    - link "c ↗ CookPilot" [ref=e4] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=e5]:
+        - text: c
+        - generic [ref=e6]: ↗
+      - text: CookPilot
+    - generic [ref=e7]:
+      - link "Recipes" [ref=e8] [cursor=pointer]:
+        - /url: "#recipes"
+      - link "Your way" [ref=e9] [cursor=pointer]:
+        - /url: "#your-way"
+    - button "View full screen" [ref=e10] [cursor=pointer]: ⛶
+    - link "Get cooking" [ref=e11] [cursor=pointer]:
+      - /url: "#download"
+      - text: Get cooking
+      - generic [aria-hidden] [ref=e12]: ↗
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]: GOOD FOOD. REAL LIFE.
+      - generic [ref=e16]: EST. IN PERU · MADE FOR YOU
+    - heading "COOK WHAT YOU WANT." [level=1]: COOK WHATYOU WANT.
+    - generic:
+      - img "Lomo saltado with golden fries, rice and charred vegetables"
+    - generic:
+      - heading "YOUR WAY." [level=2]:
+        - text: YOUR
+        - emphasis: WAY.
+      - generic [ref=e17]:
+        - paragraph [ref=e18]: That dish you can’t stop thinking about.Let’s make it work for you.
+        - link "Download CookPilot" [ref=e19] [cursor=pointer]:
+          - /url: "#download"
+          - generic [aria-hidden] [ref=e21]: ↗
+    - generic [ref=e22]:
+      - generic [ref=e23]: +
+      - text: LOMO SALTADOTHE START OF SOMETHING GOOD
+    - link "SCROLL. FOLLOW YOUR APPETITE. ↓" [ref=e24] [cursor=pointer]:
+      - /url: "#crave"
+      - text: SCROLL. FOLLOW YOUR APPETITE.
+      - generic [ref=e25]: ↓
+    - generic [ref=e26]: 01 — THE CRAVING
+    - generic [ref=e27]:
+      - generic [ref=e28]: COMING TO THE TABLE
+      - generic [ref=e29]: A little obsession. ↓
+  - generic [ref=e30]:
+    - generic [ref=e31]:
+      - text: 01 / START WITH A CRAVING
+      - generic [ref=e32]: ↓
+    - heading "FIRST, A LITTLE OBSESSION." [level=2]: FIRST,A LITTLEOBSESSION.
+    - figure [ref=e34]:
+      - img "Golden edges. One more bite." [ref=e35]
+      - generic [ref=e36]:
+        - text: Golden edges. One more bite.
+        - generic [aria-hidden] [ref=e37]: ↗
+    - figure [ref=e39]:
+      - img "Something to sip on." [ref=e40]
+      - generic [ref=e41]:
+        - text: Something to sip on.
+        - generic [aria-hidden] [ref=e42]: ↗
+    - figure [ref=e44]:
+      - img "Fresh never looked so good." [ref=e45]
+      - generic [ref=e46]:
+        - text: Fresh never looked so good.
+        - generic [aria-hidden] [ref=e47]: ↗
+    - generic [ref=e48]:
+      - text: ✳
+      - heading "It all starts with something you actually want to eat." [level=3] [ref=e49]: It all starts with somethingyou actually want to eat.
+      - paragraph [ref=e50]: A craving is a very good place to start.
+    - generic [aria-hidden] [ref=e51]: YES, THAT.
+  - generic [ref=e53]:
+    - generic [ref=e54]:
+      - text: 02 / MAKE IT YOURS
+      - generic [ref=e55]: ONE MEAL. ALL THE WAY THROUGH.
+    - generic:
+      - heading "SAME FOOD. YOUR RULES." [level=2]:
+        - generic: SAME FOOD.
+        - generic: YOUR RULES.
+    - img "The same lomo saltado follows your choices into your shopping and cooking" [ref=e57]
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - text: AT YOUR TABLE
+        - generic [ref=e60]:
+          - button "Fewer portions" [ref=e61] [cursor=pointer]: −
+          - strong [ref=e62]: "2"
+          - button "More portions" [ref=e63] [cursor=pointer]: +
+        - text: people, including you
+      - button "✓ Keep the fries. Your dinner. Your call." [ref=e64] [cursor=pointer]:
+        - text: ✓ Keep the fries.
+        - generic [ref=e65]: Your dinner. Your call.
+      - generic [ref=e66]:
+        - generic [ref=e67]: "30"
+        - generic [ref=e68]: MINUTES.YOU’VE GOT THIS.
+    - generic [ref=e69]:
+      - text: YOUR LOMO SALTADO
+      - heading "A little list. A great dinner." [level=3] [ref=e70]: A little list.A great dinner.
+      - generic [ref=e72]:
+        - generic [ref=e73]: "01"
+        - generic [ref=e74]: Beef
+        - emphasis [ref=e75]: 300 g
+      - generic [ref=e76]:
+        - generic [ref=e77]: "02"
+        - generic [ref=e78]: Red onion
+        - emphasis [ref=e79]: "2"
+      - generic [ref=e80]:
+        - generic [ref=e81]: "03"
+        - generic [ref=e82]: Tomatoes
+        - emphasis [ref=e83]: "2"
+      - generic [ref=e84]:
+        - generic [ref=e85]: "04"
+        - generic [ref=e86]: Golden potatoes
+        - emphasis [ref=e87]: 300 g
+      - generic [ref=e88]:
+        - generic [ref=e89]: "05"
+        - generic [ref=e90]: Rice
+        - emphasis [ref=e91]: 150 g
+      - paragraph [ref=e92]: Everything for 2. Nothing to rebuild.
+    - generic [aria-hidden]:
+      - generic:
+        - generic: Beef
+        - generic: 300 g
+    - generic [aria-hidden]:
+      - generic:
+        - generic: Red onion
+        - generic: "2"
+    - generic [aria-hidden]:
+      - generic:
+        - generic: Tomatoes
+        - generic: "2"
+    - generic [aria-hidden]:
+      - generic:
+        - generic: Golden potatoes
+        - generic: 300 g
+    - generic [aria-hidden]:
+      - generic:
+        - generic: Rice
+        - generic: 150 g
+    - img "CookPilot cooking steps" [ref=e94]
+    - generic [ref=e95]:
+      - generic [ref=e96]: A FEW SMALL CHOICES. STILL THE FOOD YOU LOVE.
+      - generic [ref=e98]: 01 / 04
+  - generic [ref=e99]:
+    - img "Freshly cooked lomo saltado, ready for the table" [ref=e100]
+    - generic [ref=e102]: 03 / ENJOY THE PART THAT MATTERS
+    - heading [level=2] [ref=e103]:
+      - text: LESS INYOUR HEAD.
+      - emphasis [ref=e104]: MORE ONYOUR PLATE.
+    - paragraph [ref=e105]: When it’s time to cook, just cook.Your steps and timing come with you.
+    - generic [ref=e106]:
+      - text: MADEBY YOU.
+      - generic [aria-hidden] [ref=e108]: ↗
+  - generic [ref=e109]:
+    - generic [ref=e110]: 04 / KEEP THE GOOD ONES
+    - generic [ref=e111]:
+      - figure [ref=e112]:
+        - img "Sunday, again." [ref=e113]
+        - generic [ref=e114]:
+          - text: Sunday, again.
+          - generic [aria-hidden] [ref=e115]: ↗
+      - figure [ref=e116]:
+        - img "My lomo. Extra fries." [ref=e117]
+        - generic [ref=e118]:
+          - text: My lomo. Extra fries.
+          - generic [aria-hidden] [ref=e119]: ↗
+      - button "♥ Saved to your table" [pressed] [ref=e120] [cursor=pointer]
+    - generic [ref=e121]:
+      - heading "GOOD ONES STAY WITH YOU." [level=2] [ref=e122]: GOOD ONESSTAYWITH YOU.
+      - paragraph [ref=e123]: Keep your version. Make it again.Change it when life changes.
+      - generic [ref=e124]: Same time next week? ↙
+  - generic [ref=e125]:
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]: 05 / FOLLOW THE NEXT CRAVING
+        - heading [level=2] [ref=e129]:
+          - text: WHAT LOOKS
+          - emphasis [ref=e130]: GOOD NEXT?
+      - link "Explore recipes" [ref=e131] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/gallery
+        - text: Explore recipes
+        - generic [aria-hidden] [ref=e132]: ↗
+    - generic [ref=e133]:
+      - generic [ref=e134]:
+        - generic [ref=e135]:
+          - figure [ref=e136]:
+            - img "Tacu tacu, with a little extra" [ref=e137]
+            - generic [ref=e138]:
+              - text: Tacu tacu, with a little extra
+              - generic [aria-hidden] [ref=e139]: ↗
+          - generic [ref=e140]: CRISPY. CREAMY. EVERYTHING.
+        - generic [ref=e141]:
+          - figure [ref=e142]:
+            - img "A very good kind of fresh" [ref=e143]
+            - generic [ref=e144]:
+              - text: A very good kind of fresh
+              - generic [aria-hidden] [ref=e145]: ↗
+          - generic [ref=e146]: BRIGHTEN UP YOUR TABLE.
+        - generic [ref=e147]:
+          - figure [ref=e148]:
+            - img "Feels like coming home" [ref=e149]
+            - generic [ref=e150]:
+              - text: Feels like coming home
+              - generic [aria-hidden] [ref=e151]: ↗
+          - generic [ref=e152]: THE ONES YOU COME BACK TO.
+        - generic [ref=e153]:
+          - figure [ref=e154]:
+            - img "Always room for this" [ref=e155]
+            - generic [ref=e156]:
+              - text: Always room for this
+              - generic [aria-hidden] [ref=e157]: ↗
+          - generic [ref=e158]: SAVE SOMETHING SWEET.
+        - generic [ref=e159]:
+          - figure [ref=e160]:
+            - img "Lomo saltado. Your way." [ref=e161]
+            - generic [ref=e162]:
+              - text: Lomo saltado. Your way.
+              - generic [aria-hidden] [ref=e163]: ↗
+          - generic [ref=e164]: YOUR NEXT GREAT MEAL.
+      - generic [ref=e165]: ← DRAG TO FIND YOUR NEXT →
+  - generic [ref=e166]:
+    - generic [ref=e167]:
+      - heading "A LITTLE KITCHEN WISDOM." [level=2] [ref=e168]: A LITTLEKITCHEN WISDOM.
+      - generic [ref=e169]:
+        - text: FEATURED GUIDES
+        - paragraph [ref=e170]: Get better at the partsthat actually matter.
+    - generic [ref=e171]:
+      - link [ref=e172] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/guides
+        - generic [ref=e173]:
+          - text: 01 / COOK WITH CONFIDENCE
+          - heading "The secret is in the sear." [level=3] [ref=e174]
+        - generic [aria-hidden] [ref=e175]: ↗
+      - link [ref=e176] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/guides
+        - generic [ref=e177]:
+          - text: 02 / EVERYDAY GOOD
+          - heading "Fresh ideas. Zero fuss." [level=3] [ref=e178]
+        - generic [aria-hidden] [ref=e179]: ↗
+      - link [ref=e180] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/guides
+        - generic [ref=e181]:
+          - text: 03 / YOUR VERSION
+          - heading "Make it your own." [level=3] [ref=e182]
+        - generic [aria-hidden] [ref=e183]: ↗
+      - link [ref=e184] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/guides
+        - generic [ref=e185]:
+          - text: 04 / THE LITTLE EXTRAS
+          - heading "Something on the side." [level=3] [ref=e186]
+        - generic [aria-hidden] [ref=e187]: ↗
+      - link [ref=e188] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/guides
+        - generic [ref=e189]:
+          - text: 05 / FINISH SWEET
+          - heading "Leave room for dessert." [level=3] [ref=e190]
+        - generic [aria-hidden] [ref=e191]: ↗
+      - link [ref=e192] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/guides
+        - generic [ref=e193]:
+          - text: 06 / THINK AHEAD
+          - heading "Tomorrow looks delicious." [level=3] [ref=e194]
+        - generic [aria-hidden] [ref=e195]: ↗
+  - generic [ref=e196]:
+    - generic [ref=e197]:
+      - generic [ref=e198]: CookPilot PRO
+      - heading [level=2] [ref=e199]:
+        - text: A LITTLEFURTHER.
+        - generic [ref=e200]: WHEN YOUWANT TO.
+      - paragraph [ref=e201]: More room to adapt.More possibilities at your table.
+      - link "Meet CookPilot Pro" [ref=e202] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en/pro
+        - generic [aria-hidden] [ref=e204]: ↗
+    - generic [ref=e205]:
+      - generic [aria-hidden] [ref=e206]: PRO
+      - img "CookPilot Pro meal planning interface" [ref=e207]
+      - generic [ref=e208]: A LITTLE MORE POSSIBILITY.THE SAME GOOD TASTE.
+  - generic [ref=e209]:
+    - img "Ceviche with fresh red onion and golden corn" [ref=e210]
+    - generic [ref=e211]:
+      - generic [ref=e212]: YOUR TABLE IS WAITING.
+      - heading "WHAT DO YOU ACTUALLY WANT TO EAT?" [level=2] [ref=e213]: WHAT DO YOUACTUALLYWANT TO EAT?
+      - heading "MAKE THAT." [level=3] [ref=e214]
+      - link "Get CookPilot" [ref=e215] [cursor=pointer]:
+        - /url: https://cookpilot.pro/en
+        - generic [aria-hidden] [ref=e217]: ↗
+  - generic [ref=e218]:
+    - generic [ref=e219]:
+      - link "c ↗ CookPilot" [ref=e220] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=e221]:
+          - text: c
+          - generic [ref=e222]: ↗
+        - text: CookPilot
+      - paragraph [ref=e223]: Good food.Your kind of life.
+      - generic [ref=e224]:
+        - link "Recipes ↗" [ref=e225] [cursor=pointer]:
+          - /url: "#recipes"
+        - link "Guides ↗" [ref=e226] [cursor=pointer]:
+          - /url: "#guides"
+        - link "CookPilot Pro ↗" [ref=e227] [cursor=pointer]:
+          - /url: "#pro"
+      - button "Say hello to the chef" [ref=e228] [cursor=pointer]:
+        - img "CookPilot chef waving" [ref=e229]
+        - generic [ref=e230]: Psst. Hey, chef.
+    - link "CookPilot, back to top" [ref=e231] [cursor=pointer]:
+      - /url: "#top"
+      - text: COOKPILOT
+      - generic [ref=e232]: ↗
+    - generic [ref=e233]:
+      - generic [ref=e234]: © 2026 COOKPILOT
+      - generic [ref=e235]: MADE WITH APPETITE. IN PERU.
+      - generic [ref=e236]: THE LIVING TABLE / DESIGN EXPERIMENT

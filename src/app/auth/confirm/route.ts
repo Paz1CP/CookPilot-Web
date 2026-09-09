@@ -24,10 +24,16 @@ export async function GET(request: NextRequest) {
   });
   const tokenHash = request.nextUrl.searchParams.get("token_hash");
   const type = request.nextUrl.searchParams.get("type") ?? "email";
-  if (tokenHash && supportedTypes.has(type)) {
-    await client.auth.verifyOtp({ token_hash: tokenHash, type: type as "signup" | "email" | "recovery" | "invite" });
+  const result = tokenHash && supportedTypes.has(type)
+    ? await client.auth.verifyOtp({ token_hash: tokenHash, type: type as "signup" | "email" | "recovery" | "invite" })
+    : { error: new Error("invalid_confirmation") };
+  if (result.error) {
+    const failedDestination = new URL(destination, request.url);
+    failedDestination.searchParams.set("auth_error", "confirm");
+    response.headers.set("Location", failedDestination.toString());
+  } else {
+    clearContinuationCookie(response);
   }
-  clearContinuationCookie(response);
   response.headers.set("Cache-Control", "private, no-store");
   return response;
 }

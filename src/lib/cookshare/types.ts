@@ -15,7 +15,10 @@ export type GalleryType =
   | "menus"
   | "days"
   | "weeks"
-  | "ingredients";
+  | "lists"
+  | "ingredients"
+  | "categories"
+  | "handles";
 
 export type GalleryScope = "global" | "handle";
 export type GalleryAccess = "all" | "free" | "pro";

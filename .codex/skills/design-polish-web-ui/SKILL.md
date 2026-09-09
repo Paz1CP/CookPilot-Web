@@ -161,6 +161,8 @@ The work is complete only when:
 - there are no functional regressions;
 - the production build succeeds.
 
+The existing UI is not a visual constraint. Preserve behavior, content identity and brand foundations, but assume layout, section structure, component composition, card grammar, spacing, typography scale, interaction model and responsive composition may all be replaced when doing so produces a materially better design. 
+Do not preserve an existing component merely because it exists. Reuse it only when it survives the new visual thesis. 
 # Final report
 
 Return a concise report containing:

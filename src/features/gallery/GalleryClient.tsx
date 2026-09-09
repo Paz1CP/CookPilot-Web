@@ -2,14 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
+  galleryQueryFingerprint,
   galleryUrl,
+  parseGalleryState,
   toGallerySearchParams,
 } from "@/lib/cookshare/gallery-query";
+import { inlineMarkdownToText } from "@/lib/cookshare/inline-markdown";
 import type {
   GalleryCard,
+  GalleryFacetState,
   GalleryFacetOptions,
   GalleryPage,
   GalleryState,
@@ -22,7 +26,10 @@ type GalleryLabels = {
   menus: string;
   days: string;
   weeks: string;
+  lists: string;
   ingredients: string;
+  categories: string;
+  handles: string;
   search: string;
   submit: string;
   more: string;
@@ -53,7 +60,10 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       menus: "Menús",
       days: "Días",
       weeks: "Semanas",
+      lists: "Listas",
       ingredients: "Ingredientes",
+      categories: "Categorías",
+      handles: "Perfiles",
       search: "Buscar recetas, ingredientes o handles",
       submit: "Buscar",
       more: "Cargar más",
@@ -81,7 +91,10 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       menus: "Menus",
       days: "Days",
       weeks: "Weeks",
+      lists: "Lists",
       ingredients: "Ingredients",
+      categories: "Categories",
+      handles: "Profiles",
       search: "Search recipes, ingredients, or handles",
       submit: "Search",
       more: "Load more",
@@ -108,6 +121,7 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
 function apiParams(state: GalleryState) {
   const params = toGallerySearchParams(state, {
     includeScope: true,
+    includeCursor: true,
     includeLocale: true,
   });
   return params;
@@ -137,14 +151,60 @@ function cardImage(card: GalleryCard, index: number, hasCursor: boolean) {
   );
 }
 
+type GalleryFixedState = {
+  type?: GalleryState["type"];
+  scope?: GalleryState["scope"];
+  handle?: string | null;
+  facets?: Partial<Pick<GalleryFacetState, "categories" | "ingredients">>;
+};
+
+function distinct(values: string[]) {
+  return [...new Set(values)];
+}
+
+function applyFixedState(state: GalleryState, fixed?: GalleryFixedState): GalleryState {
+  if (!fixed) return state;
+  const facets = fixed.facets;
+  return {
+    ...state,
+    type: fixed.type ?? state.type,
+    scope: fixed.scope ?? state.scope,
+    handle: fixed.handle ?? state.handle,
+    facets: {
+      ...state.facets,
+      categories: facets?.categories
+        ? distinct([...facets.categories, ...state.facets.categories])
+        : state.facets.categories,
+      ingredients: facets?.ingredients
+        ? distinct([...facets.ingredients, ...state.facets.ingredients])
+        : state.facets.ingredients,
+    },
+  };
+}
+
+function stateForRoute(state: GalleryState, fixed?: GalleryFixedState): GalleryState {
+  if (!fixed?.facets) return state;
+  return {
+    ...state,
+    facets: {
+      ...state.facets,
+      categories: state.facets.categories.filter((value) => !fixed.facets?.categories?.includes(value)),
+      ingredients: state.facets.ingredients.filter((value) => !fixed.facets?.ingredients?.includes(value)),
+    },
+  };
+}
+
 export default function GalleryClient({
   initial,
   basePath,
+  fixedState,
 }: {
   initial: GalleryPage;
   basePath?: string;
+  fixedState?: GalleryFixedState;
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const labels = labelsFor(initial.state.locale);
   const [items, setItems] = useState<GalleryCard[]>(initial.items);
   const [cursor, setCursor] = useState(initial.nextCursor);
@@ -156,33 +216,61 @@ export default function GalleryClient({
 
   const path = basePath ?? (state.locale === "en" ? "/en/gallery" : "/es/gallery");
 
-  const fetchPage = async (nextState: GalleryState, append: boolean) => {
-    const response = await fetch(`/api/gallery?${apiParams(nextState).toString()}`, {
-      cache: "no-store",
-      headers: { Accept: "application/json" },
-    });
-    if (!response.ok) throw new Error("gallery_request");
-    const page = await response.json() as GalleryPage;
-    setFacetOptions(page.facetOptions);
-    setItems((current) => append ? [...current, ...page.items] : page.items);
-    setCursor(page.nextCursor);
-    setState(page.state);
-    setQuery(page.state.q);
-    setError(null);
-  };
-
-  const applyState = async (nextState: GalleryState, append = false) => {
+  const fetchPage = useCallback(async (nextState: GalleryState, append: boolean) => {
     setLoading(true);
     setError(null);
-    const resetState = append ? nextState : { ...nextState, cursor: null };
+    try {
+      const response = await fetch(`/api/gallery?${apiParams(nextState).toString()}`, {
+        cache: "no-store",
+        headers: { Accept: "application/json" },
+      });
+      if (!response.ok) throw new Error("gallery_request");
+      const page = await response.json() as GalleryPage;
+      setFacetOptions(page.facetOptions);
+      setItems((current) => {
+        if (!append) return page.items;
+        const seen = new Set(current.map((item) => `${item.objectType}:${item.href}`));
+        return [...current, ...page.items.filter((item) => !seen.has(`${item.objectType}:${item.href}`))];
+      });
+      setCursor(page.nextCursor);
+      setState(page.state);
+      setQuery(page.state.q);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const routeState = useMemo(() => {
+    const parsed = parseGalleryState(initial.state.locale, searchParams);
+    const scoped = initial.state.scope === "handle"
+      ? { ...parsed, scope: "handle" as const, handle: initial.state.handle }
+      : parsed;
+    return applyFixedState(scoped, fixedState);
+  }, [fixedState, initial.state.handle, initial.state.locale, initial.state.scope, searchParams]);
+
+  const routeFingerprint = galleryQueryFingerprint(routeState);
+  const stateFingerprint = galleryQueryFingerprint(state);
+
+  useEffect(() => {
+    if (routeFingerprint === stateFingerprint) return;
+    const request = window.setTimeout(() => {
+      void fetchPage({ ...routeState, cursor: null }, false)
+        .catch(() => setError(labels.requestError));
+    }, 0);
+    return () => window.clearTimeout(request);
+  }, [fetchPage, labels.requestError, routeFingerprint, routeState, stateFingerprint]);
+
+  const applyState = async (nextState: GalleryState, append = false) => {
+    const resetState = applyFixedState(append ? nextState : { ...nextState, cursor: null }, fixedState);
+    if (!append) {
+      router.push(galleryUrl(path, stateForRoute(resetState, fixedState)), { scroll: false });
+      return;
+    }
     setState(resetState);
-    if (!append) router.push(galleryUrl(path, resetState), { scroll: false });
     try {
       await fetchPage(resetState, append);
     } catch {
       setError(labels.requestError);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -229,7 +317,10 @@ export default function GalleryClient({
   };
 
   const nextHref = cursor
-    ? galleryUrl(path, { ...state, cursor })
+    ? `${path}?${toGallerySearchParams(
+      stateForRoute({ ...state, cursor }, fixedState),
+      { includeScope: true, includeCursor: true },
+    ).toString()}`
     : null;
 
   return (
@@ -253,7 +344,7 @@ export default function GalleryClient({
 
       <div className={styles.toolbar}>
         <div className={styles.filters} role="group" aria-label={labels.filters}>
-          {(["all", "recipes", "menus", "days", "weeks", "ingredients"] as const).map((type) => (
+          {(["all", "recipes", "menus", "days", "weeks", "lists", "ingredients", "categories", "handles"] as const).map((type) => (
             <button
               key={type}
               type="button"
@@ -371,7 +462,7 @@ export default function GalleryClient({
               <div className={styles.body}>
                 <span className={styles.type}>{cardTypeLabel(item, state.locale)}</span>
                 <h2>{item.title}</h2>
-                {item.description ? <p>{item.description}</p> : null}
+                {item.description ? <p>{inlineMarkdownToText(item.description)}</p> : null}
                 <div className={styles.meta}>
                   {item.timeMinutes ? <span>{item.timeMinutes} min</span> : null}
                   {item.isFree ? <span>{state.locale === "es" ? "Gratis" : "Free"}</span> : null}
@@ -392,7 +483,11 @@ export default function GalleryClient({
           <button type="button" className="cp-btn cp-btn--secondary" onClick={loadMore} disabled={loading}>
             {loading ? "…" : labels.more}
           </button>
-          {nextHref ? <Link className={styles.fallbackLink} href={nextHref}>{labels.more}</Link> : null}
+          {nextHref ? (
+            <noscript>
+              <Link className={styles.fallbackLink} href={nextHref}>{labels.more}</Link>
+            </noscript>
+          ) : null}
         </div>
       ) : null}
     </div>

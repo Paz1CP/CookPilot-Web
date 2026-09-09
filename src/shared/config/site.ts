@@ -55,6 +55,7 @@ export const siteConfig = {
       googlePlay: "https://play.google.com/store/apps/details?id=com.cookpilot.pe",
       appGallery: "https://appgallery.cloud.huawei.com/ag/n/app/C118044413",
     },
+    huaweiAppLinkPrefix: process.env.NEXT_PUBLIC_HUAWEI_APP_LINK_PREFIX?.trim() ?? "",
   },
   lastModified: "2026-07-12",
   localizedPageMetadata: {

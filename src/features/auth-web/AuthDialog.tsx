@@ -79,7 +79,7 @@ export default function AuthDialog({ continuation, label, locale = "es" }: AuthD
       {open ? (
         <div className={styles.backdrop} role="presentation" onMouseDown={() => setOpen(false)}>
           <section className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="auth-title" onMouseDown={(event) => event.stopPropagation()}>
-            <button type="button" className={styles.close} onClick={() => setOpen(false)} aria-label="Cerrar">×</button>
+            <button type="button" className={styles.close} onClick={() => setOpen(false)} aria-label={locale === "es" ? "Cerrar" : "Close"}>×</button>
             <p className="cp-eyebrow">CookPilot</p>
             <h2 id="auth-title">{locale === "es" ? "Continúa con tu cocina" : "Keep cooking with CookPilot"}</h2>
             <p className={styles.copy}>{locale === "es" ? "Accede para conservar tu receta y retomar cualquier acción en CookPilot." : "Sign in to keep your recipe and resume any CookPilot action."}</p>

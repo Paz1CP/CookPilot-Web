@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { absoluteUrl } from "@/shared/config/site";
+import { DownloadButton } from "@/shared/download/DownloadExperience";
 import styles from "./ShareActions.module.css";
 
 type Locale = "es" | "en";
@@ -140,9 +141,9 @@ export default function ShareActions({
         <button type="button" className={styles.actionLink} onClick={showQr} disabled={busy}>
           {labels.qr}
         </button>
-        <a className={styles.actionLink} href={url}>
+        <DownloadButton className={styles.actionLink} cookSharePath={path}>
           {labels.open}
-        </a>
+        </DownloadButton>
         {status ? <span className={styles.status} role="status">{status}</span> : null}
       </div>
       {qrOpen && qrDataUrl ? (

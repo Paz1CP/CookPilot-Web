@@ -1,4 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
+import { cache } from "react";
 import { createSupabaseServerClient, getRequestUser } from "@/lib/supabase/server";
 import { createCookShareMetadata, createMissingCookShareMetadata } from "@/shared/config/metadata";
 import type { AppLocale } from "@/shared/config/routes";
@@ -6,38 +7,39 @@ import type { CookShareObjectType, CookShareResolvedObject } from "./types";
 import { resolvePublicObject } from "./resolver";
 import PublicObjectRenderer from "@/features/public-object/PublicObjectRenderer";
 
-export async function getCookShareObject(input: {
+type CookSharePageInput = {
   locale: AppLocale;
   objectType: CookShareObjectType;
   handle?: string | null;
   slug: string;
-}) {
+};
+
+const loadCookShareObject = cache(async (
+  locale: AppLocale,
+  objectType: CookShareObjectType,
+  handle: string | null,
+  slug: string,
+) => {
   const client = await createSupabaseServerClient();
   const [{ user }, object] = await Promise.all([
     getRequestUser(client),
-    resolvePublicObject(input, client),
+    resolvePublicObject({ locale, objectType, handle, slug }, client),
   ]);
   return { object, actorId: user?.id ?? null, client };
+});
+
+export async function getCookShareObject(input: CookSharePageInput) {
+  return loadCookShareObject(input.locale, input.objectType, input.handle ?? null, input.slug);
 }
 
-export async function renderCookShareObject(input: {
-  locale: AppLocale;
-  objectType: CookShareObjectType;
-  handle?: string | null;
-  slug: string;
-}) {
+export async function renderCookShareObject(input: CookSharePageInput) {
   const { object, actorId } = await getCookShareObject(input);
   if (!object) notFound();
   if (object.identity.is_alias) permanentRedirect(object.identity.canonical_path);
   return <PublicObjectRenderer object={object as CookShareResolvedObject} locale={input.locale} actorId={actorId} />;
 }
 
-export async function metadataForCookShareObject(input: {
-  locale: AppLocale;
-  objectType: CookShareObjectType;
-  handle?: string | null;
-  slug: string;
-}) {
+export async function metadataForCookShareObject(input: CookSharePageInput) {
   const { object, actorId, client } = await getCookShareObject(input);
   if (!object) return createMissingCookShareMetadata(input.locale);
   const alternateLocale = input.locale === "es" ? "en" : "es";
