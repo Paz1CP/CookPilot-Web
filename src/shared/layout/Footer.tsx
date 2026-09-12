@@ -7,9 +7,13 @@ import styles from "./Footer.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
 import { getLocalizedRoute } from "@/shared/config/routes";
 import { siteConfig } from "@/shared/config/site";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const { t, locale, toggleLocale } = useLocale();
+  const pathname = usePathname();
+
+  if (/^\/(?:en|es)\/?$/.test(pathname)) return null;
 
   const currentYear = new Date().getFullYear();
 
@@ -20,9 +24,10 @@ export default function Footer() {
     }
   };
 
+  const homePath = locale === "es" ? "/es" : "/en";
   const productLinks = [
     { label: t.footer.como_funciona, href: getLocalizedRoute(locale, "howItWorks") },
-    { label: t.footer.pro, href: getLocalizedRoute(locale, "pro") },
+    { label: t.footer.pro, href: `${homePath}#go-pro` },
     { label: t.footer.descargar, href: "#download-final" },
   ];
 
@@ -41,7 +46,7 @@ export default function Footer() {
           <div className={styles.brandCol}>
             <Link href={locale === "es" ? "/es" : "/en"} className={styles.logo}>
               <Image
-                src="/images/img_app_icon.png"
+                src="/images/cookpilot/cookpilot_logo.png"
                 alt={t.footer.logo_alt}
                 width={32}
                 height={32}
@@ -55,7 +60,7 @@ export default function Footer() {
             <div className={styles.madeIn}>
               <span>{t.footer.made_in}</span>
               <Image
-                src="/icons/peru-icon.png"
+                src="/icons/locale/peru-flag.png"
                 alt="Perú"
                 width={18}
                 height={18}
@@ -147,7 +152,7 @@ export default function Footer() {
                     className={styles.socialLinkLink}
                   >
                     <Image
-                      src="/icons/linkedln-icon.svg"
+                      src="/icons/social/linkedin.svg"
                       alt=""
                       width={16}
                       height={16}

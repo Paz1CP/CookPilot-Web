@@ -7,7 +7,7 @@ const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 export const metadata: Metadata = {
   title: "CookPilot — The Film",
   description: "Cook what you want. Your way.",
-  icons: { icon: "/images/img_favicon.png" },
+  icons: { icon: "/images/brand/favicon.png" },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

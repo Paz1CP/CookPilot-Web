@@ -1,0 +1,784 @@
+{
+    "landing": {
+        "film": {
+            "brandCook": "Cook",
+            "brandPilot": "Pilot",
+            "heroAria": "Cocina lo que quieras. A tu manera.",
+            "kicker": "DEL ANTOJO. A TU MESA.",
+            "heroLineOne": "COCINA LO QUE",
+            "heroWant": "QUIERAS.",
+            "heroLineTwo": "A TU",
+            "heroWay": "MANERA.",
+            "origin": "DESDE PERÚ · HECHO PARA TI",
+            "watchAria": "Ver el film de CookPilot",
+            "changeDishAria": "Cambiar plato",
+            "emptyPlateAlt": "Un plato vacío",
+            "openingFirst": "HAGÁMOSLO",
+            "openingAccent": "REAL.",
+            "requestAria": "Tus pedidos e ingredientes",
+            "kitchenNote": "NOTA DE COCINA",
+            "ticketSignature": "COOKPILOT / A TU MANERA",
+            "listAria": "CookList para Lomo Saltado",
+            "listFirst": "TODO LO QUE",
+            "listAccent": "NECESITAS.",
+            "people": "2 personas",
+            "allInOne": "Todo en un solo lugar",
+            "readyToCook": "LISTO PARA COCINAR",
+            "modeAria": "CookMode para Lomo Saltado",
+            "modeBeefAlt": "Carne sellada para Lomo Saltado",
+            "modeStirAlt": "Lomo Saltado con carne, cebolla y tomate",
+            "modeFirst": "CUANDO TOCA COCINAR,",
+            "modeAccent": "SOLO COCINA.",
+            "planAria": "CookPlan: almuerzo del sábado",
+            "yourWeek": "TU SEMANA",
+            "lunch": "Almuerzo",
+            "cook": "Cocina",
+            "planFirst": "JUSTO DONDE",
+            "planAccent": "DEBE ESTAR.",
+            "tableAria": "La comida llega a la mesa",
+            "tableAlt": "Lomo Saltado servido sobre una mesa de madera",
+            "tableFirst": "LO QUERÍAS.",
+            "tableAccent": "AHORA ES REAL.",
+            "rehookAria": "Hazlo tuyo",
+            "rehookAlt": "CookPilot mostrando Lomo Saltado en un teléfono sostenido con una mano",
+            "rehookFirst": "INTERNET ESTÁ LLENO DE",
+            "rehookAccent": "COSAS QUE QUIERES COMER.",
+            "dishes": [
+                {
+                    "file": "lomo_saltado",
+                    "name": "Lomo saltado",
+                    "caption": "EL INICIO DE ALGO BUENO"
+                },
+                {
+                    "file": "ceviche",
+                    "name": "Ceviche",
+                    "caption": "UN POCO MÁS FRESCO. UN POCO MÁS INTENSO."
+                },
+                {
+                    "file": "papa_huancaina",
+                    "name": "Papa a la huancaína",
+                    "caption": "DORADA, CREMOSA. COMPLETAMENTE TUYA."
+                },
+                {
+                    "file": "aji_de_gallina",
+                    "name": "Ají de gallina",
+                    "caption": "DE ESAS COMIDAS A LAS QUE SIEMPRE VUELVES."
+                }
+            ],
+            "requests": [
+                "Carne",
+                "PARA DOS",
+                "Papas",
+                "MÁS PROTEÍNA",
+                "Cebolla morada",
+                "MENOS ARROZ",
+                "Tomates",
+                "30 MIN MÁX.",
+                "Ají amarillo",
+                "DEJA LAS PAPAS",
+                "Culantro"
+            ],
+            "ingredients": [
+                {
+                    "name": "Carne",
+                    "amount": "300 g"
+                },
+                {
+                    "name": "Cebolla morada",
+                    "amount": "2"
+                },
+                {
+                    "name": "Tomates",
+                    "amount": "2"
+                },
+                {
+                    "name": "Ají amarillo",
+                    "amount": "1"
+                },
+                {
+                    "name": "Papas",
+                    "amount": "300 g"
+                },
+                {
+                    "name": "Culantro",
+                    "amount": "10 g"
+                }
+            ],
+            "instructions": [
+                {
+                    "meta": "01 / SELLAR",
+                    "line": "EMPIEZA CON CALOR.",
+                    "accent": "DALE COLOR."
+                },
+                {
+                    "meta": "02 / SALTEAR",
+                    "line": "JÚNTALO TODO.",
+                    "accent": "DEJA QUE BRILLE."
+                },
+                {
+                    "meta": "03 / LISTO",
+                    "line": "HECHO A TU MANERA.",
+                    "accent": "LISTO."
+                }
+            ],
+            "weekDays": [
+                "Mié",
+                "Jue",
+                "Vie",
+                "Sáb",
+                "Dom",
+                "Lun",
+                "Mar"
+            ],
+            "mealItems": [
+                {
+                    "name": "Lomo Saltado",
+                    "alt": "Lomo Saltado"
+                },
+                {
+                    "name": "Ensalada",
+                    "alt": "Ensalada"
+                },
+                {
+                    "name": "Jugo de Maracuyá",
+                    "alt": "Jugo de Maracuyá"
+                }
+            ],
+            "socialNames": [
+                "Instagram",
+                "TikTok",
+                "YouTube Shorts",
+                "Facebook",
+                "Web"
+            ]
+        },
+        "menu": {
+            "eyebrow": "ENTONCES, HAZLAS TUYAS",
+            "title": "DE UNA RECETA.",
+            "accent": "A TODO UN MENÚ.",
+            "description": "Una receta no tiene por qué quedarse sola. Añade una guarnición, una bebida, otro plato — lo que haga falta para sentirlo completo. CookPilot lo mantiene todo unido en un solo menú, listo para planear, comprar y cocinar.",
+            "railAria": "Armar un menú con cuatro recetas",
+            "items": [
+                {
+                    "name": "Lomo Saltado",
+                    "lead": "Empieza con el plato que querías.",
+                    "copy": "El antojo que te trajo hasta aquí."
+                },
+                {
+                    "name": "Ensalada de palta",
+                    "lead": "Añade algo fresco.",
+                    "copy": "Una guarnición puede ser parte de la misma comida sin convertirse en otra decisión."
+                },
+                {
+                    "name": "Jugo de maracuyá",
+                    "lead": "Suma también la bebida.",
+                    "copy": "Todo lo que llega a la mesa puede vivir en el mismo menú."
+                },
+                {
+                    "name": "Ají de Pollería",
+                    "lead": "Complétalo a tu manera.",
+                    "copy": "Una comida es mucho más que su plato principal."
+                }
+            ],
+            "footer": "UN MENÚ. TODO LO QUE VA JUNTO.",
+            "meta": "4 recetas · 1 menú · Fácil y económico"
+        },
+        "plan": {
+            "title": "DE UN MENÚ A",
+            "accent": "TODA TU SEMANA.",
+            "showcaseAlt": "CookPilot CookPlan conectando comidas a lo largo de una semana",
+            "descriptionBefore": "Empieza con ",
+            "descriptionOne": "un menú completo",
+            "descriptionMiddle": ", y lleva esa misma lógica a ",
+            "descriptionTwo": "toda tu semana",
+            "descriptionAfter": ". CookPilot mantiene conectados platos, acompañamientos, bebidas, tiempos e ingredientes, para que planear varios días se sienta claro, coherente y ",
+            "descriptionThree": "listo para cocinar",
+            "descriptionEnd": "."
+        },
+        "shopping": {
+            "brandCook": "Cook",
+            "brandPilot": "Pilot",
+            "total": "S/ 12.52",
+            "initialIngredient": "Tomate",
+            "title": "TU SEMANA.",
+            "accent": "UNA SOLA LISTA.",
+            "categoriesAria": "Categorías de CookList",
+            "ingredientsSuffix": "ingredientes",
+            "leadStrong": "Cada comida que planeaste se convierte en una sola lista de compras.",
+            "leadBefore": " CookPilot combina ",
+            "shared": "ingredientes compartidos",
+            "leadMiddle": ", mantiene visibles las ",
+            "quantities": "cantidades",
+            "leadAfter": " y te muestra exactamente qué aporta ",
+            "eachRecipe": "cada receta",
+            "leadEnd": " al total.",
+            "where": "DE DÓNDE VIENE",
+            "serving": "porción",
+            "all": "Todos",
+            "priceNote": "Precios de referencia · Perú",
+            "recipes": [
+                {
+                    "name": "Lomo Saltado",
+                    "servings": 1,
+                    "estimatedCost": "S/ 9.07"
+                },
+                {
+                    "name": "Ensalada de palta",
+                    "servings": 1,
+                    "estimatedCost": "S/ 1.70"
+                },
+                {
+                    "name": "Refresco de Maracuyá",
+                    "servings": 1,
+                    "estimatedCost": "S/ 0.78"
+                },
+                {
+                    "name": "Ají de Pollería",
+                    "servings": 1,
+                    "estimatedCost": "S/ 0.97"
+                }
+            ],
+            "categories": [
+                {
+                    "name": "Verduras",
+                    "count": 7
+                },
+                {
+                    "name": "Carnes",
+                    "count": 1
+                },
+                {
+                    "name": "Cereales",
+                    "count": 1
+                },
+                {
+                    "name": "Tubérculos",
+                    "count": 1
+                },
+                {
+                    "name": "Frutas",
+                    "count": 3
+                },
+                {
+                    "name": "Grasas",
+                    "count": 2
+                },
+                {
+                    "name": "Lácteos",
+                    "count": 1
+                },
+                {
+                    "name": "Bebidas",
+                    "count": 2
+                },
+                {
+                    "name": "Azucarados",
+                    "count": 1
+                },
+                {
+                    "name": "Misceláneos",
+                    "count": 7
+                }
+            ],
+            "items": {
+                "Verduras": [
+                    {
+                        "name": "Ají Amarillo",
+                        "quantity": "38.8 g",
+                        "referencePrice": "S/ 1.44 · por 100 g",
+                        "estimatedCost": "S/ 0.56",
+                        "sources": [
+                            "Ají de Pollería 30 g",
+                            "Lomo Saltado 8.8 g"
+                        ]
+                    },
+                    {
+                        "name": "Ajo",
+                        "quantity": "0.8 g",
+                        "referencePrice": "S/ 1.75 · por 100 g",
+                        "estimatedCost": "S/ 0.01",
+                        "sources": [
+                            "Ají de Pollería"
+                        ]
+                    },
+                    {
+                        "name": "Cebolla Morada",
+                        "quantity": "77.5 g",
+                        "referencePrice": "S/ 0.37 · por 100 g",
+                        "estimatedCost": "S/ 0.29",
+                        "sources": [
+                            "Ensalada de palta 15 g",
+                            "Lomo Saltado 62.5 g"
+                        ]
+                    },
+                    {
+                        "name": "Culantro",
+                        "quantity": "3.5 g",
+                        "referencePrice": "S/ 3.32 · por 100 g",
+                        "estimatedCost": "S/ 0.12",
+                        "sources": [
+                            "Ensalada de palta 1.5 g",
+                            "Lomo Saltado 2 g"
+                        ]
+                    },
+                    {
+                        "name": "Huacatay",
+                        "quantity": "1.5 g",
+                        "referencePrice": "S/ 5.98 · por 100 g",
+                        "estimatedCost": "S/ 0.09",
+                        "sources": [
+                            "Ají de Pollería"
+                        ]
+                    },
+                    {
+                        "name": "Orégano Seco",
+                        "quantity": "0.2 g",
+                        "referencePrice": "S/ 27.29 · por 100 g",
+                        "estimatedCost": "S/ 0.05",
+                        "sources": [
+                            "Ají de Pollería"
+                        ]
+                    },
+                    {
+                        "name": "Tomate",
+                        "quantity": "117.5 g",
+                        "referencePrice": "S/ 0.58 · por 100 g",
+                        "estimatedCost": "S/ 0.69",
+                        "sources": [
+                            "Ensalada de palta 55 g",
+                            "Lomo Saltado 62.5 g"
+                        ]
+                    }
+                ],
+                "Carnes": [
+                    {
+                        "name": "Bistec de Res",
+                        "quantity": "150 g",
+                        "referencePrice": "S/ 3.93 · por 100 g",
+                        "estimatedCost": "S/ 5.89",
+                        "sources": [
+                            "Lomo Saltado"
+                        ]
+                    }
+                ],
+                "Cereales": [
+                    {
+                        "name": "Arroz Blanco Cocido",
+                        "quantity": "150 g",
+                        "referencePrice": "S/ 0.15 · por 100 g",
+                        "estimatedCost": "S/ 0.23",
+                        "sources": [
+                            "Lomo Saltado"
+                        ]
+                    }
+                ],
+                "Tubérculos": [
+                    {
+                        "name": "Papa Blanca",
+                        "quantity": "175 g",
+                        "referencePrice": "S/ 0.30 · por 100 g",
+                        "estimatedCost": "S/ 0.53",
+                        "sources": [
+                            "Lomo Saltado"
+                        ]
+                    }
+                ],
+                "Frutas": [
+                    {
+                        "name": "Palta",
+                        "quantity": "90 g",
+                        "referencePrice": "S/ 1.44 · por unidad",
+                        "estimatedCost": "S/ 0.72",
+                        "sources": [
+                            "Ensalada de palta"
+                        ]
+                    },
+                    {
+                        "name": "Maracuyá",
+                        "quantity": "80 g",
+                        "referencePrice": "S/ 0.90 · por unidad",
+                        "estimatedCost": "S/ 0.43",
+                        "sources": [
+                            "Refresco de Maracuyá"
+                        ]
+                    },
+                    {
+                        "name": "Jugo de Limón",
+                        "quantity": "7.5 ml",
+                        "referencePrice": "S/ 2.75 · por 100 ml",
+                        "estimatedCost": "S/ 0.21",
+                        "sources": [
+                            "Ensalada de palta"
+                        ]
+                    }
+                ],
+                "Grasas": [
+                    {
+                        "name": "Aceite Vegetal",
+                        "quantity": "130.6 ml",
+                        "referencePrice": "S/ 0.86 · por 100 ml",
+                        "estimatedCost": "S/ 1.12",
+                        "sources": [
+                            "Ají de Pollería 5.6 ml",
+                            "Lomo Saltado 125 ml"
+                        ]
+                    },
+                    {
+                        "name": "Aceite de Oliva Virgen",
+                        "quantity": "3.8 ml",
+                        "referencePrice": "S/ 8.25 · por 100 ml",
+                        "estimatedCost": "S/ 0.31",
+                        "sources": [
+                            "Ensalada de palta"
+                        ]
+                    }
+                ],
+                "Lácteos": [
+                    {
+                        "name": "Leche Evaporada Entera",
+                        "quantity": "15 ml",
+                        "referencePrice": "S/ 1.03 · por 100 ml",
+                        "estimatedCost": "S/ 0.15",
+                        "sources": [
+                            "Ají de Pollería"
+                        ]
+                    }
+                ],
+                "Bebidas": [
+                    {
+                        "name": "Agua",
+                        "quantity": "337.5 ml",
+                        "referencePrice": "S/ 0.10 · por 100 ml",
+                        "estimatedCost": "S/ 0.35",
+                        "sources": [
+                            "Ají de Pollería 112.5 ml",
+                            "Refresco de Maracuyá 225 ml"
+                        ]
+                    },
+                    {
+                        "name": "Hielo",
+                        "quantity": "30 g",
+                        "referencePrice": "S/ 0.21 · por 100 g",
+                        "estimatedCost": "S/ 0.06",
+                        "sources": [
+                            "Refresco de Maracuyá"
+                        ]
+                    }
+                ],
+                "Azucarados": [
+                    {
+                        "name": "Azúcar Blanca",
+                        "quantity": "13.8 g",
+                        "referencePrice": "S/ 0.47 · por 100 g",
+                        "estimatedCost": "S/ 0.06",
+                        "sources": [
+                            "Refresco de Maracuyá"
+                        ]
+                    }
+                ],
+                "Misceláneos": [
+                    {
+                        "name": "Ajo Molido",
+                        "quantity": "2.5 g",
+                        "referencePrice": "S/ 4.29 · por 100 g",
+                        "estimatedCost": "S/ 0.11",
+                        "sources": [
+                            "Lomo Saltado"
+                        ]
+                    },
+                    {
+                        "name": "Comino Molido",
+                        "quantity": "0.4 g",
+                        "referencePrice": "S/ 16.40 · por 100 g",
+                        "estimatedCost": "S/ 0.06",
+                        "sources": [
+                            "Lomo Saltado"
+                        ]
+                    },
+                    {
+                        "name": "Mostaza",
+                        "quantity": "1.5 g",
+                        "referencePrice": "S/ 2.80 · por 100 g",
+                        "estimatedCost": "S/ 0.04",
+                        "sources": [
+                            "Ají de Pollería"
+                        ]
+                    },
+                    {
+                        "name": "Pimienta Negra Molida",
+                        "quantity": "0.7 g",
+                        "referencePrice": "S/ 24.69 · por 100 g",
+                        "estimatedCost": "S/ 0.17",
+                        "sources": [
+                            "Ají de Pollería 0.08 g",
+                            "Ensalada de palta 0.13 g",
+                            "Lomo Saltado 0.5 g"
+                        ]
+                    },
+                    {
+                        "name": "Sal de Mesa",
+                        "quantity": "2.5 g",
+                        "referencePrice": "S/ 0.26 · por 100 g",
+                        "estimatedCost": "S/ 0.01",
+                        "sources": [
+                            "Ají de Pollería 0.75 g",
+                            "Ensalada de palta 0.75 g",
+                            "Lomo Saltado 1 g"
+                        ]
+                    },
+                    {
+                        "name": "Salsa de Soya",
+                        "quantity": "12.5 ml",
+                        "referencePrice": "S/ 1.76 · por 100 ml",
+                        "estimatedCost": "S/ 0.22",
+                        "sources": [
+                            "Lomo Saltado"
+                        ]
+                    },
+                    {
+                        "name": "Vinagre Tinto",
+                        "quantity": "8.8 ml",
+                        "referencePrice": "S/ 0.44 · por 100 ml",
+                        "estimatedCost": "S/ 0.04",
+                        "sources": [
+                            "Lomo Saltado"
+                        ]
+                    }
+                ]
+            }
+        },
+        "guided": {
+            "title": "MENOS EN TU CABEZA.",
+            "accent": "MÁS EN TU PLATO.",
+            "descriptionBefore": "Sigue cada paso con ",
+            "timing": "tiempos",
+            "betweenTimingAndGuidance": ", ",
+            "guidance": "guía",
+            "betweenGuidanceAndNext": " y el ",
+            "nextMove": "siguiente paso",
+            "descriptionMiddle": " siempre a la vista. Desde la ",
+            "prep": "preparación hasta el emplatado",
+            "descriptionAfter": ", CookPilot mantiene el flujo claro, rápido y fácil de seguir — para que tu atención esté en la comida, no en pensar qué viene después.",
+            "phoneAlt": "CookPilot guiando una receta paso a paso en un iPhone",
+            "nextAria": "Mostrar el siguiente paso de cocina",
+            "continue": "Haz clic para continuar",
+            "steps": [
+                {
+                    "title": "Todo listo. Ahora, el fuego.",
+                    "body": "Corta la carne, la cebolla, el tomate y el ají amarillo; luego pica el culantro. Ten todo listo antes de que empiece a hablar la sartén."
+                },
+                {
+                    "title": "El crocante empieza aquí.",
+                    "body": "Fríe las papas hasta que estén doradas y crocantes. Deja que mantengan su textura para que lleguen perfectas al plato."
+                },
+                {
+                    "title": "Fuego alto. Sin miedo.",
+                    "body": "Cocina la carne en tandas y a fuego alto para que dore rápido, se mantenga jugosa y construya la base de sabor."
+                },
+                {
+                    "title": "Rápido, caliente, todo junto.",
+                    "body": "Devuelve la carne junto con la cebolla, el tomate y el ají; termina con ajo, sillao y vinagre mientras todo sigue en movimiento."
+                },
+                {
+                    "title": "Todo, justo a tiempo.",
+                    "body": "Termina con culantro, emplata de inmediato y sirve con arroz y papas mientras todo el plato sigue vivo."
+                }
+            ]
+        },
+        "saved": {
+            "title": "LA BUENA COMIDA MERECE",
+            "accent": "UNA SEGUNDA VEZ.",
+            "description": "Guarda los platos a los que quieras volver — y llévalos a la comida de hoy, al plan de mañana o a la mesa de la próxima semana.",
+            "save": "Guardar",
+            "remove": "Quitar",
+            "removed": "Eliminado de guardados.",
+            "fallback": "Guardado.",
+            "recipes": [
+                {
+                    "id": "caprese",
+                    "name": "Ensalada caprese",
+                    "descriptor": "Clásica • Fresca • Elegante",
+                    "saveCopy": "Guardada para volver a algo fresco."
+                },
+                {
+                    "id": "lomo",
+                    "name": "Lomo Saltado",
+                    "descriptor": "Intenso • Ahumado • Contundente",
+                    "saveCopy": "De vuelta para la cena."
+                },
+                {
+                    "id": "palta",
+                    "name": "Ensalada de palta",
+                    "descriptor": "Fresca • Vibrante • Equilibrada",
+                    "saveCopy": "Guardada para un acompañamiento más fresco."
+                },
+                {
+                    "id": "aji",
+                    "name": "Ají de pollería",
+                    "descriptor": "Cremoso • Ácido • Adictivo",
+                    "saveCopy": "Guardado para el próximo antojo."
+                },
+                {
+                    "id": "morada",
+                    "name": "Jugo de maracuyá",
+                    "descriptor": "Frío • Frutal • Refrescante",
+                    "saveCopy": "Guardado para la próxima mesa."
+                }
+            ]
+        },
+        "download": {
+            "title": "COCINA LO QUE QUIERAS.",
+            "accent": "A TU MANERA.",
+            "description": "Desde el antojo hasta una comida completa, CookPilot te ayuda a planear, comprar y cocinar con más claridad.",
+            "avatarAlt": "CookPilot levantando el pulgar",
+            "playOverline": "DESCÁRGALO EN",
+            "play": "Google Play",
+            "huaweiOverline": "DESCÚBRELO EN",
+            "huawei": "AppGallery"
+        },
+        "discovery": {
+            "title": "¿QUÉ QUIERES",
+            "accent": "COMER AHORA?",
+            "cta": "Explorar todas las recetas",
+            "railAria": "Explorar ocho recetas de CookPilot",
+            "previous": "Receta anterior",
+            "next": "Siguiente receta",
+            "recipes": [
+                {
+                    "eyebrow": "Clásico costero",
+                    "title": "Tacu Tacu con Mariscos",
+                    "description": "Tacu tacu dorado y cremoso por dentro, coronado con una sedosa salsa de ají y mariscos, con toda la energía de una cevichería."
+                },
+                {
+                    "eyebrow": "Frescura tropical",
+                    "title": "Cheesecake de maracuyá",
+                    "description": "Cheesecake frío y cremoso de maracuyá sobre una base compacta de galleta, terminado con una cobertura tropical, brillante y vibrante."
+                },
+                {
+                    "eyebrow": "Fuego callejero",
+                    "title": "Anticuchos De Corazón",
+                    "description": "Jugosos anticuchos de corazón, dorados en los bordes con ají panca y vinagre, servidos con papa y choclo a la parrilla."
+                },
+                {
+                    "eyebrow": "Puro chocolate",
+                    "title": "Volcán De Chocolate",
+                    "description": "Bizcocho de chocolate tierno con un centro oscuro y fundido que se derrama al primer corte — intenso, caliente y descaradamente chocolatoso."
+                },
+                {
+                    "eyebrow": "Fiesta amazónica",
+                    "title": "Avispa juane",
+                    "description": "Arroz aromático, cerdo y gallina envueltos en hojas de bijao — un festín del Alto Mayo hecho para abrir con hambre."
+                },
+                {
+                    "eyebrow": "Sour dorado",
+                    "title": "Aguaymanto Sour",
+                    "description": "Pisco y aguaymanto batidos con limón, terminados bajo una suave corona de espuma de clara de huevo."
+                },
+                {
+                    "eyebrow": "Clásico criollo",
+                    "title": "Ají de Gallina",
+                    "description": "Pollo cremoso al ají amarillo sobre papas amarillas, terminado con huevo, aceitunas negras y arroz blanco — puro confort peruano."
+                },
+                {
+                    "eyebrow": "Cucharada dorada",
+                    "title": "Helado de Lúcuma",
+                    "description": "Helado sedoso de lúcuma con notas inconfundibles de fruta madura, caramelo y vainilla natural en cada cucharada dorada."
+                }
+            ]
+        },
+        "pro": {
+            "title": "VE MÁS LEJOS",
+            "accent": "CON PRO.",
+            "priceAria": "a solo S/ 25",
+            "priceIntro": "a solo",
+            "currency": "S/",
+            "amount": "25",
+            "compareAria": "Comparar planes",
+            "free": "GRATIS",
+            "pro": "PRO",
+            "benefits": [
+                {
+                    "id": "catalogue",
+                    "pro": {
+                        "firstLine": "1,000+ RECETAS.",
+                        "secondLine": "TODAS TUYAS.",
+                        "highlight": "first",
+                        "subtitle": "Explora el catálogo completo y cocina mucho más allá de lo básico."
+                    },
+                    "free": {
+                        "firstLine": "30 RECETAS.",
+                        "secondLine": "LISTAS PARA COCINAR.",
+                        "highlight": "first",
+                        "subtitle": "Un punto de partida seleccionado del catálogo de CookPilot."
+                    }
+                },
+                {
+                    "id": "planning",
+                    "pro": {
+                        "firstLine": "PLANEA",
+                        "secondLine": "TODO EL MES.",
+                        "highlight": "second",
+                        "subtitle": "Organiza más de tu mes, no solo la semana actual."
+                    },
+                    "free": {
+                        "firstLine": "PLANEA",
+                        "secondLine": "ESTA SEMANA.",
+                        "highlight": "second",
+                        "subtitle": "Mantén la semana actual organizada y fácil de ajustar."
+                    }
+                },
+                {
+                    "id": "import",
+                    "pro": {
+                        "firstLine": "TRAE RECETAS",
+                        "secondLine": "DE DONDE SEA.",
+                        "highlight": "second",
+                        "subtitle": "Convierte enlaces, fotos, videos y PDFs en recetas listas para usar."
+                    }
+                },
+                {
+                    "id": "prices",
+                    "pro": {
+                        "firstLine": "DESCUBRE CUÁNTO",
+                        "secondLine": "CUESTA LA CENA.",
+                        "highlight": "second",
+                        "subtitle": "Mira precios, compara totales y toma mejores decisiones sobre tu comida."
+                    }
+                },
+                {
+                    "id": "personal",
+                    "pro": {
+                        "firstLine": "HAZ LAS RECETAS",
+                        "secondLine": "TUYAS.",
+                        "highlight": "second",
+                        "subtitle": "Copia, edita y guarda tu propia versión de un plato."
+                    }
+                },
+                {
+                    "id": "live",
+                    "pro": {
+                        "firstLine": "COCINA CON",
+                        "secondLine": "AYUDA EN VIVO.",
+                        "highlight": "second",
+                        "subtitle": "Recibe ayuda mientras cocinas, justo cuando la necesitas."
+                    }
+                }
+            ]
+        },
+        "footer": {
+            "brandAria": "CookPilot",
+            "brandCook": "Cook",
+            "brandPilot": "Pilot",
+            "tagline": "Del antojo al plato.",
+            "taglineAccent": "A tu manera.",
+            "download": "Descarga CookPilot",
+            "navAria": "Navegación del pie de página",
+            "product": "Producto",
+            "guides": "Guías",
+            "privacy": "Privacidad y términos",
+            "linkedin": "LinkedIn",
+            "origin": "DESDE PERÚ · HECHO PARA TI",
+            "back": "Volver arriba"
+        }
+    }
+}

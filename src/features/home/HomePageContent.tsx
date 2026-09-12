@@ -35,20 +35,20 @@ const HERO_SLIDES = [
 ] as const;
 
 const FOOD_IMAGES = [
-  "/images/food_images/img_dish_hero_signature.webp",
-  "/images/food_images/ensalada_caprese.webp",
-  "/images/food_images/tres_leches.webp",
-  "/images/food_images/img_dish_fresh_health.webp",
-  "/images/food_images/aji_de_polleria.webp",
-  "/images/food_images/queque_de_zanahoria_con_manjar.webp",
+  "/images/food/lomo_saltado.webp",
+  "/images/food/ensalada_caprese.webp",
+  "/images/food/tres_leches.webp",
+  "/images/food/ensalada_palta.webp",
+  "/images/food/aji_de_polleria.webp",
+  "/images/food/queque_zanahoria_manjar.webp",
 ] as const;
 const GUIDES_IMAGES = [
-   "/images/food_images/img_dish_hearty_home.webp",
-  "/images/food_images/ensalada_clasica_de_polleria.webp",
-  "/images/food_images/tres_leches.webp",
-  "/images/food_images/img_dish_secondary.webp",
-  "/images/food_images/aji_de_polleria.webp",
-  "/images/food_images/img_dish_editorial_color.webp",
+   "/images/food/estofado_pollo.webp",
+  "/images/food/ensalada_polleria_classic.webp",
+  "/images/food/tres_leches.webp",
+  "/images/food/chicha_morada.webp",
+  "/images/food/aji_de_polleria.webp",
+  "/images/food/tacu_tacu_mariscos.webp",
 ] as const;
 function Hero() {
   const { t } = useLocale();
@@ -354,7 +354,7 @@ function ProductStory() {
 function ProMoment() {
   const { locale, t } = useLocale();
   const reduceMotion = useReducedMotion();
-  const proPath = getLocalizedRoute(locale, "pro");
+  const proPath = `${locale === "es" ? "/es" : "/en"}#go-pro`;
 
   return (
     <section className={styles.proMoment} id="pro">

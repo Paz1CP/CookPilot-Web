@@ -23,7 +23,7 @@ export default function FinalDownload() {
           </div>
           <div className={styles.media}>
             <Image
-              src="/images/food_images/img_dish_hero_signature.webp"
+              src="/images/food/lomo_saltado.webp"
               alt=""
               fill
               sizes="(max-width: 960px) 100vw, 52vw"

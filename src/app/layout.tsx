@@ -37,12 +37,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/images/img_favicon.png",
+        url: "/images/brand/favicon.png",
         sizes: "32x32",
         type: "image/png",
       },
     ],
-    apple: "/images/img_app_icon.png",
+    apple: "/images/cookpilot/cookpilot_logo.png",
   },
   openGraph: {
     title: siteConfig.localizedPageMetadata.es.home.title,
@@ -92,7 +92,7 @@ const jsonLd = {
       "@id": `${siteConfig.publicUrl}/#organization`,
       name: siteConfig.publicData.name,
       url: siteConfig.publicUrl,
-      logo: absoluteUrl("/images/img_app_icon.png"),
+      logo: absoluteUrl("/images/cookpilot/cookpilot_logo.png"),
       contactPoint: {
         "@type": "ContactPoint",
         email: siteConfig.publicData.contactEmail,

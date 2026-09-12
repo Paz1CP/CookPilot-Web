@@ -2,17 +2,17 @@
 // servings, not the illustrative ingredient amounts used by THE FILM.
 // Sources: https://cookpilot.pro/en/recipes/{lomo-saltado,ensalada-de-palta}
 export const food = {
-  lomo: "/images/food_images/transparent_bg/lomo_saltado.png",
-  salad: "/images/food_images/transparent_bg/ensalada_de_palta.png",
-  juice: "/images/food_images/jugo_de_maracuya.png",
-  menuLomo: "/images/food_images/img_dish_hero_signature.webp",
-  menuSalad: "/images/food_images/img_dish_fresh_health.webp",
-  menuSalsa: "/images/food_images/aji_de_polleria.webp",
-  menuJuice: "/images/food_images/jugo_de_maracuya.png",
-  aji: "/images/food_images/transparent_bg/aji_de_gallina.png",
-  papa: "/images/food_images/transparent_bg/papa_a_la_huancaina.png",
-  oats: "/images/avena_con_leche.png",
-  prep: "/images/lomo_prep_panorama.png",
+  lomo: "/images/food/cutouts/lomo_saltado.png",
+  salad: "/images/food/cutouts/ensalada_de_palta.png",
+  juice: "/images/food/jugo_maracuya.png",
+  menuLomo: "/images/food/lomo_saltado.webp",
+  menuSalad: "/images/food/ensalada_palta.webp",
+  menuSalsa: "/images/food/aji_de_polleria.webp",
+  menuJuice: "/images/food/jugo_maracuya.png",
+  aji: "/images/food/cutouts/aji_de_gallina.png",
+  papa: "/images/food/cutouts/papa_huancaina.png",
+  oats: "/images/food/avena_con_leche.png",
+  prep: "/images/cook-film/lomo_prep_panorama.png",
 };
 
 export type RecipeId = "lomo" | "salad";

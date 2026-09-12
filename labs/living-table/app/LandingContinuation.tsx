@@ -84,27 +84,27 @@ function Food({
 
 const cookingSteps = [
   {
-    image: "/images/food_images/lomo_step_01_prep.png",
+    image: "/images/food/lomo_step01_prep.png",
     title: "Everything ready. Now the heat.",
     body: "Slice the beef, onion, tomato and yellow chili, then chop the cilantro. Keep everything ready before the pan starts talking.",
   },
   {
-    image: "/images/food_images/lomo_step_02_fries.png",
+    image: "/images/food/lomo_step02_fries.png",
     title: "The crunch starts here.",
     body: "Fry the potatoes until golden and crisp. Let them hold their texture so they finish strong on the plate.",
   },
   {
-    image: "/images/food_images/lomo_step_03_sear.png",
+    image: "/images/food/lomo_step03_sear.png",
     title: "Give the beef the fire.",
     body: "Cook the beef in hot batches so it browns fast, stays juicy and builds the flavor base.",
   },
   {
-    image: "/images/food_images/lomo_step_04_stir_fry.png",
+    image: "/images/food/lomo_step04_stir.png",
     title: "Fast, hot, together.",
     body: "Bring the beef back with onion, tomato and chili, then finish with garlic, soy sauce and vinegar while everything stays moving.",
   },
   {
-    image: "/images/food_images/lomo_step_05_serve.png",
+    image: "/images/food/lomo_step05_serve.png",
     title: "All of it, right on time.",
     body: "Finish with cilantro, plate immediately, and serve with rice and fries while the whole dish still feels alive.",
   },
@@ -115,35 +115,35 @@ const savedRecipes = [
     id: "caprese",
     name: "Ensalada caprese",
     descriptor: "Classic • Fresh • Elegant",
-    image: "/images/food_images/ensalada_caprese.webp",
+    image: "/images/food/ensalada_caprese.webp",
     saveCopy: "Saved for a fresh return.",
   },
   {
     id: "lomo",
     name: "Lomo Saltado",
     descriptor: "Bold • Smoky • Satisfying",
-    image: "/images/food_images/img_dish_hero_signature.webp",
+    image: "/images/food/lomo_saltado.webp",
     saveCopy: "Reused for the dinner.",
   },
   {
     id: "palta",
     name: "Ensalada de palta",
     descriptor: "Fresh • Bright • Balanced",
-    image: "/images/food_images/img_dish_fresh_health.webp",
+    image: "/images/food/ensalada_palta.webp",
     saveCopy: "Saved for a brighter side.",
   },
   {
     id: "aji",
     name: "Ají de pollería",
     descriptor: "Creamy • Tangy • Addictive",
-    image: "/images/food_images/aji_de_polleria.webp",
+    image: "/images/food/aji_de_polleria.webp",
     saveCopy: "Saved for the next craving.",
   },
   {
     id: "morada",
     name: "Jugo de maracuyá",
     descriptor: "Cold • Fruity • Refreshing",
-    image: "/images/food_images/jugo_de_maracuya.png",
+    image: "/images/food/jugo_maracuya.png",
     saveCopy: "Saved for the next table.",
   },
 ] as const;
@@ -819,7 +819,7 @@ export default function LandingContinuation() {
           </div>
           <div className="lc-stores" data-lc-reveal>
             <a href={links.play}>
-              <img src="/icons/play-store.png" width="34" height="34" alt="" />
+              <img src="/icons/stores/google-play.png" width="34" height="34" alt="" />
               <span>
                 <small>GET IT ON</small>Google Play
               </span>
@@ -827,7 +827,7 @@ export default function LandingContinuation() {
             </a>
             <a href={links.huawei}>
               <img
-                src="/icons/huawei-gallery.png"
+                src="/icons/stores/app-gallery.png"
                 width="34"
                 height="34"
                 alt=""

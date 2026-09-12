@@ -54,7 +54,7 @@ body::before, section:not(#final-cta)::before {
   height: 100%;
   pointer-events: none;
   z-index: -1;
-  background-image: url('/noise.svg');
+  background-image: url('/images/backgrounds/noise.svg');
   background-repeat: repeat;
   mix-blend-mode: overlay;
   opacity: 0.15;

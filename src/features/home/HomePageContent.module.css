@@ -113,7 +113,7 @@
   position: absolute;
   inset: 0;
   z-index: -3;
-  background-image: url("/images/backgrounds/ckp_hero_bg.png");
+  background-image: url("/images/backgrounds/hero_bg.webp");
   background-size: cover;
   background-position: center;
 }
@@ -138,7 +138,7 @@
 }
 
 :global(:root:not([data-theme="dark"])) .heroBackdrop {
-  background-image: url("/images/backgrounds/ckp_hero_light_bg.png");
+  background-image: url("/images/backgrounds/hero_light_bg.png");
 }
 
 :global(:root:not([data-theme="dark"])) .heroBackdrop::after {

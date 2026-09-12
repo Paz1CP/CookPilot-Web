@@ -6,11 +6,11 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } fr
 const dishes = [
   { file: "lomo_saltado", name: "Lomo saltado", line: "THE START OF SOMETHING GOOD" },
   { file: "ceviche", name: "Ceviche", line: "A LITTLE BRIGHTER. A LITTLE BOLDER." },
-  { file: "papa_a_la_huancaina", name: "Papa a la huancaína", line: "GOLDEN, CREAMY. COMPLETELY YOURS." },
+  { file: "papa_huancaina", name: "Papa a la huancaína", line: "GOLDEN, CREAMY. COMPLETELY YOURS." },
   { file: "aji_de_gallina", name: "Ají de gallina", line: "THE KIND OF COMFORT YOU COME BACK TO." },
   { file: "ensalada_de_palta", name: "Ensalada de palta", line: "FRESH HAS A WAY OF WINNING YOU OVER." },
 ];
-const source = (file: string) => `/images/food_images/transparent_bg/${file}.png`;
+const source = (file: string) => `/images/food/cutouts/${file}.png`;
 
 export default function HeroTurntable() {
   const ref = useRef<HTMLElement>(null);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import NextImage from "next/image";
 
 const NAZCA = "/images/backgrounds/hero_bg.webp";
 const points = Array.from({ length: 620 }, (_, i) => {
@@ -135,7 +136,7 @@ export default function HeroAtmosphere({ variant = "hero" }: { variant?: "hero" 
   }, [variant]);
 
   return <div className={`hero-atmosphere${variant === "footer" ? " footer-atmosphere" : ""}`} ref={atmosphereRef} aria-hidden="true">
-    <img className="hero-nazca-idle" src={NAZCA} alt="" />
+    <NextImage className="hero-nazca-idle" src={NAZCA} alt="" width={1920} height={1080} priority />
     <canvas ref={canvasRef} />
   </div>;
 }

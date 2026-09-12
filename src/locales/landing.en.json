@@ -1,0 +1,784 @@
+{
+  "landing": {
+    "film": {
+      "brandCook": "Cook",
+      "brandPilot": "Pilot",
+      "heroAria": "Cook what you want. Your way.",
+      "kicker": "FROM CRAVING. TO YOUR TABLE.",
+      "heroLineOne": "COOK WHAT YOU",
+      "heroWant": "WANT.",
+      "heroLineTwo": "YOUR",
+      "heroWay": "WAY.",
+      "origin": "EST. IN PERU · MADE FOR YOU",
+      "watchAria": "Watch the CookPilot film",
+      "changeDishAria": "Change dish",
+      "emptyPlateAlt": "An empty plate",
+      "openingFirst": "LET'S MAKE IT",
+      "openingAccent": "REAL.",
+      "requestAria": "Your requests and ingredients",
+      "kitchenNote": "KITCHEN NOTE",
+      "ticketSignature": "COOKPILOT / YOUR WAY",
+      "listAria": "CookList for Lomo Saltado",
+      "listFirst": "EVERYTHING YOU",
+      "listAccent": "NEED.",
+      "people": "2 people",
+      "allInOne": "All in one place",
+      "readyToCook": "READY TO COOK",
+      "modeAria": "CookMode for Lomo Saltado",
+      "modeBeefAlt": "Seared beef for Lomo Saltado",
+      "modeStirAlt": "Lomo Saltado stir-fry with beef, onion and tomato",
+      "modeFirst": "WHEN IT'S TIME TO COOK,",
+      "modeAccent": "JUST COOK.",
+      "planAria": "CookPlan: Saturday lunch",
+      "yourWeek": "YOUR WEEK",
+      "lunch": "Lunch",
+      "cook": "Cook ↗",
+      "planFirst": "RIGHT WHERE IT",
+      "planAccent": "BELONGS.",
+      "tableAria": "The meal reaches the table",
+      "tableAlt": "Lomo Saltado served on a wooden table",
+      "tableFirst": "YOU WANTED IT.",
+      "tableAccent": "NOW IT'S REAL.",
+      "rehookAria": "Make it yours",
+      "rehookAlt": "CookPilot showing Lomo Saltado on a phone held in a hand",
+      "rehookFirst": "THE INTERNET IS FULL OF",
+      "rehookAccent": "THINGS YOU WANT TO EAT.",
+      "dishes": [
+        {
+          "file": "lomo_saltado",
+          "name": "Lomo saltado",
+          "caption": "THE START OF SOMETHING GOOD"
+        },
+        {
+          "file": "ceviche",
+          "name": "Ceviche",
+          "caption": "A LITTLE BRIGHTER. A LITTLE BOLDER."
+        },
+        {
+          "file": "papa_huancaina",
+          "name": "Papa a la huancaína",
+          "caption": "GOLDEN, CREAMY. COMPLETELY YOURS."
+        },
+        {
+          "file": "aji_de_gallina",
+          "name": "Ají de gallina",
+          "caption": "THE KIND OF COMFORT YOU COME BACK TO."
+        }
+      ],
+      "requests": [
+        "Beef",
+        "FOR TWO",
+        "Potatoes",
+        "MORE PROTEIN",
+        "Red onion",
+        "LESS RICE",
+        "Tomatoes",
+        "30 MIN MAX",
+        "Yellow pepper",
+        "KEEP THE FRIES",
+        "Cilantro"
+      ],
+      "ingredients": [
+        {
+          "name": "Beef",
+          "amount": "300 g"
+        },
+        {
+          "name": "Red onion",
+          "amount": "2"
+        },
+        {
+          "name": "Tomatoes",
+          "amount": "2"
+        },
+        {
+          "name": "Yellow pepper",
+          "amount": "1"
+        },
+        {
+          "name": "Potatoes",
+          "amount": "300 g"
+        },
+        {
+          "name": "Cilantro",
+          "amount": "10 g"
+        }
+      ],
+      "instructions": [
+        {
+          "meta": "01 / SEAR",
+          "line": "START WITH HEAT.",
+          "accent": "GIVE IT COLOR."
+        },
+        {
+          "meta": "02 / STIR-FRY",
+          "line": "BRING IT TOGETHER.",
+          "accent": "LET IT GLOW."
+        },
+        {
+          "meta": "03 / READY",
+          "line": "MADE YOUR WAY.",
+          "accent": "READY."
+        }
+      ],
+      "weekDays": [
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun",
+        "Mon",
+        "Tue"
+      ],
+      "mealItems": [
+        {
+          "name": "Lomo Saltado",
+          "alt": "Lomo Saltado"
+        },
+        {
+          "name": "Ensalada",
+          "alt": "Ensalada"
+        },
+        {
+          "name": "Jugo de Maracuyá",
+          "alt": "Jugo de Maracuyá"
+        }
+      ],
+      "socialNames": [
+        "Instagram",
+        "TikTok",
+        "YouTube Shorts",
+        "Facebook",
+        "Web"
+      ]
+    },
+    "menu": {
+      "eyebrow": "SO, MAKE THEM YOURS",
+      "title": "FROM ONE RECIPE.",
+      "accent": "TO A WHOLE MEAL.",
+      "description": "One recipe doesn’t have to stand alone. Add a side, a drink, another dish — whatever makes it feel complete. CookPilot keeps it together as one menu, ready to plan, shop and cook.",
+      "railAria": "Build a menu with four recipes",
+      "items": [
+        {
+          "name": "Lomo Saltado",
+          "lead": "Start with the dish you wanted.",
+          "copy": "The craving that brought you here."
+        },
+        {
+          "name": "Ensalada de Palta",
+          "lead": "Add something fresh.",
+          "copy": "A side can belong to the same meal without becoming another decision."
+        },
+        {
+          "name": "Jugo de Maracuyá",
+          "lead": "Bring the drink with it.",
+          "copy": "Everything on the table can live in the same menu."
+        },
+        {
+          "name": "Ají de Pollería",
+          "lead": "Round it out your way.",
+          "copy": "A meal is more than its main dish."
+        }
+      ],
+      "footer": "ONE MENU. EVERYTHING THAT BELONGS TOGETHER.",
+      "meta": "4 recipes · 1 menu · Easy and affordable"
+    },
+    "plan": {
+      "title": "FROM ONE MENU TO",
+      "accent": "YOUR WEEK.",
+      "showcaseAlt": "CookPilot CookPlan connecting meals across a week",
+      "descriptionBefore": "Start with ",
+      "descriptionOne": "one complete menu",
+      "descriptionMiddle": ", then carry that same logic across ",
+      "descriptionTwo": "your week",
+      "descriptionAfter": ". CookPilot keeps dishes, sides, drinks, timing and ingredients connected, so planning multiple days feels clear, cohesive and ",
+      "descriptionThree": "ready to cook",
+      "descriptionEnd": "."
+    },
+    "shopping": {
+      "brandCook": "Cook",
+      "brandPilot": "Pilot",
+      "total": "S/ 12.52",
+      "initialIngredient": "Tomate",
+      "title": "AND YOUR WEEK.",
+      "accent": "ONE LIST.",
+      "categoriesAria": "CookList categories",
+      "ingredientsSuffix": "ingredients",
+      "leadStrong": "Every meal you planned becomes one clear shopping list.",
+      "leadBefore": " CookPilot combines ",
+      "shared": "shared ingredients",
+      "leadMiddle": ", keeps ",
+      "quantities": "quantities",
+      "leadAfter": " visible, and shows exactly what ",
+      "eachRecipe": "each recipe",
+      "leadEnd": " adds to the total.",
+      "where": "WHERE IT COMES FROM",
+      "serving": "serving",
+      "all": "Todos",
+      "priceNote": "* Reference prices  ·  Peru",
+      "recipes": [
+        {
+          "name": "Lomo Saltado",
+          "servings": 1,
+          "estimatedCost": "S/ 9.07"
+        },
+        {
+          "name": "Ensalada de palta",
+          "servings": 1,
+          "estimatedCost": "S/ 1.70"
+        },
+        {
+          "name": "Refresco de Maracuyá",
+          "servings": 1,
+          "estimatedCost": "S/ 0.78"
+        },
+        {
+          "name": "Ají de Pollería",
+          "servings": 1,
+          "estimatedCost": "S/ 0.97"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Verduras",
+          "count": 7
+        },
+        {
+          "name": "Carnes",
+          "count": 1
+        },
+        {
+          "name": "Cereales",
+          "count": 1
+        },
+        {
+          "name": "Tubérculos",
+          "count": 1
+        },
+        {
+          "name": "Frutas",
+          "count": 3
+        },
+        {
+          "name": "Grasas",
+          "count": 2
+        },
+        {
+          "name": "Lácteos",
+          "count": 1
+        },
+        {
+          "name": "Bebidas",
+          "count": 2
+        },
+        {
+          "name": "Azucarados",
+          "count": 1
+        },
+        {
+          "name": "Misceláneos",
+          "count": 7
+        }
+      ],
+      "items": {
+        "Verduras": [
+          {
+            "name": "Ají Amarillo",
+            "quantity": "38.8 g",
+            "referencePrice": "S/ 1.44 · por 100 g",
+            "estimatedCost": "S/ 0.56",
+            "sources": [
+              "Ají de Pollería 30 g",
+              "Lomo Saltado 8.8 g"
+            ]
+          },
+          {
+            "name": "Ajo",
+            "quantity": "0.8 g",
+            "referencePrice": "S/ 1.75 · por 100 g",
+            "estimatedCost": "S/ 0.01",
+            "sources": [
+              "Ají de Pollería"
+            ]
+          },
+          {
+            "name": "Cebolla Morada",
+            "quantity": "77.5 g",
+            "referencePrice": "S/ 0.37 · por 100 g",
+            "estimatedCost": "S/ 0.29",
+            "sources": [
+              "Ensalada de palta 15 g",
+              "Lomo Saltado 62.5 g"
+            ]
+          },
+          {
+            "name": "Culantro",
+            "quantity": "3.5 g",
+            "referencePrice": "S/ 3.32 · por 100 g",
+            "estimatedCost": "S/ 0.12",
+            "sources": [
+              "Ensalada de palta 1.5 g",
+              "Lomo Saltado 2 g"
+            ]
+          },
+          {
+            "name": "Huacatay",
+            "quantity": "1.5 g",
+            "referencePrice": "S/ 5.98 · por 100 g",
+            "estimatedCost": "S/ 0.09",
+            "sources": [
+              "Ají de Pollería"
+            ]
+          },
+          {
+            "name": "Orégano Seco",
+            "quantity": "0.2 g",
+            "referencePrice": "S/ 27.29 · por 100 g",
+            "estimatedCost": "S/ 0.05",
+            "sources": [
+              "Ají de Pollería"
+            ]
+          },
+          {
+            "name": "Tomate",
+            "quantity": "117.5 g",
+            "referencePrice": "S/ 0.58 · por 100 g",
+            "estimatedCost": "S/ 0.69",
+            "sources": [
+              "Ensalada de palta 55 g",
+              "Lomo Saltado 62.5 g"
+            ]
+          }
+        ],
+        "Carnes": [
+          {
+            "name": "Bistec de Res",
+            "quantity": "150 g",
+            "referencePrice": "S/ 3.93 · por 100 g",
+            "estimatedCost": "S/ 5.89",
+            "sources": [
+              "Lomo Saltado"
+            ]
+          }
+        ],
+        "Cereales": [
+          {
+            "name": "Arroz Blanco Cocido",
+            "quantity": "150 g",
+            "referencePrice": "S/ 0.15 · por 100 g",
+            "estimatedCost": "S/ 0.23",
+            "sources": [
+              "Lomo Saltado"
+            ]
+          }
+        ],
+        "Tubérculos": [
+          {
+            "name": "Papa Blanca",
+            "quantity": "175 g",
+            "referencePrice": "S/ 0.30 · por 100 g",
+            "estimatedCost": "S/ 0.53",
+            "sources": [
+              "Lomo Saltado"
+            ]
+          }
+        ],
+        "Frutas": [
+          {
+            "name": "Palta",
+            "quantity": "90 g",
+            "referencePrice": "S/ 1.44 · por unidad",
+            "estimatedCost": "S/ 0.72",
+            "sources": [
+              "Ensalada de palta"
+            ]
+          },
+          {
+            "name": "Maracuyá",
+            "quantity": "80 g",
+            "referencePrice": "S/ 0.90 · por unidad",
+            "estimatedCost": "S/ 0.43",
+            "sources": [
+              "Refresco de Maracuyá"
+            ]
+          },
+          {
+            "name": "Jugo de Limón",
+            "quantity": "7.5 ml",
+            "referencePrice": "S/ 2.75 · por 100 ml",
+            "estimatedCost": "S/ 0.21",
+            "sources": [
+              "Ensalada de palta"
+            ]
+          }
+        ],
+        "Grasas": [
+          {
+            "name": "Aceite Vegetal",
+            "quantity": "130.6 ml",
+            "referencePrice": "S/ 0.86 · por 100 ml",
+            "estimatedCost": "S/ 1.12",
+            "sources": [
+              "Ají de Pollería 5.6 ml",
+              "Lomo Saltado 125 ml"
+            ]
+          },
+          {
+            "name": "Aceite de Oliva Virgen",
+            "quantity": "3.8 ml",
+            "referencePrice": "S/ 8.25 · por 100 ml",
+            "estimatedCost": "S/ 0.31",
+            "sources": [
+              "Ensalada de palta"
+            ]
+          }
+        ],
+        "Lácteos": [
+          {
+            "name": "Leche Evaporada Entera",
+            "quantity": "15 ml",
+            "referencePrice": "S/ 1.03 · por 100 ml",
+            "estimatedCost": "S/ 0.15",
+            "sources": [
+              "Ají de Pollería"
+            ]
+          }
+        ],
+        "Bebidas": [
+          {
+            "name": "Agua",
+            "quantity": "337.5 ml",
+            "referencePrice": "S/ 0.10 · por 100 ml",
+            "estimatedCost": "S/ 0.35",
+            "sources": [
+              "Ají de Pollería 112.5 ml",
+              "Refresco de Maracuyá 225 ml"
+            ]
+          },
+          {
+            "name": "Hielo",
+            "quantity": "30 g",
+            "referencePrice": "S/ 0.21 · por 100 g",
+            "estimatedCost": "S/ 0.06",
+            "sources": [
+              "Refresco de Maracuyá"
+            ]
+          }
+        ],
+        "Azucarados": [
+          {
+            "name": "Azúcar Blanca",
+            "quantity": "13.8 g",
+            "referencePrice": "S/ 0.47 · por 100 g",
+            "estimatedCost": "S/ 0.06",
+            "sources": [
+              "Refresco de Maracuyá"
+            ]
+          }
+        ],
+        "Misceláneos": [
+          {
+            "name": "Ajo Molido",
+            "quantity": "2.5 g",
+            "referencePrice": "S/ 4.29 · por 100 g",
+            "estimatedCost": "S/ 0.11",
+            "sources": [
+              "Lomo Saltado"
+            ]
+          },
+          {
+            "name": "Comino Molido",
+            "quantity": "0.4 g",
+            "referencePrice": "S/ 16.40 · por 100 g",
+            "estimatedCost": "S/ 0.06",
+            "sources": [
+              "Lomo Saltado"
+            ]
+          },
+          {
+            "name": "Mostaza",
+            "quantity": "1.5 g",
+            "referencePrice": "S/ 2.80 · por 100 g",
+            "estimatedCost": "S/ 0.04",
+            "sources": [
+              "Ají de Pollería"
+            ]
+          },
+          {
+            "name": "Pimienta Negra Molida",
+            "quantity": "0.7 g",
+            "referencePrice": "S/ 24.69 · por 100 g",
+            "estimatedCost": "S/ 0.17",
+            "sources": [
+              "Ají de Pollería 0.08 g",
+              "Ensalada de palta 0.13 g",
+              "Lomo Saltado 0.5 g"
+            ]
+          },
+          {
+            "name": "Sal de Mesa",
+            "quantity": "2.5 g",
+            "referencePrice": "S/ 0.26 · por 100 g",
+            "estimatedCost": "S/ 0.01",
+            "sources": [
+              "Ají de Pollería 0.75 g",
+              "Ensalada de palta 0.75 g",
+              "Lomo Saltado 1 g"
+            ]
+          },
+          {
+            "name": "Salsa de Soya",
+            "quantity": "12.5 ml",
+            "referencePrice": "S/ 1.76 · por 100 ml",
+            "estimatedCost": "S/ 0.22",
+            "sources": [
+              "Lomo Saltado"
+            ]
+          },
+          {
+            "name": "Vinagre Tinto",
+            "quantity": "8.8 ml",
+            "referencePrice": "S/ 0.44 · por 100 ml",
+            "estimatedCost": "S/ 0.04",
+            "sources": [
+              "Lomo Saltado"
+            ]
+          }
+        ]
+      }
+    },
+    "guided": {
+      "title": "LESS IN YOUR HEAD.",
+      "accent": "MORE ON YOUR PLATE.",
+      "descriptionBefore": "Follow each step with ",
+      "timing": "timing",
+      "betweenTimingAndGuidance": ", ",
+      "guidance": "guidance",
+      "betweenGuidanceAndNext": " and the ",
+      "nextMove": "next move",
+      "descriptionMiddle": " already in view. From ",
+      "prep": "prep to plating",
+      "descriptionAfter": ", CookPilot keeps the flow clear, fast and easy to follow — so your attention stays on the food, not on what comes next.",
+      "phoneAlt": "CookPilot guiding a recipe step by step on an iPhone",
+      "nextAria": "Show the next cooking step",
+      "continue": "Click to continue",
+      "steps": [
+        {
+          "title": "Everything ready. Now the heat.",
+          "body": "Slice the beef, onion, tomato and yellow chili, then chop the cilantro. Keep everything ready before the pan starts talking."
+        },
+        {
+          "title": "The crunch starts here.",
+          "body": "Fry the potatoes until golden and crisp. Let them hold their texture so they finish strong on the plate."
+        },
+        {
+          "title": "Hit it with high heat.",
+          "body": "Cook the beef in hot batches so it browns fast, stays juicy and builds the flavor base."
+        },
+        {
+          "title": "Fast, hot, together.",
+          "body": "Bring the beef back with onion, tomato and chili, then finish with garlic, soy sauce and vinegar while everything stays moving."
+        },
+        {
+          "title": "All of it, right on time.",
+          "body": "Finish with cilantro, plate immediately, and serve with rice and fries while the whole dish still feels alive."
+        }
+      ]
+    },
+    "saved": {
+      "title": "GOOD FOOD DESERVES",
+      "accent": "A SECOND TIME.",
+      "description": "Save the dishes you want to come back to — and bring them into tonight’s meal, tomorrow’s plan, or next week’s table.",
+      "save": "Save",
+      "remove": "Remove",
+      "removed": "Removed from saved.",
+      "fallback": "Saved.",
+      "recipes": [
+        {
+          "id": "caprese",
+          "name": "Ensalada caprese",
+          "descriptor": "Classic • Fresh • Elegant",
+          "saveCopy": "Saved for a fresh return."
+        },
+        {
+          "id": "lomo",
+          "name": "Lomo Saltado",
+          "descriptor": "Bold • Smoky • Satisfying",
+          "saveCopy": "Back for dinner."
+        },
+        {
+          "id": "palta",
+          "name": "Ensalada de palta",
+          "descriptor": "Fresh • Bright • Balanced",
+          "saveCopy": "Saved for a brighter side."
+        },
+        {
+          "id": "aji",
+          "name": "Ají de pollería",
+          "descriptor": "Creamy • Tangy • Addictive",
+          "saveCopy": "Saved for the next craving."
+        },
+        {
+          "id": "morada",
+          "name": "Jugo de maracuyá",
+          "descriptor": "Cold • Fruity • Refreshing",
+          "saveCopy": "Saved for the next table."
+        }
+      ]
+    },
+    "download": {
+      "title": "COOK WHAT YOU WANT.",
+      "accent": "YOUR WAY.",
+      "description": "From cravings to a complete meal, CookPilot helps you plan, shop, and cook with more clarity.",
+      "avatarAlt": "CookPilot giving a thumbs up",
+      "playOverline": "GET IT ON",
+      "play": "Google Play",
+      "huaweiOverline": "EXPLORE IT ON",
+      "huawei": "AppGallery"
+    },
+    "discovery": {
+      "title": "WHAT DO YOU",
+      "accent": "WANT NEXT?",
+      "cta": "Explore all recipes",
+      "railAria": "Explore eight CookPilot recipes",
+      "previous": "Previous recipe",
+      "next": "Next recipe",
+      "recipes": [
+        {
+          "eyebrow": "Coastal classic",
+          "title": "Tacu Tacu con Mariscos",
+          "description": "Golden tacu tacu with a creamy center, topped with a silky ají seafood sauce and plenty of cevichería energy."
+        },
+        {
+          "eyebrow": "Tropical chill",
+          "title": "Cheesecake de maracuyá",
+          "description": "Cold, creamy passion fruit cheesecake on a compact cookie crust, finished with a bright, glossy tropical topping."
+        },
+        {
+          "eyebrow": "Street fire",
+          "title": "Anticuchos De Corazón",
+          "description": "Juicy beef-heart skewers, charred at the edges with ají panca and vinegar, served with grilled potato and corn."
+        },
+        {
+          "eyebrow": "Molten indulgence",
+          "title": "Volcán De Chocolate",
+          "description": "Tender chocolate cake with a dark molten center that spills open at the first cut — rich, warm and unapologetically chocolate."
+        },
+        {
+          "eyebrow": "Amazonian feast",
+          "title": "Avispa juane",
+          "description": "Aromatic rice, pork and hen wrapped in bijao leaves — a festive Alto Mayo parcel made to open hungry."
+        },
+        {
+          "eyebrow": "Golden sour",
+          "title": "Aguaymanto Sour",
+          "description": "Pisco and aguaymanto shaken bright with lemon, finished beneath a smooth crown of egg-white foam."
+        },
+        {
+          "eyebrow": "Criollo classic",
+          "title": "Ají de Gallina",
+          "description": "Silky ají amarillo chicken over yellow potatoes, finished with egg, black olives and white rice — pure Peruvian comfort."
+        },
+        {
+          "eyebrow": "Golden scoop",
+          "title": "Helado de Lúcuma",
+          "description": "Silky lucuma ice cream with unmistakable notes of ripe fruit, caramel and natural vanilla in every golden spoonful."
+        }
+      ]
+    },
+    "pro": {
+      "title": "GO FURTHER",
+      "accent": "WITH PRO.",
+      "priceAria": "a solo S/ 25",
+      "priceIntro": "a solo",
+      "currency": "S/",
+      "amount": "25",
+      "compareAria": "Compare plans",
+      "free": "FREE",
+      "pro": "PRO",
+      "benefits": [
+        {
+          "id": "catalogue",
+          "pro": {
+            "firstLine": "1,000+ RECIPES.",
+            "secondLine": "ALL YOURS.",
+            "highlight": "first",
+            "subtitle": "Explore the full catalogue and cook far beyond the basics."
+          },
+          "free": {
+            "firstLine": "30 RECIPES.",
+            "secondLine": "READY TO COOK.",
+            "highlight": "first",
+            "subtitle": "A curated starting point from the CookPilot catalogue."
+          }
+        },
+        {
+          "id": "planning",
+          "pro": {
+            "firstLine": "PLAN THE",
+            "secondLine": "WHOLE MONTH.",
+            "highlight": "second",
+            "subtitle": "Shape more of your month, not just the current week."
+          },
+          "free": {
+            "firstLine": "PLAN",
+            "secondLine": "THIS WEEK.",
+            "highlight": "second",
+            "subtitle": "Keep the current week organized and easy to adjust."
+          }
+        },
+        {
+          "id": "import",
+          "pro": {
+            "firstLine": "BRING RECIPES",
+            "secondLine": "FROM ANYWHERE.",
+            "highlight": "second",
+            "subtitle": "Turn links, photos, videos and PDFs into usable recipes."
+          }
+        },
+        {
+          "id": "prices",
+          "pro": {
+            "firstLine": "KNOW WHAT",
+            "secondLine": "DINNER COSTS.",
+            "highlight": "second",
+            "subtitle": "See prices, compare totals and make smarter food decisions."
+          }
+        },
+        {
+          "id": "personal",
+          "pro": {
+            "firstLine": "MAKE RECIPES",
+            "secondLine": "YOURS.",
+            "highlight": "second",
+            "subtitle": "Copy, edit and keep your own version of a dish."
+          }
+        },
+        {
+          "id": "live",
+          "pro": {
+            "firstLine": "COOK WITH",
+            "secondLine": "LIVE HELP.",
+            "highlight": "second",
+            "subtitle": "Get help while cooking, right when you need it."
+          }
+        }
+      ]
+    },
+    "footer": {
+      "brandAria": "CookPilot",
+      "brandCook": "Cook",
+      "brandPilot": "Pilot",
+      "tagline": "From craving to plate.",
+      "taglineAccent": "Your way.",
+      "download": "Download CookPilot",
+      "navAria": "Footer navigation",
+      "product": "Product",
+      "guides": "Guides",
+      "privacy": "Privacy & Terms",
+      "linkedin": "LinkedIn",
+      "origin": "EST. IN PERU · MADE FOR YOU",
+      "back": "Back to top"
+    }
+  }
+}

@@ -93,7 +93,7 @@ export default function DownloadExperience() {
         </button>
 
         <div className={styles.brand} aria-hidden="true">
-          <Image src="/images/img_app_icon.png" alt="" width={128} height={128} />
+          <Image src="/images/cookpilot/cookpilot_logo.png" alt="" width={128} height={128} />
         </div>
         <h2 id="download-dialog-title">{t.download_experience.title}</h2>
         <p id="download-dialog-description" className={styles.description}>
@@ -102,14 +102,14 @@ export default function DownloadExperience() {
 
         <div className={styles.stores}>
           <a href={installLinks.googlePlay} target="_blank" rel="noreferrer">
-            <Image src="/icons/play-store.png" alt="" width={48} height={48} />
+            <Image src="/icons/stores/google-play.png" alt="" width={48} height={48} />
             <span>
               <small>{t.download_experience.available_on}</small>
               <strong>Google Play</strong>
             </span>
           </a>
           <a href={installLinks.appGallery} target="_blank" rel="noreferrer">
-            <Image src="/icons/huawei-gallery.png" alt="" width={48} height={48} />
+            <Image src="/icons/stores/app-gallery.png" alt="" width={48} height={48} />
             <span>
               <small>{t.download_experience.available_on}</small>
               <strong>AppGallery</strong>

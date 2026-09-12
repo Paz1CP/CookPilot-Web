@@ -273,7 +273,7 @@ main {
 .ingredient-crop {
   width: 72px;
   height: 72px;
-  background-image: url("/images/food_images/transparent_bg/lomo_saltado.png");
+  background-image: url("/images/food/cutouts/lomo_saltado.png");
   background-size: 350%;
   border-radius: 45% 55% 57% 43%;
   background-position: 35% 68%;

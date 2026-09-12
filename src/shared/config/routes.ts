@@ -4,7 +4,6 @@ export type LocalizedRouteKey =
   | "home"
   | "howItWorks"
   | "guides"
-  | "pro"
   | "faq"
   | "compare"
   | "gallery";
@@ -14,7 +13,6 @@ export const localizedRoutes = {
     home: "/es",
     howItWorks: "/es/como-funciona",
     guides: "/es/guias",
-    pro: "/es/pro",
     faq: "/es/faq",
     compare: "/es/comparativas",
     gallery: "/es/gallery",
@@ -23,7 +21,6 @@ export const localizedRoutes = {
     home: "/en",
     howItWorks: "/en/how-it-works",
     guides: "/en/guides",
-    pro: "/en/pro",
     faq: "/en/faq",
     compare: "/en/compare",
     gallery: "/en/gallery",

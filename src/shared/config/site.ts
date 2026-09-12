@@ -35,7 +35,7 @@ export const siteConfig = {
   defaultLocale,
   localizedRoutes,
   defaultOpenGraphImage: {
-    path: "/images/og/cookpilot-og.png",
+    path: "/images/cookpilot/cookpilot_logo.png",
     width: 1200,
     height: 630,
     alt: {
@@ -75,11 +75,6 @@ export const siteConfig = {
         description:
           "Aprende a dominar CookPilot paso a paso: planificación, compras, nutrición, cocina guiada, importación y reutilización.",
       },
-      pro: {
-        title: "Pro | CookPilot",
-        description:
-          "Desbloquea el sistema completo de CookPilot para planificar, ajustar, comprar y cocinar de forma recurrente.",
-      },
       faq: {
         title: "Preguntas frecuentes | CookPilot",
         description:
@@ -111,11 +106,6 @@ export const siteConfig = {
         title: "Guides | CookPilot",
         description:
           "Learn how to master CookPilot step by step: planning, shopping, nutrition, guided cooking, import, and reuse.",
-      },
-      pro: {
-        title: "Pro | CookPilot",
-        description:
-          "Unlock the complete CookPilot system to plan, adjust, shop, and cook on a recurring basis.",
       },
       faq: {
         title: "FAQ | CookPilot",
@@ -165,7 +155,6 @@ export const siteConfig = {
     home: { changeFrequency: "weekly", priority: 1 },
     howItWorks: { changeFrequency: "weekly", priority: 0.8 },
     guides: { changeFrequency: "weekly", priority: 0.8 },
-    pro: { changeFrequency: "weekly", priority: 0.9 },
     faq: { changeFrequency: "weekly", priority: 0.7 },
     compare: { changeFrequency: "weekly", priority: 0.8 },
     gallery: { changeFrequency: "daily", priority: 0.9 },

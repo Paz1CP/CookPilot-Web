@@ -4,13 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useState } from "react";
-import { Sun1, Moon } from "iconsax-reactjs";
+import { Sun1, Moon, SearchNormal1 } from "iconsax-reactjs";
 import styles from "./Header.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
 import { usePathname } from "next/navigation";
 import { DownloadButton } from "@/shared/download/DownloadExperience";
 import { getLocalizedRoute } from "@/shared/config/routes";
-import AuthDialog from "@/features/auth-web/AuthDialog";
 
 export default function Header() {
   const { t, locale, toggleLocale } = useLocale();
@@ -40,10 +39,18 @@ export default function Header() {
   const menuItems = [
     { label: t.header.como_funciona, href: getLocalizedRoute(locale, "howItWorks") },
     { label: t.header.guias, href: getLocalizedRoute(locale, "guides") },
-    { label: t.header.pro, href: getLocalizedRoute(locale, "pro") },
+    { label: t.header.pro, href: `${locale === "es" ? "/es" : "/en"}#go-pro`, isLandingAnchor: true },
     { label: t.header.faq, href: getLocalizedRoute(locale, "faq") },
-    { label: t.header.gallery, href: getLocalizedRoute(locale, "gallery") },
   ];
+
+  const handleProClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const homePath = locale === "es" ? "/es" : "/en";
+    if (pathname !== homePath) return;
+
+    event.preventDefault();
+    document.getElementById("go-pro")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", `${homePath}#go-pro`);
+  };
 
   return (
     <motion.header
@@ -55,7 +62,7 @@ export default function Header() {
       <div className={styles.inner}>
         <Link href={locale === "es" ? "/es" : "/en"} className={styles.logo}>
           <Image
-            src="/images/img_app_icon.png"
+            src="/images/cookpilot/cookpilot_logo.png"
             alt={t.header.logo_alt}
             width={36}
             height={36}
@@ -74,7 +81,8 @@ export default function Header() {
               key={item.href}
               href={item.href}
               className={`${styles.navLink} ${pathname === item.href ? styles.navLinkActive : ""}`}
-              aria-current={pathname === item.href ? "page" : undefined}
+              aria-current={!item.isLandingAnchor && pathname === item.href ? "page" : undefined}
+              onClick={item.isLandingAnchor ? handleProClick : undefined}
             >
               {item.label}
             </Link>
@@ -89,7 +97,7 @@ export default function Header() {
             title={t.header.toggle_language}
           >
             <Image
-              src={locale === "es" ? "/icons/usa-icon.png" : "/icons/peru-icon.png"}
+              src={locale === "es" ? "/icons/locale/usa-flag.png" : "/icons/locale/peru-flag.png"}
               alt=""
               width={24}
               height={24}
@@ -110,7 +118,14 @@ export default function Header() {
             )}
           </button>
 
-          <AuthDialog label={t.header.iniciar_sesion} locale={locale} />
+          <Link
+            href={getLocalizedRoute(locale, "gallery")}
+            className={styles.iconBtn}
+            aria-label={t.header.open_gallery}
+            title={t.header.open_gallery}
+          >
+            <SearchNormal1 variant="Bold" size={24} color="currentColor" aria-hidden="true" />
+          </Link>
 
           <DownloadButton className={styles.downloadBtn}>
             {t.header.descargar}

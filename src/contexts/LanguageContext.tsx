@@ -10,6 +10,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import es from "@/locales/es.json";
 import en from "@/locales/en.json";
+import landingEnglish from "@/locales/landing.en.json";
 import {
   getAlternateLocalizedRoute,
   switchCookShareLocalePath,
@@ -17,9 +18,14 @@ import {
 } from "@/shared/config/routes";
 
 export type Locale = AppLocale;
-export type Translations = typeof es;
+const esTranslations = { ...es, ...landingEnglish };
+const enTranslations = { ...en, ...landingEnglish };
+export type Translations = typeof enTranslations;
 
-const locales: Record<Locale, Translations> = { es, en };
+const locales: Record<Locale, Translations> = {
+  es: esTranslations as Translations,
+  en: enTranslations,
+};
 
 function getLocaleFromPath(pathname: string): Locale | null {
   if (pathname.startsWith("/en")) return "en";
@@ -47,6 +53,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const locale = getLocaleFromPath(pathname) ?? fallbackLocale;
+  const isLanding = /^\/(?:en|es)\/?$/.test(pathname);
 
   useEffect(() => {
     window.localStorage.setItem("cp-locale", locale);
@@ -66,7 +73,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   return (
     <LanguageContext.Provider
-      value={{ locale, t: locales[locale], toggleLocale }}
+      value={{ locale, t: isLanding ? enTranslations : locales[locale], toggleLocale }}
     >
       {children}
     </LanguageContext.Provider>

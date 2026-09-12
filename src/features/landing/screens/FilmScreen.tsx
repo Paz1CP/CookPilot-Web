@@ -1,42 +1,37 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HeroAtmosphere from "./HeroAtmosphere";
+import { useLocale } from "@/contexts/LanguageContext";
+import HeroAtmosphere from "../components/HeroAtmosphere";
 
 const ASSET = "/images/cook-film/";
 const FOOD = "/images/food/cutouts/";
 const socialIcons = [
-  {file:"ig",name:"Instagram",x:27,y:29,size:112,dx:-.7,dy:-.5,float:12,rotation:-8},
-  {file:"tiktok",name:"TikTok",x:74,y:34,size:124,dx:.7,dy:-.3,float:14,rotation:7},
-  {file:"yt",name:"YouTube Shorts",x:24,y:55,size:108,dx:-.7,dy:.2,float:10,rotation:-5},
-  {file:"fb",name:"Facebook",x:68,y:16,size:76,dx:.2,dy:-.6,float:6,rotation:10},
-  {file:"web",name:"Web",x:76,y:63,size:84,dx:.5,dy:.6,float:8,rotation:4},
-];
-const dishes = [
-  ["lomo_saltado", "Lomo saltado", "THE START OF SOMETHING GOOD"],
-  ["ceviche", "Ceviche", "A LITTLE BRIGHTER. A LITTLE BOLDER."],
-  ["papa_huancaina", "Papa a la huancaína", "GOLDEN, CREAMY. COMPLETELY YOURS."],
-  ["aji_de_gallina", "Ají de gallina", "THE KIND OF COMFORT YOU COME BACK TO."],
+  {file:"ig",x:27,y:29,size:112,dx:-.7,dy:-.5,float:12,rotation:-8},
+  {file:"tiktok",x:74,y:34,size:124,dx:.7,dy:-.3,float:14,rotation:7},
+  {file:"yt",x:24,y:55,size:108,dx:-.7,dy:.2,float:10,rotation:-5},
+  {file:"fb",x:68,y:16,size:76,dx:.2,dy:-.6,float:6,rotation:10},
+  {file:"web",x:76,y:63,size:84,dx:.5,dy:.6,float:8,rotation:4},
 ];
 const field = [
-  {file:"beef_cubes.png", label:"Beef", x:-.33, y:-.30, z:160, size:270, r:-14},
-  {label:"FOR TWO", x:-.23, y:-.26, z:-100, size:170, r:-9},
-  {file:"potato_sticks.png", label:"Potatoes", x:.32, y:-.37, z:-170, size:220, r:18},
-  {label:"MORE PROTEIN", x:.41, y:-.08, z:40, size:180, r:7},
-  {file:"red_onion_wedges.png", label:"Red onion", x:-.35, y:.24, z:160, size:310, r:25},
-  {label:"LESS RICE", x:-.44, y:-.04, z:-180, size:160, r:5},
-  {file:"tomato_wedges.png", label:"Tomatoes", x:.41, y:.28, z:160, size:330, r:-20},
-  {label:"30 MIN MAX", x:.23, y:.24, z:-100, size:170, r:-8},
-  {file:"yellow_pepper_strips.png", label:"Yellow pepper", x:.08, y:-.40, z:-290, size:155, r:-18},
-  {label:"KEEP THE FRIES", x:-.13, y:.23, z:90, size:205, r:4},
-  {file:"cilantro_chopped.png", label:"Cilantro", x:.42, y:-.24, z:200, size:190, r:20},
+  {file:"beef_cubes.png", x:-.33, y:-.30, z:160, size:270, r:-14},
+  {x:-.23, y:-.26, z:-100, size:170, r:-9},
+  {file:"potato_sticks.png", x:.32, y:-.37, z:-170, size:220, r:18},
+  {x:.41, y:-.08, z:40, size:180, r:7},
+  {file:"red_onion_wedges.png", x:-.35, y:.24, z:160, size:310, r:25},
+  {x:-.44, y:-.04, z:-180, size:160, r:5},
+  {file:"tomato_wedges.png", x:.41, y:.28, z:160, size:330, r:-20},
+  {x:.23, y:.24, z:-100, size:170, r:-8},
+  {file:"yellow_pepper_strips.png", x:.08, y:-.40, z:-290, size:155, r:-18},
+  {x:-.13, y:.23, z:90, size:205, r:4},
+  {file:"cilantro_chopped.png", x:.42, y:-.24, z:200, size:190, r:20},
 ];
 const ingredients = [
-  ["Beef", "300 g", "beef_cubes.png"], ["Red onion", "2", "red_onion_wedges.png"],
-  ["Tomatoes", "2", "tomato_wedges.png"], ["Yellow pepper", "1", "yellow_pepper_strips.png"],
-  ["Potatoes", "300 g", "potato_sticks.png"], ["Cilantro", "10 g", "cilantro_chopped.png"],
+  "beef_cubes.png", "red_onion_wedges.png", "tomato_wedges.png",
+  "yellow_pepper_strips.png", "potato_sticks.png", "cilantro_chopped.png",
 ];
 
 const sunburstArms = [
@@ -67,6 +62,8 @@ function Title({name, first, accent}: {name:string; first:string; accent:string}
 }
 
 export default function Film() {
+  const copy = useLocale().t.landing.film;
+  const dishes = copy.dishes;
   const root = useRef<HTMLDivElement>(null);
   const advanceDishRef = useRef<() => void>(() => undefined);
   const [viewportRevision, setViewportRevision] = useState(0);
@@ -88,8 +85,8 @@ export default function Film() {
     gsap.set(heroImages, {opacity:0, rotation:0, scale:1});
     gsap.set(heroImages[0], {opacity:1});
     const heroCaption = host.querySelector(".hero-caption")!;
-    gsap.set(heroCaption.querySelector("span"), {textContent:dishes[0][1]});
-    gsap.set(heroCaption.querySelector("small"), {textContent:dishes[0][2]});
+    gsap.set(heroCaption.querySelector("span"), {textContent:dishes[0].name});
+    gsap.set(heroCaption.querySelector("small"), {textContent:dishes[0].caption});
     const advanceDish = () => {
       if (window.scrollY > 4 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const images = host.querySelectorAll<HTMLImageElement>(".hero-food");
@@ -99,8 +96,8 @@ export default function Film() {
       const caption = host.querySelector(".hero-caption")!;
       carousel?.kill();
       carousel = gsap.timeline().to(old,{opacity:0, rotation:180, scale:.95, duration:fast(.65), ease:"power2.in"})
-        .set(caption.querySelector("span"),{textContent:dishes[dishIndex][1]},fast(.65))
-        .set(caption.querySelector("small"),{textContent:dishes[dishIndex][2]},fast(.65))
+        .set(caption.querySelector("span"),{textContent:dishes[dishIndex].name},fast(.65))
+        .set(caption.querySelector("small"),{textContent:dishes[dishIndex].caption},fast(.65))
         .fromTo(next,{opacity:0,rotation:-180,scale:.95},{opacity:1,rotation:0,scale:1,duration:fast(1.05),ease:"power3.out"},fast(.55));
     };
     advanceDishRef.current = advanceDish;
@@ -110,6 +107,8 @@ export default function Film() {
       const mobile = !!context.conditions?.mobile;
       const reduced = !!context.conditions?.reduced;
       const w = host.clientWidth, h = window.innerHeight;
+      const tokenPrimary = getComputedStyle(host).getPropertyValue("--cp-primary").trim();
+      const tokenSuccess = getComputedStyle(host).getPropertyValue("--cp-secondary").trim();
       const $ = gsap.utils.selector(host);
       const plateSize = Math.min(w * (mobile ? 1.08 : .76), h * (mobile ? .98 : 1.12));
       const emptySize = Math.min(w * .64, h * (mobile ? .49 : .60));
@@ -199,7 +198,7 @@ export default function Film() {
         .fromTo($(".list-composition"),{scale:2.6,y:h*.40,rotationX:reduced?0:26},{scale:1,y:0,rotationX:0,duration:fast(mobile?5:3.4),ease:"power3.out"},mobile?22.8:24.4)
         .fromTo($(".ingredient-row"),{y:(i:number)=>h*(.16+i*.025),opacity:0},{y:0,opacity:1,duration:fast(3),stagger:.10,ease:"power3.out"},24)
         .fromTo($(".list-title"),{y:-h*.3,autoAlpha:0},{y:0,autoAlpha:1,duration:fast(3.5)},24.5)
-        .to($(".row-check"),{backgroundColor:"#f5c928",borderColor:"#f5c928",color:"#15130b",duration:fast(.5),stagger:.55},29)
+        .to($(".row-check"),{backgroundColor:tokenPrimary,borderColor:tokenPrimary,color:"var(--cp-text-inverse)",duration:fast(.5),stagger:.55},29)
         .to($(".list-ready"),{opacity:1,duration:fast(1)},32);
 
       // The completed check becomes the action track. UI travels out of frame, never ghosts.
@@ -223,19 +222,19 @@ export default function Film() {
         .fromTo($(".instruction-two"),{y:24},{y:0,autoAlpha:1,duration:fast(.8)},46.7)
         .to($(".mode-stir"),{autoAlpha:1,duration:fast(1.4)},46)
         .to($(".mode-beef"),{autoAlpha:0,duration:fast(1.4)},46)
-        .set($(".step-1"),{opacity:1,backgroundColor:"#8ac900",color:"#10140b",textContent:"✓"},46)
+        .set($(".step-1"),{opacity:1,backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},46)
         .to($(".action-seed"),{x:trackLeft+stepSize/2+(trackWidth-stepSize)*.75,duration:fast(1.2)},46)
         .set($(".step-2"),{opacity:0},47.2)
         .set($(".action-seed span"),{textContent:"2"},47.2)
         .to($(".instruction-two"),{autoAlpha:0,y:-24,duration:fast(.7)},54)
         .fromTo($(".instruction-three"),{y:24},{y:0,autoAlpha:1,duration:fast(.8)},54.7)
-        .set($(".step-2"),{opacity:1,backgroundColor:"#8ac900",color:"#10140b",textContent:"✓"},54)
+        .set($(".step-2"),{opacity:1,backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},54)
         .to($(".action-seed"),{x:trackLeft+trackWidth-stepSize/2,duration:fast(1.2)},54)
         .set($(".step-3"),{opacity:0},55.2)
         .set($(".action-seed span"),{textContent:"✓"},55.2)
-        .to($(".action-seed"),{backgroundColor:"#8ac900",duration:fast(.6)},55.2)
+        .to($(".action-seed"),{backgroundColor:tokenSuccess,duration:fast(.6)},55.2)
         // Return ownership to the actual timeline node before its camera exits.
-        .set($(".step-3"),{opacity:1,backgroundColor:"#8ac900",color:"#10140b",textContent:"✓"},55.8)
+        .set($(".step-3"),{opacity:1,backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},55.8)
         .set($(".action-seed"),{autoAlpha:0},55.8);
 
       // One food element survives the macro reference, return, and discovery of Saturday lunch.
@@ -309,73 +308,71 @@ export default function Film() {
       return () => tl.scrollTrigger?.kill();
     },host);
     return () => {clearInterval(timer);carousel?.kill();advanceDishRef.current=()=>undefined;mm.revert();};
-  },[viewportRevision]);
+  },[viewportRevision, dishes]);
 
   return <div className="film-experience" ref={root} id="top">
     <div className="film-anchor" id="film" /><div className="film-anchor" id="film-stage" />
     <div className="film-anchor serve-anchor" id="serve" />
     <div className="film-canvas">
       <HeroAtmosphere />
-      <section className="film-hero" aria-label="Cook what you want. Your way.">
-        <div className="hero-title"><p>FROM CRAVING. TO YOUR TABLE.</p><h1><span>COOK WHAT YOU <em>WANT.</em></span><strong>YOUR <em>WAY.</em></strong></h1></div>
-        <div className="hero-caption hero-recipe"><HeroSunburst/><span>Lomo saltado</span><small>THE START OF SOMETHING GOOD</small></div>
-        <a className="hero-down" href="#film-stage" aria-label="Watch the CookPilot film"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v15m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
-        <p className="hero-origin">EST. IN PERU <span>·</span> MADE FOR YOU</p>
+      <section className="film-hero" aria-label={copy.heroAria}>
+        <div className="hero-title"><p>{copy.kicker}</p><h1><span>{copy.heroLineOne} <em>{copy.heroWant}</em></span><strong>{copy.heroLineTwo} <em>{copy.heroWay}</em></strong></h1></div>
+        <div className="hero-caption hero-recipe"><HeroSunburst/><span>{dishes[0].name}</span><small>{dishes[0].caption}</small></div>
+        <a className="hero-down" href="#film-stage" aria-label={copy.watchAria}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v15m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
+        <p className="hero-origin">{copy.origin}</p>
       </section>
       <div className="protagonist">
-        <div className="hero-foods" role="button" tabIndex={0} aria-label="Change dish" onClick={() => advanceDishRef.current()} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); advanceDishRef.current(); } }}>{dishes.map(([file,name],i)=><img className="hero-food" key={file} src={FOOD+file+".png"} alt={name} style={{opacity:i===0?1:0}} fetchPriority={i===0?"high":"auto"} draggable={false} />)}</div>
-        <img className="empty-food" src={ASSET+"lomo_plate_empty.webp"} alt="An empty plate" draggable={false}/>
+        <div className="hero-foods" role="button" tabIndex={0} aria-label={copy.changeDishAria} onClick={() => advanceDishRef.current()} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); advanceDishRef.current(); } }}>{dishes.map((dish,i)=><Image className="hero-food" key={dish.file} src={FOOD+dish.file+".png"} alt={dish.name} width={1600} height={1600} style={{opacity:i===0?1:0}} fetchPriority={i===0?"high":"auto"} draggable={false} />)}</div>
+        <Image className="empty-food" src={ASSET+"lomo_plate_empty.webp"} alt={copy.emptyPlateAlt} width={1600} height={1600} draggable={false}/>
       </div>
-      <Title name="opening-title" first="LET'S MAKE IT" accent="REAL."/>
-      <div className="request-field" aria-label="Your requests and ingredients">
+      <Title name="opening-title" first={copy.openingFirst} accent={copy.openingAccent}/>
+      <div className="request-field" aria-label={copy.requestAria}>
         {field.map((item,i)=><div className={`field-object ${item.file?"ingredient-object":"ticket-object"}`} key={i}>
-          {item.file?<img src={ASSET+item.file} alt={item.label}/>:<div className={`request-ticket ${item.label==="KEEP THE FRIES"?"gold-ticket":""}`}><small>KITCHEN NOTE</small><strong>{item.label}</strong><span>COOKPILOT / YOUR WAY</span></div>}
+          {item.file?<Image src={ASSET+item.file} alt={copy.requests[i]} width={640} height={640}/>:<div className={`request-ticket ${i===9?"gold-ticket":""}`}><small>{copy.kitchenNote}</small><strong>{copy.requests[i]}</strong><span>{copy.ticketSignature}</span></div>}
         </div>)}
       </div>
       <div className="compression-light" aria-hidden="true"><i/><b/></div>
       <div className="action-seed" aria-hidden="true"><span>✓</span></div>
-      <div className="cooklist" aria-label="CookList for Lomo Saltado">
-        <Title name="list-title" first="EVERYTHING YOU" accent="NEED."/>
+      <div className="cooklist" aria-label={copy.listAria}>
+        <Title name="list-title" first={copy.listFirst} accent={copy.listAccent}/>
         <div className="list-composition">
-          <div className="list-heading"><b className="product-wordmark">Cook<em>Pilot</em></b><div className="list-controls"><span className="portion-pill">− &nbsp; 2 people &nbsp; +</span><span className="yellow-pill">All in one place</span></div></div>
-          <div className="ingredient-grid">{ingredients.map(([name,amount,file])=><div className="ingredient-row" key={name}><span className="row-check">✓</span><img src={ASSET+file} alt=""/><strong>{name}</strong><span className="ingredient-amount">{amount}</span></div>)}</div>
-          <div className="list-ready"><strong>Lomo Saltado</strong><span>READY TO COOK</span></div>
+          <div className="list-heading"><b className="product-wordmark">{copy.brandCook}<em>{copy.brandPilot}</em></b><div className="list-controls"><span className="portion-pill">− &nbsp; {copy.people} &nbsp; +</span><span className="yellow-pill">{copy.allInOne}</span></div></div>
+          <div className="ingredient-grid">{ingredients.map((file,index)=><div className="ingredient-row" key={file}><span className="row-check">✓</span><Image src={ASSET+file} alt="" width={65} height={65}/><strong>{copy.ingredients[index].name}</strong><span className="ingredient-amount">{copy.ingredients[index].amount}</span></div>)}</div>
+          <div className="list-ready"><strong>{dishes[0].name}</strong><span>{copy.readyToCook}</span></div>
         </div>
       </div>
-      <div className="cookmode" aria-label="CookMode for Lomo Saltado">
-        <Title name="mode-title" first="WHEN IT'S TIME TO COOK," accent="JUST COOK."/>
+      <div className="cookmode" aria-label={copy.modeAria}>
+        <Title name="mode-title" first={copy.modeFirst} accent={copy.modeAccent}/>
         <div className="mode-track"><span className="mode-done">✓</span><span className="mode-done">✓</span>{[1,2,3].map(n=><span className={`step step-${n}`} key={n}>{n}</span>)}<i/></div>
         <div className="mode-lower-row">
-          <div className="instruction-plane instruction-one"><small>01 / SEAR</small><p>START WITH HEAT.<br/><em>GIVE IT COLOR.</em></p></div>
-          <div className="instruction-plane instruction-two"><small>02 / STIR-FRY</small><p>BRING IT TOGETHER.<br/><em>LET IT GLOW.</em></p></div>
-          <div className="instruction-plane instruction-three"><small>03 / READY</small><p>MADE YOUR WAY.<br/><em>READY.</em></p></div>
-          <div className="mode-food"><img className="mode-beef" src="/images/food/lomo_beef_only.png" alt="Lomo Saltado, browned beef"/><img className="mode-stir" src="/images/food/lomo_stir_fry.png" alt="Lomo Saltado, stir fry"/></div>
+          {copy.instructions.map((instruction,index)=><div className={`instruction-plane instruction-${["one","two","three"][index]}`} key={instruction.meta}><small>{instruction.meta}</small><p>{instruction.line}<br/><em>{instruction.accent}</em></p></div>)}
+          <div className="mode-food"><Image className="mode-beef" src="/images/food/lomo_beef_only.png" alt={copy.modeBeefAlt} width={640} height={640}/><Image className="mode-stir" src="/images/food/lomo_stir_fry.png" alt={copy.modeStirAlt} width={640} height={640}/></div>
         </div>
       </div>
-        <div className="cookplan" aria-label="CookPlan: Saturday lunch">
-          <div className="plan-top"><b className="product-wordmark">Cook<em>Pilot</em></b><span>YOUR WEEK</span></div>
-          <div className="plan-days">{["Wed","Thu","Fri","Sat","Sun","Mon","Tue"].map((d,i)=><div className={i===3?"chosen":""} key={d}><span>{d}</span><strong>{15+i}</strong></div>)}</div>
+        <div className="cookplan" aria-label={copy.planAria}>
+          <div className="plan-top"><b className="product-wordmark">{copy.brandCook}<em>{copy.brandPilot}</em></b><span>{copy.yourWeek}</span></div>
+          <div className="plan-days">{copy.weekDays.map((day,i)=><div className={i===3?"chosen":""} key={day}><span>{day}</span><strong>{15+i}</strong></div>)}</div>
           <div className="plan-meal">
-            <div className="lunch-header"><strong><i className="lunch-icon">☀</i>Lunch</strong><span>2 people</span><b>Cook ↗</b></div>
+              <div className="lunch-header"><strong><i className="lunch-icon">☀</i>{copy.lunch}</strong><span>{copy.people}</span><b>{copy.cook}</b></div>
             <div className="lunch-menu">
-              <div className="lunch-item"><div className="lunch-food-slot"/><strong>Lomo Saltado</strong></div>
-              <div className="lunch-item"><div className="lunch-food-slot"><img src={FOOD+"ensalada_de_palta.png"} alt="Ensalada"/></div><strong>Ensalada</strong></div>
-              <div className="lunch-item"><div className="lunch-food-slot"><img src="/images/food/jugo_maracuya_cutout.png" alt="Jugo de Maracuyá"/></div><strong>Jugo de Maracuyá</strong></div>
+                <div className="lunch-item"><div className="lunch-food-slot"/><strong>{copy.mealItems[0].name}</strong></div>
+                <div className="lunch-item"><div className="lunch-food-slot"><Image src={FOOD+"ensalada_de_palta.png"} alt={copy.mealItems[1].alt} width={640} height={640}/></div><strong>{copy.mealItems[1].name}</strong></div>
+                <div className="lunch-item"><div className="lunch-food-slot"><Image src="/images/food/jugo_maracuya_cutout.png" alt={copy.mealItems[2].alt} width={640} height={640}/></div><strong>{copy.mealItems[2].name}</strong></div>
             </div>
           </div>
         </div>
       <div className="meal-world">
-        <img className="return-food" src={FOOD+"lomo_saltado.png"} alt="Lomo Saltado" draggable={false}/>
+        <Image className="return-food" src={FOOD+"lomo_saltado.png"} alt={dishes[0].name} width={640} height={640} draggable={false}/>
       </div>
-      <Title name="plan-title" first="RIGHT WHERE IT" accent="BELONGS."/>
+      <Title name="plan-title" first={copy.planFirst} accent={copy.planAccent}/>
       <div className="table-contact" aria-hidden="true"/>
-      <div className="table-shot" aria-label="The meal reaches the table"><img className="table-photo" src={ASSET+"lomo_table_final.png"} alt="Lomo Saltado served on a wooden table"/><div className="table-shade"/><Title name="table-title" first="YOU WANTED IT." accent="NOW IT'S REAL."/></div>
-      <section className="rehook" aria-label="Make it yours">
-        <img className="rehook-phone" src="/images/cook-film/lomo_phone_hand.png" alt="CookPilot showing Lomo Saltado on a phone held in a hand" draggable={false}/>
+      <div className="table-shot" aria-label={copy.tableAria}><Image className="table-photo" src={ASSET+"lomo_table_final.png"} alt={copy.tableAlt} width={1672} height={941}/><div className="table-shade"/><Title name="table-title" first={copy.tableFirst} accent={copy.tableAccent}/></div>
+      <section className="rehook" aria-label={copy.rehookAria}>
+        <Image className="rehook-phone" src="/images/cook-film/lomo_phone_hand.png" alt={copy.rehookAlt} width={1200} height={1200} draggable={false}/>
         {socialIcons.map((icon,i)=><div className="rehook-icon" key={icon.file} style={{left:`${icon.x}%`,top:`${icon.y}%`,width:`min(${icon.size / 10}vw, ${icon.size / 7}vh)`}}>
-          <img src={`/icons/social/${icon.file}.png`} alt={icon.name} draggable={false} style={{animationDuration:`${6+i*.85}s`,animationDelay:`-${i*1.3}s`,"--float":`${icon.float}px`,"--rotation":`${icon.rotation}deg`} as React.CSSProperties}/>
+          <Image src={`/icons/social/${icon.file}.png`} alt={copy.socialNames[i]} width={320} height={320} draggable={false} style={{animationDuration:`${6+i*.85}s`,animationDelay:`-${i*1.3}s`,"--float":`${icon.float}px`,"--rotation":`${icon.rotation}deg`} as React.CSSProperties}/>
         </div>)}
-        <Title name="rehook-title" first="THE INTERNET IS FULL OF" accent="THINGS YOU WANT TO EAT."/>
+        <Title name="rehook-title" first={copy.rehookFirst} accent={copy.rehookAccent}/>
       </section>
     </div>
   </div>;

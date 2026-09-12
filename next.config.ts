@@ -1,8 +1,18 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
+  onDemandEntries: {
+    maxInactiveAge: 30 * 1000,
+    pagesBufferLength: 1,
+  },
+  experimental: {
+    turbopackFileSystemCacheForDev: false,
+    turbopackMemoryLimit: 512 * 1024 * 1024,
+  },
   turbopack: {
-    root: process.cwd(),
+    root: path.resolve("."),
   },
   images: {
     remotePatterns: [

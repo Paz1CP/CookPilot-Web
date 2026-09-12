@@ -1,9 +1,0 @@
-[    5436ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[    5633ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[  132728ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[  132988ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[  141061ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[  141217ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[ 1375704ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[ 1376355ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
-[ 1376377ms] [LOG] [Fast Refresh] done in 23ms @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
