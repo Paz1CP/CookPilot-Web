@@ -2,274 +2,682 @@
 
 ## Propósito
 
-Este documento define el lenguaje visual permanente de CookPilot. No describe una pantalla puntual ni una campaña temporal. Define cómo debe verse, sentirse y comportarse CookPilot en cualquier pieza digital para que el producto conserve identidad, coherencia y nivel, incluso cuando cambien layouts, assets, contenido o herramientas.
+Este documento define el lenguaje visual permanente de CookPilot.
 
-CookPilot no debe sentirse como una web genérica de startup, una UI fría de productividad ni una app de cocina decorativa. Su identidad vive en la intersección entre **producto editorial premium**, **calidez gastronómica** y **claridad funcional**. El resultado debe transmitir una sensación muy concreta: **comida organizada con intención, belleza y control**.
+No describe una página concreta, una sección actual, una campaña temporal, un asset específico ni una composición que deba conservarse para siempre. Su función es establecer los principios que deben seguir siendo verdaderos aunque cambien layouts, contenido, herramientas, componentes, recetas, navegación o tecnología.
 
----
+CookPilot debe poder rediseñarse sin perder identidad.
 
-## La sensación que debe dominar
+La dirección visual vive en la intersección entre:
 
-CookPilot debe sentirse como un sistema de comida diseñado con gusto. Debe proyectar criterio, cuidado, apetito y sofisticación. La sensación general no es juguetona ni corporativa: es **premium, cálida, apetecible, moderna y segura de sí misma**.
+- **producto editorial premium**;
+- **gastronomía deseable y real**;
+- **producto digital funcional y creíble**;
+- **dirección cinematográfica controlada**.
 
-La marca debe habitar un equilibrio estable:
+La sensación final debe ser inequívoca:
 
-- **lujo silencioso**, no lujo ostentoso;
-- **editorial**, no burocrático;
-- **cálido**, no infantil;
-- **expresivo**, no caótico;
-- **contemporáneo**, no futurista frío.
-
-Cuando una persona vea CookPilot, debe percibir que hay diseño serio detrás, pero también sabor, vida y humanidad. Debe sentirse como un producto que vale más de lo que cuesta.
+> **Comida organizada con intención, belleza, deseo y control.**
 
 ---
 
-## Idea rectora
+## Tesis visual
 
-La dirección visual de CookPilot se resume así:
+CookPilot debe sentirse como un sistema digital de alimentación diseñado con gusto.
 
-**Un sistema digital de organización alimentaria presentado con sensibilidad editorial premium y con la comida real como protagonista emocional.**
+No debe parecer:
 
-Eso implica que el diseño no se apoya solo en cajas, textos y botones. Se apoya en composición, jerarquía, contraste, ritmo, fotografía, ilustración, movimiento y atmósfera.
+- una landing genérica de startup;
+- una UI fría de productividad;
+- una app culinaria decorativa;
+- un catálogo de componentes;
+- una demo de efectos;
+- una colección de screenshots pegados;
+- una interfaz "premium" basada únicamente en negro, glow y bordes redondeados.
 
----
+CookPilot debe sentirse:
 
-## Principios del lenguaje visual
+- **premium**, sin ostentación;
+- **editorial**, sin rigidez burocrática;
+- **cálido**, sin infantilizar;
+- **expresivo**, sin ruido;
+- **moderno**, sin futurismo clínico;
+- **apetecible**, sin sobresaturación;
+- **seguro de sí mismo**, sin desesperación comercial.
 
-### 1. La marca debe verse diseñada, no ensamblada
+La referencia no es "una web bonita".
 
-Cada vista debe sentirse compuesta. Nada debe parecer colocado por inercia. El usuario debe percibir intención en jerarquía, escala, aire, alineación y ritmo. CookPilot no se construye como una colección de componentes repetidos sin criterio. Se construye como una experiencia dirigida.
-
-### 2. La jerarquía manda
-
-La gente no lee primero: escanea, siente y decide. Por eso la jerarquía visual es una herramienta central, no un adorno. Los títulos deben tener autoridad real. Los acentos en negrita deben guiar la lectura. Los bloques secundarios deben acompañar, no competir. La claridad de lectura debe nacer de la composición antes que del esfuerzo del usuario.
-
-### 3. La comida real es un activo de marca
-
-Las recetas, platos e ingredientes no son relleno visual. Son una de las grandes fuentes de deseo, diferenciación y credibilidad de CookPilot. Cuando aparecen, deben verse reales, deseables, bien fotografiados y culturalmente coherentes. La comida debe elevar la marca.
-
-### 4. La calidez no se negocia
-
-Aunque CookPilot pueda usar contrastes altos, superficies oscuras o fondos más sobrios, nunca debe volverse clínico. Debe conservar una calidez perceptible a través del color, la luz, los glows, los materiales, la fotografía y el tono general.
-
-### 5. La personalidad entra por acentos, no por saturación
-
-CookPilot tiene carácter. Pero su personalidad no debe aparecer como ruido visual constante. Debe entrar mediante momentos precisos: una ilustración bien usada, un glow con intención, una composición memorable, una imagen de comida poderosa, una transición que sorprende, una presencia puntual del avatar. El diseño gana más por selección que por acumulación.
+La referencia es una marca cuidadosamente dirigida por personas que entienden producto, apetito, composición y valor percibido.
 
 ---
 
-## Composición
+## Principio rector
 
-La composición en CookPilot debe sentirse **editorial y cinematográfica**. Eso significa que el layout puede variar entre secciones o pantallas, pero siempre debe conservar unidad interna, proporciones controladas y relaciones visuales claras.
+> **Diseñamos relaciones, no acumulaciones de componentes.**
 
-Se busca una composición con estas cualidades:
+Cada composición debe tener una lógica visual dominante: qué importa, qué acompaña, qué transforma a qué, qué debe mirarse primero y por qué.
 
-- bloques con siluetas distintas pero pertenecientes al mismo sistema;
-- alternancia de respiros y densidad visual;
-- zonas de foco inequívoco;
-- uso intencional del vacío;
-- relación clara entre protagonista y contexto;
-- ritmo visual entre secciones, evitando la monotonía.
+CookPilot no reparte atención de forma democrática entre todos los elementos.
 
-No se debe diseñar todo como una sucesión de rectángulos equivalentes. Algunas zonas deben ser más abiertas, otras más inmersivas, otras más contenidas. La variedad formal es deseable siempre que la lectura siga siendo natural.
+Una composición fuerte necesita un protagonista inequívoco.
 
 ---
 
-## Tipografía
+# 1. Jerarquía radical
 
-La tipografía es uno de los mayores vehículos de sofisticación en CookPilot. Debe transmitir autoridad, limpieza y carácter.
+La gente primero escanea, luego siente y después decide si leer.
 
-La norma principal es simple: **tipografía grande, clara y segura**. Los títulos deben tener presencia real. Los cuerpos deben ser cómodos de leer también en pantallas grandes. La jerarquía no debe depender de trucos decorativos sino de escala, peso, interlineado, contraste y agrupación.
+La jerarquía debe resolver esa secuencia sin esfuerzo.
 
-Patrones deseables:
+Reglas:
 
-- títulos grandes, contundentes y compactos;
-- subtítulos más limpios y respirables;
-- uso inteligente de negritas para revelar estructura;
-- mezcla clara entre información protagonista y soporte;
-- ritmos tipográficos consistentes entre breakpoints;
-- lectura fácil en desktop, no solo en móvil.
+- Toda vista, bloque o composición debe tener **una idea dominante**.
+- Debe existir un protagonista visual claro.
+- Los elementos secundarios deben apoyar al protagonista, no competir con él.
+- La escala, peso, espacio y posición deben resolver la lectura antes que los adornos.
+- Un título importante debe tener presencia real.
+- El soporte debe ser suficientemente legible, pero nunca ocupar el mismo nivel visual que el claim principal.
+- Si seis elementos gritan al mismo tiempo, ninguno es protagonista.
 
-Patrones a evitar:
+Antes de añadir decoración, resolver primero:
 
-- texto demasiado pequeño por estética;
-- saltos arbitrarios de tamaño entre secciones;
-- tracking inconsistente por capricho;
-- párrafos largos con peso visual excesivo;
-- manifestos densos que exigen demasiado esfuerzo.
-
-CookPilot debe hablar con frases más claras que largas. El diseño debe ayudar a que el contenido se entienda de un vistazo y luego se profundice solo si el usuario quiere hacerlo.
+1. escala;
+2. contraste;
+3. alineación;
+4. relación espacial;
+5. ritmo;
+6. densidad.
 
 ---
 
-## Color y atmósfera
+# 2. Una idea dominante por bloque
 
-El color en CookPilot debe construir atmósfera, no solo contraste funcional. La marca vive bien en entornos oscuros, cálidos y profundos, pero necesita respiración y cambios de temperatura para no sentirse plana. Por eso el sistema debe aceptar una alternancia intencional entre tramos **dark, warm y light**, siempre conservando continuidad de marca.
+Cada bloque debe poder explicarse con una sola frase.
 
-La paleta debe sentirse:
+Si necesita vender una idea, debe vender **esa idea** y no intentar mostrar simultáneamente todas las capacidades del producto.
 
-- cálida;
-- rica en contraste;
+Un bloque puede ser rico, pero esa riqueza debe organizarse en capas.
+
+Cuando una zona necesita impacto, debe respirar.
+
+Cuando necesita detalle, el detalle debe estar subordinado y organizado.
+
+No añadir contenido simplemente porque "hay espacio".
+
+---
+
+# 3. Producto como prueba, no como screenshot
+
+Cuando aparezca la UI de CookPilot, debe demostrar algo concreto.
+
+La interfaz real no debe utilizarse como relleno visual ni como una captura pegada dentro de una composición.
+
+La UI puede:
+
+- mostrar una transformación;
+- probar una capacidad;
+- revelar un estado;
+- conectar un objeto con otro;
+- demostrar continuidad;
+- mostrar causa y consecuencia;
+- reforzar credibilidad.
+
+Debe integrarse a la composición mediante escala, profundidad, encuadre, secuencia o interacción.
+
+Evitar repetir el mismo tratamiento de dispositivo o mockup por costumbre.
+
+El producto debe sentirse vivo cuando la narrativa lo necesita y quieto cuando la claridad lo exige.
+
+---
+
+# 4. La comida es deseo, evidencia y narrativa
+
+La comida real es uno de los activos de marca más poderosos de CookPilot.
+
+No es decoración.
+
+Debe verse:
+
+- realista;
 - apetecible;
-- controlada;
-- premium.
+- culturalmente coherente;
+- bien iluminada;
+- bien compuesta;
+- textural;
+- editorial;
+- suficientemente grande para importar.
 
-Los glows son parte del lenguaje de CookPilot. No son un efecto de moda ni una textura superficial. Bien usados, aportan calor, dirección, profundidad y presencia. Deben sentirse integrados al ambiente, no pegados encima. La luz debe sugerir cocina nocturna premium, materia y sabor, no neón decorativo ni fantasía tecnológica.
+La fotografía debe tener propósito.
 
----
+Puede funcionar como:
 
-## Fotografía e imagen
+- protagonista emocional;
+- transición narrativa;
+- evidencia de resultado;
+- materia editorial;
+- acento de marca;
+- soporte visual de una decisión.
 
-CookPilot debe apoyarse en imagen con mucha más ambición que una landing convencional. La imagen correcta puede elevar una sección entera.
+No repetir una misma receta, pose o composición solo porque existe un asset conveniente.
 
-La fotografía ideal en CookPilot tiene estas cualidades:
+La repetición visual excesiva reduce el universo percibido del producto.
 
-- alta calidad real, no apariencia de stock genérico;
-- luz cuidada;
-- color apetecible;
-- composición premium;
-- materiales honestos;
-- comida realista;
-- textura visible;
-- sensación de editorial gastronómico.
-
-Las fotos de comida pueden cumplir varios roles: hero atmosférico, soporte emocional, card visual, grid final, acento de marca o refuerzo de deseo. Pero no deben usarse sin criterio. Deben entrar cuando suman claridad, apetito o prestigio.
-
-Cuando se usen imágenes, el texto no debe pelear con ellas. La imagen debe sostener la atmósfera y la jerarquía debe permanecer legible.
+Cuando una escena necesita frescura, variar plato, categoría, color, textura, encuadre o situación culinaria.
 
 ---
 
-## Ilustración, iconografía y avatar
+# 5. Ritmo de superficies
 
-CookPilot admite ilustración e iconografía con fuerte personalidad. Deben tener volumen, presencia y acabado premium. No deben parecer iconos genéricos de librería ni gráficos planos sin alma.
+CookPilot no debe convertirse en una sucesión interminable de `#000`.
 
-Las ilustraciones e iconos deben cumplir una función visible: explicar, dar ritmo, introducir un tema, aportar personalidad o enriquecer una composición. No deben existir como decoración vacía.
+El aire debe tener estructura.
 
-El avatar de CookPilot es un acento de marca, no el protagonista permanente. Su mejor uso es **puntual y memorable**. Cuando aparece, debe sumar simpatía, calidez o énfasis. Cuando no aporta, debe desaparecer.
+La profundidad y el ritmo pueden construirse alternando de manera intencional:
+
+- negro profundo;
+- warm black;
+- charcoal;
+- marrones oscuros;
+- superficies claras;
+- grandes campos sólidos;
+- fotografía full-bleed;
+- contenedores monumentales;
+- bandas o masas de color;
+- espacios abiertos.
+
+La página o producto debe tener cambios de temperatura y densidad.
+
+Regla práctica:
+
+> **No resolver toda la experiencia con el mismo fondo, la misma card y la misma separación.**
+
+Las superficies deben ayudar a distinguir capítulos sin convertir cada bloque en una caja.
 
 ---
 
-## Cards, contenedores y superficies
+# 6. Vacío intencional vs. vacío accidental
 
-CookPilot no debe depender de la card con borde como solución universal. Las superficies deben variar según función. Algunas veces el mejor contenedor será casi invisible; otras veces será una imagen viva; otras, una caja limpia y contenida.
+El aire puede comunicar lujo.
 
-La regla no es “usar cards”, sino **usar contención con intención**.
+El vacío accidental comunica falta de diseño.
 
-Las superficies deben sentirse:
+Mucho espacio funciona cuando:
 
+- aumenta la autoridad de un protagonista;
+- crea pausa;
+- mejora el ritmo;
+- prepara una transición;
+- amplifica una imagen o un claim.
+
+No funciona cuando:
+
+- los elementos simplemente flotan lejos unos de otros;
+- no existe una relación compositiva;
+- el fondo se siente desocupado;
+- la sección parece inacabada;
+- el usuario percibe escasez de contenido o intención.
+
+Cuando exista demasiado vacío, no responder automáticamente con más objetos.
+
+Primero considerar:
+
+- una superficie mayor;
+- una masa de color;
+- una fotografía;
+- tipografía monumental de fondo;
+- un cambio de densidad;
+- una composición más contenida.
+
+---
+
+# 7. Contención monumental antes que carditis
+
+No todo necesita una card.
+
+Una sección completa puede convertirse en una superficie.
+
+Una imagen puede ser el contenedor.
+
+Un objeto puede vivir libremente sobre el canvas.
+
+Una composición puede utilizar una gran masa visual en lugar de cinco cajas pequeñas.
+
+Usar cards cuando exista una razón real:
+
+- comparación;
+- selección;
+- agrupación;
+- interacción;
+- repetición estructurada;
+- contenido que necesita contención.
+
+Evitar:
+
+- grids genéricos por inercia;
+- icono + título + párrafo repetido sin necesidad;
+- bordes alrededor de todo;
+- nested cards;
+- cajas que solo existen para "ordenar".
+
+---
+
+# 8. Tipografía
+
+La tipografía debe sentirse segura, grande y deliberada.
+
+CookPilot habla mejor con frases claras que con muros de texto.
+
+Principios:
+
+- títulos grandes y compactos;
+- claims fáciles de escanear;
+- contraste claro entre protagonista y soporte;
+- cuerpos legibles también en desktop grande;
+- line-height controlado;
+- longitud de línea deliberada;
+- wrapping cuidado;
+- jerarquía por peso y escala antes que por adornos;
+- consistencia entre idiomas y breakpoints.
+
+Evitar:
+
+- texto diminuto por estética;
+- párrafos demasiado largos;
+- tracking arbitrario;
+- saltos de escala sin lógica;
+- etiquetas tímidas que parecen metadata accidental;
+- demasiados niveles tipográficos compitiendo.
+
+---
+
+# 9. Copy visual y marketing
+
+El copy visual debe vender el resultado que el usuario entiende.
+
+Primero el beneficio. Después el mecanismo, si realmente importa.
+
+No convertir marketing en documentación interna.
+
+Evitar como contenido protagonista:
+
+- nombres internos de sistemas;
+- grants;
+- créditos;
+- resource keys;
+- límites técnicos;
+- nomenclatura de backend;
+- explicación de billing;
+- etiquetas que obligan a conocer el producto por dentro.
+
+Una card de beneficio debe tener, cuando aplique:
+
+- un claim claro;
+- una parte de énfasis;
+- una línea breve de soporte.
+
+No llenar cards con chips, badges, mini métricas o listas porque hay espacio.
+
+> **Vende la experiencia, no el ledger.**
+
+Usar nombres propios de producto solo cuando el nombre ayude a entender, recordar o posicionar la capacidad.
+
+---
+
+# 10. Marketing visual editorial
+
+Las superficies comerciales deben sentirse editoriales, no promocionales en exceso.
+
+Para beneficios:
+
+- una idea por card o composición;
+- claim fuerte;
+- soporte mínimo;
+- imagen o icono con presencia real;
+- suficiente aire;
+- un contraste evidente entre estados cuando exista comparación.
+
+No utilizar como patrón automático:
+
+- badges "PRO";
+- candados gigantes;
+- "included";
+- checks por todas partes;
+- tablas disfrazadas de cards;
+- microcopy explicando lo obvio;
+- seis CTAs compitiendo.
+
+CookPilot debe vender con claridad y deseo, no con ansiedad.
+
+---
+
+# 11. Luz, profundidad y glow
+
+La luz y la profundidad sí forman parte del lenguaje CookPilot.
+
+El glow es **solo una herramienta posible**.
+
+No es obligatorio.
+
+No debe convertirse en la solución universal para hacer algo "premium".
+
+La profundidad puede construirse con:
+
+- contraste de superficies;
+- fotografía;
+- escala;
+- superposición;
+- materiales;
+- sombra;
+- masa;
+- color;
+- luz;
+- desenfoque cuando tenga sentido;
+- movimiento.
+
+Usar glows únicamente cuando:
+
+- aportan dirección;
+- refuerzan foco;
+- integran un objeto al ambiente;
+- introducen calor;
+- hacen visible una relación.
+
+Evitar halos decorativos pegados detrás de todos los elementos.
+
+Preferir soluciones robustas y fáciles de mantener antes que composiciones dependientes de muchas luces absolutamente posicionadas.
+
+---
+
+# 12. Iconografía e ilustración 3D
+
+La iconografía CookPilot puede tener mucha personalidad.
+
+Debe sentirse:
+
+- tridimensional;
+- cálida;
+- glossy;
+- táctil;
+- legible;
+- premium;
+- amigable sin ser infantil.
+
+Un icono debe representar el beneficio real.
+
+No seleccionar assets por similitud de filename o conveniencia.
+
+Si ningún icono existente comunica bien la idea, crear uno nuevo.
+
+Regla:
+
+> **El significado manda sobre la reutilización.**
+
+Evitar iconos genéricos de librería cuando debiliten la marca.
+
+---
+
+# 13. Avatar
+
+El avatar de CookPilot es un acento de marca.
+
+No es mascota omnipresente ni relleno.
+
+Usarlo cuando aporte:
+
+- simpatía;
+- cierre;
+- énfasis;
+- compañía;
+- personalidad;
+- memoria de marca.
+
+Debe aparecer de manera puntual y memorable.
+
+Si no suma a la composición, debe desaparecer.
+
+Nunca usarlo como pequeño sticker para llenar huecos.
+
+---
+
+# 14. Movimiento semántico
+
+Cada movimiento debe poder explicarse.
+
+Preguntar:
+
+- ¿qué objeto se mueve?
+- ¿qué lo causa?
+- ¿adónde va?
+- ¿qué relación comunica?
+- ¿qué entiende mejor el usuario gracias a ese movimiento?
+
+Un movimiento válido puede expresar:
+
+- continuidad;
+- selección;
+- progreso;
+- transformación;
+- consecuencia;
+- cambio de estado;
+- recontextualización;
+- transición espacial.
+
+Si el movimiento existe solo porque "se ve cool", probablemente sobra.
+
+---
+
+# 15. Continuidad de objetos
+
+Cuando una misma entidad conceptual continúa entre momentos, conservar su identidad visual cuando sea posible.
+
+Preferir:
+
+- match moves;
+- reframing;
+- scale transitions;
+- object handoff;
+- transformaciones;
+- continuidad de imagen;
+- persistencia de posición o trayectoria.
+
+Evitar reemplazar arbitrariamente un objeto por otro cuando la narrativa pretende decir que es el mismo.
+
+La continuidad reduce explicación y aumenta sensación cinematográfica.
+
+---
+
+# 16. Motion restraint
+
+No repetir el mismo mecanismo de animación en toda la experiencia.
+
+Autoplay, crossfade, parallax, sticky, reveal, scroll-driven motion y loops son herramientas diferentes.
+
+Usarlas únicamente cuando mejoren la historia o comprensión.
+
+No añadir movimiento para demostrar habilidad técnica.
+
+Mantener:
+
+- spatial model coherente;
+- easing controlado;
+- transform/opacity cuando sea posible;
+- rendimiento;
+- reduced motion;
+- continuidad responsive.
+
+---
+
+# 17. Anti "AI slop"
+
+CookPilot debe evitar patrones que se sienten generados por acumulación.
+
+Evitar especialmente:
+
+- clouds de chips;
+- glows sin función;
+- decoraciones flotantes arbitrarias;
+- iconos dispersos sin jerarquía;
+- grids genéricos sin narrativa;
+- copy pseudo-inspiracional vacío;
+- demasiados badges;
+- mockups sin motivo;
+- cards idénticas por defecto;
+- timelines decorativos;
+- flechas puestas solo para "dar dinamismo";
+- exceso de glassmorphism;
+- gradientes multicolor por moda;
+- efectos que parecen demo técnica;
+- UI inventada que no representa el producto real.
+
+La expresividad debe venir de decisiones fuertes, no de cantidad de adornos.
+
+---
+
+# 18. Profundidad sin complejidad frágil
+
+Preferir soluciones visuales que sobrevivan responsive y mantenimiento.
+
+Antes de usar diez elementos absolutamente posicionados, intentar resolver con:
+
+- una gran superficie;
+- una composición más fuerte;
+- fotografía;
+- tipografía;
+- color;
+- escala;
+- layout;
+- un único asset bien diseñado.
+
+La sofisticación no debe depender de fragilidad técnica.
+
+---
+
+# 19. Responsive como recomposición
+
+CookPilot no se encoge.
+
+Se recompone.
+
+Desktop puede utilizar:
+
+- escala;
+- asimetría;
+- overlap;
+- amplitud;
+- composición cinematográfica.
+
+Tablet debe conservar jerarquía sin convertirse en un estado intermedio torpe.
+
+Mobile debe reorganizar la experiencia con intención.
+
+No simplemente apilar todo lo que existía en desktop.
+
+Preservar:
+
+- protagonista;
+- lectura;
+- ritmo;
+- deseo visual;
+- tamaño digno de producto;
+- interacción comprensible.
+
+---
+
+# 20. Conversión
+
+CookPilot debe vender sin parecer desesperado por vender.
+
+La conversión nace de:
+
+- deseo;
+- claridad;
+- confianza;
+- percepción de valor;
+- reducción de fricción.
+
+Las zonas comerciales deben sentirse:
+
+- seguras;
 - limpias;
-- táctiles;
-- suaves;
-- bien proporcionadas;
-- premium;
-- integradas al ambiente.
-
-En general, CookPilot funciona mejor con superficies sin rigidez innecesaria. El contorno duro y obvio debe evitarse cuando reste sofisticación. La profundidad puede construirse más por luz, contraste, superposición, material y sombra sutil que por bordes excesivos.
-
-Las cards con imagen deben verse casi como recortes editoriales vivos. Las cards informativas deben sentirse refinadas y legibles, nunca burocráticas.
-
----
-
-## Movimiento
-
-El movimiento en CookPilot tiene protagonismo real. No es accesorio. Debe ayudar a que la experiencia se sienta viva, premium y contemporánea.
-
-El movimiento ideal es:
-
-- cinematográfico;
-- fluido;
-- expresivo;
-- controlado;
-- útil para dirigir la atención;
-- capaz de crear sorpresa y recordación.
-
-Se valora especialmente el uso de animaciones ligadas al scroll, transiciones que revelan contenido con intención y microinteracciones que den sensación de producto cuidado. El movimiento puede ser ambicioso, pero no debe romper claridad, rendimiento ni coherencia.
-
-La animación en CookPilot nunca debe sentirse como “demo técnica”. Debe sentirse como una extensión natural del lenguaje visual.
-
----
-
-## Densidad y respiración
-
-CookPilot debe dominar una tensión delicada: ser rico sin ser ruidoso, abundante sin ser pesado, informativo sin ser verbalista.
-
-Eso se resuelve con un principio simple: **cada bloque debe tener una idea dominante**.
-
-Cuando una pantalla o sección necesite detalle, el detalle debe organizarse en capas claras. Cuando necesite impacto, debe respirar. No todo puede gritar al mismo tiempo.
-
-El aire es parte del lujo. La densidad es parte del sabor. El buen diseño de CookPilot sabe alternar ambos.
-
----
-
-## Conversión y deseo
-
-CookPilot debe vender sin parecer desesperado por vender. La conversión ideal en esta marca no nace de la presión; nace del deseo, de la claridad y de la percepción de valor.
-
-Las zonas más orientadas a conversión deben verse:
-
-- premium;
-- claras;
-- confiables;
 - decididas;
 - visualmente cuidadas;
 - libres de explicación innecesaria.
 
-Menos texto, más convicción. Menos fricción, más nitidez. El diseño debe hacer que pagar, descargar o continuar parezca una decisión natural.
+Menos texto.
+
+Más convicción.
 
 ---
 
-## Responsive
+# 21. Lo que nunca debe convertirse en canon
 
-CookPilot no debe encogerse; debe recomponerse. El responsive no consiste en miniaturizar desktop ni en simplificar hasta perder carácter. Cada breakpoint debe conservar jerarquía, presencia y respiración propias.
+No documentar como regla artística permanente:
 
-En pantallas grandes, la marca debe aprovechar escala, aire e impacto. En tablet y móvil, debe conservar claridad, ritmo y dignidad visual. Un diseño correcto en CookPilot se siente intencional en cada tamaño, no “adaptado como se pudo”.
+- el orden actual de una landing;
+- el número actual de secciones;
+- una receta concreta;
+- una captura específica;
+- un dispositivo concreto;
+- un asset puntual;
+- la ubicación actual de un CTA;
+- una composición temporal;
+- un carousel actual;
+- una animación específica de una campaña;
+- un copy temporal;
+- una implementación técnica actual.
 
----
+Extraer siempre el principio reusable detrás de la solución.
 
-## Lo que siempre debe evitarse
-
-CookPilot debe evitar de forma consistente:
-
-- apariencia genérica de template;
-- exceso de cajas idénticas;
-- abuso de bordes visibles;
-- tipografía pequeña y tímida;
-- largos muros de texto;
-- glows estridentes o artificiales;
-- iconos pobres o de biblioteca genérica cuando debiliten la marca;
-- mockups usados por obligación y no por composición;
-- exceso de elementos decorativos sin función;
-- layouts que se sienten correctos pero olvidables;
-- frialdad tecnológica;
-- expresividad infantil;
-- decisiones visuales arbitrarias;
-- inconsistencias tipográficas entre pantallas o secciones;
-- cualquier solución que reste apetito, claridad o prestigio.
+La dirección artística debe sobrevivir a la desaparición de la página que la inspiró.
 
 ---
 
-## Criterio de decisión
+# 22. Criterio de decisión
 
-Cuando existan varias rutas posibles, debe elegirse la que mejor cumpla estas preguntas:
+Cuando existan varias rutas, elegir la que mejor responda:
 
 1. ¿Se siente inequívocamente más premium?
 2. ¿Se entiende más rápido?
 3. ¿Tiene más deseo visual?
 4. ¿Conserva calidez real?
-5. ¿Parece más diseñada y menos ensamblada?
+5. ¿Parece diseñada y no ensamblada?
 6. ¿Pertenece a CookPilot y no a una startup cualquiera?
-7. ¿Puede sostenerse en el tiempo sin sentirse moda pasajera?
+7. ¿La comida, producto o beneficio correcto es realmente protagonista?
+8. ¿La composición tiene una idea dominante?
+9. ¿El vacío es intencional o accidental?
+10. ¿El movimiento explica algo?
+11. ¿La decoración cumple una función?
+12. ¿La solución seguirá funcionando si cambia el contenido?
+13. ¿La solución sobrevivirá responsive sin hacks frágiles?
+14. ¿Estamos vendiendo una experiencia o explicando mecanismos internos?
+15. ¿Puede sostenerse en el tiempo sin sentirse moda pasajera?
 
-Si una propuesta es correcta pero genérica, no basta. Si es llamativa pero incoherente, tampoco. La dirección correcta es la que logra **impacto con criterio**.
+Una propuesta correcta pero genérica no basta.
+
+Una propuesta llamativa pero incoherente tampoco.
+
+La dirección correcta es:
+
+> **impacto con criterio.**
 
 ---
 
 ## Declaración final
 
-CookPilot debe verse como una marca de producto digital con criterio editorial, sensibilidad gastronómica y ambición premium. Debe sentirse cálida, memorable, moderna y viva. Debe hacer que organizar comida parezca más deseable, más claro y más valioso.
+CookPilot debe verse como una marca de producto digital con criterio editorial, sensibilidad gastronómica, claridad funcional y ambición premium.
 
-No diseñamos para llenar páginas. Diseñamos para que la gente quiera entrar, quedarse, confiar y avanzar.
+Debe sentirse:
 
-La referencia final no es “una web bonita”. La referencia final es esta:
+- cálida;
+- memorable;
+- moderna;
+- viva;
+- apetecible;
+- segura;
+- dirigida.
 
-**CookPilot debe parecer una marca cuidadosamente dirigida por gente que entiende producto, apetito, composición y valor percibido.**
+No diseñamos para llenar páginas.
+
+Diseñamos para que la gente quiera entrar, quedarse, confiar y avanzar.
+
+> **CookPilot debe parecer una marca cuidadosamente dirigida por gente que entiende producto, apetito, composición y valor percibido.**

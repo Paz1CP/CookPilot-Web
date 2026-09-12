@@ -1,303 +1,382 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HeroAtmosphere from "./HeroAtmosphere";
 
-const FILM = "/images/CookFilm/";
+const ASSET = "/images/CookFilm/";
 const FOOD = "/images/food_images/transparent_bg/";
-const LOMO = `${FOOD}lomo_saltado.png`;
-const EMPTY = `${FILM}lomo_plate_empty.webp`;
-
-const heroDishes = [
-  { file: "lomo_saltado", name: "Lomo saltado", line: "THE START OF SOMETHING GOOD" },
-  { file: "ceviche", name: "Ceviche", line: "A LITTLE BRIGHTER. A LITTLE BOLDER." },
-  { file: "papa_a_la_huancaina", name: "Papa a la huancaína", line: "GOLDEN, CREAMY. COMPLETELY YOURS." },
-  { file: "aji_de_gallina", name: "Ají de gallina", line: "THE KIND OF COMFORT YOU COME BACK TO." },
-  { file: "ensalada_de_palta", name: "Ensalada de palta", line: "FRESH HAS A WAY OF WINNING YOU OVER." },
+const socialIcons = [
+  {file:"ig",name:"Instagram",x:27,y:29,size:112,dx:-.7,dy:-.5,float:12,rotation:-8},
+  {file:"tiktok",name:"TikTok",x:74,y:34,size:124,dx:.7,dy:-.3,float:14,rotation:7},
+  {file:"yt",name:"YouTube Shorts",x:24,y:55,size:108,dx:-.7,dy:.2,float:10,rotation:-5},
+  {file:"fb",name:"Facebook",x:68,y:16,size:76,dx:.2,dy:-.6,float:6,rotation:10},
+  {file:"web",name:"Web",x:76,y:63,size:84,dx:.5,dy:.6,float:8,rotation:4},
 ];
-
-const tickets = [
-  { label: "FOR TWO", x: -35, y: -26, r: -8 },
-  { label: "MORE PROTEIN", x: 37, y: -31, r: 7 },
-  { label: "LESS RICE", x: -40, y: 18, r: 5 },
-  { label: "30 MIN MAX", x: 39, y: 24, r: -6 },
-  { label: "KEEP THE FRIES", x: -8, y: 37, r: 3, gold: true },
+const dishes = [
+  ["lomo_saltado", "Lomo saltado", "THE START OF SOMETHING GOOD"],
+  ["ceviche", "Ceviche", "A LITTLE BRIGHTER. A LITTLE BOLDER."],
+  ["papa_a_la_huancaina", "Papa a la huancaína", "GOLDEN, CREAMY. COMPLETELY YOURS."],
+  ["aji_de_gallina", "Ají de gallina", "THE KIND OF COMFORT YOU COME BACK TO."],
 ];
-
+const field = [
+  {file:"beef_cubes.png", label:"Beef", x:-.33, y:-.30, z:160, size:270, r:-14},
+  {label:"FOR TWO", x:-.23, y:-.26, z:-100, size:170, r:-9},
+  {file:"potato_sticks.png", label:"Potatoes", x:.32, y:-.37, z:-170, size:220, r:18},
+  {label:"MORE PROTEIN", x:.41, y:-.08, z:40, size:180, r:7},
+  {file:"red_onion_wedges.png", label:"Red onion", x:-.35, y:.24, z:160, size:310, r:25},
+  {label:"LESS RICE", x:-.44, y:-.04, z:-180, size:160, r:5},
+  {file:"tomato_wedges.png", label:"Tomatoes", x:.41, y:.28, z:160, size:330, r:-20},
+  {label:"30 MIN MAX", x:.23, y:.24, z:-100, size:170, r:-8},
+  {file:"yellow_pepper_strips.png", label:"Yellow pepper", x:.08, y:-.40, z:-290, size:155, r:-18},
+  {label:"KEEP THE FRIES", x:-.13, y:.23, z:90, size:205, r:4},
+  {file:"cilantro_chopped.png", label:"Cilantro", x:.42, y:-.24, z:200, size:190, r:20},
+];
 const ingredients = [
-  { file: "beef_cubes.png", name: "Beef", x: -27, y: -39, r: 10 },
-  { file: "potato_sticks.png", name: "Potatoes", x: 28, y: -39, r: -7 },
-  { file: "red_onion_wedges.png", name: "Red onion", x: -45, y: -5, r: 6 },
-  { file: "tomato_wedges.png", name: "Tomatoes", x: 45, y: -2, r: -10 },
-  { file: "yellow_pepper_strips.png", name: "Yellow pepper", x: -30, y: 38, r: -5 },
-  { file: "cilantro_chopped.png", name: "Cilantro", x: 31, y: 39, r: 8 },
+  ["Beef", "300 g", "beef_cubes.png"], ["Red onion", "2", "red_onion_wedges.png"],
+  ["Tomatoes", "2", "tomato_wedges.png"], ["Yellow pepper", "1", "yellow_pepper_strips.png"],
+  ["Potatoes", "300 g", "potato_sticks.png"], ["Cilantro", "10 g", "cilantro_chopped.png"],
 ];
 
-const listItems = [
-  ["Beef", "300 g"], ["Red onion", "2"], ["Tomatoes", "2"],
-  ["Yellow pepper", "1"], ["Potatoes", "300 g"], ["Rice", "150 g"],
-];
+const sunburstArms = [
+  [-90, 16.5, 1.8], [-61, 14.2, -1.2], [-35, 16.9, 1.4], [-8, 14.8, -.8],
+  [18, 16.1, 1.1], [47, 14.6, -1.5], [73, 16.8, .7], [101, 14.4, -1.1],
+  [128, 16.4, 1.3], [157, 14.9, -.9], [184, 16.2, 1.5], [218, 14.3, -.7], [251, 16.6, 1.1],
+] as const;
 
-const steps = ["Adjust", "Shop", "Cook", "Plan", "Serve"];
-const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-const smooth = (value: number) => { const n = clamp(value); return n * n * (3 - 2 * n); };
-const phase = (value: number, start: number, end: number) => smooth((value - start) / (end - start));
-const scene = (value: number, enterStart: number, enterEnd: number, exitStart: number, exitEnd: number) =>
-  phase(value, enterStart, enterEnd) * (1 - phase(value, exitStart, exitEnd));
-
-function FilmHeadline({ className, children }: { className: string; children: React.ReactNode }) {
-  return <h2 className={`film-headline ${className}`}>{children}</h2>;
+function HeroSunburst() {
+  return <svg className="hero-sunburst" viewBox="-19 -19 38 38" aria-hidden="true">
+    {sunburstArms.map(([angle, length, bend]) => {
+      const radians = angle * Math.PI / 180;
+      const x = Math.cos(radians) * length;
+      const y = Math.sin(radians) * length;
+      const controlX = Math.cos(radians + Math.PI / 2) * bend + x * .54;
+      const controlY = Math.sin(radians + Math.PI / 2) * bend + y * .54;
+      return <path key={angle} d={`M 0 0 Q ${controlX.toFixed(2)} ${controlY.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)}`} />;
+    })}
+  </svg>;
 }
 
-function KitchenTicket({ label, gold }: { label: string; gold?: boolean }) {
-  return (
-    <div className={`kitchen-ticket${gold ? " ticket-gold" : ""}`}>
-      <span className="ticket-rule" /><small>KITCHEN NOTE</small><strong>{label}</strong>
-      <span className="ticket-dots">••••••••••••••••</span>
-    </div>
-  );
-}
 
-function CookList() {
-  return (
-    <div className="cooklist-surface" aria-label="CookList for Lomo Saltado">
-      <div className="list-top"><span className="mini-brand">Cook<span>Pilot</span></span><span className="list-mode">BY RECIPE</span></div>
-      <div className="list-recipe">
-        <img src={LOMO} alt="" />
-        <div><small>YOUR RECIPE</small><strong>Lomo Saltado</strong></div><span>2 PEOPLE</span>
-      </div>
-      <div className="list-rows">
-        {listItems.map(([name, amount], index) => (
-          <div className="list-row" key={name} data-list-row>
-            <span className="list-check">✓</span><strong>{name}</strong><em>{amount}</em><small>0{index + 1}</small>
-          </div>
-        ))}
-      </div>
-      <div className="list-ready"><span>6 / 6</span><strong>READY TO SHOP</strong></div>
-    </div>
-  );
-}
-
-function CookMode() {
-  return (
-    <div className="cookmode-space" aria-label="CookMode for Lomo Saltado">
-      <div className="cookmode-halo" />
-      <div className="mode-top mode-layer" data-depth="back">
-        <div><small>LOMO SALTADO</small><strong>Mise en place</strong></div><span className="mode-time">35 <small>MIN</small></span>
-      </div>
-      <div className="mode-steps mode-layer" data-depth="front">
-        <span className="done">✓</span><span className="active">1</span><span>2</span><span>3</span><span>4</span>
-      </div>
-      <div className="mode-instruction mode-layer" data-depth="mid">
-        <span className="instruction-index">01</span>
-        <p>Cut the beef into thick strips. Keep the onion, tomato and yellow pepper ready.</p>
-        <img src={LOMO} alt="Lomo Saltado cooking reference" />
-      </div>
-      <div className="mode-progress mode-layer" data-depth="front"><i /><span>MISE EN PLACE</span></div>
-      <div className="mode-phone" aria-hidden="true"><img src={`${FILM}lomo_cookmode.jpg`} alt="" /></div>
-    </div>
-  );
-}
-
-function CookPlan() {
-  return (
-    <div className="plan-surface" aria-label="Lomo Saltado inside a weekly CookPlan">
-      <div className="plan-top"><span className="mini-brand">Cook<span>Pilot</span></span><small>YOUR WEEK</small></div>
-      <div className="plan-days">
-        {["WED 15", "THU 16", "FRI 17", "SAT 18", "SUN 19"].map((day) => (
-          <span className={day.startsWith("SAT") ? "selected" : ""} key={day}>{day.split(" ")[0]}<strong>{day.split(" ")[1]}</strong></span>
-        ))}
-      </div>
-      <div className="plan-moment"><span>☀</span><strong>LUNCH</strong><small>SATURDAY · 18</small></div>
-      <div className="plan-meal">
-        <div className="plan-photo"><img src={LOMO} alt="Lomo Saltado planned for Saturday lunch" /></div>
-        <div className="plan-meal-copy"><small>MAIN · 35 MIN</small><strong>Lomo Saltado</strong><span>WITH PALTA SALAD + MARACUYÁ</span></div>
-        <button type="button" tabIndex={-1}>COOK <span>↗</span></button>
-      </div>
-      <div className="plan-foot"><span>1 MEAL</span><i /><span>RIGHT ON TIME</span></div>
-    </div>
-  );
+function Title({name, first, accent}: {name:string; first:string; accent:string}) {
+  return <h2 className={`shot-title ${name}`} aria-label={`${first} ${accent}`}>
+    <span aria-hidden="true">{first.split(" ").map((word,i)=><span className="optical-word" key={i}>{word}{" "}</span>)}</span>
+    <em aria-hidden="true">{accent.split("").map((char,i)=><span className="optical-glyph" key={i}>{char === " " ? "\u00a0" : char}</span>)}</em>
+  </h2>;
 }
 
 export default function Film() {
   const root = useRef<HTMLDivElement>(null);
-  const sharedPlate = useRef<HTMLDivElement>(null);
-  const sharedImage = useRef<HTMLImageElement>(null);
-  const stage = useRef<HTMLDivElement>(null);
-  const [heroDish, setHeroDish] = useState(0);
-  const heroDishRef = useRef(0);
-  const hasEnteredFilm = useRef(false);
-
-  useEffect(() => {
-    heroDishRef.current = heroDish;
-    if (!hasEnteredFilm.current && sharedImage.current) {
-      sharedImage.current.src = `${FOOD}${heroDishes[heroDish].file}.png`;
-      sharedImage.current.alt = heroDishes[heroDish].name;
-    }
-  }, [heroDish]);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      if (!hasEnteredFilm.current && window.scrollY < 8) setHeroDish((value) => (value + 1) % heroDishes.length);
-    }, 5000);
-    return () => window.clearInterval(timer);
+  const advanceDishRef = useRef<() => void>(() => undefined);
+  const [viewportRevision, setViewportRevision] = useState(0);
+  useLayoutEffect(() => {
+    let timeout: number;
+    const resize = () => { clearTimeout(timeout); timeout = window.setTimeout(() => setViewportRevision(v => v + 1), 180); };
+    window.addEventListener("resize", resize);
+    return () => { clearTimeout(timeout); window.removeEventListener("resize", resize); };
   }, []);
-
-  useEffect(() => {
-    const preload = [EMPTY, LOMO, `${FILM}lomo_table_final.png`, `${FILM}lomo_cookmode.jpg`, `${FILM}lomo_cookplan.png`, ...ingredients.map((item) => `${FILM}${item.file}`)];
-    preload.forEach((src) => { const image = new Image(); image.src = src; });
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let frame = 0;
-    let currentAsset = "";
-
-    const setAsset = (src: string, alt: string) => {
-      if (currentAsset === src || !sharedImage.current) return;
-      currentAsset = src; sharedImage.current.src = src; sharedImage.current.alt = alt;
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const host = root.current!;
+    const mm = gsap.matchMedia();
+    let carousel: gsap.core.Timeline | undefined;
+    let dishIndex = 0;
+    const fast = (value: number) => value * .88;
+    // Reframing the canvas must reset image and caption as one carousel state.
+    const heroImages = host.querySelectorAll<HTMLImageElement>(".hero-food");
+    gsap.set(heroImages, {opacity:0, rotation:0, scale:1});
+    gsap.set(heroImages[0], {opacity:1});
+    const heroCaption = host.querySelector(".hero-caption")!;
+    gsap.set(heroCaption.querySelector("span"), {textContent:dishes[0][1]});
+    gsap.set(heroCaption.querySelector("small"), {textContent:dishes[0][2]});
+    const advanceDish = () => {
+      if (window.scrollY > 4 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const images = host.querySelectorAll<HTMLImageElement>(".hero-food");
+      const old = images[dishIndex];
+      dishIndex = (dishIndex + 1) % dishes.length;
+      const next = images[dishIndex];
+      const caption = host.querySelector(".hero-caption")!;
+      carousel?.kill();
+      carousel = gsap.timeline().to(old,{opacity:0, rotation:180, scale:.95, duration:fast(.65), ease:"power2.in"})
+        .set(caption.querySelector("span"),{textContent:dishes[dishIndex][1]},fast(.65))
+        .set(caption.querySelector("small"),{textContent:dishes[dishIndex][2]},fast(.65))
+        .fromTo(next,{opacity:0,rotation:-180,scale:.95},{opacity:1,rotation:0,scale:1,duration:fast(1.05),ease:"power3.out"},fast(.55));
     };
+    advanceDishRef.current = advanceDish;
+    const timer = window.setInterval(advanceDish, 4400);
 
-    const render = () => {
-      frame = 0;
-      const host = root.current;
-      const plate = sharedPlate.current;
-      const filmStage = stage.current;
-      if (!host || !plate || !filmStage) return;
-      const vh = window.innerHeight;
-      const vw = window.innerWidth;
-      const localY = -host.getBoundingClientRect().top;
-      const filmRange = Math.max(vh, host.offsetHeight - vh * 1.72);
-      const progress = clamp((localY - vh * 0.72) / filmRange);
-      const handoff = phase(localY / vh, 0.42, 1.02);
-      const filmEntered = localY > 8;
-      hasEnteredFilm.current = filmEntered;
-      if (filmEntered && heroDishRef.current !== 0) setHeroDish(0);
-      host.style.setProperty("--hero-exit", String(phase(localY / vh, 0.04, 0.92)));
-      host.style.setProperty("--film-p", progress.toFixed(5));
-      filmStage.style.visibility = localY > vh * 0.5 ? "visible" : "hidden";
+    mm.add({desktop:"(min-width: 721px)", mobile:"(max-width: 720px)", reduced:"(prefers-reduced-motion: reduce)"}, context => {
+      const mobile = !!context.conditions?.mobile;
+      const reduced = !!context.conditions?.reduced;
+      const w = host.clientWidth, h = window.innerHeight;
+      const $ = gsap.utils.selector(host);
+      const plateSize = Math.min(w * (mobile ? 1.08 : .76), h * (mobile ? .98 : 1.12));
+      const emptySize = Math.min(w * .64, h * (mobile ? .49 : .60));
+      const cx = w * .5, cy = h * .57;
+      gsap.set($(".protagonist"), {width:plateSize, height:plateSize, x:cx, y:h*(mobile?.49:.47)+plateSize/2, xPercent:-50, yPercent:-50});
+      gsap.set($(".empty-food"),{autoAlpha:0});
+      gsap.set($(".shot-title, .request-field, .cooklist, .cookmode, .cookplan, .table-shot, .action-seed, .meal-world"),{autoAlpha:0});
+      gsap.set($(".opening-title .optical-word, .opening-title .optical-glyph"),{opacity:0,filter:reduced?"none":"blur(12px)",y:8});
+      gsap.set($(".compression-light"),{scale:.1,autoAlpha:0});
+      if (!mobile) gsap.set($(".compression-light"),{left:0,top:0,x:cx,y:cy,xPercent:-50,yPercent:-50,margin:0});
+      if (!mobile) gsap.set($(".opening-title"),{top:"50%",yPercent:-50});
+      gsap.set($(".action-seed"),{x:cx,y:cy,xPercent:-50,yPercent:-50});
+      gsap.set($(".request-field"),{perspective:mobile?850:1400,perspectiveOrigin:"50% 57%"});
+      field.forEach((item,i)=> {
+        gsap.set($(".field-object")[i],{x:cx+item.x*w*(mobile?1.1:1), y:cy+item.y*h, z:reduced?0:item.z*(mobile?.35:1), width:item.size*(mobile?.46:Math.min(w/1600,1.25)), xPercent:-50,yPercent:-50, rotation:item.r, filter:`blur(${reduced?0:item.z>210?1.4:item.z < -150?1.1:0}px)`});
+        if (!mobile) {
+          const distance = Math.max(1.8, 1 / Math.max(Math.abs(item.x), Math.abs(item.y)));
+          gsap.set($(".field-object")[i],{x:cx+item.x*w*distance,y:cy+item.y*h*distance,filter:"none"});
+        }
+      });
+      const tl = gsap.timeline({defaults:{ease:"power2.inOut"},
+        onUpdate: () => { host.dataset.time=tl.time().toFixed(2); },
+        scrollTrigger:{
+        id:"cookpilot-film",trigger:host,start:"top top",end:"bottom bottom",scrub:reduced ? true : .65,
+        onUpdate: self => {
+          const time = self.progress * (mobile ? 100 : 112);
+          if (reduced && self.animation) {
+            const held = time < 5 ? 0 : time < 12 ? 10 : time < 23 ? 16 : time < 39 ? 33 : time < 53 ? 46 : time < 62 ? 58 : time < 73 ? 68 : time < 87 ? 81 : time < 101 ? 98 : 110;
+            self.animation.time(held);
+          }
+        },
+      }});
+      // One scroll owner and one reversible clock. Labels describe camera beats.
+      tl.addLabel("hero",0).addLabel("handoff",1).addLabel("empty",9).addLabel("requests",14)
+        .addLabel("compression",19).addLabel("order",25).addLabel("cooklist",32)
+        .addLabel("action",39).addLabel("cookmode",46).addLabel("execute",54)
+        .addLabel("return",63).addLabel("pause",69).addLabel("plan",76)
+        .addLabel("table",88).addLabel("hold",96);
 
-      const heroSize = Math.min(vw * 0.76, vh * 1.1);
-      const centerSize = Math.min(vw * (vw < 700 ? 0.88 : 0.46), vh * (vw < 700 ? 0.53 : 0.66));
-      const returnSize = Math.min(vw * (vw < 700 ? 1.18 : 0.68), vh * 0.96);
-      const heroTop = vh * (vw < 700 ? 0.49 : 0.51);
-      let size = heroSize + (centerSize - heroSize) * handoff;
-      let centerX = vw * 0.5;
-      let centerY = heroTop + heroSize * 0.5 + (vh * 0.5 - (heroTop + heroSize * 0.5)) * handoff;
-      let plateOpacity = 1;
-      const handoffDip = 1 - Math.pow(Math.abs(handoff * 2 - 1), 0.72);
-      plateOpacity = 1 - handoffDip * 0.97;
-
-      if (handoff < 0.53) setAsset(LOMO, "Lomo Saltado"); else setAsset(EMPTY, "An empty plate ready for Lomo Saltado");
-      if (handoff > 0.98) {
-        plateOpacity = 1 - phase(progress, 0.225, 0.285);
-        size = centerSize * (1 - phase(progress, 0.22, 0.29) * 0.54);
+      tl.to($(".hero-title"),{y:-h*.35,autoAlpha:0,duration:fast(5)},1)
+        .to($(".hero-caption, .hero-origin"),{autoAlpha:0,duration:fast(2.5)},1)
+        .to($(".hero-atmosphere"),{autoAlpha:mobile?0:.65,duration:fast(2.5)},1)
+        .to($(".hero-down"),{autoAlpha:0,duration:fast(1.7)},.2)
+        .to($(".protagonist"),{y:h*1.2,scale:.86,opacity:.012,duration:fast(4.4),ease:"power2.in"},.6)
+        .set($(".hero-foods"),{visibility:"hidden"},5);
+      if (mobile) {
+        tl.set($(".empty-food"),{autoAlpha:1},5)
+        .set($(".protagonist"),{width:emptySize,height:emptySize,y:cy-h*.13,scale:1},5)
+        .to($(".protagonist"),{y:cy,opacity:1,duration:fast(5),ease:"power2.out"},5)
+        .set($(".opening-title"),{autoAlpha:1},5.5)
+        .to($(".opening-title .optical-word, .opening-title .optical-glyph"),{opacity:1,filter:"blur(0px)",y:0,duration:fast(2.5),stagger:.16,ease:"power2.out"},5.5)
+        .to($(".opening-title"),{y:-h*.55,duration:fast(4),ease:"power2.in"},11)
+        .set($(".opening-title"),{autoAlpha:0},15)
+        .to($(".request-field"),{autoAlpha:1,duration:fast(2)},11.5);
+      } else {
+        tl.addLabel("headline",6).addLabel("plate-emerges",12.2).addLabel("arrival",15)
+          .set($(".protagonist"),{opacity:0,width:emptySize,height:emptySize,y:cy,scale:.08},5)
+          .set($(".opening-title"),{autoAlpha:1},6)
+          .to($(".opening-title .optical-word, .opening-title .optical-glyph"),{opacity:1,filter:"blur(0px)",y:0,duration:fast(2.5),stagger:.16,ease:"power2.out"},6)
+          // Hold the complete headline alone before clearing space for the plate.
+          .to($(".opening-title"),{y:-h*.22,autoAlpha:0,duration:fast(1.7),ease:"power2.inOut"},10.4)
+          .set($(".empty-food"),{autoAlpha:1},12.2)
+          .to($(".compression-light"),{autoAlpha:.85,scale:.65,duration:fast(.45)},12.15)
+          .to($(".compression-light"),{autoAlpha:0,scale:1,duration:fast(1.8)},12.6)
+          .to($(".protagonist"),{scale:1,opacity:1,duration:fast(2.6),ease:"power3.out"},12.2)
+          .set($(".request-field"),{autoAlpha:1},15)
+          .to($(".hero-atmosphere"),{autoAlpha:0,duration:fast(1.6)},23);
+        field.forEach((item,i)=> {
+          tl.to($(".field-object")[i],{x:cx+item.x*w,y:cy+item.y*h,duration:fast(2.1),ease:"power2.out"},15+(i%3)*.12);
+        });
       }
 
-      const returnIn = phase(progress, 0.625, 0.675);
-      const returnOut = phase(progress, 0.755, 0.80);
-      if (progress > 0.60) setAsset(LOMO, "Lomo Saltado");
-      if (returnIn > 0 && returnOut < 1) {
-        size = centerSize * 0.3 + (returnSize - centerSize * 0.3) * returnIn;
-        centerX = vw * (vw < 700 ? 0.5 : 0.56); centerY = vh * 0.54;
-        plateOpacity = returnIn * (1 - returnOut);
+      field.forEach((item,i)=> {
+        const at = 18.2 + (i%3)*.12;
+        tl.to($(".field-object")[i],{x:cx,y:cy,z:-120,scale:.025,rotation:item.r+26,filter:"blur(0px)",duration:fast(4.1),ease:"power3.in"},at)
+          .to($(".field-object")[i],{opacity:0,duration:fast(mobile?.45:.18),ease:"power1.in"},at+(mobile?3.35:3.89));
+      });
+      tl.to($(".compression-light"),{autoAlpha:.3,scale:.3,duration:fast(1.2)},19.1)
+        .to($(".compression-light"),{autoAlpha:.7,scale:.65,duration:fast(1.2)},20.3)
+        .to($(".compression-light"),{autoAlpha:1,scale:1,duration:fast(.6)},21.5)
+        .to($(".compression-light"),{autoAlpha:0,scale:.3,duration:fast(.7)},22.4)
+        .set($(".request-field"),{autoAlpha:0},23.2)
+        .to($(".protagonist"),{scale:.65,autoAlpha:0,duration:fast(1.8)},mobile?22:22.55)
+        .set($(".action-seed"),{autoAlpha:1,scale:.1},mobile?22.3:22.55)
+        .to($(".action-seed"),{y:h*(mobile?.97:.90),scale:1,duration:fast(4),ease:"power3.inOut"},mobile?22.3:22.55)
+        .set($(".cooklist"),{autoAlpha:1},mobile?22.8:24.4)
+        .fromTo($(".list-composition"),{scale:2.6,y:h*.40,rotationX:reduced?0:26},{scale:1,y:0,rotationX:0,duration:fast(mobile?5:3.4),ease:"power3.out"},mobile?22.8:24.4)
+        .fromTo($(".ingredient-row"),{y:(i:number)=>h*(.16+i*.025),opacity:0},{y:0,opacity:1,duration:fast(3),stagger:.10,ease:"power3.out"},24)
+        .fromTo($(".list-title"),{y:-h*.3,autoAlpha:0},{y:0,autoAlpha:1,duration:fast(3.5)},24.5)
+        .to($(".row-check"),{backgroundColor:"#f5c928",borderColor:"#f5c928",color:"#15130b",duration:fast(.5),stagger:.55},29)
+        .to($(".list-ready"),{opacity:1,duration:fast(1)},32);
+
+      // The completed check becomes the action track. UI travels out of frame, never ghosts.
+      const stepSize = mobile ? w*.12 : h*.075;
+      const trackLeft = w*(mobile?.08:.20), trackWidth = w*(mobile?.84:.60);
+      const stepOneX = cx;
+      const trackY = h*.40+stepSize/2;
+      tl.to($(".cooklist"),{y:-h*1.12,duration:fast(2.4),ease:"power3.inOut"},35)
+        .to($(".action-seed span"),{opacity:0,duration:fast(.6)},36)
+        .to($(".action-seed"),{y:trackY,width:trackWidth-stepSize,height:3,borderRadius:2,duration:fast(1.2)},35.6)
+        .set($(".cookmode"),{autoAlpha:1},36)
+        .fromTo($(".cookmode"),{y:h},{y:0,duration:fast(2.4),ease:"power3.out"},36)
+        .set($(".mode-title"),{autoAlpha:1},36)
+        .set($(".instruction-two, .instruction-three, .mode-stir"),{autoAlpha:0},0)
+        .set($(".step-1"),{opacity:0},38)
+        .to($(".action-seed"),{x:stepOneX,width:stepSize,height:stepSize,borderRadius:"50%",duration:fast(1.2)},36.8)
+        .set($(".action-seed span"),{textContent:"1"},38)
+        .to($(".action-seed span"),{opacity:1,duration:fast(.4)},38)
+        .set($(".cooklist"),{autoAlpha:0},37.4)
+        .to($(".instruction-one"),{autoAlpha:0,y:-24,duration:fast(.7)},46)
+        .fromTo($(".instruction-two"),{y:24},{y:0,autoAlpha:1,duration:fast(.8)},46.7)
+        .to($(".mode-stir"),{autoAlpha:1,duration:fast(1.4)},46)
+        .to($(".mode-beef"),{autoAlpha:0,duration:fast(1.4)},46)
+        .set($(".step-1"),{opacity:1,backgroundColor:"#8ac900",color:"#10140b",textContent:"✓"},46)
+        .to($(".action-seed"),{x:trackLeft+stepSize/2+(trackWidth-stepSize)*.75,duration:fast(1.2)},46)
+        .set($(".step-2"),{opacity:0},47.2)
+        .set($(".action-seed span"),{textContent:"2"},47.2)
+        .to($(".instruction-two"),{autoAlpha:0,y:-24,duration:fast(.7)},54)
+        .fromTo($(".instruction-three"),{y:24},{y:0,autoAlpha:1,duration:fast(.8)},54.7)
+        .set($(".step-2"),{opacity:1,backgroundColor:"#8ac900",color:"#10140b",textContent:"✓"},54)
+        .to($(".action-seed"),{x:trackLeft+trackWidth-stepSize/2,duration:fast(1.2)},54)
+        .set($(".step-3"),{opacity:0},55.2)
+        .set($(".action-seed span"),{textContent:"✓"},55.2)
+        .to($(".action-seed"),{backgroundColor:"#8ac900",duration:fast(.6)},55.2)
+        // Return ownership to the actual timeline node before its camera exits.
+        .set($(".step-3"),{opacity:1,backgroundColor:"#8ac900",color:"#10140b",textContent:"✓"},55.8)
+        .set($(".action-seed"),{autoAlpha:0},55.8);
+
+      // One food element survives the macro reference, return, and discovery of Saturday lunch.
+      const mealX = w*(mobile?.38:.28), mealY=h*(mobile?.57:.7275);
+      const mealSize = Math.min(w*(mobile?.55:.18),h*(mobile?.26:.235));
+      // Explicit neutral filter values keep GSAP from interpolating contrast/brightness from zero.
+      gsap.set($(".return-food"),{width:mealSize,height:mealSize,x:mealX,y:mealY,xPercent:-50,yPercent:-50,filter:"sepia(0) saturate(1) brightness(1) contrast(1)"});
+      const modeSize = Math.min(w*.43,h*.44);
+      if (mobile) {
+        gsap.set($(".mode-food"),{width:modeSize,height:modeSize,left:w*.705-modeSize/2,top:h*.76-modeSize/2});
+      } else {
+        gsap.set($(".mode-food"),{width:modeSize,height:modeSize,left:"auto",top:"auto",right:0,bottom:0});
       }
-      if (progress >= 0.80) plateOpacity = 0;
-      if (reduced) plateOpacity = progress < 0.28 || (progress > 0.63 && progress < 0.79) ? 1 : 0;
-      plate.style.width = `${size}px`; plate.style.height = `${size}px`;
-      plate.style.left = `${centerX - size / 2}px`; plate.style.top = `${centerY - size / 2}px`;
-      plate.style.opacity = String(clamp(plateOpacity));
-      plate.style.transform = `rotate(${handoff * 5 - returnIn * 2}deg) scale(${1 + Math.sin(progress * Math.PI) * 0.012})`;
-      plate.dataset.film = filmEntered ? "true" : "false";
+      const thumb = modeSize/mealSize;
+      const full = Math.min(w*(mobile?1.14:.64),h*(mobile?1.04:.76))/mealSize;
+      // Registration in the 1672 × 941 photograph's object-fit:cover space.
+      const photoScale = Math.max(w/1672,h/941);
+      const tableX = (w-1672*photoScale)/2+818*photoScale;
+      const tableY = (h-941*photoScale)/2+518*photoScale;
+      const tableScaleX = 960*photoScale/mealSize;
+      const tableScaleY = 766*photoScale/mealSize;
+      gsap.set($(".table-contact"),{x:tableX,y:tableY+12,width:930*photoScale,height:740*photoScale,xPercent:-50,yPercent:-50,autoAlpha:0,scale:1.07});
+      gsap.set($(".meal-world"),{transformOrigin:"0 0",scale:thumb,x:w*.705-mealX*thumb,y:h*.76-mealY*thumb});
+      tl.to($(".meal-world"),{autoAlpha:1,duration:fast(1.5)},54)
+        .to($(".mode-food"),{autoAlpha:0,duration:fast(1.5)},54)
+        .to($(".cookmode"),{scale:1.6,x:-w*1.2,y:-h*.15,duration:fast(5),ease:"power3.inOut"},60)
+        .to($(".meal-world"),{scale:full,x:cx-mealX*full,y:h*.55-mealY*full,duration:fast(5),ease:"power3.inOut"},60)
+        .set($(".cookmode, .action-seed"),{autoAlpha:0},65)
+        // 65–71: real food, complete stillness.
+        .set($(".cookplan"),{autoAlpha:1},71)
+        .fromTo($(".plan-days, .plan-meal"),{opacity:0,y:32},{opacity:1,y:0,duration:fast(4),stagger:.25},72)
+        .to($(".meal-world"),{scale:1,x:0,y:0,duration:fast(8),ease:"power2.inOut"},71)
+        .fromTo($(".plan-title"),{autoAlpha:0,y:24,filter:reduced?"none":"blur(8px)"},{autoAlpha:1,y:0,filter:"blur(0px)",duration:fast(3)},76)
+        .to($(".plan-title"),{y:-h*.5,duration:fast(3),ease:"power2.in"},83)
+        .set($(".plan-title"),{autoAlpha:0},86)
+        .to($(".cookplan"),{autoAlpha:0,y:-h*.12,duration:fast(3)},83)
+        .to($(".meal-world"),{scaleX:tableScaleX,scaleY:tableScaleY,x:tableX-mealX*tableScaleX,y:tableY-mealY*tableScaleY-10,duration:fast(5),ease:"power2.inOut"},83)
+        .to($(".return-food"),{rotationX:reduced?0:2,rotationZ:-.5,filter:"sepia(.09) saturate(1.08) brightness(.94) contrast(1.04)",duration:fast(4)},85)
+        // The world appears behind the registered shared plate, then makes contact.
+        .set($(".table-shot"),{autoAlpha:1},88)
+        .fromTo($(".table-photo"),{opacity:0,filter:"brightness(.12)",scale:1,x:0},{opacity:1,filter:"brightness(1)",duration:fast(2.4),ease:"power2.out"},88)
+        .to($(".table-contact"),{autoAlpha:.32,scale:1,duration:fast(2.2)},88)
+        .to($(".meal-world"),{y:tableY-mealY*tableScaleY,duration:fast(2.2),ease:"power2.out"},88)
+        .to($(".return-food"),{rotationX:0,rotationZ:0,duration:fast(2.2)},88)
+        .to($(".return-food"),{autoAlpha:0,duration:fast(1.3),ease:"power1.inOut"},90.85)
+        .to($(".table-contact"),{autoAlpha:0,duration:fast(.85)},90.85)
+        .set($(".meal-world"),{autoAlpha:0},92.35)
+        .to($(".table-photo"),{scale:1.035,transformOrigin:"50% 55%",duration:fast(5),ease:"sine.inOut"},93)
+        .fromTo($(".table-title"),{autoAlpha:0,y:24,filter:reduced?"none":"blur(8px)"},{autoAlpha:1,y:0,filter:"blur(0px)",duration:fast(3)},93);
+      tl.to({}, {duration:fast(1)},99);
+      if (!mobile) {
+        gsap.set($(".rehook"),{autoAlpha:0});
+        gsap.set($(".rehook-phone"),{y:h,scale:.9,transformOrigin:"50% 100%"});
+        gsap.set($(".rehook-title .optical-word, .rehook-title .optical-glyph"),{opacity:0,clipPath:"inset(0 0 100% 0)"});
+        tl.addLabel("rehook",100)
+          .to($(".table-shot"),{autoAlpha:0,duration:fast(1)},100)
+          .set($(".rehook"),{autoAlpha:1},101)
+          .to($(".rehook-phone"),{y:0,scale:1,duration:fast(3),ease:"power3.out"},101)
+          .set($(".rehook-title"),{autoAlpha:1},105)
+          .to($(".rehook-title .optical-word"),{opacity:1,clipPath:"inset(0 0 0% 0)",duration:fast(1),stagger:.09,ease:"power2.out"},105)
+          .to($(".rehook-title .optical-glyph"),{opacity:1,clipPath:"inset(0 0 0% 0)",duration:fast(1),stagger:.022,ease:"power2.out"},105.5)
+          .to({}, {duration:fast(1)},111);
+        socialIcons.forEach((icon,i)=> {
+          const el = $(".rehook-icon")[i];
+          gsap.set(el,{x:icon.dx*w,y:icon.dy*h,autoAlpha:0});
+          tl.to(el,{x:0,y:0,autoAlpha:1,duration:fast(2),ease:"power3.out"},102.4+i*.15);
+        });
+      }
+      const refresh = () => ScrollTrigger.refresh();
+      document.fonts.ready.then(refresh);
+      return () => tl.scrollTrigger?.kill();
+    },host);
+    return () => {clearInterval(timer);carousel?.kill();advanceDishRef.current=()=>undefined;mm.revert();};
+  },[viewportRevision]);
 
-      const layerOpacity = (selector: string, opacity: number) => {
-        const element = host.querySelector<HTMLElement>(selector);
-        if (element) { element.style.opacity = String(clamp(opacity)); element.style.pointerEvents = opacity > 0.5 ? "auto" : "none"; }
-      };
-      const openingOpacity = scene(progress, -0.01, 0.035, 0.11, 0.15);
-      const vacuumOpacity = scene(progress, 0.095, 0.13, 0.25, 0.292);
-      const listOpacity = scene(progress, 0.27, 0.305, 0.415, 0.455);
-      const modeOpacity = scene(progress, 0.425, 0.462, 0.625, 0.67);
-      const returnOpacity = scene(progress, 0.635, 0.675, 0.735, 0.78);
-      const planOpacity = scene(progress, 0.745, 0.775, 0.86, 0.91);
-      const finalOpacity = phase(progress, 0.875, 0.935);
-      layerOpacity(".opening-scene", openingOpacity); layerOpacity(".vacuum-scene", vacuumOpacity);
-      layerOpacity(".cooklist-scene", listOpacity); layerOpacity(".cookmode-scene", modeOpacity);
-      layerOpacity(".return-scene", returnOpacity); layerOpacity(".plan-scene", planOpacity); layerOpacity(".final-scene", finalOpacity);
-
-      const openingReveal = phase(progress, -0.005, 0.085);
-      host.style.setProperty("--opening-clip", `${(1 - openingReveal) * 104}%`);
-      host.style.setProperty("--opening-glow", String(Math.sin(openingReveal * Math.PI)));
-      const vacuumOpacityNow = vacuumOpacity;
-      host.style.setProperty("--spark", String(scene(progress, 0.205, 0.25, 0.268, 0.29)));
-      host.querySelectorAll<HTMLElement>("[data-vacuum]").forEach((element, index) => {
-        const isTicket = index < tickets.length;
-        const item = isTicket ? tickets[index] : ingredients[index - tickets.length];
-        const offset = ((index % 4) - 1.5) * 0.012;
-        const t = phase(progress, 0.13 + offset, 0.265 + offset);
-        const x = (item.x / 100) * vw * (1 - t); const y = (item.y / 100) * vh * (1 - t);
-        element.style.transform = `translate3d(${x}px, ${y}px, ${(1 - t) * ((index % 3) - 1) * 55}px) scale(${1 - t * 0.87}) rotate(${item.r * (1 - t)}deg)`;
-        element.style.opacity = String(vacuumOpacityNow * (1 - phase(t, 0.72, 1)));
-        element.style.filter = `blur(${Math.max(0, t - 0.72) * 15}px)`;
-      });
-
-      const listT = phase(progress, 0.275, 0.43);
-      const listSurface = host.querySelector<HTMLElement>(".cooklist-surface");
-      if (listSurface) listSurface.style.transform = `perspective(1500px) rotateY(${-8 + listT * 5}deg) rotateX(${4 - listT * 2}deg) translate3d(0, ${(1 - listT) * 65}px, 0) scale(${0.93 + listT * 0.07})`;
-      host.querySelectorAll<HTMLElement>("[data-list-row]").forEach((row, index) => row.style.setProperty("--checked", String(phase(progress, 0.325 + index * 0.009, 0.365 + index * 0.009))));
-      const line = phase(progress, 0.405, 0.462) * (1 - phase(progress, 0.49, 0.53));
-      host.style.setProperty("--match-line", String(line));
-
-      const modeT = phase(progress, 0.44, 0.625);
-      host.querySelectorAll<HTMLElement>(".mode-layer").forEach((element) => {
-        const depth = element.dataset.depth === "front" ? 130 : element.dataset.depth === "mid" ? 55 : -90;
-        const settled = phase(modeT, 0.72, 1);
-        element.style.transform = `translateZ(${depth * (1 - settled)}px) translateY(${(1 - modeT) * (depth > 0 ? 25 : -18)}px)`;
-      });
-      const modePhone = host.querySelector<HTMLElement>(".mode-phone");
-      if (modePhone) modePhone.style.opacity = String(phase(progress, 0.595, 0.637));
-      const activeStep = progress < 0.535 ? 1 : 2;
-      host.querySelectorAll<HTMLElement>(".mode-steps span").forEach((element, index) => element.classList.toggle("active", index === activeStep));
-
-      const planT = phase(progress, 0.75, 0.875);
-      const plan = host.querySelector<HTMLElement>(".plan-surface");
-      if (plan) plan.style.transform = `perspective(1700px) rotateX(${7 - planT * 4}deg) rotateY(${vw < 700 ? 0 : -7 + planT * 3}deg) translateY(${(1 - planT) * 45}px) scale(${0.92 + planT * 0.08})`;
-      const final = host.querySelector<HTMLElement>(".final-photo");
-      if (final) final.style.transform = `scale(${1.11 - finalOpacity * 0.11}) translateX(${(1 - finalOpacity) * 2.5}%)`;
-      host.style.setProperty("--final-clip", `${(1 - finalOpacity) * 100}%`);
-      const active = progress < 0.27 ? 0 : progress < 0.44 ? 1 : progress < 0.72 ? 2 : progress < 0.88 ? 3 : 4;
-      host.querySelectorAll<HTMLElement>(".film-rail li").forEach((item, index) => item.classList.toggle("active", index === active));
-      host.querySelector<HTMLElement>(".film-rail")?.style.setProperty("opacity", String(phase(progress, 0.015, 0.07) * (1 - phase(progress, 0.95, 0.99))));
-    };
-
-    const requestRender = () => { if (!frame) frame = requestAnimationFrame(render); };
-    render(); window.addEventListener("scroll", requestRender, { passive: true }); window.addEventListener("resize", requestRender);
-    return () => { window.removeEventListener("scroll", requestRender); window.removeEventListener("resize", requestRender); cancelAnimationFrame(frame); };
-  }, []);
-
-  const dish = heroDishes[heroDish];
-  return (
-    <div className="film-experience" id="film" ref={root}>
-      <section className="film-hero" id="top" aria-label="Cook what you want. Your way.">
-        <div className="hero-title"><p>GOOD FOOD. REAL LIFE.</p><h1><span>COOK WHAT YOU <em>WANT.</em></span><strong>YOUR <em>WAY.</em></strong></h1></div>
-        <div className="hero-caption" key={heroDish}><span>{dish.name}</span><small>{dish.line}</small></div>
+  return <div className="film-experience" ref={root} id="top">
+    <div className="film-anchor" id="film" /><div className="film-anchor" id="film-stage" />
+    <div className="film-anchor serve-anchor" id="serve" />
+    <div className="film-canvas">
+      <HeroAtmosphere />
+      <section className="film-hero" aria-label="Cook what you want. Your way.">
+        <div className="hero-title"><p>FROM CRAVING. TO YOUR TABLE.</p><h1><span>COOK WHAT YOU <em>WANT.</em></span><strong>YOUR <em>WAY.</em></strong></h1></div>
+        <div className="hero-caption hero-recipe"><HeroSunburst/><span>Lomo saltado</span><small>THE START OF SOMETHING GOOD</small></div>
         <a className="hero-down" href="#film-stage" aria-label="Watch the CookPilot film"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v15m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
         <p className="hero-origin">EST. IN PERU <span>·</span> MADE FOR YOU</p>
       </section>
-
-      <div className="shared-plate" ref={sharedPlate}><img ref={sharedImage} src={LOMO} alt="Lomo Saltado" draggable={false} fetchPriority="high" /></div>
-
-      <div className="film-stage" id="film-stage" ref={stage}>
-        <section className="opening-scene film-scene"><FilmHeadline className="opening-headline"><span>LET&apos;S MAKE IT</span><em>REAL.</em></FilmHeadline></section>
-        <section className="vacuum-scene film-scene" aria-label="Real requests and ingredients converge into one meal">
-          {tickets.map((ticket) => <div className="vacuum-object ticket-object" data-vacuum key={ticket.label}><KitchenTicket label={ticket.label} gold={ticket.gold} /></div>)}
-          {ingredients.map((ingredient) => <div className="vacuum-object ingredient-object" data-vacuum key={ingredient.file}><img src={`${FILM}${ingredient.file}`} alt={ingredient.name} /></div>)}
-          <div className="convergence-spark" aria-hidden="true"><i /><i /></div>
-        </section>
-        <section className="cooklist-scene film-scene"><FilmHeadline className="list-headline"><span>EVERYTHING YOU</span><em>NEED.</em></FilmHeadline><CookList /><div className="match-line" aria-hidden="true" /></section>
-        <section className="cookmode-scene film-scene"><FilmHeadline className="mode-headline"><span>WHEN IT&apos;S TIME<br />TO COOK,</span><em>JUST COOK.</em></FilmHeadline><CookMode /></section>
-        <section className="return-scene film-scene" aria-hidden="true"><span className="return-note">THE PART THAT MATTERS.</span></section>
-        <section className="plan-scene film-scene"><FilmHeadline className="plan-headline"><span>RIGHT WHERE IT</span><em>BELONGS.</em></FilmHeadline><CookPlan /></section>
-        <section className="final-scene film-scene" id="serve"><img className="final-photo" src={`${FILM}lomo_table_final.png`} alt="Lomo Saltado served on a real table" fetchPriority="high" /><div className="final-shade" /><FilmHeadline className="final-headline"><span>YOU WANTED IT.</span><em>NOW IT&apos;S REAL.</em></FilmHeadline></section>
-        <ol className="film-rail" aria-label="Film progress">{steps.map((step) => <li key={step}><i /><span>{step}</span></li>)}</ol>
+      <div className="protagonist">
+        <div className="hero-foods" role="button" tabIndex={0} aria-label="Change dish" onClick={() => advanceDishRef.current()} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); advanceDishRef.current(); } }}>{dishes.map(([file,name],i)=><img className="hero-food" key={file} src={FOOD+file+".png"} alt={name} style={{opacity:i===0?1:0}} fetchPriority={i===0?"high":"auto"} draggable={false} />)}</div>
+        <img className="empty-food" src={ASSET+"lomo_plate_empty.webp"} alt="An empty plate" draggable={false}/>
       </div>
-      <div className="film-end" aria-hidden="true"><span>THE FILM · COOKPILOT</span></div>
+      <Title name="opening-title" first="LET'S MAKE IT" accent="REAL."/>
+      <div className="request-field" aria-label="Your requests and ingredients">
+        {field.map((item,i)=><div className={`field-object ${item.file?"ingredient-object":"ticket-object"}`} key={i}>
+          {item.file?<img src={ASSET+item.file} alt={item.label}/>:<div className={`request-ticket ${item.label==="KEEP THE FRIES"?"gold-ticket":""}`}><small>KITCHEN NOTE</small><strong>{item.label}</strong><span>COOKPILOT / YOUR WAY</span></div>}
+        </div>)}
+      </div>
+      <div className="compression-light" aria-hidden="true"><i/><b/></div>
+      <div className="action-seed" aria-hidden="true"><span>✓</span></div>
+      <div className="cooklist" aria-label="CookList for Lomo Saltado">
+        <Title name="list-title" first="EVERYTHING YOU" accent="NEED."/>
+        <div className="list-composition">
+          <div className="list-heading"><b className="product-wordmark">Cook<em>Pilot</em></b><div className="list-controls"><span className="portion-pill">− &nbsp; 2 people &nbsp; +</span><span className="yellow-pill">All in one place</span></div></div>
+          <div className="ingredient-grid">{ingredients.map(([name,amount,file])=><div className="ingredient-row" key={name}><span className="row-check">✓</span><img src={ASSET+file} alt=""/><strong>{name}</strong><span className="ingredient-amount">{amount}</span></div>)}</div>
+          <div className="list-ready"><strong>Lomo Saltado</strong><span>READY TO COOK</span></div>
+        </div>
+      </div>
+      <div className="cookmode" aria-label="CookMode for Lomo Saltado">
+        <Title name="mode-title" first="WHEN IT'S TIME TO COOK," accent="JUST COOK."/>
+        <div className="mode-track"><span className="mode-done">✓</span><span className="mode-done">✓</span>{[1,2,3].map(n=><span className={`step step-${n}`} key={n}>{n}</span>)}<i/></div>
+        <div className="mode-lower-row">
+          <div className="instruction-plane instruction-one"><small>01 / SEAR</small><p>START WITH HEAT.<br/><em>GIVE IT COLOR.</em></p></div>
+          <div className="instruction-plane instruction-two"><small>02 / STIR-FRY</small><p>BRING IT TOGETHER.<br/><em>LET IT GLOW.</em></p></div>
+          <div className="instruction-plane instruction-three"><small>03 / READY</small><p>MADE YOUR WAY.<br/><em>READY.</em></p></div>
+          <div className="mode-food"><img className="mode-beef" src="/images/food_images/lomo_saltado_beef_only.png" alt="Lomo Saltado, browned beef"/><img className="mode-stir" src="/images/food_images/lomo_saltado_stir_fry_only.png" alt="Lomo Saltado, stir fry"/></div>
+        </div>
+      </div>
+        <div className="cookplan" aria-label="CookPlan: Saturday lunch">
+          <div className="plan-top"><b className="product-wordmark">Cook<em>Pilot</em></b><span>YOUR WEEK</span></div>
+          <div className="plan-days">{["Wed","Thu","Fri","Sat","Sun","Mon","Tue"].map((d,i)=><div className={i===3?"chosen":""} key={d}><span>{d}</span><strong>{15+i}</strong></div>)}</div>
+          <div className="plan-meal">
+            <div className="lunch-header"><strong><i className="lunch-icon">☀</i>Lunch</strong><span>2 people</span><b>Cook ↗</b></div>
+            <div className="lunch-menu">
+              <div className="lunch-item"><div className="lunch-food-slot"/><strong>Lomo Saltado</strong></div>
+              <div className="lunch-item"><div className="lunch-food-slot"><img src={FOOD+"ensalada_de_palta.png"} alt="Ensalada"/></div><strong>Ensalada</strong></div>
+              <div className="lunch-item"><div className="lunch-food-slot"><img src="/images/food_images/jugo_de_maracuya_transparent.png" alt="Jugo de Maracuyá"/></div><strong>Jugo de Maracuyá</strong></div>
+            </div>
+          </div>
+        </div>
+      <div className="meal-world">
+        <img className="return-food" src={FOOD+"lomo_saltado.png"} alt="Lomo Saltado" draggable={false}/>
+      </div>
+      <Title name="plan-title" first="RIGHT WHERE IT" accent="BELONGS."/>
+      <div className="table-contact" aria-hidden="true"/>
+      <div className="table-shot" aria-label="The meal reaches the table"><img className="table-photo" src={ASSET+"lomo_table_final.png"} alt="Lomo Saltado served on a wooden table"/><div className="table-shade"/><Title name="table-title" first="YOU WANTED IT." accent="NOW IT'S REAL."/></div>
+      <section className="rehook" aria-label="Make it yours">
+        <img className="rehook-phone" src="/images/lomo_phone_on_hand.png" alt="CookPilot showing Lomo Saltado on a phone held in a hand" draggable={false}/>
+        {socialIcons.map((icon,i)=><div className="rehook-icon" key={icon.file} style={{left:`${icon.x}%`,top:`${icon.y}%`,width:`min(${icon.size / 10}vw, ${icon.size / 7}vh)`}}>
+          <img src={`/icons/social-media/${icon.file}.png`} alt={icon.name} draggable={false} style={{animationDuration:`${6+i*.85}s`,animationDelay:`-${i*1.3}s`,"--float":`${icon.float}px`,"--rotation":`${icon.rotation}deg`} as React.CSSProperties}/>
+        </div>)}
+        <Title name="rehook-title" first="THE INTERNET IS FULL OF" accent="THINGS YOU WANT TO EAT."/>
+      </section>
     </div>
-  );
+  </div>;
 }

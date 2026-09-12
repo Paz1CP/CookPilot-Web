@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Film from "./Film";
+import LandingContinuation from "./LandingContinuation";
 
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
@@ -17,10 +18,12 @@ export default function Page() {
           <span className="brand-mark">c<span>↗</span></span>
           CookPilot
         </a>
+
         <div className="nav-links">
           <a href="#film">The film</a>
           <a href="#serve">The plate</a>
         </div>
+
         <button
           className="fullscreen"
           aria-label={fullscreenHint}
@@ -33,10 +36,17 @@ export default function Page() {
               setFullscreenHint("Use F11 for full screen");
             }
           }}
-        >⛶</button>
-        <a href="https://cookpilot.pro/en" className="nav-cta">Get cooking <Arrow /></a>
+        >
+          ⛶
+        </button>
+
+        <a href="https://cookpilot.pro/en" className="nav-cta">
+          Get cooking <Arrow />
+        </a>
       </nav>
+
       <Film />
+      <LandingContinuation />
     </main>
   );
 }

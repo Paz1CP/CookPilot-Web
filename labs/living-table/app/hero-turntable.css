@@ -14,7 +14,7 @@
 .turntable-eyebrow { font-size:clamp(9px, .73vw, 28px); letter-spacing:.22em; color:#b6b8ad; margin-bottom:2.7svh; }
 .hero.turntable h1 { margin:0; font-size:min(9vw, 14svh); line-height:.94; letter-spacing:-.05em; word-spacing:.08em; white-space:normal; }
 .hero.turntable h1 span { display:block; color:var(--paper); }
-.hero.turntable h1 .title-intro { font-size:.68em; }
+.hero.turntable h1 .title-intro { font-size:.72em; }
 .hero.turntable h1 .title-outro { margin-top:.04em; }
 .hero.turntable h1 em { color:var(--yellow); }
 .turntable-caption { position:absolute; top:44.8svh; left:10%; width:80%; height:5svh; z-index:5; text-align:center; }
@@ -35,7 +35,7 @@
 @media (max-width:700px) {
   .turntable-title {top:20svh;left:5%;width:90%}
   .hero.turntable h1 {font-size:14vw;line-height:1}
-  .hero.turntable h1 .title-intro {font-size:.66em}
+  .hero.turntable h1 .title-intro {font-size:.72em}
   .turntable-eyebrow {font-size:9px;margin-bottom:2.5svh}
   .turntable-caption {top:42svh}
   .turntable-platter {top:49svh;width:116vw;margin-left:-58vw}
