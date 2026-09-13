@@ -10,10 +10,10 @@ import HeroAtmosphere from "../components/HeroAtmosphere";
 const ASSET = "/images/cook-film/";
 const FOOD = "/images/food/cutouts/";
 const socialIcons = [
-  {file:"ig",x:27,y:29,size:112,dx:-.7,dy:-.5,float:12,rotation:-8},
+  {file:"ig",x:27,y:29,size:112,shiftX:-36,dx:-.7,dy:-.5,float:12,rotation:-8},
   {file:"tiktok",x:74,y:34,size:124,dx:.7,dy:-.3,float:14,rotation:7},
-  {file:"yt",x:24,y:55,size:108,dx:-.7,dy:.2,float:10,rotation:-5},
-  {file:"fb",x:68,y:16,size:76,dx:.2,dy:-.6,float:6,rotation:10},
+  {file:"yt",x:24,y:55,size:108,shiftX:-36,dx:-.7,dy:.2,float:10,rotation:-5},
+  {file:"fb",x:68,y:16,size:76,shiftX:-48,shiftY:-12,dx:.2,dy:-.6,float:6,rotation:10},
   {file:"web",x:76,y:63,size:84,dx:.5,dy:.6,float:8,rotation:4},
 ];
 const field = [
@@ -106,6 +106,16 @@ export default function Film() {
     mm.add({desktop:"(min-width: 721px)", mobile:"(max-width: 720px)", reduced:"(prefers-reduced-motion: reduce)"}, context => {
       const mobile = !!context.conditions?.mobile;
       const reduced = !!context.conditions?.reduced;
+      // Retime only the requested beats, including their scroll distance. Later
+      // scenes retain their original pace and all shared-element registrations.
+      const beats = [
+        [0, mobile ? 5.5 : 6, .75],
+        [mobile ? 5.5 : 6, 18.2, .85],
+        [18.2, 23.2, 1 / .8],
+        [65, 71, .75],
+      ] as const;
+      const filmTime = (time: number) => beats.reduce((result, [start, end, scale]) =>
+        result + Math.max(0, Math.min(time, end) - start) * (scale - 1), time);
       const w = host.clientWidth, h = window.innerHeight;
       const tokenPrimary = getComputedStyle(host).getPropertyValue("--cp-primary").trim();
       const tokenSuccess = getComputedStyle(host).getPropertyValue("--cp-secondary").trim();
@@ -134,10 +144,10 @@ export default function Film() {
         scrollTrigger:{
         id:"cookpilot-film",trigger:host,start:"top top",end:"bottom bottom",scrub:reduced ? true : .65,
         onUpdate: self => {
-          const time = self.progress * (mobile ? 100 : 112);
+          const time = self.progress * (self.animation?.duration() ?? 0);
           if (reduced && self.animation) {
-            const held = time < 5 ? 0 : time < 12 ? 10 : time < 23 ? 16 : time < 39 ? 33 : time < 53 ? 46 : time < 62 ? 58 : time < 73 ? 68 : time < 87 ? 81 : time < 101 ? 98 : 110;
-            self.animation.time(held);
+            const held = time < filmTime(5) ? 0 : time < filmTime(12) ? 10 : time < filmTime(23) ? 16 : time < filmTime(39) ? 33 : time < filmTime(53) ? 46 : time < filmTime(62) ? 58 : time < filmTime(73) ? 68 : time < filmTime(87) ? 81 : time < filmTime(101) ? 98 : 110;
+            self.animation.time(filmTime(held));
           }
         },
       }});
@@ -303,6 +313,17 @@ export default function Film() {
           tl.to(el,{x:0,y:0,autoAlpha:1,duration:fast(2),ease:"power3.out"},102.4+i*.15);
         });
       }
+      const originalDuration = tl.duration();
+      const animations = tl.getChildren(false, true, true).map(animation => ({
+        animation, start: animation.startTime(), end: animation.endTime(),
+      }));
+      animations.forEach(({animation, start, end}) => {
+        animation.duration(filmTime(end) - filmTime(start));
+        animation.startTime(filmTime(start));
+      });
+      Object.entries(tl.labels).forEach(([label, time]) => tl.addLabel(label, filmTime(time)));
+      const originalHeight = host.getBoundingClientRect().height;
+      gsap.set(host, {height: h + (originalHeight - h) * tl.duration() / originalDuration});
       const refresh = () => ScrollTrigger.refresh();
       document.fonts.ready.then(refresh);
       return () => tl.scrollTrigger?.kill();
@@ -356,21 +377,21 @@ export default function Film() {
               <div className="lunch-header"><strong><i className="lunch-icon">☀</i>{copy.lunch}</strong><span>{copy.people}</span><b>{copy.cook}</b></div>
             <div className="lunch-menu">
                 <div className="lunch-item"><div className="lunch-food-slot"/><strong>{copy.mealItems[0].name}</strong></div>
-                <div className="lunch-item"><div className="lunch-food-slot"><Image src={FOOD+"ensalada_de_palta.png"} alt={copy.mealItems[1].alt} width={640} height={640}/></div><strong>{copy.mealItems[1].name}</strong></div>
+                <div className="lunch-item"><div className="lunch-food-slot"><Image src={FOOD+"ensalada_de_palta.png"} alt={copy.mealItems[1].alt} width={640} height={640} loading="eager" unoptimized /></div><strong>{copy.mealItems[1].name}</strong></div>
                 <div className="lunch-item"><div className="lunch-food-slot"><Image src="/images/food/jugo_maracuya_cutout.png" alt={copy.mealItems[2].alt} width={640} height={640}/></div><strong>{copy.mealItems[2].name}</strong></div>
             </div>
           </div>
         </div>
       <div className="meal-world">
-        <Image className="return-food" src={FOOD+"lomo_saltado.png"} alt={dishes[0].name} width={640} height={640} draggable={false}/>
+        <Image className="return-food" src={FOOD+"lomo_saltado.png"} alt={dishes[0].name} width={640} height={640} loading="eager" unoptimized draggable={false}/>
       </div>
       <Title name="plan-title" first={copy.planFirst} accent={copy.planAccent}/>
       <div className="table-contact" aria-hidden="true"/>
       <div className="table-shot" aria-label={copy.tableAria}><Image className="table-photo" src={ASSET+"lomo_table_final.png"} alt={copy.tableAlt} width={1672} height={941}/><div className="table-shade"/><Title name="table-title" first={copy.tableFirst} accent={copy.tableAccent}/></div>
       <section className="rehook" aria-label={copy.rehookAria}>
-        <Image className="rehook-phone" src="/images/cook-film/lomo_phone_hand.png" alt={copy.rehookAlt} width={1200} height={1200} draggable={false}/>
-        {socialIcons.map((icon,i)=><div className="rehook-icon" key={icon.file} style={{left:`${icon.x}%`,top:`${icon.y}%`,width:`min(${icon.size / 10}vw, ${icon.size / 7}vh)`}}>
-          <Image src={`/icons/social/${icon.file}.png`} alt={copy.socialNames[i]} width={320} height={320} draggable={false} style={{animationDuration:`${6+i*.85}s`,animationDelay:`-${i*1.3}s`,"--float":`${icon.float}px`,"--rotation":`${icon.rotation}deg`} as React.CSSProperties}/>
+        <Image className="rehook-phone" src="/images/cook-film/lomo_phone_hand.png" alt={copy.rehookAlt} width={1200} height={1200} loading="eager" unoptimized draggable={false}/>
+        {socialIcons.map((icon,i)=><div className="rehook-icon" key={icon.file} style={{left:icon.shiftX ? `calc(${icon.x}% + ${icon.shiftX}px)` : `${icon.x}%`,top:icon.shiftY ? `calc(${icon.y}% + ${icon.shiftY}px)` : `${icon.y}%`,width:`min(${icon.size / 10}vw, ${icon.size / 7}vh)`}}>
+          <Image src={`/icons/social/${icon.file}.png`} alt={copy.socialNames[i]} width={320} height={320} loading="eager" unoptimized draggable={false} style={{animationDuration:`${6+i*.85}s`,animationDelay:`-${i*1.3}s`,"--float":`${icon.float}px`,"--rotation":`${icon.rotation}deg`} as React.CSSProperties}/>
         </div>)}
         <Title name="rehook-title" first={copy.rehookFirst} accent={copy.rehookAccent}/>
       </section>

@@ -22,17 +22,17 @@
             "listFirst": "TODO LO QUE",
             "listAccent": "NECESITAS.",
             "people": "2 personas",
-            "allInOne": "Todo en un solo lugar",
+            "allInOne": "En un solo lugar",
             "readyToCook": "LISTO PARA COCINAR",
             "modeAria": "CookMode para Lomo Saltado",
             "modeBeefAlt": "Carne sellada para Lomo Saltado",
             "modeStirAlt": "Lomo Saltado con carne, cebolla y tomate",
-            "modeFirst": "CUANDO TOCA COCINAR,",
-            "modeAccent": "SOLO COCINA.",
+            "modeFirst": "TODO EN ORDEN,",
+            "modeAccent": "AHORA, A COCINAR.",
             "planAria": "CookPlan: almuerzo del sábado",
             "yourWeek": "TU SEMANA",
             "lunch": "Almuerzo",
-            "cook": "Cocina",
+            "cook": "Cocinar",
             "planFirst": "JUSTO DONDE",
             "planAccent": "DEBE ESTAR.",
             "tableAria": "La comida llega a la mesa",
@@ -136,8 +136,8 @@
                     "alt": "Lomo Saltado"
                 },
                 {
-                    "name": "Ensalada",
-                    "alt": "Ensalada"
+                    "name": "Ensalada de palta",
+                    "alt": "Ensalada de palta"
                 },
                 {
                     "name": "Jugo de Maracuyá",
@@ -180,12 +180,12 @@
                     "copy": "Una comida es mucho más que su plato principal."
                 }
             ],
-            "footer": "UN MENÚ. TODO LO QUE VA JUNTO.",
-            "meta": "4 recetas · 1 menú · Fácil y económico"
+            "footer": "UN MENÚ BUENAZO. UN MENÚ PARA TODOS.",
+            "meta": "4 recetas · 1 menú · Fácil y Económico"
         },
         "plan": {
-            "title": "DE UN MENÚ A",
-            "accent": "TODA TU SEMANA.",
+            "title": "Y DE UN MENÚ..",
+            "accent": "PARA TODA TU SEMANA.",
             "showcaseAlt": "CookPilot CookPlan conectando comidas a lo largo de una semana",
             "descriptionBefore": "Empieza con ",
             "descriptionOne": "un menú completo",

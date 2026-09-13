@@ -1,95 +1,64 @@
 "use client";
 
-import { Reveal, fadeUp } from "@/shared/motion/motion";
+import Image from "next/image";
+import { useLocale } from "@/contexts/LanguageContext";
+import { getLocalizedRoute } from "@/shared/config/routes";
+import EditorialHero from "@/shared/ui/EditorialHero";
+import EditorialClosing from "@/features/public-editorial/EditorialClosing";
+import EditorialReveal from "@/features/public-editorial/EditorialReveal";
+import editorial from "@/features/public-editorial/Editorial.module.css";
 import styles from "./ComparativasPageContent.module.css";
-import { InfoCircle, Award, Book, DirectboxReceive, ClipboardText, CloseCircle } from "iconsax-reactjs";
 
-const comparisonIcons = [
-  Book,
-  ClipboardText,
-  Award,
-  DirectboxReceive,
-  InfoCircle,
-  CloseCircle,
-] as const;
-
-interface CompareBlock {
-  title: string;
-  desc: string;
-  contrast: string;
-  slug: string;
-}
+const illustrations = [
+  "/icons/actions/recipe_library.webp", "/icons/actions/planning.png",
+  "/icons/actions/nutrition.png", "/icons/actions/buying.png",
+  "/icons/actions/reuse.png", "/icons/actions/simple_menu.png",
+];
 
 interface ComparePageData {
-  hero: {
-    eyebrow?: string;
-    title: string;
-    subtitle: string;
-    supportText: string;
-  };
-  section1: {
-    title: string;
-    contrastLabel: string;
-    blocks: CompareBlock[];
-  };
+  hero: { eyebrow?: string; title: string; accent?: string; subtitle: string; supportText: string };
+  section1: { title: string; contrastLabel: string; blocks: { title: string; desc: string; contrast: string; slug: string }[] };
 }
 
 export default function ComparativasPageContent({ content }: { content: ComparePageData }) {
+  const { locale, t } = useLocale();
   return (
-    <main className={styles.main}>
-      <section className={styles.hero}>
-        <div className={styles.heroBg} />
-        <div className={styles.inner}>
-          {content.hero.eyebrow ? (
-            <Reveal variants={fadeUp}>
-              <span className={styles.eyebrow}>{content.hero.eyebrow}</span>
-            </Reveal>
-          ) : null}
-          <Reveal variants={fadeUp} delay={0.1}>
-            <h1 className={styles.title}>{content.hero.title}</h1>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.2}>
-            <p className={styles.subtitle}>{content.hero.subtitle}</p>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.3}>
-            <p className={styles.supportText}>{content.hero.supportText}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className={styles.compareContent}>
-        <div className={styles.inner}>
-          <Reveal variants={fadeUp}>
-            <h2 className={styles.secTitle}>{content.section1.title}</h2>
-          </Reveal>
-
-          <div className={styles.grid}>
-            {content.section1.blocks.map((block, idx) => {
-              const Icon = comparisonIcons[idx] ?? InfoCircle;
-              return (
-                <Reveal key={block.slug} variants={fadeUp} delay={0.05 * idx}>
-                  <div className={styles.card}>
-                    <div className={styles.cardHeader}>
-                      <div className={styles.iconWrap}>
-                        <Icon size={22} variant="Bulk" />
-                      </div>
-                      <h3 className={styles.cardTitle}>{block.title}</h3>
-                    </div>
-
-                    <div className={styles.cardBody}>
-                      <p className={styles.descText}>{block.desc}</p>
-                      <div className={styles.contrastBox}>
-                        <span className={styles.contrastLabel}>{content.section1.contrastLabel}</span>
-                        <p className={styles.contrastText}>{block.contrast}</p>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
+    <main className={editorial.page}>
+      <EditorialHero {...content.hero} primaryCta={t.header.descargar}
+        secondaryCta={{ label: t.header.como_funciona, href: getLocalizedRoute(locale, "howItWorks") }} />
+      <div className={editorial.inner}>
+        <section className={styles.statement}>
+          <div className={styles.statementPhoto} aria-hidden="true">
+            <Image src="/images/food/lomo_stir_fry.png" alt="" fill sizes="50vw" />
           </div>
-        </div>
-      </section>
+          <p>{content.hero.supportText}</p>
+        </section>
+        <section className={styles.comparisons} aria-labelledby="comparison-title">
+          <div className={styles.selector}>
+            <h2 id="comparison-title">{content.section1.title}</h2>
+            <nav aria-labelledby="comparison-title">
+              {content.section1.blocks.map((block, index) => (
+                <a key={block.slug} href={`#compare-${block.slug}`}><span>{String(index + 1).padStart(2, "0")}</span>{block.title}<span aria-hidden="true">↗</span></a>
+              ))}
+            </nav>
+          </div>
+          <div className={styles.rows}>
+            {content.section1.blocks.map((block, index) => (
+              <article id={`compare-${block.slug}`} key={block.slug} className={styles.row}>
+                <header><span>{String(index + 1).padStart(2, "0")}</span><h3>{block.title}</h3></header>
+                <div className={styles.argument}>
+                  <p className={styles.before}>{block.desc}</p>
+                  <EditorialReveal className={styles.after}>
+                    <div><h4>{content.section1.contrastLabel}</h4><p>{block.contrast}</p></div>
+                    <Image src={illustrations[index]} alt="" width={280} height={280} sizes="220px" />
+                  </EditorialReveal>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
+      <EditorialClosing />
     </main>
   );
 }

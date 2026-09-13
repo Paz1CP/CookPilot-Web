@@ -13,13 +13,7 @@ export async function GET(request: NextRequest) {
     hasMore: page.hasMore,
     facetOptions: page.facetOptions,
   };
-  const hasAuthCookie = request.cookies.getAll().some(({ name }) =>
-    name.startsWith("sb-") || name.includes("auth-token"),
-  );
-  const canShareCache = !hasAuthCookie && state.scope === "global";
   return NextResponse.json(publicPage, {
-    headers: canShareCache
-      ? { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" }
-      : { "Cache-Control": "private, no-store, max-age=0, must-revalidate", Vary: "Cookie" },
+    headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" },
   });
 }

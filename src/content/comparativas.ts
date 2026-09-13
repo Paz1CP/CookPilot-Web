@@ -1,7 +1,9 @@
 export const comparativasContent = {
   es: {
     hero: {
-      title: "CookPilot frente a otras alternativas.",
+      eyebrow: "Comparativas",
+      title: "Más que recetas.",
+      accent: "Todo conectado.",
       subtitle: "Compara cómo se organiza tu alimentación diaria usando CookPilot en comparación con métodos, apps y herramientas tradicionales.",
       supportText: "No vendemos recetas ni dietas rígidas. Ofrecemos un sistema integrado. Mira cómo se compara CookPilot frente a lo que usas hoy."
     },
@@ -50,7 +52,9 @@ export const comparativasContent = {
   },
   en: {
     hero: {
-      title: "CookPilot vs. other alternatives.",
+      eyebrow: "Comparisons",
+      title: "More than recipes.",
+      accent: "All connected.",
       subtitle: "Compare how your daily food is organized using CookPilot versus traditional methods, apps, and tools.",
       supportText: "We don't sell recipes or rigid diets. We offer an integrated system. See how CookPilot compares to what you use today."
     },

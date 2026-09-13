@@ -3,3 +3,6 @@ import { metadataForCookShareObject, renderCookShareObject } from "@/lib/cooksha
 async function input(params: Promise<{ handle: string; slug: string }>) { const value = await params; return { locale: "es" as const, objectType: "day" as const, handle: value.handle, slug: value.slug }; }
 export async function generateMetadata({ params }: { params: Promise<{ handle: string; slug: string }> }): Promise<Metadata> { return metadataForCookShareObject(await input(params)); }
 export default async function Page({ params }: { params: Promise<{ handle: string; slug: string }> }) { return renderCookShareObject(await input(params)); }
+
+export const revalidate = 60;
+export const dynamic = "force-static";

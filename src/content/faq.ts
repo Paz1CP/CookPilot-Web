@@ -1,7 +1,9 @@
 export const faqContent = {
   es: {
     hero: {
-      title: "Preguntas frecuentes sobre CookPilot.",
+      eyebrow: "FAQ",
+      title: "Preguntas frecuentes.",
+      accent: "Respuestas claras.",
       subtitle: "Respuestas claras sobre planificación, nutrición, compras, cocina, importaciones, Pro y disponibilidad."
     },
     sections: [
@@ -165,7 +167,9 @@ export const faqContent = {
   },
   en: {
     hero: { 
-      title: "Frequently Asked Questions about CookPilot.",
+      eyebrow: "FAQ",
+      title: "Common questions.",
+      accent: "Clear answers.",
       subtitle: "Clear answers about planning, nutrition, shopping, cooking, imports, Pro, and availability."
     },
     sections: [

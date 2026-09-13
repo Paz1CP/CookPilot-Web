@@ -13,3 +13,5 @@ export default async function Page({ searchParams }: { searchParams: Promise<Rec
   const page = await getGalleryPage(state);
   return <main className={styles.page}><div className={styles.shell}><p className="cp-eyebrow">CookShare</p><h1>Gallery</h1><p className={styles.lead}>Real recipes to decide what to cook with clarity.</p><GalleryClient initial={page} /></div></main>;
 }
+
+export const revalidate = 60;

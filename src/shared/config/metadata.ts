@@ -158,7 +158,10 @@ export function createCookShareMetadata(
   }).find((value): value is string => Boolean(value));
 
   const languages: Record<string, string> = { [locale]: canonical };
-  if (options.alternate?.identity.object_id === object.identity.object_id) {
+  if (options.alternate
+    && options.alternate.object_type === object.object_type
+    && options.alternate.identity.slug === object.identity.slug
+    && options.alternate.identity.handle === object.identity.handle) {
     languages[alternateLocale] = absoluteUrl(options.alternate.identity.canonical_path);
     languages["x-default"] = canonical;
   }

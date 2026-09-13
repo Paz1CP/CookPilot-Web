@@ -1,7 +1,9 @@
 export const comoFuncionaContent = {
   es: {
     hero: {
-      title: "Cómo funciona CookPilot",
+      eyebrow: "Cómo funciona",
+      title: "Del antojo.",
+      accent: "A tu mesa.",
       subtitle: "Empieza con una receta, una idea o un día vacío. CookPilot lo convierte en menú, compra, cocina y reutilización.",
       ctaPrimary: "Descargar CookPilot",
       ctaSecondary: "Ver guías",
@@ -129,7 +131,9 @@ export const comoFuncionaContent = {
   },
   en: {
     hero: {
-      title: "How CookPilot Works",
+      eyebrow: "How it works",
+      title: "From craving.",
+      accent: "To your table.",
       subtitle: "Start with a recipe, an idea, or an empty day. CookPilot turns it into a menu, shopping, cooking, and reuse.",
       ctaPrimary: "Download CookPilot",
       ctaSecondary: "View Guides",
@@ -165,7 +169,7 @@ export const comoFuncionaContent = {
           "A usable menu.",
           "A day with fewer empty spaces.",
         ],
-        image: "/images/app/cookplan.png",
+        image: "/images/app/cookhome.png",
       },
       {
         number: "03",
@@ -221,7 +225,7 @@ export const comoFuncionaContent = {
           "A meal prepared with less disorder.",
           "A clearer cooking flow.",
         ],
-        image: "/images/app/cookhome.png",
+        image: "/images/app/cookmode.png",
       },
       {
         number: "07",

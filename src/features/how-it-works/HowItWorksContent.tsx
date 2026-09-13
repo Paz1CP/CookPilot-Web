@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Reveal, fadeUp } from "@/shared/motion/motion";
+import EditorialReveal from "@/features/public-editorial/EditorialReveal";
+import editorial from "@/features/public-editorial/Editorial.module.css";
 import styles from "./HowItWorksContent.module.css";
-import FinalDownload from "@/shared/download/FinalDownload";
+import EditorialClosing from "@/features/public-editorial/EditorialClosing";
 import EditorialHero from "@/shared/ui/EditorialHero";
 import { useLocale } from "@/contexts/LanguageContext";
 import { getLocalizedRoute } from "@/shared/config/routes";
@@ -26,6 +27,7 @@ type HowItWorksData = {
   hero: {
     eyebrow?: string;
     title: string;
+    accent?: string;
     subtitle: string;
     ctaPrimary: string;
     ctaSecondary: string;
@@ -50,10 +52,11 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
   const { locale } = useLocale();
 
   return (
-    <main className={styles.main}>
+    <main className={editorial.page}>
       <EditorialHero
         eyebrow={content.hero.eyebrow}
         title={content.hero.title}
+        accent={content.hero.accent}
         subtitle={content.hero.subtitle}
         primaryCta={content.hero.ctaPrimary}
         secondaryCta={{
@@ -64,20 +67,23 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
 
       <section className={styles.introSection}>
         <div className={styles.inner}>
-          <Reveal variants={fadeUp}>
+          <EditorialReveal>
             <h2 className={styles.introTitle}>{content.section1.title}</h2>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.1}>
+          </EditorialReveal>
+          <EditorialReveal>
             <p className={styles.introSubtitle}>{content.section1.subtitle}</p>
-          </Reveal>
+          </EditorialReveal>
         </div>
       </section>
 
       <section className={styles.timelineSection}>
         <div className={styles.inner}>
+          <nav className={styles.chapterNav} aria-label={content.hero.title}>
+            {content.steps.map((step) => <a key={step.number} href={`#chapter-${step.number}`}><span>{step.number}</span>{step.title}</a>)}
+          </nav>
           <div className={styles.timeline}>
             {content.steps.map((step) => (
-              <div key={step.number} className={styles.stepRow}>
+              <article key={step.number} id={`chapter-${step.number}`} className={styles.stepRow}>
                 <div className={styles.stepMeta}>
                   <span className={styles.stepNumber}>{step.number}</span>
                   <div className={styles.stepTextCol}>
@@ -103,7 +109,7 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
                     </div>
                   </div>
                 </div>
-                <div className={styles.stepVisual} aria-hidden="true">
+                <EditorialReveal className={styles.stepVisual}>
                   <Image
                     src={step.image}
                     alt=""
@@ -111,8 +117,8 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
                     height={960}
                     className={styles.stepImage}
                   />
-                </div>
-              </div>
+                </EditorialReveal>
+              </article>
             ))}
           </div>
         </div>
@@ -120,12 +126,12 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
 
       <section className={styles.mappingSection}>
         <div className={styles.inner}>
-          <Reveal variants={fadeUp}>
+          <EditorialReveal>
             <h2 className={styles.mappingTitle}>{content.entryMappings.title}</h2>
-          </Reveal>
-          <Reveal variants={fadeUp} delay={0.1}>
+          </EditorialReveal>
+          <EditorialReveal>
             <p className={styles.mappingSubtitle}>{content.entryMappings.subtitle}</p>
-          </Reveal>
+          </EditorialReveal>
           <div className={styles.mappingGrid}>
             {content.entryMappings.items.map((item) => (
               <div key={`${item.from}-${item.to}`} className={styles.mappingItem}>
@@ -137,7 +143,7 @@ export default function HowItWorksContent({ content }: { content: HowItWorksData
           </div>
         </div>
       </section>
-      <FinalDownload />
+      <EditorialClosing />
     </main>
   );
 }

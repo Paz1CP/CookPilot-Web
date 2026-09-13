@@ -70,8 +70,6 @@ export async function getSemanticCollection(
     q: "",
     type: "recipes",
     cursor: null,
-    scope: "global",
-    handle: null,
     facets,
   });
   if (!page.items.length) notFound();

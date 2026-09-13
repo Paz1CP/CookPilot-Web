@@ -91,10 +91,6 @@ export function buildCookSharePath(input: {
   return `${input.locale === "es" ? "/es" : "/en"}${prefix}/${segment}/${input.slug}`;
 }
 
-export function buildHandlePath(locale: AppLocale, handle: string) {
-  return `${locale === "es" ? "/es" : "/en"}/@${handle.replace(/^@/, "").toLowerCase()}`;
-}
-
 const cookShareSegmentAliases: Record<string, string> = {
   recetas: "recipes",
   recipes: "recetas",

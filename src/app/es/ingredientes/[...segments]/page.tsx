@@ -18,3 +18,5 @@ export default async function Page({ params }: { params: Promise<{ segments: str
   const collection = await getSemanticCollection("es", "ingredient", segments);
   return <SemanticCollection {...collection} />;
 }
+
+export const revalidate = 60;

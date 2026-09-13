@@ -122,8 +122,8 @@
   font-size: 12px;
 }
 .lc-own {
-  padding-top: 108px;
-  padding-bottom: 58px;
+  padding-top: 164px;
+  padding-bottom: 72px;
   width: 100%;
 }
 .lc-menu-intro {
@@ -131,11 +131,11 @@
   margin-inline: auto;
   display: grid;
   grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.7fr);
-  gap: 70px;
+  gap: 92px;
   align-items: end;
 }
 .lc-menu-intro h2 {
-  font-size: clamp(58px, 5.8vw, 88px);
+  font-size: clamp(56px, 5.8vw, 88px);
 }
 .lc-menu-eyebrow {
   display: block;
@@ -146,9 +146,9 @@
   margin-bottom: 18px;
 }
 .lc-menu-intro > p {
-  max-width: 390px;
+  max-width: 410px;
   color: var(--lc-soft);
-  font-size: 21px;
+  font-size: 20px;
   line-height: 1.45;
   padding-bottom: 5px;
 }
@@ -161,8 +161,9 @@
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 0 var(--lc-rail-inset) 8px;
-  scroll-padding-inline: var(--lc-rail-inset);
+  justify-content: center;
+  padding: 36 0 36px;
+  scroll-padding-inline: 0;
   scrollbar-width: none;
 }
 .lc-menu-rail::-webkit-scrollbar {
@@ -238,7 +239,7 @@
   letter-spacing: 0.11em;
 }
 .lc-plan {
-  padding: 86px 0 92px;
+  padding: 72px 0 92px;
   background: var(--lc-warm);
 }
 .lc-plan-editorial {
@@ -1010,14 +1011,14 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: #302b24;
+  background: var(--cp-dark-floating);
   color: var(--paper);
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 10px 24px rgba(0, 0, 0, 0.18);
+    inset 0 1px 0 color-mix(in srgb, var(--cp-light) 6%, transparent),
+    0 10px 24px color-mix(in srgb, var(--cp-dark-deep) 18%, transparent);
   transition:
     transform 0.2s ease,
     background 0.2s ease,
@@ -1030,7 +1031,7 @@
 }
 .lc-rail-controls button:not(:disabled):hover {
   background: var(--yellow);
-  color: #111;
+  color: var(--cp-dark);
   transform: translateY(-2px);
 }
 .lc-recipe-rail {
@@ -1190,8 +1191,8 @@
   padding: 4px;
   margin-top: 0;
   border-radius: 999px;
-  background: #121112;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  background: var(--cp-dark-deep);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cp-light) 8%, transparent);
 }
 .lc-pro-switch button {
   min-height: 42px;
@@ -1199,7 +1200,7 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: #aaa49d;
+  color: var(--cp-gray-soft);
   font: inherit;
   font-size: 12px;
   font-weight: 760;
@@ -1218,11 +1219,11 @@
 }
 .lc-pro-switch button.is-active {
   background: var(--paper);
-  color: #161412;
+  color: var(--cp-dark);
 }
 .lc-pro-switch button:last-child.is-active {
   background: var(--yellow);
-  color: #18130a;
+  color: var(--cp-dark);
 }
 .lc-pro-switch button:focus-visible {
   outline: 2px solid var(--yellow);
@@ -1352,7 +1353,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 64px 32px;
-  background: #060504;
+  background: var(--cp-dark-deep);
 }
 .lc-footer .footer-atmosphere { z-index: -1; }
 .lc-footer .footer-atmosphere::after { z-index: 3; }
@@ -1395,19 +1396,19 @@
   letter-spacing: -0.04em;
 }
 .lc-footer-close p span { color: var(--lc-soft); }
-.lc-footer-download {
+.cp-landing .lc-footer-download {
   display: inline-flex;
   align-items: center;
   gap: 22px;
   padding: 17px 24px;
   border-radius: 18px;
   background: var(--yellow);
-  color: #16130b;
+  color: var(--cp-dark);
   font-size: 17px;
   font-weight: 650;
   transition: transform .25s ease, background .25s ease;
 }
-.lc-footer-download .lc-download-icon { width: 23px; height: 23px; margin-left: 0; color: #16130b; }
+.cp-landing .lc-footer-download .lc-download-icon { width: 23px; height: 23px; margin-left: 0; color: var(--cp-dark); }
 .lc-footer-download:hover { transform: translateY(-3px); background: var(--cp-primary-strong); }
 .lc-footer-download:active { transform: translateY(0) scale(.98); }
 .lc-footer-middle {
@@ -1449,7 +1450,7 @@
   justify-content: space-between;
   gap: 20px;
   align-items: center;
-  border-top: 1px solid #302b24;
+  border-top: 1px solid var(--cp-gray-deep);
   padding-top: 26px;
   color: var(--lc-soft);
   font-size: 10px;
@@ -1470,7 +1471,7 @@
   gap: 18px;
   padding: 12px 17px;
   border-radius: 999px;
-  background: #201d18;
+  background: var(--cp-dark-floating);
   transition: color .25s ease, transform .25s ease;
 }
 .lc-footer-top span { display: inline-block; transition: transform .3s ease; font-size: 17px; }
@@ -1524,6 +1525,11 @@
   .lc-menu-intro > p,
   .lc-memory-heading p { max-width: 680px; }
   .lc-menu-rail-wrap { margin-top: 46px; }
+  .lc-menu-rail {
+    justify-content: flex-start;
+    padding-inline: var(--lc-rail-inset);
+    scroll-padding-inline: var(--lc-rail-inset);
+  }
   .lc-menu-card { width: min(52vw, 430px); }
   .lc-menu-footer strong { white-space: normal; }
   .lc-plan { padding-block: 80px; }
@@ -1665,27 +1671,126 @@
 }
 
 /* Theme support is local to the landing; the production app bar keeps its own tokens. */
-[data-theme="light"] .cp-landing {
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing {
   --black: var(--cp-layer-base);
-  --ink: var(--cp-layer-raised);
-  --ink-2: var(--cp-layer-floating);
+  --ink: var(--cp-layer-raised-light);
+  --ink-2: var(--cp-layer-floating-light);
   --paper: var(--cp-text-primary);
   --muted: var(--cp-text-secondary);
   --muted-2: var(--cp-text-tertiary);
 }
-[data-theme="light"] .cp-landing .lc {
-  --lc-warm: var(--cp-layer-raised);
-  --lc-surface: var(--cp-layer-floating);
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc {
+  --lc-warm: var(--cp-layer-raised-light);
+  --lc-surface: var(--cp-layer-floating-light);
   --lc-soft: var(--cp-text-secondary);
-  background: var(--black);
+  background: var(--cp-layer-base);
+  color: var(--cp-text-primary);
 }
-[data-theme="light"] .cp-landing :is(.film-experience,.film-canvas,.rehook,.hero-atmosphere,.lc-download) { background: var(--black); }
-[data-theme="light"] .cp-landing :is(.lc-plan,.lc-discovery) { background: var(--lc-warm); }
-[data-theme="light"] .cp-landing :is(.lc-guided,.lc-keep) { background: color-mix(in srgb, var(--black) 92%, var(--yellow) 8%); }
-[data-theme="light"] .cp-landing :is(.lc-list-surface,.lc-ingredient,.lc-list-sources > div,.lc-origin,.lc-memory-card,.lc-stores > a) { background: var(--cp-layer-raised); }
-[data-theme="light"] .cp-landing .lc-pro-panel { background: var(--cp-layer-raised); }
-[data-theme="light"] .cp-landing .lc-pro-card { background: var(--cp-layer-base); }
-[data-theme="light"] .cp-landing .lc-pro-card.is-dimmed { background: color-mix(in srgb, var(--cp-layer-base) 88%, #777 12%); }
-[data-theme="light"] .cp-landing .lc-footer { background: color-mix(in srgb, var(--black) 94%, var(--yellow) 6%); }
-[data-theme="light"] .cp-landing .hero-atmosphere { filter: invert(.92) hue-rotate(178deg); }
-[data-theme="light"] .cp-landing :is(.table-shot,.table-shade) { filter: none; }
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing :is(.film-experience,.film-canvas,.rehook,.hero-atmosphere) { background: var(--cp-layer-base); }
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing :is(.lc-plan,.lc-discovery) { background: var(--lc-warm); }
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-own {
+  --paper: var(--cp-text-inverse);
+  --lc-soft: var(--cp-text-tertiary);
+  --lc-surface: var(--cp-dark-floating);
+  --lc-warm: var(--cp-dark);
+  background: var(--cp-dark);
+  color: var(--cp-text-inverse);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing :is(.lc-guided,.lc-keep,.lc-download) {
+  background: var(--cp-layer-raised-light);
+  color: var(--cp-text-primary);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing :is(.lc-list-surface,.lc-memory-card,.lc-pro-panel) {
+  background: var(--cp-layer-raised-light);
+  color: var(--cp-text-primary);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-memory-card:focus-within {
+  background: var(--cp-layer-raised-light);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing :is(.lc-ingredient,.lc-list-sources > div,.lc-origin,.lc-pro-card,.lc-stores > a) {
+  background: var(--cp-layer-floating-light);
+  color: var(--cp-text-primary);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-ingredient:hover,
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-ingredient:focus-visible,
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-list-sources > div.is-source {
+  background: var(--cp-layer-raised-light);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-ingredient.is-done {
+  background: color-mix(in srgb, var(--cp-secondary-muted) 76%, var(--cp-layer-floating-light));
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-pro-card.is-dimmed {
+  background: var(--cp-layer-dim-light);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-recipe-card {
+  color: var(--cp-text-inverse);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-footer {
+  --black: var(--cp-dark);
+  --ink: var(--cp-dark-raised);
+  --ink-2: var(--cp-dark-floating);
+  --paper: var(--cp-light);
+  --lc-soft: var(--cp-gray-soft);
+  background: var(--cp-dark-deep);
+  color: var(--cp-light);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-footer .footer-atmosphere {
+  background: var(--cp-dark-deep);
+  filter: none;
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-footer-download,
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-footer-download .lc-download-icon {
+  color: var(--cp-dark);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-categories button {
+  color: var(--cp-text-secondary);
+  border-color: color-mix(in srgb, var(--cp-text-secondary) 35%, transparent);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-categories button[aria-selected="true"] {
+  color: var(--cp-text-primary);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-check {
+  color: var(--cp-text-primary);
+  border-color: var(--cp-border-default);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-guided-image-frame {
+  background: var(--cp-dark-floating);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-pro-switch {
+  background: var(--cp-dark-deep);
+  color: var(--cp-gray-soft);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-pro-switch button {
+  color: var(--cp-gray-soft);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-rail-controls button {
+  background: var(--cp-layer-floating-light);
+  color: var(--cp-text-primary);
+  border: 1px solid var(--cp-border-subtle);
+  box-shadow: none;
+  opacity: 1;
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-rail-controls button:disabled {
+  color: var(--cp-text-secondary);
+  opacity: .72;
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-rail-controls button:not(:disabled) {
+  background: var(--cp-dark-floating);
+  color: var(--cp-text-inverse);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-rail-controls button:not(:disabled):hover {
+  background: var(--cp-primary);
+  color: var(--cp-dark);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-pro-switch button.is-active {
+  background: var(--cp-layer-floating-light);
+  color: var(--cp-text-primary);
+  box-shadow: inset 0 0 0 1px var(--cp-border-default);
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-pro-switch button:last-child.is-active {
+  background: var(--cp-primary);
+  color: var(--cp-dark);
+  box-shadow: none;
+}
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .hero-atmosphere { filter: none; }
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing :is(.table-shot,.table-shade) { filter: none; }

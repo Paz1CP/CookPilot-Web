@@ -1,11 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { type ButtonHTMLAttributes, type ReactNode, useEffect, useRef, useState } from "react";
 import { CloseCircle } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
 import { buildCookShareInstallLinks } from "./cookshare-install-links";
 import styles from "./DownloadExperience.module.css";
+import editorialStyles from "./DownloadEditorial.module.css";
+import { isEditorialRoute } from "@/shared/config/editorial-routes";
 
 const DOWNLOAD_EVENT = "cookpilot:download";
 
@@ -41,6 +44,9 @@ export function DownloadButton({ children, onClick, cookSharePath, ...props }: D
 
 export default function DownloadExperience() {
   const { t } = useLocale();
+  const pathname = usePathname();
+  const editorial = isEditorialRoute(pathname);
+  const appearance = editorial ? editorialStyles : styles;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [canonicalPath, setCanonicalPath] = useState<string>();
 
@@ -71,7 +77,7 @@ export default function DownloadExperience() {
   return (
     <dialog
       ref={dialogRef}
-      className={styles.dialog}
+      className={appearance.dialog}
       aria-labelledby="download-dialog-title"
       aria-describedby="download-dialog-description"
       onCancel={(event) => {
@@ -82,25 +88,25 @@ export default function DownloadExperience() {
         if (event.target === event.currentTarget) dialogRef.current?.close();
       }}
     >
-      <div className={styles.panel}>
+      <div className={appearance.panel}>
         <button
           type="button"
-          className={styles.close}
+          className={appearance.close}
           onClick={() => dialogRef.current?.close()}
           aria-label={t.download_experience.close}
         >
           <CloseCircle size={28} aria-hidden="true" />
         </button>
 
-        <div className={styles.brand} aria-hidden="true">
-          <Image src="/images/cookpilot/cookpilot_logo.png" alt="" width={128} height={128} />
+        <div className={appearance.brand} aria-hidden="true">
+          <Image src={editorial ? "/images/cookpilot/thumbs_up.webp" : "/images/cookpilot/cookpilot_logo.png"} alt="" width={editorial ? 480 : 128} height={editorial ? 480 : 128} />
         </div>
         <h2 id="download-dialog-title">{t.download_experience.title}</h2>
-        <p id="download-dialog-description" className={styles.description}>
+        <p id="download-dialog-description" className={appearance.description}>
           {t.download_experience.description}
         </p>
 
-        <div className={styles.stores}>
+        <div className={appearance.stores}>
           <a href={installLinks.googlePlay} target="_blank" rel="noreferrer">
             <Image src="/icons/stores/google-play.png" alt="" width={48} height={48} />
             <span>

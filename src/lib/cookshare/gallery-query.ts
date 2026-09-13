@@ -1,8 +1,6 @@
 import type { AppLocale } from "@/shared/config/routes";
 import type {
-  GalleryAccess,
   GalleryFacetState,
-  GalleryScope,
   GalleryState,
   GalleryType,
 } from "./types";
@@ -16,9 +14,7 @@ const galleryTypes = new Set<GalleryType>([
   "lists",
   "ingredients",
   "categories",
-  "handles",
 ]);
-const accesses = new Set<GalleryAccess>(["all", "free", "pro"]);
 const mealValues = new Set([
   "breakfast",
   "morning_snack",
@@ -47,7 +43,6 @@ export const emptyGalleryFacets = (): GalleryFacetState => ({
   excludedIngredients: [],
   minTime: null,
   maxTime: null,
-  access: "all",
 });
 
 function first(value: string | string[] | undefined) {
@@ -86,11 +81,6 @@ function normalizeQuery(value: string | undefined) {
     .slice(0, 80);
 }
 
-function normalizeHandle(value: string | undefined) {
-  const handle = value?.trim().replace(/^@/, "").toLowerCase() ?? "";
-  return /^[a-z0-9][a-z0-9._-]{2,29}$/.test(handle) ? handle : null;
-}
-
 export function parseGalleryState(
   locale: AppLocale,
   searchParams: URLSearchParams | Record<string, string | string[] | undefined>,
@@ -99,9 +89,6 @@ export function parseGalleryState(
     ? searchParams.getAll(key)
     : searchParams[key];
   const rawType = first(get("type"));
-  const rawScope = first(get("scope"));
-  const scope: GalleryScope = rawScope === "handle" ? "handle" : "global";
-  const rawAccess = first(get("access"));
   const type = galleryTypes.has(rawType as GalleryType) ? rawType as GalleryType : "all";
   const rawCursor = first(get("cursor"));
   return {
@@ -109,8 +96,6 @@ export function parseGalleryState(
     q: normalizeQuery(first(get("q"))),
     type,
     cursor: rawCursor?.trim() || null,
-    scope,
-    handle: normalizeHandle(first(get("handle"))),
     facets: {
       categories: list(get("category")),
       meals: validList(get("meal"), mealValues),
@@ -119,7 +104,6 @@ export function parseGalleryState(
       excludedIngredients: list(get("exclude_ingredient"), 6),
       minTime: validTime(get("min_time")),
       maxTime: validTime(get("max_time")),
-      access: accesses.has(rawAccess as GalleryAccess) ? rawAccess as GalleryAccess : "all",
     },
   };
 }
@@ -130,13 +114,12 @@ function appendMany(params: URLSearchParams, key: string, values: string[]) {
 
 export function toGallerySearchParams(
   state: GalleryState,
-  options: { includeScope?: boolean; includeCursor?: boolean; includeLocale?: boolean } = {},
+  options: { includeCursor?: boolean; includeLocale?: boolean } = {},
 ) {
   const params = new URLSearchParams();
   if (options.includeLocale) params.set("locale", state.locale);
   if (state.q) params.set("q", state.q);
   if (state.type !== "all") params.set("type", state.type);
-  if (state.facets.access !== "all") params.set("access", state.facets.access);
   appendMany(params, "category", state.facets.categories);
   appendMany(params, "meal", state.facets.meals);
   appendMany(params, "component", state.facets.components);
@@ -144,10 +127,6 @@ export function toGallerySearchParams(
   appendMany(params, "exclude_ingredient", state.facets.excludedIngredients);
   if (state.facets.minTime !== null) params.set("min_time", String(state.facets.minTime));
   if (state.facets.maxTime !== null) params.set("max_time", String(state.facets.maxTime));
-  if (options.includeScope && state.scope === "handle" && state.handle) {
-    params.set("scope", "handle");
-    params.set("handle", state.handle);
-  }
   if (options.includeCursor && state.cursor) params.set("cursor", state.cursor);
   return params;
 }
@@ -167,11 +146,10 @@ export function hasActiveGalleryFacets(state: GalleryState) {
     facets.ingredients.length ||
     facets.excludedIngredients.length ||
     facets.minTime !== null ||
-    facets.maxTime !== null ||
-    facets.access !== "all",
+    facets.maxTime !== null,
   );
 }
 
 export function galleryQueryFingerprint(state: GalleryState) {
-  return toGallerySearchParams(state, { includeScope: true }).toString();
+  return toGallerySearchParams(state).toString();
 }

@@ -80,7 +80,7 @@ export default function ShoppingListScreen() {
         <div className="lc-list-sources">
           {copy.recipes.map((recipe, index) => (
             <div className={selectedItem.sources.some((source) => source.startsWith(recipe.name)) ? "is-source" : ""} key={recipe.name}>
-              <FoodImage src={landingAssets.shoppingRecipes[index]} name={recipe.name} />
+              <FoodImage src={landingAssets.shoppingRecipes[index]} name={recipe.name} eager unoptimized />
               <strong>{recipe.name}</strong>
               <span>{recipe.servings} {copy.serving} · <b>{recipe.estimatedCost}</b></span>
             </div>

@@ -120,11 +120,12 @@ export default function Header() {
 
           <Link
             href={getLocalizedRoute(locale, "gallery")}
-            className={styles.iconBtn}
+            className={`${styles.iconBtn} ${styles.searchBtn}`}
             aria-label={t.header.open_gallery}
             title={t.header.open_gallery}
           >
-            <SearchNormal1 variant="Bold" size={24} color="currentColor" aria-hidden="true" />
+            <SearchNormal1 variant="Linear" size={24} color="currentColor" aria-hidden="true" />
+            <span className={styles.searchLabel}>{t.header.search_recipes}</span>
           </Link>
 
           <DownloadButton className={styles.downloadBtn}>

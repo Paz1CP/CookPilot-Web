@@ -149,6 +149,10 @@
   --cp-layer-raised: #FEFEF5;
   --cp-layer-floating: #FFFFFF;
   --cp-layer-dim: #1F080000;
+  /* Landing light surfaces mapped from the approved product palette. */
+  --cp-layer-raised-light: #FFFFDF;
+  --cp-layer-floating-light: #FFFFC9;
+  --cp-layer-dim-light: rgba(254, 254, 245, 0.55);
   --cp-text-primary: #080000;
   --cp-text-secondary: #5E5F58;
   --cp-text-tertiary: #77786F;

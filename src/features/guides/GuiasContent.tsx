@@ -1,420 +1,128 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
-import { ArrowRight } from "iconsax-reactjs";
-
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "@/contexts/LanguageContext";
 import { getLocalizedRoute } from "@/shared/config/routes";
-import { DownloadButton } from "@/shared/download/DownloadExperience";
-import styles from "./GuiasContent.module.css";
 import EditorialHero from "@/shared/ui/EditorialHero";
+import EditorialClosing from "@/features/public-editorial/EditorialClosing";
+import editorial from "@/features/public-editorial/Editorial.module.css";
+import styles from "./GuiasContent.module.css";
 
 type Guide = {
-  id: string;
-  number: string;
-  title: string;
-  description: string;
-  chips: string[];
-  icon: string;
-  summary: string;
-  whatYouDo: string[];
-  whenToUse: string;
-  whatGetsReady: string[];
-  tip: string;
+  id: string; number: string; title: string; description: string; icon: string;
+  summary: string; whatYouDo: string[]; whenToUse: string; whatGetsReady: string[]; tip: string;
 };
-
 type GuideLabels = {
-  whatYouDo: string;
-  whenToUse: string;
-  whatGetsReady: string;
-  tip: string;
-  openGuide: string;
+  whatYouDo: string; whenToUse: string; whatGetsReady: string; tip: string;
+  openGuide: string; library: string; backToLibrary: string;
 };
-
 type GuiasData = {
-  hero: {
-    eyebrow?: string;
-    title: string;
-    subtitle: string;
-    supportText?: string;
-  };
+  hero: { eyebrow?: string; title: string; accent?: string; subtitle: string; supportText?: string };
   guides: Guide[];
-  labels?: GuideLabels;
-  finalCta?: {
-    title: string;
-    text: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
-  };
-};
-
-type GuideCardProps = {
-  guide: Guide;
-  index: number;
-  selected: boolean;
-  openLabel: string;
-  onSelect: (id: string) => void;
-};
-
-type ReaderProps = {
-  guide: Guide;
   labels: GuideLabels;
 };
 
-const DEFAULT_LABELS: Record<"es" | "en", GuideLabels> = {
-  es: {
-    whatYouDo: "Qué haces",
-    whenToUse: "Cuándo usarlo",
-    whatGetsReady: "Qué queda listo",
-    tip: "Consejo CookPilot",
-    openGuide: "Abrir guía",
-  },
-  en: {
-    whatYouDo: "What you do",
-    whenToUse: "When to use it",
-    whatGetsReady: "What gets prepared",
-    tip: "CookPilot tip",
-    openGuide: "Open guide",
-  },
-};
-
-export default function GuiasContent({
-  content,
-}: {
-  content: GuiasData;
-}) {
+export default function GuiasContent({ content }: { content: GuiasData }) {
   const { locale, t } = useLocale();
-  const es = locale === "es";
-
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
+  const [selectedId, setSelectedId] = useState(content.guides[0]?.id);
   const guideId = searchParams.get("guide");
-
-  const labels = useMemo(
-    () => content.labels ?? DEFAULT_LABELS[es ? "es" : "en"],
-    [content.labels, es],
-  );
-
-  const [selectedGuideId, setSelectedGuideId] = useState<string | null>(
-    () => content.guides[0]?.id ?? null,
-  );
-
-  const activeId = content.guides.some((guide) => guide.id === guideId)
-    ? guideId
-    : selectedGuideId;
-
-  const activeGuide = useMemo(
-    () =>
-      content.guides.find((guide) => guide.id === activeId) ??
-      content.guides[0] ??
-      null,
-    [activeId, content.guides],
-  );
+  const activeGuide = content.guides.find((guide) => guide.id === guideId)
+    ?? content.guides.find((guide) => guide.id === selectedId) ?? content.guides[0];
 
   const handleGuideSelect = (id: string) => {
-    setSelectedGuideId(id);
-
+    setSelectedId(id);
     const params = new URLSearchParams(searchParams.toString());
     params.set("guide", id);
-
-    router.replace(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     window.requestAnimationFrame(() => {
-      document
-        .getElementById("guide-reader")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      const reader = document.getElementById("guide-reader");
+      reader?.focus({ preventScroll: true });
+      reader?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        block: "start",
+      });
     });
   };
 
-  const secondaryPath = getLocalizedRoute(locale, "howItWorks");
-
   return (
-    <main className={styles.main}>
-      <EditorialHero
-        eyebrow={content.hero.eyebrow}
-        title={content.hero.title}
-        subtitle={[content.hero.subtitle, content.hero.supportText].filter(Boolean).join(" ")}
-        primaryCta={t.header.descargar}
-        secondaryCta={{ label: t.header.como_funciona, href: secondaryPath }}
-      />
+    <main className={editorial.page}>
+      <EditorialHero eyebrow={content.hero.eyebrow} title={content.hero.title} accent={content.hero.accent}
+        subtitle={content.hero.subtitle} primaryCta={t.header.descargar}
+        secondaryCta={{ label: t.header.como_funciona, href: getLocalizedRoute(locale, "howItWorks") }} />
 
-      <section className={styles.mapSection}>
-        <div className={styles.inner}>
-          <div className={styles.mapHeading}>
-            {content.hero.eyebrow ? (
-              <p className={styles.mapEyebrow}>
-                {content.hero.eyebrow}
-              </p>
-            ) : null}
-
-          </div>
-
+      <section id="guide-library" className={styles.library} aria-label={content.labels.library}>
+        <div className={editorial.inner}>
+          <div className={styles.libraryHeading}><span>{content.labels.library}</span><span>{String(content.guides.length).padStart(2, "0")}</span></div>
+          <p className={styles.libraryIntro}>{content.hero.supportText}</p>
           <div className={styles.guidesGrid}>
             {content.guides.map((guide, index) => (
-              <GuideCard
-                key={guide.id}
-                guide={guide}
-                index={index}
-                selected={guide.id === activeGuide?.id}
-                openLabel={labels.openGuide}
-                onSelect={handleGuideSelect}
-              />
+              <button key={guide.id} type="button"
+                className={styles.guideCard} data-featured={index === 0 || undefined}
+                aria-pressed={activeGuide?.id === guide.id} aria-controls="guide-reader"
+                aria-label={`${content.labels.openGuide}: ${guide.title}`}
+                onClick={() => handleGuideSelect(guide.id)}>
+                <span className={styles.cardNumber}>{guide.number}</span>
+                <span className={styles.cardArrow} aria-hidden="true">↗</span>
+                <div className={styles.cardCopy}>
+                  <h2>{guide.title}</h2><p>{guide.description}</p>
+                </div>
+                <Image src={guide.icon} alt="" width={480} height={480} className={styles.cardIcon}
+                  sizes={index === 0 ? "(max-width: 760px) 80vw, 480px" : "(max-width: 760px) 40vw, 260px"} />
+              </button>
             ))}
           </div>
         </div>
       </section>
 
       {activeGuide && (
-        <section
-          className={styles.readerSection}
-          id="guide-reader"
-        >
-          <div className={styles.inner}>
-            <Reader guide={activeGuide} labels={labels} />
-          </div>
-        </section>
-      )}
-
-      {content.finalCta && (
-        <section className={styles.finalCtaSection}>
-          <div className={styles.inner}>
-            <div className={styles.finalCtaBox}>
-              <div className={styles.finalCtaCopy}>
-                <h2 className={styles.finalCtaTitle}>
-                  {content.finalCta.title}
-                </h2>
-
-                <p className={styles.finalCtaText}>
-                  {content.finalCta.text}
-                </p>
-              </div>
-
-              <div className={styles.finalCtaButtons}>
-                <DownloadButton className={styles.primaryButton}>
-                  {content.finalCta.ctaPrimary}
-                  <ArrowRight size={20} aria-hidden="true" />
-                </DownloadButton>
-
-                <Link
-                  href={secondaryPath}
-                  className={styles.secondaryButton}
-                >
-                  {content.finalCta.ctaSecondary}
-                  <ArrowRight size={20} aria-hidden="true" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-    </main>
-  );
-}
-
-function GuideCard({
-  guide,
-  index,
-  selected,
-  openLabel,
-  onSelect,
-}: GuideCardProps) {
-  const variantClass =
-    index === 0
-      ? styles.guideCardFeatured
-      : index <= 2
-        ? styles.guideCardWide
-        : index <= 5
-          ? styles.guideCardStandard
-          : styles.guideCardCompact;
-
-  return (
-    <button
-      type="button"
-      className={[
-        styles.guideCard,
-        variantClass,
-        selected ? styles.guideCardSelected : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      aria-pressed={selected}
-      aria-controls="guide-reader"
-      aria-label={`${openLabel}: ${guide.title}`}
-      onClick={() => onSelect(guide.id)}
-    >
-      <div className={styles.cardTopRow}>
-        <span className={styles.cardNum}>
-          {guide.number}
-        </span>
-
-        <span className={styles.cardArrow} aria-hidden="true">
-          <ArrowRight size={20} />
-        </span>
-      </div>
-
-      <div className={styles.cardCopy}>
-        <h2 className={styles.cardTitle}>
-          {guide.title}
-        </h2>
-
-        <p className={styles.cardDesc}>
-          {guide.description}
-        </p>
-      </div>
-
-      <div className={styles.cardVisual} aria-hidden="true">
-        <Image
-          src={guide.icon}
-          alt=""
-          width={280}
-          height={280}
-          className={styles.cardIcon}
-          sizes={
-            index === 0
-              ? "(max-width: 720px) 44vw, 280px"
-              : "(max-width: 720px) 30vw, 180px"
-          }
-        />
-      </div>
-    </button>
-  );
-}
-
-function Reader({ guide, labels }: ReaderProps) {
-  return (
-    <article className={styles.reader} aria-live="polite">
-      <header className={styles.readerHeader}>
-        <div className={styles.readerHeaderCopy}>
-          <span className={styles.readerNum}>
-            {guide.number}
-          </span>
-
-          <h2 className={styles.readerTitle}>
-            {guide.title}
-          </h2>
-
-          <p className={styles.readerSummary}>
-            {guide.summary}
-          </p>
-        </div>
-
-        <div className={styles.readerVisual} aria-hidden="true">
-          <div className={styles.readerVisualGlow} />
-
-          <Image
-            src={guide.icon}
-            alt=""
-            width={360}
-            height={360}
-            className={styles.readerIcon}
-            sizes="(max-width: 720px) 56vw, 320px"
-          />
-        </div>
-      </header>
-
-      <div className={styles.readerBody}>
-        <section className={styles.readerActions}>
-          <div className={styles.readerSectionHeading}>
-           
-            <h3 className={styles.readerBlockTitle}>
-              {labels.whatYouDo}
-            </h3>
-          </div>
-
-          <div className={styles.readerMiniGrid}>
-            {guide.whatYouDo.map((item, index) => (
-              <div
-                key={`${guide.id}-action-${index}`}
-                className={styles.miniCard}
-              >
-                <span className={styles.miniCardNum}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <p className={styles.miniCardText}>
-                  {item}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <div className={styles.readerSplit}>
-          <section className={styles.contextPanel}>
-            <div className={styles.readerSectionHeading}>
-             
-
-              <h3 className={styles.readerBlockTitle}>
-                {labels.whenToUse}
-              </h3>
-            </div>
-
-            <p className={styles.readerBlockText}>
-              {guide.whenToUse}
-            </p>
-          </section>
-
-          <section className={styles.resultsPanel}>
-            <div className={styles.readerSectionHeading}>
-             
-
-              <h3 className={styles.readerBlockTitle}>
-                {labels.whatGetsReady}
-              </h3>
-            </div>
-
-            <div className={styles.readerChecks}>
-              {guide.whatGetsReady.map((item, index) => (
-                <div
-                  key={`${guide.id}-result-${index}`}
-                  className={styles.checkItem}
-                >
-                  <span
-                    className={styles.checkDot}
-                    aria-hidden="true"
-                  />
-
-                  <span>{item}</span>
+        <section id="guide-reader" tabIndex={-1} className={styles.readerSection} aria-labelledby="guide-reader-title">
+          <div className={`${editorial.inner} ${styles.readerLayout}`}>
+            <aside className={styles.readerIndex}>
+              <a href="#guide-library" className={styles.backLink}><span aria-hidden="true">↑</span>{content.labels.backToLibrary}</a>
+              <nav aria-label={content.labels.library}>
+                {content.guides.map((guide) => (
+                  <button key={guide.id} type="button" aria-current={activeGuide.id === guide.id ? "true" : undefined}
+                    onClick={() => handleGuideSelect(guide.id)}>
+                    <span>{guide.number}</span>{guide.title}
+                  </button>
+                ))}
+              </nav>
+            </aside>
+            <article className={styles.reader}>
+              <header className={styles.readerHeader}>
+                <div>
+                  <span className={styles.readerNumber}>{activeGuide.number} / {String(content.guides.length).padStart(2, "0")}</span>
+                  <h2 id="guide-reader-title">{activeGuide.title}</h2>
+                  <p>{activeGuide.summary}</p>
                 </div>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        <aside className={styles.tipPanel}>
-          <div className={styles.tipCopy}>  <Image
-            src="/images/cookpilot/cookpilot_transparent.png"
-            alt=""
-            width={64}
-            height={64}
-            className={styles.tipAvatar}
-            aria-hidden="true"
-          />
-
-            <span className={styles.tipLabel}>
-              {labels.tip}
-            </span>
-
-            <p className={styles.tipText}>
-              {guide.tip}
-            </p>
+                <Image src={activeGuide.icon} alt="" width={360} height={360} sizes="(max-width: 760px) 50vw, 300px" />
+              </header>
+              <section className={styles.actions}>
+                <h3>{content.labels.whatYouDo}</h3>
+                <ol>
+                  {activeGuide.whatYouDo.map((item, index) => (
+                    <li key={item}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p>{item}</p></li>
+                  ))}
+                </ol>
+              </section>
+              <div className={styles.readerDetails}>
+                <section><h3>{content.labels.whenToUse}</h3><p>{activeGuide.whenToUse}</p></section>
+                <section><h3>{content.labels.whatGetsReady}</h3><ul>{activeGuide.whatGetsReady.map(item => <li key={item}>{item}</li>)}</ul></section>
+              </div>
+              <aside className={styles.tip}>
+                <Image src="/images/cookpilot/cookpilot_transparent.png" alt="" width={112} height={112} />
+                <div><h3>{content.labels.tip}</h3><p>{activeGuide.tip}</p></div>
+              </aside>
+            </article>
           </div>
-        </aside>
-      </div>
-    </article>
+        </section>
+      )}
+      <EditorialClosing />
+    </main>
   );
 }

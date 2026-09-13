@@ -2,13 +2,13 @@ import type { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { supabaseConfig } from "@/lib/supabase/config";
 import { absoluteUrl, siteConfig } from "@/shared/config/site";
-import { buildCookSharePath, buildHandlePath, type AppLocale, type CookShareRouteObjectType } from "@/shared/config/routes";
+import { buildCookSharePath, type AppLocale, type CookShareRouteObjectType } from "@/shared/config/routes";
 import { getLocalizedAlternates } from "@/shared/config/metadata";
 
 export const revalidate = 3600;
 
 type SitemapCandidate = {
-  object_type: CookShareRouteObjectType | "handle";
+  object_type: CookShareRouteObjectType;
   object_id: string;
   handle: string | null;
   slug: string;
@@ -16,7 +16,7 @@ type SitemapCandidate = {
   rank: number;
 };
 
-const candidateTypes = ["recipes", "menus", "days", "weeks", "ingredients", "categories", "handles"] as const;
+const candidateTypes = ["recipes", "menus", "days", "weeks", "lists", "ingredients", "categories"] as const;
 
 function staticEntries(): MetadataRoute.Sitemap {
   const lastModified = new Date(siteConfig.lastModified);
@@ -38,11 +38,6 @@ function staticEntries(): MetadataRoute.Sitemap {
   return [...localizedItems, ...utilityItems];
 }
 
-function normalizeHandle(value: string | null) {
-  const handle = value?.replace(/^@/, "").trim().toLowerCase() ?? "";
-  return /^[a-z0-9][a-z0-9._-]{2,29}$/.test(handle) ? handle : null;
-}
-
 async function publicCandidates() {
   const client = createClient(supabaseConfig.url, supabaseConfig.publishableKey, {
     auth: { autoRefreshToken: false, persistSession: false, detectSessionInUrl: false },
@@ -51,15 +46,18 @@ async function publicCandidates() {
   for (const type of candidateTypes) {
     let cursor: SitemapCandidate | null = null;
     for (let page = 0; page < 500; page += 1) {
-      const result = await client.schema("home").rpc("rpc_cookshare_gallery_candidates", {
+      const rpcArgs: Record<string, unknown> = {
         p_locale: "es",
         p_type: type,
         p_limit: 100,
-        p_after_rank: cursor?.rank ?? null,
-        p_after_title: cursor?.title?.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() ?? null,
-        p_after_id: cursor?.object_id ?? null,
-        p_after_object_type: cursor?.object_type ?? null,
-      });
+      };
+      if (cursor) {
+        rpcArgs.p_after_rank = cursor.rank;
+        rpcArgs.p_after_title = cursor.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        rpcArgs.p_after_id = cursor.object_id;
+        rpcArgs.p_after_object_type = cursor.object_type;
+      }
+      const result = await client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs, { get: true });
       if (result.error || !Array.isArray(result.data)) break;
       const batch = result.data as SitemapCandidate[];
       rows.push(...batch);
@@ -84,19 +82,6 @@ async function dynamicEntries(): Promise<MetadataRoute.Sitemap> {
     const key = `${candidate.object_type}:${candidate.object_id}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    if (candidate.object_type === "handle") {
-      const handle = normalizeHandle(candidate.handle);
-      if (!handle) continue;
-      const paths = Object.fromEntries(siteConfig.locales.map((locale: AppLocale) => [locale, buildHandlePath(locale, handle)])) as Record<AppLocale, string>;
-      entries.push(...siteConfig.locales.map((locale) => ({
-        url: absoluteUrl(paths[locale]),
-        lastModified: new Date(siteConfig.lastModified),
-        changeFrequency: "weekly" as const,
-        priority: 0.4,
-        alternates: { languages: { es: absoluteUrl(paths.es), en: absoluteUrl(paths.en) } },
-      })));
-      continue;
-    }
     const objectType = candidate.object_type as CookShareRouteObjectType;
     const paths = Object.fromEntries(siteConfig.locales.map((locale: AppLocale) => [locale, buildCookSharePath({
       locale,

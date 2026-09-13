@@ -108,6 +108,20 @@
   opacity: 1;
 }
 
+.searchBtn {
+  width: auto;
+  min-width: 40px;
+  padding: 0 14px;
+  gap: 12px;
+}
+
+.searchLabel {
+  font: inherit;
+  font-size: 13px;
+  font-weight: var(--cp-fw-medium);
+  white-space: nowrap;
+}
+
 :global([data-theme="dark"]) .iconBtn:hover {
   background: rgba(255, 255, 255, 0.05);
 }
@@ -230,6 +244,14 @@
     font-size: 13px;
   }
   .downloadBtn img {
+    display: none;
+  }
+  .searchBtn {
+    width: 40px;
+    min-width: 40px;
+    padding: 0;
+  }
+  .searchLabel {
     display: none;
   }
 }

@@ -22,7 +22,7 @@
       "listFirst": "EVERYTHING YOU",
       "listAccent": "NEED.",
       "people": "2 people",
-      "allInOne": "All in one place",
+      "allInOne": "In one place",
       "readyToCook": "READY TO COOK",
       "modeAria": "CookMode for Lomo Saltado",
       "modeBeefAlt": "Seared beef for Lomo Saltado",
@@ -136,8 +136,8 @@
           "alt": "Lomo Saltado"
         },
         {
-          "name": "Ensalada",
-          "alt": "Ensalada"
+          "name": "Ensalada de palta",
+          "alt": "Ensalada de palta"
         },
         {
           "name": "Jugo de Maracuyá",

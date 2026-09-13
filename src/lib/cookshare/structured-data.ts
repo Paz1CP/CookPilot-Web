@@ -44,8 +44,7 @@ export function buildCookShareStructuredData(object: CookShareResolvedObject, lo
   }];
 
   const recipe = object.object_type === "recipe" ? object as unknown as RecipeProjection : null;
-  const fullRecipe = Boolean(recipe && !recipe.is_preview);
-  if (recipe && fullRecipe) {
+  if (recipe) {
     const recipeData: Record<string, unknown> = {
       "@type": "Recipe",
       "@id": canonical,

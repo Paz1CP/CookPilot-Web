@@ -17,11 +17,7 @@ export type GalleryType =
   | "weeks"
   | "lists"
   | "ingredients"
-  | "categories"
-  | "handles";
-
-export type GalleryScope = "global" | "handle";
-export type GalleryAccess = "all" | "free" | "pro";
+  | "categories";
 
 export interface GalleryFacetState {
   categories: string[];
@@ -31,7 +27,6 @@ export interface GalleryFacetState {
   excludedIngredients: string[];
   minTime: number | null;
   maxTime: number | null;
-  access: GalleryAccess;
 }
 
 export interface GalleryFacetOption {
@@ -46,22 +41,15 @@ export interface GalleryFacetOptions {
   times: number[];
 }
 
-export type EntitlementTier = "anonymous" | "free" | "pro" | string;
-
 export interface CookShareIdentity {
   object_type: CookShareObjectType;
-  object_id: string;
-  owner_id: string | null;
+  object_id?: string;
+  owner_id?: string | null;
   handle: string | null;
   slug: string;
   canonical_path: string;
   is_alias: boolean;
   lifecycle: string;
-}
-
-export interface CookShareEntitlement {
-  tier: EntitlementTier;
-  is_owner: boolean;
 }
 
 export interface RecipeIngredient {
@@ -81,15 +69,13 @@ export interface RecipeStep {
 
 export interface RecipeProjection {
   object_type: "recipe";
-  object_id: string;
+  object_id?: string;
   title: string;
   description?: string | null;
   cover_photo_url?: string | null;
   time?: Record<string, number | null> | null;
   servings?: number | null;
   nutrition?: Record<string, number | null> | null;
-  is_free_recipe?: boolean;
-  is_preview?: boolean;
   ingredients?: RecipeIngredient[];
   steps?: RecipeStep[];
   [key: string]: unknown;
@@ -97,7 +83,7 @@ export interface RecipeProjection {
 
 export interface CookShareResolvedObject {
   object_type: CookShareObjectType;
-  object_id: string;
+  object_id?: string;
   title?: string | null;
   description?: string | null;
   name?: string | null;
@@ -105,7 +91,6 @@ export interface CookShareResolvedObject {
   cover_photo_url?: string | null;
   image_url?: string | null;
   identity: CookShareIdentity;
-  entitlement: CookShareEntitlement;
   [key: string]: unknown;
 }
 
@@ -114,18 +99,15 @@ export interface GalleryState {
   q: string;
   type: GalleryType;
   cursor: string | null;
-  scope: GalleryScope;
-  handle: string | null;
   facets: GalleryFacetState;
 }
 
 export interface GalleryCard {
-  objectType: CookShareObjectType | "handle";
+  objectType: CookShareObjectType;
   title: string;
   description: string | null;
   imageUrl: string | null;
   href: string;
-  isFree: boolean;
   timeMinutes: number | null;
   nutrition: Record<string, number | null> | null;
 }
@@ -136,13 +118,4 @@ export interface GalleryPage {
   state: GalleryState;
   hasMore: boolean;
   facetOptions: GalleryFacetOptions;
-  ownerId?: string | null;
-}
-
-export interface HandleGalleryCard {
-  objectType: CookShareObjectType;
-  title: string;
-  href: string;
-  imageUrl: string | null;
-  isPrivate: boolean;
 }

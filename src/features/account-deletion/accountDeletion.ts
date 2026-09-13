@@ -1,4 +1,7 @@
-import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL, supabase } from "./supabaseClient";
+import { supabaseConfig } from "@/lib/supabase/config";
+
+const SUPABASE_PUBLISHABLE_KEY = supabaseConfig.publishableKey;
+const SUPABASE_URL = supabaseConfig.url;
 
 export type AccountDeletionLocale = "en" | "es";
 
@@ -83,13 +86,7 @@ export async function verifyAccountDeletionOtp(email: string, otpCode: string) {
   }
 
   const session = payload.session as { access_token: string; refresh_token: string } | null;
-  if (session) {
-    const { error: sessionError } = await supabase.auth.setSession({
-      access_token: session.access_token,
-      refresh_token: session.refresh_token,
-    });
-    if (sessionError) throw sessionError;
-  } else {
+  if (!session) {
     throw new Error("No active session was returned for this verification code.");
   }
 
@@ -120,5 +117,4 @@ export async function deleteCookPilotAccount(accessToken: string, verificationTo
     );
   }
 
-  await supabase.auth.signOut({ scope: "local" });
 }

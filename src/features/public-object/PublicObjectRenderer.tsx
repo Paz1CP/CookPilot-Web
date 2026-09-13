@@ -5,8 +5,6 @@ import { publicDescription, publicTitle } from "@/lib/cookshare/resolver";
 import { buildCookShareStructuredData } from "@/lib/cookshare/structured-data";
 import type { CookShareResolvedObject, RecipeProjection } from "@/lib/cookshare/types";
 import { parseInlineMarkdown } from "@/lib/cookshare/inline-markdown";
-import CookPaywall from "@/features/web-billing/CookPaywall";
-import AuthDialog from "@/features/auth-web/AuthDialog";
 import ShareActions from "./ShareActions";
 import styles from "./PublicObjectRenderer.module.css";
 
@@ -119,7 +117,6 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
               <span className={styles.componentType}>{objectTypeLabel(component.object_type, locale)}</span>
               <h3>{title}</h3>
               {typeof component.description === "string" ? <p><InlineMarkdown value={component.description} /></p> : null}
-              {Boolean(component.is_preview) ? <span className={styles.locked}>{locale === "es" ? "Contenido Pro" : "Pro content"}</span> : null}
             </>
           );
           const key = `${component.object_type}-${identity?.canonical_path ?? index}`;
@@ -130,20 +127,75 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
   );
 }
 
+type StructureRow = { label: string; detail: string | null };
+
+function displayStructureRows(value: unknown, locale: AppLocale): StructureRow[] {
+  const rows: StructureRow[] = [];
+  const seen = new Set<string>();
+  const humanize = (value: string) => value
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+  const text = (entry: unknown) => typeof entry === "string" && entry.trim() ? entry.trim() : null;
+  const number = (entry: unknown) => typeof entry === "number" && Number.isFinite(entry)
+    ? String(entry)
+    : typeof entry === "string" && entry.trim() && /^\d+(?:\.\d+)?$/.test(entry.trim()) ? entry.trim() : null;
+
+  const visit = (entry: unknown, index = 0) => {
+    if (Array.isArray(entry)) {
+      entry.forEach((item, itemIndex) => visit(item, itemIndex));
+      return;
+    }
+    if (!entry || typeof entry !== "object") return;
+    const record = entry as Record<string, unknown>;
+    const nestedMenu = record.menu && typeof record.menu === "object" ? record.menu as Record<string, unknown> : null;
+    const label = text(record.custom_label) ?? text(record.slot_key) ?? text(record.component_type)
+      ?? (Array.isArray(record.days) ? (locale === "es" ? "Día" : "Day") : null)
+      ?? (index ? `${locale === "es" ? "Elemento" : "Item"} ${index + 1}` : null);
+    const title = text(record.title) ?? text(nestedMenu?.title);
+    const servings = number(record.servings);
+    const detailParts = [title, servings ? `${servings} ${locale === "es" ? "porciones" : "servings"}` : null].filter(Boolean) as string[];
+    if (label || title) {
+      const rowLabel = label ? humanize(label) : title as string;
+      const key = `${rowLabel}|${detailParts.join("|")}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        rows.push({ label: rowLabel, detail: detailParts.filter((part) => part !== rowLabel).join(" · ") || null });
+      }
+    }
+    ["days", "slots", "menu", "components"].forEach((key) => visit(record[key]));
+  };
+
+  visit(value);
+  return rows.slice(0, 80);
+}
+
+function StructureSection({ object, locale }: { object: CookShareResolvedObject; locale: AppLocale }) {
+  const rows = displayStructureRows(object.structure, locale);
+  if (!rows.length) return null;
+  return (
+    <section className={styles.structure} aria-labelledby="object-structure-title">
+      <div className={styles.sectionHeading}>
+        <p className="cp-eyebrow">CookShare</p>
+        <h2 id="object-structure-title">{locale === "es" ? "Estructura" : "Structure"}</h2>
+      </div>
+      <ul className={styles.structureList}>
+        {rows.map((row, index) => <li key={`${row.label}-${row.detail ?? index}`}><strong>{row.label}</strong>{row.detail ? <span>{row.detail}</span> : null}</li>)}
+      </ul>
+    </section>
+  );
+}
+
 export default function PublicObjectRenderer({
   object,
   locale,
-  actorId,
 }: {
   object: CookShareResolvedObject;
   locale: AppLocale;
-  actorId?: string | null;
 }) {
   const title = publicTitle(object, locale);
   const description = publicDescription(object);
   const image = mediaUrl(object.cover_photo_url ?? object.image_url);
   const recipe = object.object_type === "recipe" ? object as unknown as RecipeProjection : null;
-  const isProtectedPreview = Boolean(recipe?.is_preview && !object.entitlement.is_owner && object.entitlement.tier !== "pro");
   const structuredData = buildCookShareStructuredData(object, locale);
   const canonicalPath = object.identity.canonical_path;
   const breadcrumbs = [
@@ -168,7 +220,6 @@ export default function PublicObjectRenderer({
               <div className={styles.meta} aria-label={locale === "es" ? "Datos rápidos" : "Quick facts"}>
                 {recipe.time.total_minutes ? <span>{recipe.time.total_minutes} min</span> : null}
                 {recipe.servings ? <span>{recipe.servings} {locale === "es" ? "porciones" : "servings"}</span> : null}
-                {recipe.is_free_recipe ? <span>{locale === "es" ? "Gratis" : "Free"}</span> : null}
               </div>
             ) : null}
             <ShareActions title={title} path={canonicalPath} locale={locale} />
@@ -177,18 +228,9 @@ export default function PublicObjectRenderer({
         </div>
 
         {recipe ? <RecipeDetails recipe={recipe} locale={locale} /> : null}
+        <StructureSection object={object} locale={locale} />
         <ComponentSection object={object} locale={locale} />
 
-        {isProtectedPreview ? (
-          <aside className={styles.lockedPanel} aria-labelledby="locked-title">
-            <p className="cp-eyebrow">CookPilot Pro</p>
-            <h2 id="locked-title">{locale === "es" ? "Continúa cuando quieras cocinarla" : "Continue when you are ready to cook"}</h2>
-            <p>{locale === "es" ? "Esta receta está disponible en vista previa. Desbloquea los pasos y la lista completa cuando quieras cocinarla." : "This recipe is available as a preview. Unlock the steps and complete list when you are ready to cook."}</p>
-            {object.entitlement.tier === "anonymous" || !actorId
-              ? <AuthDialog locale={locale} label={locale === "es" ? "Iniciar sesión para continuar" : "Sign in to continue"} continuation={{ locale, objectType: object.object_type, handle: object.identity.handle, slug: object.identity.slug, action: "unlock" }} />
-              : <CookPaywall locale={locale} context={title} appUserId={actorId} />}
-          </aside>
-        ) : null}
       </div>
     </main>
   );

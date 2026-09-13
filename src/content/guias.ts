@@ -1,9 +1,21 @@
 export const guiasContent = {
   es: {
     hero: {
-      title: "CookPilot paso a paso",
+      eyebrow: "Guías CookPilot",
+      title: "Un poco de guía.",
+      accent: "Mucho por cocinar.",
       subtitle: "Guías rápidas para planificar, comprar, ajustar, cocinar, importar y reutilizar sin perderte entre funciones.",
+      supportText: "Empieza con la guía que encaja con lo que quieres hacer hoy.",
    
+    },
+    labels: {
+      whatYouDo: "Qué haces",
+      whenToUse: "Cuándo usarlo",
+      whatGetsReady: "Qué queda listo",
+      tip: "Consejo CookPilot",
+      openGuide: "Abrir guía",
+      library: "Tu biblioteca de guías",
+      backToLibrary: "Volver a la biblioteca",
     },
     guides: [
       {
@@ -211,9 +223,20 @@ export const guiasContent = {
   en: {
     hero: {
      
-      title: "CookPilot Step by Step",
+      eyebrow: "CookPilot guides",
+      title: "A little guidance.",
+      accent: "A lot to cook.",
       subtitle: "Quick guides to plan, shop, adjust, cook, import, and reuse without getting lost between features.",
       supportText: "Start with the guide that matches what you want to do today.",
+    },
+    labels: {
+      whatYouDo: "What you do",
+      whenToUse: "When to use it",
+      whatGetsReady: "What gets prepared",
+      tip: "CookPilot tip",
+      openGuide: "Open guide",
+      library: "Your guide library",
+      backToLibrary: "Back to the library",
     },
     guides: [
       {

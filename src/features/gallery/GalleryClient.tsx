@@ -29,7 +29,6 @@ type GalleryLabels = {
   lists: string;
   ingredients: string;
   categories: string;
-  handles: string;
   search: string;
   submit: string;
   more: string;
@@ -40,16 +39,11 @@ type GalleryLabels = {
   component: string;
   minTime: string;
   maxTime: string;
-  access: string;
   any: string;
-  free: string;
-  pro: string;
   clear: string;
   results: string;
   noResults: string;
   requestError: string;
-  private: string;
-  handle: string;
 };
 
 function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
@@ -63,8 +57,7 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       lists: "Listas",
       ingredients: "Ingredientes",
       categories: "Categorías",
-      handles: "Perfiles",
-      search: "Buscar recetas, ingredientes o handles",
+      search: "Buscar recetas, ingredientes o colecciones",
       submit: "Buscar",
       more: "Cargar más",
       filters: "Filtros de Gallery",
@@ -74,16 +67,11 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       component: "Tipo de plato",
       minTime: "Tiempo mínimo",
       maxTime: "Tiempo máximo",
-      access: "Acceso",
       any: "Cualquiera",
-      free: "Gratis",
-      pro: "Pro",
       clear: "Limpiar filtros",
       results: "resultados",
       noResults: "No encontramos objetos con esos filtros.",
       requestError: "No pudimos cargar la Gallery. Inténtalo de nuevo.",
-      private: "Privado",
-      handle: "Perfil",
     }
     : {
       all: "All",
@@ -94,8 +82,7 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       lists: "Lists",
       ingredients: "Ingredients",
       categories: "Categories",
-      handles: "Profiles",
-      search: "Search recipes, ingredients, or handles",
+      search: "Search recipes, ingredients, or collections",
       submit: "Search",
       more: "Load more",
       filters: "Gallery filters",
@@ -105,22 +92,16 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       component: "Dish type",
       minTime: "Minimum time",
       maxTime: "Maximum time",
-      access: "Access",
       any: "Any",
-      free: "Free",
-      pro: "Pro",
       clear: "Clear filters",
       results: "results",
       noResults: "No objects match those filters.",
       requestError: "We could not load the Gallery. Try again.",
-      private: "Private",
-      handle: "Profile",
     };
 }
 
 function apiParams(state: GalleryState) {
   const params = toGallerySearchParams(state, {
-    includeScope: true,
     includeCursor: true,
     includeLocale: true,
   });
@@ -129,8 +110,8 @@ function apiParams(state: GalleryState) {
 
 function cardTypeLabel(card: GalleryCard, locale: GalleryState["locale"]) {
   const labels = locale === "es"
-    ? { recipe: "Receta", menu: "Menú", day: "Día", week: "Semana", list: "Lista", ingredient: "Ingrediente", category: "Categoría", handle: "Perfil" }
-    : { recipe: "Recipe", menu: "Menu", day: "Day", week: "Week", list: "List", ingredient: "Ingredient", category: "Category", handle: "Profile" };
+    ? { recipe: "Receta", menu: "Menú", day: "Día", week: "Semana", list: "Lista", ingredient: "Ingrediente", category: "Categoría" }
+    : { recipe: "Recipe", menu: "Menu", day: "Day", week: "Week", list: "List", ingredient: "Ingredient", category: "Category" };
   return labels[card.objectType];
 }
 
@@ -153,8 +134,6 @@ function cardImage(card: GalleryCard, index: number, hasCursor: boolean) {
 
 type GalleryFixedState = {
   type?: GalleryState["type"];
-  scope?: GalleryState["scope"];
-  handle?: string | null;
   facets?: Partial<Pick<GalleryFacetState, "categories" | "ingredients">>;
 };
 
@@ -168,8 +147,6 @@ function applyFixedState(state: GalleryState, fixed?: GalleryFixedState): Galler
   return {
     ...state,
     type: fixed.type ?? state.type,
-    scope: fixed.scope ?? state.scope,
-    handle: fixed.handle ?? state.handle,
     facets: {
       ...state.facets,
       categories: facets?.categories
@@ -242,11 +219,8 @@ export default function GalleryClient({
 
   const routeState = useMemo(() => {
     const parsed = parseGalleryState(initial.state.locale, searchParams);
-    const scoped = initial.state.scope === "handle"
-      ? { ...parsed, scope: "handle" as const, handle: initial.state.handle }
-      : parsed;
-    return applyFixedState(scoped, fixedState);
-  }, [fixedState, initial.state.handle, initial.state.locale, initial.state.scope, searchParams]);
+    return applyFixedState(parsed, fixedState);
+  }, [fixedState, initial.state.locale, searchParams]);
 
   const routeFingerprint = galleryQueryFingerprint(routeState);
   const stateFingerprint = galleryQueryFingerprint(state);
@@ -302,7 +276,6 @@ export default function GalleryClient({
         excludedIngredients: [],
         minTime: null,
         maxTime: null,
-        access: "all",
       },
     });
   };
@@ -319,7 +292,7 @@ export default function GalleryClient({
   const nextHref = cursor
     ? `${path}?${toGallerySearchParams(
       stateForRoute({ ...state, cursor }, fixedState),
-      { includeScope: true, includeCursor: true },
+      { includeCursor: true },
     ).toString()}`
     : null;
 
@@ -344,7 +317,7 @@ export default function GalleryClient({
 
       <div className={styles.toolbar}>
         <div className={styles.filters} role="group" aria-label={labels.filters}>
-          {(["all", "recipes", "menus", "days", "weeks", "lists", "ingredients", "categories", "handles"] as const).map((type) => (
+          {(["all", "recipes", "menus", "days", "weeks", "lists", "ingredients", "categories"] as const).map((type) => (
             <button
               key={type}
               type="button"
@@ -362,18 +335,6 @@ export default function GalleryClient({
       </div>
 
       <div className={styles.chips} aria-label={labels.filters}>
-        <span className={styles.chipLabel}>{labels.access}</span>
-        {(["all", "free", "pro"] as const).map((access) => (
-          <button
-            type="button"
-            key={access}
-            className={state.facets.access === access ? styles.chipActive : styles.chip}
-            onClick={() => updateFacets({ access })}
-            aria-pressed={state.facets.access === access}
-          >
-            {access === "all" ? labels.any : access === "free" ? labels.free : labels.pro}
-          </button>
-        ))}
         <span className={styles.chipLabel}>{labels.maxTime}</span>
         {facetOptions.times.map((time) => (
           <button
@@ -465,7 +426,6 @@ export default function GalleryClient({
                 {item.description ? <p>{inlineMarkdownToText(item.description)}</p> : null}
                 <div className={styles.meta}>
                   {item.timeMinutes ? <span>{item.timeMinutes} min</span> : null}
-                  {item.isFree ? <span>{state.locale === "es" ? "Gratis" : "Free"}</span> : null}
                 </div>
               </div>
             </Link>

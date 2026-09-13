@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
 import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -7,7 +6,8 @@ import Header from "@/shared/layout/Header";
 import Footer from "@/shared/layout/Footer";
 import DownloadExperience from "@/shared/download/DownloadExperience";
 import { absoluteUrl, siteConfig } from "@/shared/config/site";
-import { getDocumentLocale, getHtmlLanguage } from "@/shared/config/metadata";
+import { getHtmlLanguage } from "@/shared/config/metadata";
+import { defaultLocale } from "@/shared/config/routes";
 
 const outfit = Outfit({
   variable: "--cp-font-sans-loaded",
@@ -84,6 +84,8 @@ export const viewport: Viewport = {
   ],
 };
 
+export const revalidate = 60;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -120,15 +122,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const requestHeaders = await headers();
-  const locale =
-    requestHeaders.get("x-cp-locale") === "en"
-      ? "en"
-      : getDocumentLocale(requestHeaders.get("x-cp-pathname"));
-
   return (
     <html
-      lang={getHtmlLanguage(locale)}
+      lang={getHtmlLanguage(defaultLocale)}
       data-theme="dark"
       className={`${outfit.variable} ${permanentMarker.variable}`}
     >

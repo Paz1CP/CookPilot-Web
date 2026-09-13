@@ -1,7 +1,6 @@
 import { supabaseConfig } from "@/lib/supabase/config";
-import { createSupabaseInternalClient } from "@/lib/supabase/internal";
-import { getRequestUser } from "@/lib/supabase/server";
-import { buildCookSharePath, buildHandlePath, type AppLocale } from "@/shared/config/routes";
+import { createSupabasePublicClient } from "@/lib/supabase/public";
+import { buildCookSharePath, type AppLocale } from "@/shared/config/routes";
 import {
   emptyGalleryFacets,
   galleryQueryFingerprint,
@@ -22,7 +21,6 @@ const PAGE_SIZE = 24;
 type GalleryRpcRow = {
   object_type: string;
   object_id: string;
-  owner_id?: string | null;
   handle?: string | null;
   slug: string;
   title?: string | null;
@@ -30,7 +28,6 @@ type GalleryRpcRow = {
   description?: string | null;
   description_en?: string | null;
   image_url?: string | null;
-  is_free?: boolean | null;
   time_minutes?: number | null;
   nutrition?: Record<string, number | string | null> | null;
   rank?: number | null;
@@ -131,10 +128,9 @@ function emptyFacetOptions(locale: AppLocale): GalleryFacetOptions {
   };
 }
 
-async function getFacetOptions(locale: AppLocale, internal: ReturnType<typeof createSupabaseInternalClient> | null) {
+async function getFacetOptions(locale: AppLocale) {
   const options = emptyFacetOptions(locale);
-  if (!internal) return options;
-  const result = await internal.schema("menu").from("recipe_categories")
+  const result = await createSupabasePublicClient().schema("menu").from("recipe_categories")
     .select("slug,name,name_en,sort_order")
     .order("sort_order", { ascending: true })
     .limit(100);
@@ -150,22 +146,8 @@ async function resolveRow(
   row: GalleryRpcRow,
   state: GalleryState,
 ): Promise<GalleryCard | null> {
-  if (row.object_type === "handle") {
-    const handle = normalizeHandle(row.handle);
-    if (!handle) return null;
-    return {
-      objectType: "handle" as const,
-      title: row.title ?? `@${handle}`,
-      description: null,
-      imageUrl: null,
-      href: buildHandlePath(state.locale, handle),
-      isFree: false,
-      timeMinutes: null,
-      nutrition: null,
-    } satisfies GalleryCard;
-  }
   const objectType = row.object_type as CookShareObjectType;
-  if (!row.slug || (objectType !== "recipe" && objectType !== "ingredient" && objectType !== "category" && !normalizeHandle(row.handle))) return null;
+  if (!row.slug) return null;
   const handle = normalizeHandle(row.handle);
   const title = state.locale === "en"
     ? row.title_en ?? row.title ?? row.slug
@@ -182,72 +164,62 @@ async function resolveRow(
       : row.description ?? row.description_en ?? null,
     imageUrl: mediaUrl(row.image_url),
     href,
-    isFree: Boolean(row.is_free),
     timeMinutes: numberValue(row.time_minutes),
     nutrition,
   } satisfies GalleryCard;
 }
 
-function emptyPage(state: GalleryState, facetOptions: GalleryFacetOptions, ownerId: string | null = null): GalleryPage {
+function emptyPage(state: GalleryState, facetOptions: GalleryFacetOptions): GalleryPage {
   return {
     items: [],
     nextCursor: null,
     state,
     hasMore: false,
     facetOptions,
-    ownerId,
   };
 }
 
 export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Promise<GalleryPage> {
   const boundedLimit = Math.min(Math.max(limit, 1), PAGE_SIZE);
-  const request = await getRequestUser();
-  const internal = (() => {
-    try { return createSupabaseInternalClient(); } catch { return null; }
-  })();
   const normalizedState = { ...state, facets: state.facets ?? emptyGalleryFacets() };
-  const facetOptions = await getFacetOptions(normalizedState.locale, internal);
+  const facetOptions = await getFacetOptions(normalizedState.locale);
   const type = normalizedState.type;
-  const handle = normalizedState.scope === "handle" ? normalizeHandle(normalizedState.handle) : null;
   const cursor = decodeCursor(normalizedState.cursor);
-  const rpcArgs = {
+  const rpcArgs: Record<string, unknown> = {
     p_locale: normalizedState.locale,
     p_type: type,
-    p_query: normalizedState.q || null,
-    p_handle: handle,
+    p_handle: "",
     p_categories: normalizedState.facets.categories,
     p_meals: normalizedState.facets.meals,
     p_components: normalizedState.facets.components,
     p_ingredients: normalizedState.facets.ingredients,
     p_excluded_ingredients: normalizedState.facets.excludedIngredients,
-    p_min_time: normalizedState.facets.minTime,
-    p_max_time: normalizedState.facets.maxTime,
-    p_access: normalizedState.facets.access,
+    p_access: "all",
     p_limit: boundedLimit + 1,
-    p_after_rank: cursor?.rank ?? null,
-    p_after_title: cursor?.title ?? null,
-    p_after_id: cursor?.id ?? null,
-    p_after_object_type: cursor?.objectType ?? null,
   };
-  const result = await request.client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs);
+  if (normalizedState.q) rpcArgs.p_query = normalizedState.q;
+  if (normalizedState.facets.minTime !== null) rpcArgs.p_min_time = normalizedState.facets.minTime;
+  if (normalizedState.facets.maxTime !== null) rpcArgs.p_max_time = normalizedState.facets.maxTime;
+  if (cursor) {
+    rpcArgs.p_after_rank = cursor.rank;
+    rpcArgs.p_after_title = cursor.title;
+    rpcArgs.p_after_id = cursor.id;
+    rpcArgs.p_after_object_type = cursor.objectType;
+  }
+  const result = await createSupabasePublicClient().schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs, { get: true });
   if (result.error || !Array.isArray(result.data)) return emptyPage(normalizedState, facetOptions);
   const rows = result.data as GalleryRpcRow[];
-  if (normalizedState.scope === "handle" && !handle) return emptyPage(normalizedState, facetOptions);
   const selected = rows.slice(0, boundedLimit);
   const cards = (await Promise.all(selected.map((row) => resolveRow(row, normalizedState))))
     .filter((card): card is GalleryCard => Boolean(card));
   const lastRow = selected.at(-1);
   const nextCursor = rows.length > boundedLimit && lastRow ? encodeCursor(lastRow) : null;
-  const ownerId = handle
-    ? rows.find((row) => row.owner_id)?.owner_id ?? null
-    : null;
   return {
     items: cards,
     nextCursor,
     state: normalizedState,
     hasMore: Boolean(nextCursor),
     facetOptions,
-    ownerId,
   };
 }
 
