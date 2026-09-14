@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -41,8 +42,13 @@ export const metadata: Metadata = {
         sizes: "32x32",
         type: "image/png",
       },
+      {
+        url: "/images/brand/favicon-64.png",
+        sizes: "64x64",
+        type: "image/png",
+      },
     ],
-    apple: "/images/cookpilot/cookpilot_logo.png",
+    apple: "/images/brand/apple-touch-icon.png",
   },
   openGraph: {
     title: siteConfig.localizedPageMetadata.es.home.title,
@@ -122,9 +128,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const htmlLocale = requestHeaders.get("x-cp-locale") === "en" ? "en" : defaultLocale;
+
   return (
     <html
-      lang={getHtmlLanguage(defaultLocale)}
+      lang={getHtmlLanguage(htmlLocale)}
       data-theme="dark"
       className={`${outfit.variable} ${permanentMarker.variable}`}
     >

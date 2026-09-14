@@ -1,10 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { defaultLocale, type AppLocale } from "@/shared/config/routes";
+import { getLocaleFromAcceptLanguage, type AppLocale } from "@/shared/config/routes";
 
-function getLocale(pathname: string, savedLocale?: string): AppLocale {
+function getLocale(pathname: string, savedLocale: string | undefined, acceptLanguage: string | null): AppLocale {
   if (pathname.startsWith("/en")) return "en";
   if (pathname.startsWith("/es")) return "es";
-  return savedLocale === "en" ? "en" : defaultLocale;
+  if (savedLocale === "en" || savedLocale === "es") return savedLocale;
+  return getLocaleFromAcceptLanguage(acceptLanguage);
 }
 
 function isCookShareObjectPath(pathname: string) {
@@ -21,7 +22,7 @@ export async function proxy(request: NextRequest) {
   requestHeaders.set("x-cp-pathname", request.nextUrl.pathname);
   requestHeaders.set(
     "x-cp-locale",
-    getLocale(request.nextUrl.pathname, request.cookies.get("cp-locale")?.value),
+    getLocale(request.nextUrl.pathname, request.cookies.get("cp-locale")?.value, request.headers.get("accept-language")),
   );
 
   const response = NextResponse.next({

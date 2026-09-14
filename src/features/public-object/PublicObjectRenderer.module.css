@@ -30,7 +30,6 @@
   text-underline-offset: 3px;
 }
 
-.eyebrow,
 .componentType {
   color: var(--cp-primary);
   font-size: 12px;
@@ -60,7 +59,7 @@
 .description {
   max-width: 650px;
   margin: 24px 0 0;
-  color: var(--cp-text-secondary);
+  color: var(--cp-text-primary);
   font-size: clamp(17px, 2vw, 21px);
   line-height: var(--cp-leading-body);
 }
@@ -83,39 +82,89 @@
 
 .image,
 .imageFallback {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
   border-radius: var(--cp-card-radius);
-  object-fit: cover;
   background: var(--cp-primary-gradient);
   box-shadow: var(--cp-shadow-deep);
 }
 
 .imageFallback {
   display: grid;
+  min-height: 320px;
   place-items: center;
   color: var(--cp-dark);
   font-size: 28px;
   font-weight: var(--cp-fw-bold);
 }
 
+.ingredientImage {
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: transparent;
+  box-shadow: none;
+}
+
+.ingredientImageFallback {
+  aspect-ratio: 1 / 1;
+  background: transparent;
+  box-shadow: none;
+  color: var(--cp-text-primary);
+}
+
+.ingredientNutrition {
+  margin-top: 72px;
+}
+
+.nutritionGroups {
+  display: grid;
+  gap: 28px;
+}
+
+.nutritionGroup + .nutritionGroup {
+  padding-top: 28px;
+  border-top: 1px solid var(--cp-border-subtle);
+}
+
+.nutritionGroup h3 {
+  margin: 0 0 14px;
+  color: var(--cp-text-secondary);
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: var(--cp-tracking-title);
+}
+
 .recipeDetails {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--cp-space-2);
+  align-items: start;
   margin-top: 72px;
 }
 
 .detailCard,
 .components {
+  align-self: start;
   padding: clamp(22px, 3vw, 32px);
   border: 1px solid var(--cp-border-subtle);
   border-radius: var(--cp-card-radius);
   background: var(--cp-layer-raised);
 }
 
+.ingredientsCard {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.nutritionCard {
+  grid-column: 1;
+  grid-row: 2;
+}
+
 .stepsCard {
-  grid-column: 1 / -1;
+  grid-column: 2;
+  grid-row: 1 / span 2;
 }
 
 .sectionHeading {
@@ -129,6 +178,27 @@
   letter-spacing: var(--cp-tracking-title);
 }
 
+.sectionHeadingWithAction {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.sectionAction {
+  flex: 0 0 auto;
+  color: var(--cp-text-secondary);
+  font-size: 15px;
+  font-weight: var(--cp-fw-semibold);
+  text-underline-offset: 4px;
+}
+
+.sectionAction:hover,
+.sectionAction:focus-visible {
+  color: var(--cp-primary);
+  text-decoration: underline;
+}
+
 .ingredientList {
   display: grid;
   gap: 11px;
@@ -140,19 +210,20 @@
   gap: 18px;
   padding-bottom: 11px;
   border-bottom: 1px solid var(--cp-border-subtle);
-  color: var(--cp-text-secondary);
+  color: var(--cp-text-primary);
   font-size: 15px;
 }
 
 .ingredientList li span {
   flex: 0 0 auto;
-  color: var(--cp-text-tertiary);
+  color: var(--cp-text-primary);
+  text-align: right;
 }
 
 .ingredientList li strong {
+  min-width: 0;
   color: var(--cp-text-primary);
   font-weight: var(--cp-fw-medium);
-  text-align: right;
 }
 
 .nutrition {
@@ -206,7 +277,7 @@
 
 .steps p {
   margin: 4px 0 0;
-  color: var(--cp-text-secondary);
+  color: var(--cp-text-primary);
   line-height: 1.55;
 }
 
@@ -285,7 +356,7 @@
 
 .componentCard p {
   margin: 0;
-  color: var(--cp-text-secondary);
+  color: var(--cp-text-primary);
   font-size: 14px;
 }
 
@@ -318,6 +389,13 @@
     margin-top: 48px;
   }
 
+  .ingredientsCard,
+  .nutritionCard,
+  .stepsCard {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .componentGrid {
     grid-template-columns: 1fr;
   }
@@ -329,5 +407,13 @@
 
   .ingredientList li strong {
     text-align: left;
+  }
+
+  .ingredientList li span {
+    text-align: left;
+  }
+
+  .nutrition {
+    grid-template-columns: 1fr;
   }
 }

@@ -10,21 +10,54 @@ import type {
 export const gallerySearchTypes = ["all", "recipes", "menus", "days", "weeks", "ingredients"] as const satisfies readonly GallerySearchType[];
 export const galleryMealMoments = ["breakfast", "morning_snack", "lunch", "afternoon_snack", "dinner", "late_night"] as const satisfies readonly GalleryMealMoment[];
 export const galleryComponentTypes = ["main_dish", "appetizer", "side_dish", "salad", "beverage", "sauce", "dessert", "dressing"] as const satisfies readonly GalleryComponentType[];
+export const galleryIncludeIngredientsHash = "#gallery-include-ingredients";
 
-const arrayFilterKeys = [
+export const galleryRecipeArrayFilterKeys = [
   "categories", "meal_moments", "component_types", "ingredients_include", "ingredients_exclude", "cultural_profiles", "badges",
   "excluded_meal_moments", "excluded_component_types", "menu_function_roles", "service_modes", "cultural_intents", "taste_profiles",
-  "component_profiles", "ingredient_categories", "matrix_families", "ingredient_states", "processing_types",
+  "component_profiles", "texture_profiles",
 ] as const satisfies readonly (keyof GalleryFilters)[];
-const numericFilterKeys = [
+export const galleryRecipeNumericFilterKeys = [
   "time_min_minutes", "time_max_minutes", "kcal_min", "kcal_max", "protein_min", "protein_max", "carbs_min", "carbs_max",
   "fat_min", "fat_max", "fiber_min", "fiber_max", "nutritional_score_min", "nutritional_score_max", "servings_min", "servings_max",
+] as const satisfies readonly (keyof GalleryFilters)[];
+export const galleryIngredientArrayFilterKeys = [
+  "ingredient_categories", "matrix_families", "ingredient_states", "processing_types",
+] as const satisfies readonly (keyof GalleryFilters)[];
+export const galleryIngredientNumericFilterKeys = [
   "ingredient_kcal_min", "ingredient_kcal_max", "ingredient_protein_min", "ingredient_protein_max", "ingredient_carbs_min", "ingredient_carbs_max",
   "ingredient_fat_min", "ingredient_fat_max", "ingredient_fiber_min", "ingredient_fiber_max",
 ] as const satisfies readonly (keyof GalleryFilters)[];
 
+export type GalleryArrayFilterKey = (typeof galleryRecipeArrayFilterKeys[number] | typeof galleryIngredientArrayFilterKeys[number]);
+export type GalleryNumericFilterKey = (typeof galleryRecipeNumericFilterKeys[number] | typeof galleryIngredientNumericFilterKeys[number]);
+
+const arrayFilterKeys = [...galleryRecipeArrayFilterKeys, ...galleryIngredientArrayFilterKeys] as const satisfies readonly (keyof GalleryFilters)[];
+const numericFilterKeys = [...galleryRecipeNumericFilterKeys, ...galleryIngredientNumericFilterKeys] as const satisfies readonly (keyof GalleryFilters)[];
+
 type ArrayFilterKey = (typeof arrayFilterKeys)[number];
 type NumericFilterKey = (typeof numericFilterKeys)[number];
+
+export type GalleryFacetApplicability = {
+  arrays: readonly GalleryArrayFilterKey[];
+  numerics: readonly GalleryNumericFilterKey[];
+};
+
+/**
+ * One applicability model for the whole Gallery surface. The UI, URL parser
+ * and RPC mapper all consume the normalized state produced from this model.
+ * `all` intentionally exposes the recipe discovery facets: choosing one makes
+ * the effective search recipe-centric instead of silently passing it through
+ * menus, days or weeks where it has no meaning.
+ */
+export const galleryFacetApplicability: Record<GallerySearchType, GalleryFacetApplicability> = {
+  all: { arrays: galleryRecipeArrayFilterKeys, numerics: galleryRecipeNumericFilterKeys },
+  recipes: { arrays: galleryRecipeArrayFilterKeys, numerics: galleryRecipeNumericFilterKeys },
+  menus: { arrays: [], numerics: [] },
+  days: { arrays: [], numerics: [] },
+  weeks: { arrays: [], numerics: [] },
+  ingredients: { arrays: galleryIngredientArrayFilterKeys, numerics: galleryIngredientNumericFilterKeys },
+};
 
 const typeValues = new Set<string>(gallerySearchTypes);
 const mealValues = new Set<string>(galleryMealMoments);
@@ -41,7 +74,7 @@ const arrayUrlKeys: Record<ArrayFilterKey, string> = {
   ingredients_exclude: "exclude_ingredient", cultural_profiles: "cultural_profile", badges: "badge",
   excluded_meal_moments: "exclude_meal", excluded_component_types: "exclude_component", menu_function_roles: "menu_role",
   service_modes: "service_mode", cultural_intents: "cultural_intent", taste_profiles: "taste_profile",
-  component_profiles: "component_profile", ingredient_categories: "ingredient_category", matrix_families: "matrix_family",
+  component_profiles: "component_profile", texture_profiles: "texture", ingredient_categories: "ingredient_category", matrix_families: "matrix_family",
   ingredient_states: "ingredient_state", processing_types: "processing_type",
 };
 const numericUrlKeys: Record<NumericFilterKey, string> = {
@@ -60,7 +93,7 @@ export function emptyGalleryFilters(): GalleryFilters {
   return {
     categories: [], meal_moments: [], component_types: [], ingredients_include: [], ingredients_exclude: [], cultural_profiles: [], badges: [],
     excluded_meal_moments: [], excluded_component_types: [], menu_function_roles: [], service_modes: [], cultural_intents: [], taste_profiles: [],
-    component_profiles: [], ingredient_categories: [], matrix_families: [], ingredient_states: [], processing_types: [],
+    component_profiles: [], texture_profiles: [], ingredient_categories: [], matrix_families: [], ingredient_states: [], processing_types: [],
     time_min_minutes: null, time_max_minutes: null, kcal_min: null, kcal_max: null, protein_min: null, protein_max: null,
     carbs_min: null, carbs_max: null, fat_min: null, fat_max: null, fiber_min: null, fiber_max: null,
     nutritional_score_min: null, nutritional_score_max: null, servings_min: null, servings_max: null,
@@ -81,20 +114,22 @@ function canonicalValues(value: string | string[] | undefined, allowed?: Set<str
     .filter((item) => Boolean(item) && (!allowed || allowed.has(item)));
   return [...new Set(values)].sort().slice(0, max);
 }
-function safeNumber(value: string | string[] | undefined) {
+function safeNumber(value: string | string[] | undefined, integer = false) {
   const raw = first(value)?.trim();
-  if (!raw || !/^\d+$/.test(raw)) return null;
+  if (!raw || !(integer ? /^\d+$/.test(raw) : /^\d+(?:\.\d{1,2})?$/.test(raw))) return null;
   const parsed = Number(raw);
-  return Number.isSafeInteger(parsed) && parsed >= 0 && parsed <= 1_000_000 ? parsed : null;
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= 1_000_000 ? parsed : null;
 }
+function normalizeQuery(value: string | null | undefined) { return (value ?? "").trim().slice(0, 160); }
+function normalizeHandle(value: string | null | undefined) { return value?.trim().replace(/^@/, "").toLowerCase() || null; }
 function setNumeric(filters: GalleryFilters, key: NumericFilterKey, value: number | null) {
   (filters as unknown as Record<NumericFilterKey, number | null>)[key] = value;
 }
 function getNumeric(filters: GalleryFilters, key: NumericFilterKey) {
-  return (filters as unknown as Record<NumericFilterKey, number | null>)[key];
+  return (filters as unknown as Record<NumericFilterKey, number | null | undefined>)[key] ?? null;
 }
 function getArray(filters: GalleryFilters, key: ArrayFilterKey) {
-  return (filters as unknown as Record<ArrayFilterKey, string[]>)[key];
+  return (filters as unknown as Record<ArrayFilterKey, string[] | undefined>)[key] ?? [];
 }
 function normalizeRanges(filters: GalleryFilters) {
   const pairs: Array<[NumericFilterKey, NumericFilterKey]> = [
@@ -110,24 +145,58 @@ function normalizeRanges(filters: GalleryFilters) {
   }
 }
 
+function hasFilterValues(filters: GalleryFilters, arrays: readonly GalleryArrayFilterKey[], numerics: readonly GalleryNumericFilterKey[]) {
+  return arrays.some((key) => getArray(filters, key).length > 0) || numerics.some((key) => getNumeric(filters, key) !== null);
+}
+
+function validSearchType(value: string | undefined): GallerySearchType {
+  return typeValues.has(value ?? "") ? value as GallerySearchType : "all";
+}
+
+/** Remove facets that cannot be interpreted for the selected public object type. */
+export function normalizeGalleryQueryState(input: GalleryQueryState): GalleryQueryState {
+  const sourceFilters = input.filters ?? emptyGalleryFilters();
+  let type = validSearchType(input.type);
+  const recipeIntent = hasFilterValues(sourceFilters, galleryRecipeArrayFilterKeys, galleryRecipeNumericFilterKeys);
+  const ingredientIntent = hasFilterValues(sourceFilters, galleryIngredientArrayFilterKeys, galleryIngredientNumericFilterKeys);
+
+  if (type === "all" && recipeIntent) type = "recipes";
+  else if (type === "all" && ingredientIntent) type = "ingredients";
+
+  const applicable = galleryFacetApplicability[type];
+  const filters = emptyGalleryFilters();
+  for (const key of applicable.arrays) (filters as unknown as Record<GalleryArrayFilterKey, string[]>)[key] = [...getArray(sourceFilters, key)];
+  for (const key of applicable.numerics) setNumeric(filters, key, getNumeric(sourceFilters, key));
+  normalizeRanges(filters);
+
+  return {
+    locale: input.locale,
+    q: normalizeQuery(input.q),
+    type,
+    handle: normalizeHandle(input.handle),
+    cursor: input.cursor ?? null,
+    filters,
+  };
+}
+
 export function parseGalleryQueryState(locale: AppLocale, searchParams: URLSearchParams | Record<string, string | string[] | undefined>): GalleryQueryState {
   const rawType = first(getAll(searchParams, "type"))?.trim().toLowerCase();
   const filters = emptyGalleryFilters();
   for (const key of arrayFilterKeys) {
     (filters as unknown as Record<ArrayFilterKey, string[]>)[key] = canonicalValues(getAll(searchParams, arrayUrlKeys[key]), enumFilterValues[key]);
   }
-  for (const key of numericFilterKeys) setNumeric(filters, key, safeNumber(getAll(searchParams, numericUrlKeys[key])));
+  for (const key of numericFilterKeys) setNumeric(filters, key, safeNumber(getAll(searchParams, numericUrlKeys[key]), key.startsWith("time_") || key.startsWith("servings")));
   normalizeRanges(filters);
   const handle = first(getAll(searchParams, "handle"))?.trim().replace(/^@/, "").toLowerCase() || null;
   const cursor = first(getAll(searchParams, "cursor"))?.trim() || null;
-  return {
+  return normalizeGalleryQueryState({
     locale,
     q: (first(getAll(searchParams, "q")) ?? "").trim().slice(0, 160),
-    type: typeValues.has(rawType ?? "") ? rawType as GallerySearchType : "all",
+    type: validSearchType(rawType),
     handle: /^[a-z0-9][a-z0-9_-]{0,63}$/.test(handle ?? "") ? handle : null,
     cursor,
     filters,
-  };
+  });
 }
 
 function appendMany(params: URLSearchParams, key: string, values: string[]) { values.forEach((value) => params.append(key, value)); }
@@ -150,5 +219,12 @@ export function toGalleryRpcFilters(filters: GalleryFilters) {
   return result;
 }
 export function galleryUrl(path: string, state: GalleryQueryState) { const query = toGallerySearchParams(state).toString(); return query ? `${path}?${query}` : path; }
-export function hasActiveGalleryFilters(state: GalleryQueryState) { return arrayFilterKeys.some((key) => getArray(state.filters, key).length > 0) || numericFilterKeys.some((key) => getNumeric(state.filters, key) !== null); }
-export function galleryQueryFingerprint(state: GalleryQueryState) { return toGallerySearchParams({ ...state, cursor: null }).toString(); }
+export function hasActiveGalleryFilters(state: GalleryQueryState) {
+  const normalized = normalizeGalleryQueryState(state);
+  const applicable = galleryFacetApplicability[normalized.type];
+  return hasFilterValues(normalized.filters, applicable.arrays, applicable.numerics);
+}
+export function galleryQueryFingerprint(state: GalleryQueryState) {
+  const normalized = normalizeGalleryQueryState({ ...state, cursor: null });
+  return toGallerySearchParams(normalized).toString();
+}

@@ -13,6 +13,21 @@
 
 begin;
 
+-- The return table is part of the public contract, so drop the current signature
+-- before recreating it when this source is promoted after a contract change.
+drop function if exists home.rpc_cookshare_gallery_candidates(
+  text, text, text, text,
+  text[], text[], text[], text[], text[],
+  integer, integer, text, integer, jsonb, jsonb
+);
+
+drop function if exists home.rpc_cookshare_gallery_candidates(
+  text, text, text, text,
+  text[], text[], text[], text[], text[],
+  integer, integer, text, integer,
+  integer, text, uuid, text, jsonb
+);
+
 -- Remove the legacy overload so named calls with omitted p_filters cannot become ambiguous.
 drop function if exists home.rpc_cookshare_gallery_candidates(
   text, text, text, text,
@@ -35,10 +50,7 @@ create function home.rpc_cookshare_gallery_candidates(
   p_max_time integer default null,
   p_access text default 'all',
   p_limit integer default 24,
-  p_after_rank integer default null,
-  p_after_title text default null,
-  p_after_id uuid default null,
-  p_after_object_type text default null,
+  p_cursor jsonb default null,
   p_filters jsonb default '{}'::jsonb
 )
 returns table(
@@ -60,12 +72,15 @@ returns table(
   slot_profile jsonb,
   ingredients text[],
   match_type text,
-  relevance_score numeric
+  relevance_score numeric,
+  total_count bigint,
+  cursor jsonb
 )
 language plpgsql
 stable
 security definer
 set search_path = ''
+set statement_timeout = '5min'
 as $function$
 declare
   v_locale text := case when lower(left(coalesce(p_locale, 'es'), 2)) = 'en' then 'en' else 'es' end;
@@ -76,6 +91,20 @@ declare
   v_handle text := nullif(lower(regexp_replace(trim(coalesce(p_handle, '')), '^@', '')), '');
   v_limit integer := least(greatest(coalesce(p_limit, 24), 1), 100);
   v_filters jsonb := case when p_filters is not null and jsonb_typeof(p_filters) = 'object' then p_filters else '{}'::jsonb end;
+  v_cursor jsonb := case when p_cursor is not null and jsonb_typeof(p_cursor) = 'object' then p_cursor else '{}'::jsonb end;
+  v_cursor_match_type integer := null;
+  v_cursor_similarity numeric := null;
+  v_cursor_query_score numeric := null;
+  v_cursor_object_priority integer := null;
+  v_cursor_component integer := null;
+  v_cursor_eligibility integer := null;
+  v_cursor_cultural integer := null;
+  v_cursor_status numeric := null;
+  v_cursor_category integer := null;
+  v_cursor_title text := null;
+  v_cursor_object_id uuid := null;
+  v_cursor_object_type text := null;
+  v_cursor_valid boolean := false;
 
   v_categories text[] := '{}'::text[];
   v_meals text[] := '{}'::text[];
@@ -93,6 +122,7 @@ declare
   v_cultural_intents text[] := '{}'::text[];
   v_taste_profiles text[] := '{}'::text[];
   v_component_profiles text[] := '{}'::text[];
+  v_texture_profiles text[] := '{}'::text[];
 
   v_ingredient_categories text[] := '{}'::text[];
   v_matrix_families text[] := '{}'::text[];
@@ -143,6 +173,39 @@ begin
       ''
     );
     v_query_dense := nullif(regexp_replace(v_query_normalized, '\s+', '', 'g'), '');
+  end if;
+
+  -- Keyset cursors carry only the deterministic ordering tuple. Invalid or stale
+  -- cursors are treated as non-paginable instead of being interpreted partially.
+  if p_cursor is not null and jsonb_typeof(p_cursor) = 'object' then
+    begin
+      if jsonb_typeof(v_cursor -> 'm') = 'number' then v_cursor_match_type := (v_cursor ->> 'm')::integer; end if;
+      if jsonb_typeof(v_cursor -> 's') = 'number' then v_cursor_similarity := (v_cursor ->> 's')::numeric; end if;
+      if jsonb_typeof(v_cursor -> 'q') = 'number' then v_cursor_query_score := (v_cursor ->> 'q')::numeric; end if;
+      if jsonb_typeof(v_cursor -> 'o') = 'number' then v_cursor_object_priority := (v_cursor ->> 'o')::integer; end if;
+      if jsonb_typeof(v_cursor -> 'c') = 'number' then v_cursor_component := (v_cursor ->> 'c')::integer; end if;
+      if jsonb_typeof(v_cursor -> 'e') = 'number' then v_cursor_eligibility := (v_cursor ->> 'e')::integer; end if;
+      if jsonb_typeof(v_cursor -> 'u') = 'number' then v_cursor_cultural := (v_cursor ->> 'u')::integer; end if;
+      if jsonb_typeof(v_cursor -> 'b') = 'number' then v_cursor_status := (v_cursor ->> 'b')::numeric; end if;
+      if jsonb_typeof(v_cursor -> 'k') = 'number' then v_cursor_category := (v_cursor ->> 'k')::integer; end if;
+      if jsonb_typeof(v_cursor -> 't') = 'string' then v_cursor_title := v_cursor ->> 't'; end if;
+      if jsonb_typeof(v_cursor -> 'i') = 'string' then v_cursor_object_id := (v_cursor ->> 'i')::uuid; end if;
+      if jsonb_typeof(v_cursor -> 'y') = 'string' then v_cursor_object_type := v_cursor ->> 'y'; end if;
+      v_cursor_valid := v_cursor_match_type is not null
+        and v_cursor_similarity is not null
+        and v_cursor_query_score is not null
+        and v_cursor_object_priority is not null
+        and v_cursor_component is not null
+        and v_cursor_eligibility is not null
+        and v_cursor_cultural is not null
+        and v_cursor_status is not null
+        and v_cursor_category is not null
+        and v_cursor_title is not null
+        and v_cursor_object_id is not null
+        and v_cursor_object_type is not null;
+    exception when others then
+      v_cursor_valid := false;
+    end;
   end if;
 
   -- Legacy args + normalized JSON facet contract. Arrays are canonicalized and de-duplicated.
@@ -291,6 +354,16 @@ begin
   ) x
   where lower(trim(x)) in ('main_dish','appetizer','side_dish','salad','beverage','sauce','dessert','dressing');
 
+  -- Consumer texture vocabulary is intentionally finite and sourced from the
+  -- populated MESA sensory cache. Raw scores and internal model fields never
+  -- cross the public RPC boundary.
+  select coalesce(array_agg(distinct lower(trim(x)) order by lower(trim(x))), '{}'::text[])
+  into v_texture_profiles
+  from jsonb_array_elements_text(
+    case when jsonb_typeof(v_filters -> 'texture_profiles') = 'array' then v_filters -> 'texture_profiles' else '[]'::jsonb end
+  ) x
+  where lower(trim(x)) in ('creamy','soft','crispy','crunchy','juicy','tender','firm','smooth','liquid','saucy','chewy','flaky');
+
   -- Ingredient-object facets from the real ingredient domain.
   select coalesce(array_agg(distinct lower(trim(x)) order by lower(trim(x))), '{}'::text[])
   into v_ingredient_categories
@@ -376,6 +449,7 @@ begin
     or cardinality(v_cultural_intents) > 0
     or cardinality(v_taste_profiles) > 0
     or cardinality(v_component_profiles) > 0
+    or cardinality(v_texture_profiles) > 0
     or v_time_min is not null or v_time_max is not null
     or v_kcal_min is not null or v_kcal_max is not null
     or v_protein_min is not null or v_protein_max is not null
@@ -410,12 +484,22 @@ begin
     join home.cookshare_public_identities i
       on i.object_type = r.object_type
      and i.object_id = r.object_id
+    left join menu.recipes official_recipe
+      on official_recipe.id = r.object_id
+     and r.object_type = 'recipe'
+    left join users.user_preferences up
+      on up.user_id = i.owner_id
     where r.is_current
       and r.route_kind = 'current'
       and i.lifecycle = 'active'
       and not coalesce(i.admin_disabled, false)
       and (v_handle is null or nullif(lower(regexp_replace(coalesce(r.handle, ''), '^@', '')), '') = v_handle)
-      and home.fn_cookshare_effective_public(r.object_type, r.object_id, null)
+      and (
+        (r.object_type = 'recipe' and official_recipe.origin::text = 'official' and official_recipe.source_recipe_id is null)
+        or r.object_type in ('ingredient', 'category')
+        or (i.publication_override is not null and i.publication_override)
+        or (i.publication_override is null and coalesce(up.cookshare_public_by_default, false))
+      )
     order by r.object_type, r.object_id, r.created_at desc
   ),
   selected_category_tree as (
@@ -451,6 +535,9 @@ begin
         (regexp_replace(lower(public.unaccent(regexp_replace(coalesce(i.search_slug, ''), '[^[:alnum:][:space:]-]+', ' ', 'g'))), '[-\s]+', ' ', 'g'))
     ) keys(key)
     group by rci.recipe_id
+    having v_query_normalized is not null
+        or cardinality(v_ingredients_include) > 0
+        or cardinality(v_ingredients_exclude) > 0
   ),
   recipe_category_data as (
     select
@@ -544,6 +631,9 @@ begin
     left join menu.recipe_nutritional_profiles rnp on rnp.recipe_id = r.id
     left join recipe_ingredient_data rid on rid.recipe_id = r.id
     left join recipe_category_data rcd on rcd.recipe_id = r.id
+    left join home.mesa_recipe_sensory_cache sensory
+      on sensory.recipe_id = r.id
+     and cardinality(v_texture_profiles) > 0
     where v_type in ('all','recipes')
       and not v_ingredient_filters_active
       and (
@@ -563,6 +653,15 @@ begin
         )
       )
       and (cardinality(v_components) = 0 or rr.component_type::text = any(v_components))
+      and (
+        cardinality(v_texture_profiles) = 0
+        or exists (
+          select 1
+          from unnest(v_texture_profiles) selected(key)
+          where lower(coalesce(sensory.texture_primary_raw, '')) = selected.key
+             or lower(coalesce(sensory.texture_secondary_raw, '')) = selected.key
+        )
+      )
       and (
         v_time_min is null
         or (nullif(rte.total_minutes_avg, 0) is not null and rte.total_minutes_avg >= v_time_min)
@@ -958,7 +1057,7 @@ begin
       and v_query_normalized is not null
       and not v_recipe_filters_active
       and not v_ingredient_filters_active
-      and v_type in ('all','handles')
+      and v_type = 'handles'
     order by cr.owner_id, cr.handle
   ),
   candidates as (
@@ -1030,40 +1129,93 @@ begin
       or greatest(s.letter_similarity, s.word_letter_similarity) >= 0.22
       or s.is_related
   ),
-  ordered as (
+  sort_keys as (
     select
-      a.*,
-      row_number() over (
-        order by
-          case when v_query_normalized is null then 0 else
-            case a.resolved_match_type
-              when 'exact' then 0
-              when 'prefix' then 1
-              when 'contains' then 2
-              when 'fuzzy' then 3
-              when 'related' then 4
-              else 5
-            end
-          end asc,
-          case when v_query_normalized is not null then a.best_similarity else 0 end desc,
-          case when v_query_normalized is not null then a.query_score else 0 end desc,
-          a.object_priority asc,
-          case when a.object_type = 'recipe' then home.fn_cooksearch_component_type_sort_order(a.component) else 999 end asc,
-          a.eligibility_bucket_order asc,
-          a.cultural_priority asc,
-          a.status_base_score desc,
-          a.category_sort_order asc,
-          lower(public.unaccent(a.title)) asc,
-          a.object_id,
-          a.object_type
-      )::integer as resolved_rank
-    from accepted a
+      s.*,
+      jsonb_build_object(
+        'm', s.sort_match_type,
+        's', s.sort_similarity,
+        'q', s.sort_query_score,
+        'o', s.object_priority,
+        'c', s.sort_component,
+        'e', s.eligibility_bucket_order,
+        'u', s.cultural_priority,
+        'b', s.status_base_score,
+        'k', s.category_sort_order,
+        't', s.sort_title,
+        'i', s.object_id::text,
+        'y', s.object_type
+      ) as sort_cursor
+    from (
+      select
+        a.*,
+      case when v_query_normalized is null then 0 else
+        case a.resolved_match_type
+          when 'exact' then 0
+          when 'prefix' then 1
+          when 'contains' then 2
+          when 'fuzzy' then 3
+          when 'related' then 4
+          else 5
+        end
+      end as sort_match_type,
+      case when v_query_normalized is not null then a.best_similarity else 0 end as sort_similarity,
+      case when v_query_normalized is not null then a.query_score else 0 end as sort_query_score,
+      case when a.object_type = 'recipe' then home.fn_cooksearch_component_type_sort_order(a.component) else 999 end as sort_component,
+      coalesce(lower(public.unaccent(a.title)), '') as sort_title
+      from accepted a
+    ) s
+  ),
+  initial_ordered as (
+    select
+      s.*,
+      count(*) over ()::bigint as total_count
+    from sort_keys s
+    where p_cursor is null
+  ),
+  cursor_ordered as (
+    select
+      s.*,
+      null::bigint as total_count
+    from sort_keys s
+    where p_cursor is not null
+      and v_cursor_valid
+      and (
+        s.sort_match_type > v_cursor_match_type
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity < v_cursor_similarity)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score < v_cursor_query_score)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority > v_cursor_object_priority)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component > v_cursor_component)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component = v_cursor_component and s.eligibility_bucket_order > v_cursor_eligibility)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component = v_cursor_component and s.eligibility_bucket_order = v_cursor_eligibility and s.cultural_priority > v_cursor_cultural)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component = v_cursor_component and s.eligibility_bucket_order = v_cursor_eligibility and s.cultural_priority = v_cursor_cultural and s.status_base_score < v_cursor_status)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component = v_cursor_component and s.eligibility_bucket_order = v_cursor_eligibility and s.cultural_priority = v_cursor_cultural and s.status_base_score = v_cursor_status and s.category_sort_order > v_cursor_category)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component = v_cursor_component and s.eligibility_bucket_order = v_cursor_eligibility and s.cultural_priority = v_cursor_cultural and s.status_base_score = v_cursor_status and s.category_sort_order = v_cursor_category and s.sort_title > v_cursor_title)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component = v_cursor_component and s.eligibility_bucket_order = v_cursor_eligibility and s.cultural_priority = v_cursor_cultural and s.status_base_score = v_cursor_status and s.category_sort_order = v_cursor_category and s.sort_title = v_cursor_title and s.object_id > v_cursor_object_id)
+        or (s.sort_match_type = v_cursor_match_type and s.sort_similarity = v_cursor_similarity and s.sort_query_score = v_cursor_query_score and s.object_priority = v_cursor_object_priority and s.sort_component = v_cursor_component and s.eligibility_bucket_order = v_cursor_eligibility and s.cultural_priority = v_cursor_cultural and s.status_base_score = v_cursor_status and s.category_sort_order = v_cursor_category and s.sort_title = v_cursor_title and s.object_id = v_cursor_object_id and s.object_type > v_cursor_object_type)
+      )
+  ),
+  ordered as (
+    select * from initial_ordered
+    union all
+    select * from cursor_ordered
   ),
   paged as (
     select o.*
     from ordered o
-    where p_after_rank is null or o.resolved_rank > p_after_rank
-    order by o.resolved_rank
+    order by
+      o.sort_match_type asc,
+      o.sort_similarity desc,
+      o.sort_query_score desc,
+      o.object_priority asc,
+      o.sort_component asc,
+      o.eligibility_bucket_order asc,
+      o.cultural_priority asc,
+      o.status_base_score desc,
+      o.category_sort_order asc,
+      o.sort_title asc,
+      o.object_id,
+      o.object_type
     limit v_limit
   )
   select
@@ -1080,22 +1232,35 @@ begin
     p.is_free,
     p.time_minutes,
     p.nutrition,
-    p.resolved_rank as rank,
+    null::integer as rank,
     p.component,
     p.slot_profile,
     p.ingredients,
     p.resolved_match_type as match_type,
-    p.query_score as relevance_score
+    p.query_score as relevance_score,
+    p.total_count,
+    p.sort_cursor as cursor
   from paged p
-  order by p.resolved_rank;
+  order by
+    p.sort_match_type asc,
+    p.sort_similarity desc,
+    p.sort_query_score desc,
+    p.object_priority asc,
+    p.sort_component asc,
+    p.eligibility_bucket_order asc,
+    p.cultural_priority asc,
+    p.status_base_score desc,
+    p.category_sort_order asc,
+    p.sort_title asc,
+    p.object_id,
+    p.object_type;
 end;
 $function$;
 
 comment on function home.rpc_cookshare_gallery_candidates(
   text, text, text, text,
   text[], text[], text[], text[], text[],
-  integer, integer, text, integer,
-  integer, text, uuid, text, jsonb
+  integer, integer, text, integer, jsonb, jsonb
 ) is
 'Definitive CookShare public Gallery search/filter RPC. Searches the full authoritative public catalog; never uses cookmatch_recipe_bank. Text relevance copies CookSearch exact/prefix/contains/fuzzy matching. Semantic recipe filters copy canonical CookSearch thresholds.';
 
@@ -1103,15 +1268,13 @@ comment on function home.rpc_cookshare_gallery_candidates(
 revoke execute on function home.rpc_cookshare_gallery_candidates(
   text, text, text, text,
   text[], text[], text[], text[], text[],
-  integer, integer, text, integer,
-  integer, text, uuid, text, jsonb
+  integer, integer, text, integer, jsonb, jsonb
 ) from public;
 
 grant execute on function home.rpc_cookshare_gallery_candidates(
   text, text, text, text,
   text[], text[], text[], text[], text[],
-  integer, integer, text, integer,
-  integer, text, uuid, text, jsonb
+  integer, integer, text, integer, jsonb, jsonb
 ) to anon, authenticated, service_role;
 
 commit;

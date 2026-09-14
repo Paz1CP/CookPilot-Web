@@ -12,7 +12,7 @@ type SitemapCandidate = {
   object_id: string;
   handle: string | null;
   slug: string;
-  rank: number;
+  cursor: Record<string, unknown> | null;
 };
 
 const candidateTypes = ["recipes", "menus", "days", "weeks", "lists", "ingredients", "categories"] as const;
@@ -43,7 +43,7 @@ async function publicCandidates() {
   });
   const rows: SitemapCandidate[] = [];
   for (const type of candidateTypes) {
-    let cursor: SitemapCandidate | null = null;
+    let cursor: Record<string, unknown> | null = null;
     for (let page = 0; page < 500; page += 1) {
       const rpcArgs: Record<string, unknown> = {
         p_locale: "es",
@@ -51,14 +51,14 @@ async function publicCandidates() {
         p_limit: 100,
       };
       if (cursor) {
-        rpcArgs.p_after_rank = cursor.rank;
+        rpcArgs.p_cursor = cursor;
       }
       const result = await client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs, { get: true });
       if (result.error || !Array.isArray(result.data)) break;
       const batch = result.data as SitemapCandidate[];
       rows.push(...batch);
       if (batch.length < 100) break;
-      cursor = batch.at(-1) ?? null;
+      cursor = batch.at(-1)?.cursor ?? null;
       if (!cursor) break;
     }
   }

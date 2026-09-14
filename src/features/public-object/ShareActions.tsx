@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Copy, ScanBarcode, Share } from "iconsax-reactjs";
 import { absoluteUrl } from "@/shared/config/site";
 import { DownloadButton } from "@/shared/download/DownloadExperience";
 import styles from "./ShareActions.module.css";
@@ -124,24 +125,26 @@ export default function ShareActions({
   return (
     <>
       <div className={styles.actions} aria-label={locale === "es" ? "Acciones de compartir" : "Sharing actions"}>
-        <button type="button" className="cp-btn cp-btn--primary" onClick={share} disabled={busy}>
-          {labels.share}
+        <button type="button" className={styles.iconAction} onClick={share} disabled={busy} aria-label={labels.share} title={labels.share}>
+          <Share size={21} variant="Outline" aria-hidden="true" />
         </button>
-        <button type="button" className="cp-btn cp-btn--ghost" onClick={copy} disabled={busy}>
-          {labels.copy}
+        <button type="button" className={styles.iconAction} onClick={copy} disabled={busy} aria-label={labels.copy} title={labels.copy}>
+          <Copy size={21} variant="Outline" aria-hidden="true" />
         </button>
         <a
-          className={styles.actionLink}
+          className={styles.iconAction}
           href={`https://wa.me/?text=${encodeURIComponent(`${title}\n${url}`)}`}
           target="_blank"
           rel="noreferrer"
+          aria-label={labels.whatsapp}
+          title={labels.whatsapp}
         >
-          {labels.whatsapp}
+          <Image src="/icons/social/whatsapp.png" alt="" width={22} height={22} aria-hidden="true" />
         </a>
-        <button type="button" className={styles.actionLink} onClick={showQr} disabled={busy}>
-          {labels.qr}
+        <button type="button" className={styles.iconAction} onClick={showQr} disabled={busy} aria-label={labels.qr} title={labels.qr}>
+          <ScanBarcode size={21} variant="Outline" aria-hidden="true" />
         </button>
-        <DownloadButton className={styles.actionLink} cookSharePath={path}>
+        <DownloadButton className="cp-btn cp-btn--primary" cookSharePath={path}>
           {labels.open}
         </DownloadButton>
         {status ? <span className={styles.status} role="status">{status}</span> : null}
@@ -156,7 +159,6 @@ export default function ShareActions({
             onMouseDown={(event) => event.stopPropagation()}
           >
             <button type="button" className={styles.close} onClick={() => setQrOpen(false)} aria-label={labels.close}>×</button>
-            <p className="cp-eyebrow">CookShare</p>
             <h2 id="cookshare-qr-title">{labels.qr}</h2>
             <Image src={qrDataUrl} alt={labels.qrHint} width={280} height={280} unoptimized className={styles.qr} />
             <p>{labels.qrHint}</p>

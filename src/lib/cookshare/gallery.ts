@@ -8,6 +8,7 @@ import {
   galleryMealMoments,
   galleryQueryFingerprint,
   hasActiveGalleryFilters,
+  normalizeGalleryQueryState,
   toGalleryRpcFilters,
 } from "./gallery-query";
 import type {
@@ -22,6 +23,11 @@ import type {
 const PAGE_SIZE = 9;
 const GALLERY_TIME_OPTIONS = [0, 5, 15, 30, 45, 60, 90, 120] as const;
 const publicObjectTypes = new Set<CookShareObjectType>(["recipe", "menu", "day", "week", "list", "ingredient", "category"]);
+const galleryCultureProfiles = ["sacred_loved", "iconic", "daily", "none"] as const;
+const galleryMenuFunctionRoles = ["anchor", "support", "cut", "refresh", "close"] as const;
+const galleryServiceModes = ["hot", "warm", "cold", "room_temp", "refreshing", "digestive"] as const;
+const galleryTasteProfiles = ["sweet", "salty", "sour", "spicy", "umami", "low_bitter"] as const;
+const galleryTextureProfileCandidates = ["creamy", "soft", "crispy", "crunchy", "juicy", "tender", "firm", "smooth", "liquid", "saucy", "chewy", "flaky"] as const;
 
 type GalleryRpcRow = {
   object_type: string;
@@ -39,9 +45,15 @@ type GalleryRpcRow = {
   component?: string | null;
   match_type?: string | null;
   relevance_score?: number | string | null;
+  total_count?: number | string | null;
+  cursor?: Record<string, unknown> | null;
 };
-type GalleryCursor = { rank: number };
+type GalleryCursor = Record<string, unknown>;
 type CategoryRow = { id?: string | null; parent_id?: string | null; slug?: string | null; name?: string | null; name_en?: string | null; sort_order?: number | null };
+type IngredientRow = { name?: string | null; name_en?: string | null; search_slug?: string | null; matrix_family?: string | null; state?: string | null; nutritional_type?: string | null };
+type IngredientCategoryRow = { code?: string | null; name_es?: string | null; name_en?: string | null };
+type NutritionProfileRow = { recipe_nutritional_tags?: string[] | null };
+type SensoryRow = { texture_primary_raw?: string | null; texture_secondary_raw?: string | null };
 
 export class GalleryRpcError extends Error {
   constructor(message: string) { super(message); this.name = "GalleryRpcError"; }
@@ -55,14 +67,14 @@ function numberValue(value: unknown) {
 function normalizeHandle(value: string | null | undefined) { return value?.trim().replace(/^@/, "").toLowerCase() || null; }
 function mediaUrl(value: string | null | undefined) { return value?.trim() || null; }
 function encodeCursor(row: GalleryRpcRow) {
-  const rank = numberValue(row.rank);
-  return rank === null ? null : Buffer.from(JSON.stringify({ rank }), "utf8").toString("base64url");
+  if (!row.cursor || typeof row.cursor !== "object" || Array.isArray(row.cursor)) return null;
+  return Buffer.from(JSON.stringify(row.cursor), "utf8").toString("base64url");
 }
 function decodeCursor(cursor: string | null): GalleryCursor | null {
   if (!cursor) return null;
   try {
-    const parsed = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8")) as Partial<GalleryCursor>;
-    return typeof parsed.rank === "number" && Number.isSafeInteger(parsed.rank) && parsed.rank >= 0 ? { rank: parsed.rank } : null;
+    const parsed = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8")) as unknown;
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed as GalleryCursor : null;
   } catch { return null; }
 }
 function nutritionValue(value: GalleryRpcRow["nutrition"]): GalleryCard["nutrition"] {
@@ -73,6 +85,9 @@ function nutritionValue(value: GalleryRpcRow["nutrition"]): GalleryCard["nutriti
     fiberG: numberValue(value.fiber_g), nutritionalScore: numberValue(value.nutritional_score), badges,
   };
 }
+function humanize(value: string) { return value.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase()); }
+function localizedOption(map: Record<string, string>, value: string) { return map[value] ?? humanize(value); }
+
 function localizedFacetOptions(locale: AppLocale): GalleryFacetOptions {
   const labels = locale === "es" ? es : en;
   return {
@@ -80,6 +95,17 @@ function localizedFacetOptions(locale: AppLocale): GalleryFacetOptions {
     mealMoments: galleryMealMoments.map((value) => ({ value, label: labels.mealOptions[value] })),
     componentTypes: galleryComponentTypes.map((value) => ({ value, label: labels.componentOptions[value] })),
     timeMinutes: [...GALLERY_TIME_OPTIONS],
+    ingredients: [],
+    ingredientCategories: [],
+    matrixFamilies: [],
+    ingredientStates: [],
+    processingTypes: [],
+    culturalProfiles: galleryCultureProfiles.map((value) => ({ value, label: labels.culturalOptions[value] })),
+    menuFunctionRoles: galleryMenuFunctionRoles.map((value) => ({ value, label: labels.menuRoleOptions[value] })),
+    serviceModes: galleryServiceModes.map((value) => ({ value, label: labels.serviceOptions[value] })),
+    tasteProfiles: galleryTasteProfiles.map((value) => ({ value, label: labels.tasteOptions[value] })),
+    textures: [],
+    badges: [],
   };
 }
 function categoryOptions(rows: CategoryRow[], locale: AppLocale) {
@@ -105,12 +131,64 @@ function categoryOptions(rows: CategoryRow[], locale: AppLocale) {
   for (const row of validRows) if (!visited.has(row.id)) { options.push({ value: row.value, label: row.label, parentValue: null }); visit(row.id, 1, row.value); }
   return options;
 }
-async function getFacetOptions(locale: AppLocale) {
+const facetOptionsCache = new Map<AppLocale, Promise<GalleryFacetOptions>>();
+
+async function loadFacetOptions(locale: AppLocale) {
   const options = localizedFacetOptions(locale);
-  const result = await createSupabasePublicClient().schema("menu").from("recipe_categories")
-    .select("id,parent_id,slug,name,name_en,sort_order").order("sort_order", { ascending: true }).limit(500);
-  if (!result.error && Array.isArray(result.data)) options.categories = categoryOptions(result.data as CategoryRow[], locale);
+  const client = createSupabasePublicClient();
+  const [categoryResult, ingredientResult, ingredientCategoryResult, profileResult, sensoryResult] = await Promise.all([
+    client.schema("menu").from("recipe_categories").select("id,parent_id,slug,name,name_en,sort_order").order("sort_order", { ascending: true }).limit(500),
+    client.schema("nutrition").from("ingredients").select("name,name_en,search_slug,matrix_family,state,nutritional_type").limit(5000),
+    client.schema("nutrition").from("ingredient_categories").select("code,name_es,name_en").limit(200),
+    client.schema("menu").from("recipe_nutritional_profiles").select("recipe_nutritional_tags").limit(5000),
+    client.schema("home").from("mesa_recipe_sensory_cache").select("texture_primary_raw,texture_secondary_raw").limit(5000),
+  ]);
+
+  if (!categoryResult.error && Array.isArray(categoryResult.data)) options.categories = categoryOptions(categoryResult.data as CategoryRow[], locale);
+
+  const labels = locale === "es" ? es : en;
+  const ingredientRows = !ingredientResult.error && Array.isArray(ingredientResult.data) ? ingredientResult.data as IngredientRow[] : [];
+  const ingredientOptions = new Map<string, GalleryFacetOption>();
+  const matrixValues = new Set<string>();
+  const stateValues = new Set<string>();
+  const processingValues = new Set<string>();
+  for (const row of ingredientRows) {
+    const value = row.search_slug?.trim().toLowerCase();
+    if (value) ingredientOptions.set(value, { value, label: locale === "en" ? row.name_en || row.name || value : row.name || row.name_en || value });
+    if (row.matrix_family) matrixValues.add(row.matrix_family.toLowerCase());
+    if (row.state) stateValues.add(row.state.toLowerCase());
+    if (row.nutritional_type) processingValues.add(row.nutritional_type.toLowerCase());
+  }
+  options.ingredients = [...ingredientOptions.values()].sort((left, right) => left.label.localeCompare(right.label, locale));
+  options.matrixFamilies = [...matrixValues].sort().map((value) => ({ value, label: localizedOption(labels.matrixFamilyOptions, value) }));
+  options.ingredientStates = [...stateValues].sort().map((value) => ({ value, label: localizedOption(labels.ingredientStateOptions, value) }));
+  options.processingTypes = [...processingValues].sort().map((value) => ({ value, label: localizedOption(labels.processingOptions, value) }));
+
+  const categoryRows = !ingredientCategoryResult.error && Array.isArray(ingredientCategoryResult.data) ? ingredientCategoryResult.data as IngredientCategoryRow[] : [];
+  options.ingredientCategories = categoryRows
+    .flatMap((row) => row.code ? [{ value: row.code.toLowerCase(), label: locale === "en" ? row.name_en || row.code : row.name_es || row.name_en || row.code }] : [])
+    .sort((left, right) => left.label.localeCompare(right.label, locale));
+
+  const badgeValues = new Set<string>();
+  const profileRows = !profileResult.error && Array.isArray(profileResult.data) ? profileResult.data as NutritionProfileRow[] : [];
+  for (const row of profileRows) for (const badge of row.recipe_nutritional_tags ?? []) if (badge) badgeValues.add(badge.toLowerCase());
+  options.badges = [...badgeValues].sort().map((value) => ({ value, label: localizedOption(labels.badgeOptions, value) }));
+
+  const textureValues = new Set<string>();
+  const sensoryRows = !sensoryResult.error && Array.isArray(sensoryResult.data) ? sensoryResult.data as SensoryRow[] : [];
+  for (const row of sensoryRows) for (const value of [row.texture_primary_raw, row.texture_secondary_raw]) if (value?.trim()) textureValues.add(value.trim().toLowerCase());
+  options.textures = galleryTextureProfileCandidates
+    .filter((value) => textureValues.has(value))
+    .map((value) => ({ value, label: localizedOption(labels.textureOptions, value) }));
   return options;
+}
+
+function getFacetOptions(locale: AppLocale) {
+  const cached = facetOptionsCache.get(locale);
+  if (cached) return cached;
+  const pending = loadFacetOptions(locale);
+  facetOptionsCache.set(locale, pending);
+  return pending;
 }
 function isPublicObjectType(value: string): value is CookShareObjectType { return publicObjectTypes.has(value as CookShareObjectType); }
 function resolveRow(row: GalleryRpcRow, state: GalleryQueryState): GalleryCard | null {
@@ -127,16 +205,17 @@ function resolveRow(row: GalleryRpcRow, state: GalleryQueryState): GalleryCard |
 }
 /** The only Gallery Web-to-RPC adapter. The RPC owns matching, filters and rank. */
 export function mapGalleryStateToRpcArgs(state: GalleryQueryState, limit: number) {
-  const cursor = decodeCursor(state.cursor);
-  const args: Record<string, unknown> = { p_locale: state.locale, p_type: state.type, p_limit: limit, p_filters: toGalleryRpcFilters(state.filters) };
-  if (state.q) args.p_query = state.q;
-  if (state.handle) args.p_handle = state.handle;
-  if (cursor) args.p_after_rank = cursor.rank;
+  const normalizedState = normalizeGalleryQueryState(state);
+  const cursor = decodeCursor(normalizedState.cursor);
+  const args: Record<string, unknown> = { p_locale: normalizedState.locale, p_type: normalizedState.type, p_limit: limit, p_filters: toGalleryRpcFilters(normalizedState.filters) };
+  if (normalizedState.q) args.p_query = normalizedState.q;
+  if (normalizedState.handle) args.p_handle = normalizedState.handle;
+  if (cursor) args.p_cursor = cursor;
   return args;
 }
 export async function executeGallerySearch(state: GalleryQueryState, limit = PAGE_SIZE): Promise<GalleryPage> {
   const boundedLimit = Math.min(Math.max(limit, 1), PAGE_SIZE);
-  const normalizedState = { ...state, filters: state.filters ?? emptyGalleryFilters() };
+  const normalizedState = normalizeGalleryQueryState({ ...state, filters: state.filters ?? emptyGalleryFilters() });
   const [facetOptions, result] = await Promise.all([
     getFacetOptions(normalizedState.locale),
     createSupabasePublicClient().schema("home").rpc("rpc_cookshare_gallery_candidates", mapGalleryStateToRpcArgs(normalizedState, boundedLimit + 1)),
@@ -147,7 +226,16 @@ export async function executeGallerySearch(state: GalleryQueryState, limit = PAG
   const selected = rows.slice(0, boundedLimit);
   const cards = selected.flatMap((row) => { const card = resolveRow(row, normalizedState); return card ? [card] : []; });
   const lastRow = selected.at(-1);
-  return { items: cards, nextCursor: rows.length > boundedLimit && lastRow ? encodeCursor(lastRow) : null, state: normalizedState, hasMore: rows.length > boundedLimit, facetOptions };
+  const hasMore = rows.length > boundedLimit;
+  const reportedTotal = numberValue(rows[0]?.total_count);
+  const totalCount = cards.length === 0
+    ? 0
+    : reportedTotal !== null && reportedTotal >= cards.length
+      ? reportedTotal
+      : hasMore
+        ? null
+        : cards.length;
+  return { items: cards, totalCount, nextCursor: hasMore && lastRow ? encodeCursor(lastRow) : null, state: normalizedState, hasMore, facetOptions };
 }
 export const getGalleryPage = executeGallerySearch;
 export { parseGalleryQueryState } from "./gallery-query";

@@ -30,6 +30,23 @@ export const localizedRoutes = {
 export const appLocales = ["es", "en"] as const satisfies readonly AppLocale[];
 export const defaultLocale = "es" satisfies AppLocale;
 
+export function getLocaleFromAcceptLanguage(value: string | null | undefined): AppLocale {
+  const preferred = (value ?? "")
+    .split(",")
+    .map((entry, index) => {
+      const [rawTag, ...parameters] = entry.trim().split(";");
+      const qualityParameter = parameters.find((parameter) => parameter.trim().toLowerCase().startsWith("q="));
+      const quality = qualityParameter ? Number(qualityParameter.trim().slice(2)) : 1;
+      return { tag: rawTag.toLowerCase(), quality: Number.isFinite(quality) ? quality : 0, index };
+    })
+    .filter((entry) => entry.tag && entry.tag !== "*" && entry.quality > 0)
+    .sort((a, b) => b.quality - a.quality || a.index - b.index)[0]?.tag;
+
+  if (preferred === "en" || preferred?.startsWith("en-")) return "en";
+  if (preferred === "es" || preferred?.startsWith("es-")) return "es";
+  return defaultLocale;
+}
+
 const alternateRoutes = Object.fromEntries(
   Object.keys(localizedRoutes.es).flatMap((key) => [
     [localizedRoutes.es[key as LocalizedRouteKey], localizedRoutes.en[key as LocalizedRouteKey]],

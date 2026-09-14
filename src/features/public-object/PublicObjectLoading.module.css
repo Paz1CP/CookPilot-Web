@@ -1,0 +1,128 @@
+.page {
+  min-height: 100vh;
+  padding: 142px 24px 96px;
+  background: var(--cp-layer-base);
+}
+
+.shell {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .86fr);
+  gap: clamp(32px, 6vw, 72px);
+  align-items: center;
+  margin-top: 34px;
+}
+
+.copy {
+  display: grid;
+  gap: 20px;
+}
+
+.line,
+.media,
+.card {
+  background: var(--cp-layer-raised);
+}
+
+.shimmer {
+  background: linear-gradient(105deg, var(--cp-layer-raised) 20%, color-mix(in srgb, var(--cp-text-tertiary) 16%, var(--cp-layer-raised)) 42%, var(--cp-layer-raised) 64%);
+  background-size: 220% 100%;
+  animation: shimmer 1.35s ease-in-out infinite;
+}
+
+.breadcrumb {
+  width: 220px;
+  height: 14px;
+  border-radius: 7px;
+}
+
+.kicker {
+  width: 72px;
+  height: 14px;
+  border-radius: 7px;
+}
+
+.title {
+  width: min(94%, 620px);
+  height: clamp(64px, 8vw, 96px);
+  border-radius: 18px;
+}
+
+.description {
+  width: min(96%, 570px);
+  height: 24px;
+  border-radius: 8px;
+}
+
+.descriptionShort {
+  width: min(78%, 460px);
+  height: 24px;
+  border-radius: 8px;
+}
+
+.meta,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.metaItem {
+  width: 92px;
+  height: 38px;
+  border-radius: var(--cp-radius-pill);
+}
+
+.action {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+}
+
+.actionSmall {
+  width: 172px;
+  height: 56px;
+  border-radius: var(--cp-radius-pill);
+}
+
+.media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--cp-card-radius);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cp-space-2);
+  margin-top: 72px;
+}
+
+.card {
+  min-height: 260px;
+  border: 1px solid var(--cp-border-subtle);
+  border-radius: var(--cp-card-radius);
+}
+
+@keyframes shimmer {
+  from { background-position: 180% 0; }
+  to { background-position: -40% 0; }
+}
+
+@media (max-width: 840px) {
+  .hero { grid-template-columns: 1fr; }
+  .media { max-width: 720px; }
+}
+
+@media (max-width: 620px) {
+  .page { padding: 110px 20px 72px; }
+  .cards { grid-template-columns: 1fr; margin-top: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer { animation: none; }
+}

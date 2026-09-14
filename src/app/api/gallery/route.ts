@@ -8,6 +8,7 @@ export async function GET(request: NextRequest) {
   const page = await getGalleryPage(state);
   const publicPage = {
     items: page.items,
+    totalCount: page.totalCount,
     nextCursor: page.nextCursor,
     state: page.state,
     hasMore: page.hasMore,

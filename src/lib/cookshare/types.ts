@@ -46,6 +46,7 @@ export interface GalleryFilters {
   cultural_intents: string[];
   taste_profiles: string[];
   component_profiles: string[];
+  texture_profiles: string[];
   ingredient_categories: string[];
   matrix_families: string[];
   ingredient_states: string[];
@@ -89,6 +90,17 @@ export interface GalleryFacetOptions {
   mealMoments: GalleryFacetOption[];
   componentTypes: GalleryFacetOption[];
   timeMinutes: number[];
+  ingredients: GalleryFacetOption[];
+  ingredientCategories: GalleryFacetOption[];
+  matrixFamilies: GalleryFacetOption[];
+  ingredientStates: GalleryFacetOption[];
+  processingTypes: GalleryFacetOption[];
+  culturalProfiles: GalleryFacetOption[];
+  menuFunctionRoles: GalleryFacetOption[];
+  serviceModes: GalleryFacetOption[];
+  tasteProfiles: GalleryFacetOption[];
+  textures: GalleryFacetOption[];
+  badges: GalleryFacetOption[];
 }
 
 export interface GalleryQueryState {
@@ -118,6 +130,14 @@ export interface RecipeIngredient {
   is_optional?: boolean;
 }
 
+export type NutritionValues = Record<string, number | null>;
+
+export interface IngredientNutritionProjection {
+  base: NutritionValues | null;
+  macro_breakdown: NutritionValues | null;
+  micronutrients: NutritionValues | null;
+}
+
 export interface RecipeStep {
   step_number?: number;
   instruction?: string | null;
@@ -130,7 +150,7 @@ export interface RecipeProjection {
   cover_photo_url?: string | null;
   time?: Record<string, number | null> | null;
   servings?: number | null;
-  nutrition?: Record<string, number | null> | null;
+  nutrition?: NutritionValues | null;
   ingredients?: RecipeIngredient[];
   steps?: RecipeStep[];
   [key: string]: unknown;
@@ -144,6 +164,7 @@ export interface CookShareResolvedObject {
   name_en?: string | null;
   cover_photo_url?: string | null;
   image_url?: string | null;
+  nutrition?: NutritionValues | IngredientNutritionProjection | null;
   identity: CookShareIdentity;
   [key: string]: unknown;
 }
@@ -172,6 +193,8 @@ export interface GalleryCard {
 
 export interface GalleryPage {
   items: GalleryCard[];
+  /** Null means the deployed RPC did not return its optional total_count field. */
+  totalCount: number | null;
   nextCursor: string | null;
   state: GalleryQueryState;
   hasMore: boolean;

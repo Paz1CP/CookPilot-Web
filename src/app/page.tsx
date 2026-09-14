@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { headers, cookies } from "next/headers";
+import { getLocaleFromAcceptLanguage } from "@/shared/config/routes";
 
 export default async function RootPage() {
   const cookieStore = await cookies();
@@ -12,11 +13,5 @@ export default async function RootPage() {
   }
 
   const headersList = await headers();
-  const acceptLanguage = headersList.get("accept-language") || "";
-
-  if (acceptLanguage.toLowerCase().startsWith("en")) {
-    redirect("/en");
-  } else {
-    redirect("/es");
-  }
+  redirect(`/${getLocaleFromAcceptLanguage(headersList.get("accept-language"))}`);
 }

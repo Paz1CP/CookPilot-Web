@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   galleryQueryFingerprint,
@@ -12,7 +11,6 @@ import {
   parseGalleryQueryState,
   toGallerySearchParams,
 } from "@/lib/cookshare/gallery-query";
-import { inlineMarkdownToText } from "@/lib/cookshare/inline-markdown";
 import type {
   GalleryCard,
   GalleryFilters,
@@ -21,6 +19,7 @@ import type {
   GalleryQueryState,
 } from "@/lib/cookshare/types";
 import styles from "./GalleryClient.module.css";
+import GalleryCardView from "./GalleryCardView";
 import GallerySkeleton from "./GallerySkeleton";
 
 type GalleryLabels = {
@@ -109,30 +108,6 @@ function apiParams(state: GalleryQueryState) {
     includeLocale: true,
   });
   return params;
-}
-
-function cardTypeLabel(card: GalleryCard, locale: GalleryQueryState["locale"]) {
-  const labels = locale === "es"
-    ? { recipe: "Receta", menu: "Menú", day: "Día", week: "Semana", list: "Lista", ingredient: "Ingrediente", category: "Categoría" }
-    : { recipe: "Recipe", menu: "Menu", day: "Day", week: "Week", list: "List", ingredient: "Ingredient", category: "Category" };
-  return labels[card.objectType];
-}
-
-function cardImage(card: GalleryCard, index: number, hasCursor: boolean) {
-  return card.imageUrl ? (
-    <Image
-      src={card.imageUrl}
-      alt={card.title}
-      width={720}
-      height={480}
-      sizes="(max-width: 680px) 100vw, (max-width: 1040px) 50vw, 33vw"
-      priority={index === 0 && !hasCursor}
-    />
-  ) : (
-    <div className={styles.fallback} aria-hidden="true">
-      <span>CookPilot</span>
-    </div>
-  );
 }
 
 type GalleryFixedState = {
@@ -426,17 +401,13 @@ export default function GalleryClient({
         <>
           <div className={styles.grid}>
             {items.map((item, index) => (
-              <Link key={`${item.objectType}-${item.objectId}`} href={item.href} className={styles.card}>
-                <div className={styles.media}>{cardImage(item, index, Boolean(state.cursor))}</div>
-                <div className={styles.body}>
-                  <span className={styles.type}>{cardTypeLabel(item, state.locale)}</span>
-                  <h2>{item.title}</h2>
-                  {item.description ? <p>{inlineMarkdownToText(item.description)}</p> : null}
-                  <div className={styles.meta}>
-                    {item.timeMinutes !== null ? <span>{item.timeMinutes} min</span> : null}
-                  </div>
-                </div>
-              </Link>
+              <GalleryCardView
+                key={`${item.objectType}-${item.objectId}`}
+                card={item}
+                locale={state.locale}
+                index={index}
+                hasCursor={Boolean(state.cursor)}
+              />
             ))}
           </div>
           {loading ? <GallerySkeleton count={6} /> : null}
