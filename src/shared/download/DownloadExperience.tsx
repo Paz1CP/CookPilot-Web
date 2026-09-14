@@ -4,10 +4,12 @@ import Image from "next/image";
 import { type ButtonHTMLAttributes, type ReactNode, useEffect, useRef, useState } from "react";
 import { CloseCircle } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
-import { buildCookShareInstallLinks } from "./cookshare-install-links";
+import { buildCookShareInstallLinks, canonicalCookShareUrl } from "./cookshare-install-links";
 import styles from "./DownloadExperience.module.css";
 
 const DOWNLOAD_EVENT = "cookpilot:download";
+const APP_HANDOFF_STORAGE_KEY = "cookpilot:pending-app-handoff";
+const APP_HANDOFF_MAX_AGE_MS = 10_000;
 
 type DownloadEventDetail = { canonicalPath?: string };
 
@@ -24,6 +26,53 @@ type DownloadButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type">
   cookSharePath?: string;
 };
 
+function isAndroidBrowser() {
+  return typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+}
+
+function tryOpenCookPilot(cookSharePath: string) {
+  const canonicalUrl = canonicalCookShareUrl(cookSharePath);
+  if (!canonicalUrl || !isAndroidBrowser()) return false;
+
+  try {
+    sessionStorage.setItem(
+      APP_HANDOFF_STORAGE_KEY,
+      JSON.stringify({
+        path: new URL(canonicalUrl).pathname,
+        startedAt: Date.now(),
+      }),
+    );
+  } catch {
+    return false;
+  }
+
+  let wasHidden = false;
+  const clearMarker = () => {
+    try {
+      sessionStorage.removeItem(APP_HANDOFF_STORAGE_KEY);
+    } catch {
+      // Storage may become unavailable while the browser changes context.
+    }
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+    window.clearTimeout(cleanupTimer);
+  };
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === "hidden") {
+      wasHidden = true;
+    } else if (wasHidden) {
+      clearMarker();
+    }
+  };
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+  const cleanupTimer = window.setTimeout(clearMarker, APP_HANDOFF_MAX_AGE_MS);
+
+  // A verified Android App Link will leave this page and open the app. If no
+  // app can claim it, the browser reloads the canonical page; the new page
+  // consumes this short-lived marker and opens the download dialog instead.
+  window.location.assign(canonicalUrl);
+  return true;
+}
+
 export function DownloadButton({ children, onClick, cookSharePath, ...props }: DownloadButtonProps) {
   return (
     <button
@@ -31,7 +80,9 @@ export function DownloadButton({ children, onClick, cookSharePath, ...props }: D
       {...props}
       onClick={(event) => {
         onClick?.(event);
-        if (!event.defaultPrevented) openDownloadExperience(cookSharePath);
+        if (event.defaultPrevented) return;
+        if (cookSharePath && tryOpenCookPilot(cookSharePath)) return;
+        openDownloadExperience(cookSharePath);
       }}
     >
       {children}
@@ -60,6 +111,28 @@ export default function DownloadExperience() {
 
     window.addEventListener(DOWNLOAD_EVENT, open);
     window.addEventListener("keydown", closeOnEscape);
+
+    try {
+      const raw = sessionStorage.getItem(APP_HANDOFF_STORAGE_KEY);
+      if (raw) {
+        const pending = JSON.parse(raw) as { path?: unknown; startedAt?: unknown };
+        const path = typeof pending.path === "string" ? pending.path : undefined;
+        const startedAt = typeof pending.startedAt === "number" ? pending.startedAt : 0;
+        const isFresh = startedAt > 0 && Date.now() - startedAt <= APP_HANDOFF_MAX_AGE_MS;
+        const isCurrentPage = path === window.location.pathname;
+        if (path && isFresh && isCurrentPage && canonicalCookShareUrl(path)) {
+          sessionStorage.removeItem(APP_HANDOFF_STORAGE_KEY);
+          setCanonicalPath(path);
+          const dialog = dialogRef.current;
+          if (dialog && !dialog.open) dialog.showModal();
+        } else if (!isFresh) {
+          sessionStorage.removeItem(APP_HANDOFF_STORAGE_KEY);
+        }
+      }
+    } catch {
+      // Storage may be unavailable in a restricted browser context.
+    }
+
     return () => {
       window.removeEventListener(DOWNLOAD_EVENT, open);
       window.removeEventListener("keydown", closeOnEscape);

@@ -5,7 +5,7 @@ export type CookShareInstallLinks = {
   appGallery: string;
 };
 
-function canonicalObjectUrl(path: string | undefined) {
+export function canonicalCookShareUrl(path: string | undefined) {
   if (!path) return null;
   try {
     const site = new URL(siteConfig.publicUrl);
@@ -52,7 +52,7 @@ export function buildCookShareInstallLinks(
 ): CookShareInstallLinks {
   const googlePlay = new URL(siteConfig.publicData.stores.googlePlay);
   const appGallery = siteConfig.publicData.stores.appGallery;
-  const canonicalUrl = canonicalObjectUrl(canonicalPath);
+  const canonicalUrl = canonicalCookShareUrl(canonicalPath);
   if (!canonicalUrl) {
     return { googlePlay: googlePlay.toString(), appGallery };
   }
