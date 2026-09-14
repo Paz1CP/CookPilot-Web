@@ -1,10 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getGalleryPage, parseGalleryState } from "@/lib/cookshare/gallery";
+import { getGalleryPage, parseGalleryQueryState } from "@/lib/cookshare/gallery";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const locale = searchParams.get("locale") === "en" ? "en" : "es";
-  const state = parseGalleryState(locale, searchParams);
+  const state = parseGalleryQueryState(locale, searchParams);
   const page = await getGalleryPage(state);
   const publicPage = {
     items: page.items,

@@ -26,7 +26,6 @@
   "active": "Filtros activos",
   "noResults": "Aún no encontramos esa combinación.",
   "emptyHint": "Prueba otra búsqueda o quita algún filtro.",
-  "more": "Descubrir más",
   "loading": "Buscando tu próxima comida",
   "error": "No pudimos cargar las recetas. Inténtalo de nuevo.",
   "retry": "Reintentar",
@@ -34,6 +33,24 @@
   "without": "Sin",
   "with": "Con",
   "brand": "CookPilot",
+  "mealOptions": {
+    "breakfast": "Desayuno",
+    "morning_snack": "Media mañana",
+    "lunch": "Almuerzo",
+    "afternoon_snack": "Merienda",
+    "dinner": "Cena",
+    "late_night": "Madrugada"
+  },
+  "componentOptions": {
+    "main_dish": "Plato principal",
+    "appetizer": "Entrada",
+    "side_dish": "Acompañamiento",
+    "salad": "Ensalada",
+    "beverage": "Bebida",
+    "sauce": "Salsa",
+    "dessert": "Postre",
+    "dressing": "Aderezo"
+  },
   "types": {
     "recipe": "Receta",
     "menu": "Menú",

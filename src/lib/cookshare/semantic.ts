@@ -2,7 +2,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { absoluteUrl } from "@/shared/config/site";
 import type { AppLocale } from "@/shared/config/routes";
 import { getCookShareObject } from "./page";
-import { emptyGalleryFacets } from "./gallery-query";
+import { emptyGalleryFilters } from "./gallery-query";
 import { getGalleryPage } from "./gallery";
 import { publicTitle } from "./resolver";
 import type { GalleryPage } from "./types";
@@ -56,10 +56,10 @@ export async function getSemanticCollection(
     permanentRedirect(pathFor(locale, type, canonicalSegments));
   }
 
-  const facets = emptyGalleryFacets();
-  facets.categories = canonicalCategories;
+  const filters = emptyGalleryFilters();
+  filters.categories = canonicalCategories;
   if (type === "ingredient") {
-    facets.ingredients = [
+    filters.ingredients_include = [
       primary.object.name,
       primary.object.name_en,
       primary.object.identity.slug,
@@ -70,7 +70,8 @@ export async function getSemanticCollection(
     q: "",
     type: "recipes",
     cursor: null,
-    facets,
+    handle: null,
+    filters,
   });
   if (!page.items.length) notFound();
 

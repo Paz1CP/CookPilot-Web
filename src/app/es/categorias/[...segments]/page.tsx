@@ -19,4 +19,5 @@ export default async function Page({ params }: { params: Promise<{ segments: str
   return <SemanticCollection {...collection} />;
 }
 
-export const revalidate = 60;
+export const revalidate = 0;
+export const dynamic = "force-dynamic";

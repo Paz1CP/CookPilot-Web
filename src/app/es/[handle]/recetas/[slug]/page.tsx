@@ -4,5 +4,5 @@ async function input(params: Promise<{ handle: string; slug: string }>) { const 
 export async function generateMetadata({ params }: { params: Promise<{ handle: string; slug: string }> }): Promise<Metadata> { return metadataForCookShareObject(await input(params)); }
 export default async function Page({ params }: { params: Promise<{ handle: string; slug: string }> }) { return renderCookShareObject(await input(params)); }
 
-export const revalidate = 60;
-export const dynamic = "force-static";
+export const revalidate = 0;
+export const dynamic = "force-dynamic";

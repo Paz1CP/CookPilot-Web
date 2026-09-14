@@ -26,7 +26,6 @@
   "active": "Active filters",
   "noResults": "We haven’t found that combination yet.",
   "emptyHint": "Try another search or remove a filter.",
-  "more": "Discover more",
   "loading": "Finding your next meal",
   "error": "We couldn’t load the recipes. Please try again.",
   "retry": "Try again",
@@ -34,6 +33,24 @@
   "without": "Without",
   "with": "With",
   "brand": "CookPilot",
+  "mealOptions": {
+    "breakfast": "Breakfast",
+    "morning_snack": "Morning snack",
+    "lunch": "Lunch",
+    "afternoon_snack": "Afternoon snack",
+    "dinner": "Dinner",
+    "late_night": "Late night"
+  },
+  "componentOptions": {
+    "main_dish": "Main dish",
+    "appetizer": "Appetizer",
+    "side_dish": "Side dish",
+    "salad": "Salad",
+    "beverage": "Beverage",
+    "sauce": "Sauce",
+    "dessert": "Dessert",
+    "dressing": "Dressing"
+  },
   "types": {
     "recipe": "Recipe",
     "menu": "Menu",

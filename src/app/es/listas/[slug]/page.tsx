@@ -13,5 +13,5 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   return renderCookShareObject(await input(params));
 }
 
-export const revalidate = 60;
-export const dynamic = "force-static";
+export const revalidate = 0;
+export const dynamic = "force-dynamic";

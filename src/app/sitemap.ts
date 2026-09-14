@@ -12,7 +12,6 @@ type SitemapCandidate = {
   object_id: string;
   handle: string | null;
   slug: string;
-  title: string;
   rank: number;
 };
 
@@ -53,9 +52,6 @@ async function publicCandidates() {
       };
       if (cursor) {
         rpcArgs.p_after_rank = cursor.rank;
-        rpcArgs.p_after_title = cursor.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        rpcArgs.p_after_id = cursor.object_id;
-        rpcArgs.p_after_object_type = cursor.object_type;
       }
       const result = await client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs, { get: true });
       if (result.error || !Array.isArray(result.data)) break;

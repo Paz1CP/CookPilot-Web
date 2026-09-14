@@ -7,6 +7,10 @@ function getLocale(pathname: string, savedLocale?: string): AppLocale {
   return savedLocale === "en" ? "en" : defaultLocale;
 }
 
+function isCookShareObjectPath(pathname: string) {
+  return /^\/(?:es|en)(?:\/@[^/]+)?\/(?:recetas|recipes|menus|dias|days|semanas|weeks|listas|lists|ingredientes|ingredients|categorias|categories)(?:\/|$)/.test(pathname);
+}
+
 export async function proxy(request: NextRequest) {
   if (request.nextUrl.hostname === "www.cookpilot.pro") {
     const canonical = request.nextUrl.clone();
@@ -25,7 +29,9 @@ export async function proxy(request: NextRequest) {
       headers: requestHeaders,
     },
   });
-  if (!request.nextUrl.pathname.startsWith("/api/")) {
+  if (isCookShareObjectPath(request.nextUrl.pathname)) {
+    response.headers.set("Cache-Control", "no-store");
+  } else if (!request.nextUrl.pathname.startsWith("/api/")) {
     response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
   }
   response.headers.set("X-Content-Type-Options", "nosniff");

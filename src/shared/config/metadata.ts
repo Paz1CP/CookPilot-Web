@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { siteConfig, absoluteUrl, type PublicUtilityRouteKey } from "@/shared/config/site";
 import { type AppLocale, type LocalizedRouteKey } from "@/shared/config/routes";
-import { hasActiveGalleryFacets } from "@/lib/cookshare/gallery-query";
-import type { CookShareResolvedObject, GalleryState } from "@/lib/cookshare/types";
+import { hasActiveGalleryFilters } from "@/lib/cookshare/gallery-query";
+import type { CookShareResolvedObject, GalleryQueryState } from "@/lib/cookshare/types";
 
 const ogLocale = {
   es: "es_PE",
@@ -192,9 +192,9 @@ export function createCookShareMetadata(
   };
 }
 
-export function createGalleryMetadata(locale: AppLocale, state: GalleryState): Metadata {
+export function createGalleryMetadata(locale: AppLocale, state: GalleryQueryState): Metadata {
   const page = siteConfig.localizedPageMetadata[locale].gallery;
-  const hasQuery = Boolean(state.q || hasActiveGalleryFacets(state) || state.type !== "all");
+  const hasQuery = Boolean(state.q || hasActiveGalleryFilters(state) || state.type !== "all");
   const title = state.q
     ? `${state.q} | ${page.title}`
     : page.title;

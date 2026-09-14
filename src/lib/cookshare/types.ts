@@ -9,15 +9,8 @@ export type CookShareObjectType =
   | "ingredient"
   | "category";
 
-export type GalleryType =
-  | "all"
-  | "recipes"
-  | "menus"
-  | "days"
-  | "weeks"
-  | "lists"
-  | "ingredients"
-  | "categories";
+/** Public Gallery object modes. */
+export type GallerySearchType = "all" | "recipes" | "menus" | "days" | "weeks" | "ingredients";
 
 export type GalleryMealMoment =
   | "breakfast"
@@ -37,14 +30,52 @@ export type GalleryComponentType =
   | "dessert"
   | "dressing";
 
-export interface GalleryFacetState {
+/** Exact public intent transport for home.rpc_cookshare_gallery_candidates. */
+export interface GalleryFilters {
   categories: string[];
-  meals: string[];
-  components: string[];
-  ingredients: string[];
-  excludedIngredients: string[];
-  minTime: number | null;
-  maxTime: number | null;
+  meal_moments: GalleryMealMoment[];
+  component_types: GalleryComponentType[];
+  ingredients_include: string[];
+  ingredients_exclude: string[];
+  cultural_profiles: string[];
+  badges: string[];
+  excluded_meal_moments: GalleryMealMoment[];
+  excluded_component_types: GalleryComponentType[];
+  menu_function_roles: string[];
+  service_modes: string[];
+  cultural_intents: string[];
+  taste_profiles: string[];
+  component_profiles: string[];
+  ingredient_categories: string[];
+  matrix_families: string[];
+  ingredient_states: string[];
+  processing_types: string[];
+  time_min_minutes: number | null;
+  time_max_minutes: number | null;
+  kcal_min: number | null;
+  kcal_max: number | null;
+  protein_min: number | null;
+  protein_max: number | null;
+  carbs_min: number | null;
+  carbs_max: number | null;
+  fat_min: number | null;
+  fat_max: number | null;
+  fiber_min: number | null;
+  fiber_max: number | null;
+  nutritional_score_min: number | null;
+  nutritional_score_max: number | null;
+  servings_min: number | null;
+  servings_max: number | null;
+  ingredient_kcal_min: number | null;
+  ingredient_kcal_max: number | null;
+  ingredient_protein_min: number | null;
+  ingredient_protein_max: number | null;
+  ingredient_carbs_min: number | null;
+  ingredient_carbs_max: number | null;
+  ingredient_fat_min: number | null;
+  ingredient_fat_max: number | null;
+  ingredient_fiber_min: number | null;
+  ingredient_fiber_max: number | null;
 }
 
 export interface GalleryFacetOption {
@@ -55,17 +86,18 @@ export interface GalleryFacetOption {
 
 export interface GalleryFacetOptions {
   categories: GalleryFacetOption[];
-  meals: GalleryFacetOption[];
-  components: GalleryFacetOption[];
-  times: number[];
+  mealMoments: GalleryFacetOption[];
+  componentTypes: GalleryFacetOption[];
+  timeMinutes: number[];
 }
 
-export interface GalleryState {
+export interface GalleryQueryState {
   locale: AppLocale;
   q: string;
-  type: GalleryType;
+  type: GallerySearchType;
+  handle: string | null;
   cursor: string | null;
-  facets: GalleryFacetState;
+  filters: GalleryFilters;
 }
 
 export interface CookShareIdentity {
@@ -118,18 +150,30 @@ export interface CookShareResolvedObject {
 
 export interface GalleryCard {
   objectType: CookShareObjectType;
+  objectId: string;
   title: string;
   description: string | null;
   imageUrl: string | null;
   href: string;
   timeMinutes: number | null;
-  nutrition: Record<string, number | null> | null;
+  nutrition: {
+    kcal: number | null;
+    proteinG: number | null;
+    carbsG: number | null;
+    fatG: number | null;
+    fiberG: number | null;
+    nutritionalScore: number | null;
+    badges: string[];
+  } | null;
+  component: string | null;
+  matchType: string | null;
+  relevanceScore: number | null;
 }
 
 export interface GalleryPage {
   items: GalleryCard[];
   nextCursor: string | null;
-  state: GalleryState;
+  state: GalleryQueryState;
   hasMore: boolean;
   facetOptions: GalleryFacetOptions;
 }

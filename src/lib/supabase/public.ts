@@ -1,25 +1,30 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { publicSupabaseConfig } from "./public-config";
 
-let publicClient: SupabaseClient | undefined;
+type PublicCacheMode = "force-cache" | "no-store";
+const publicClients = new Map<PublicCacheMode, SupabaseClient>();
 
-const publicFetch: typeof fetch = (input, init) =>
-  fetch(input, {
+function publicFetch(cacheMode: PublicCacheMode): typeof fetch {
+  return (input, init) => fetch(input, {
     ...init,
-    cache: "force-cache",
-    next: { ...init?.next, revalidate: 60 },
+    cache: cacheMode,
+    next: { ...init?.next, ...(cacheMode === "no-store" ? { revalidate: 0 } : { revalidate: 60 }) },
   });
+}
 
-export function createSupabasePublicClient() {
-  if (!publicClient) {
-    publicClient = createClient(publicSupabaseConfig.url, publicSupabaseConfig.publishableKey, {
-      global: { fetch: publicFetch },
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-        detectSessionInUrl: false,
-      },
-    });
-  }
-  return publicClient;
+export function createSupabasePublicClient(options: { cache?: PublicCacheMode } = {}) {
+  const cacheMode = options.cache ?? "force-cache";
+  const existing = publicClients.get(cacheMode);
+  if (existing) return existing;
+
+  const client = createClient(publicSupabaseConfig.url, publicSupabaseConfig.publishableKey, {
+    global: { fetch: publicFetch(cacheMode) },
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+      detectSessionInUrl: false,
+    },
+  });
+  publicClients.set(cacheMode, client);
+  return client;
 }

@@ -7,16 +7,18 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   galleryQueryFingerprint,
   galleryUrl,
-  parseGalleryState,
+  emptyGalleryFilters,
+  gallerySearchTypes,
+  parseGalleryQueryState,
   toGallerySearchParams,
 } from "@/lib/cookshare/gallery-query";
 import { inlineMarkdownToText } from "@/lib/cookshare/inline-markdown";
 import type {
   GalleryCard,
-  GalleryFacetState,
+  GalleryFilters,
   GalleryFacetOptions,
   GalleryPage,
-  GalleryState,
+  GalleryQueryState,
 } from "@/lib/cookshare/types";
 import styles from "./GalleryClient.module.css";
 import GallerySkeleton from "./GallerySkeleton";
@@ -47,7 +49,7 @@ type GalleryLabels = {
   requestError: string;
 };
 
-function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
+function labelsFor(locale: GalleryQueryState["locale"]): GalleryLabels {
   return locale === "es"
     ? {
       all: "Todo",
@@ -58,7 +60,7 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       lists: "Listas",
       ingredients: "Ingredientes",
       categories: "Categorías",
-      search: "Buscar recetas, ingredientes o colecciones",
+      search: "Buscar recetas o ingredientes",
       submit: "Buscar",
       more: "Cargar más",
       filters: "Filtros de Gallery",
@@ -83,7 +85,7 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
       lists: "Lists",
       ingredients: "Ingredients",
       categories: "Categories",
-      search: "Search recipes, ingredients, or collections",
+      search: "Search recipes or ingredients",
       submit: "Search",
       more: "Load more",
       filters: "Gallery filters",
@@ -101,7 +103,7 @@ function labelsFor(locale: GalleryState["locale"]): GalleryLabels {
     };
 }
 
-function apiParams(state: GalleryState) {
+function apiParams(state: GalleryQueryState) {
   const params = toGallerySearchParams(state, {
     includeCursor: true,
     includeLocale: true,
@@ -109,7 +111,7 @@ function apiParams(state: GalleryState) {
   return params;
 }
 
-function cardTypeLabel(card: GalleryCard, locale: GalleryState["locale"]) {
+function cardTypeLabel(card: GalleryCard, locale: GalleryQueryState["locale"]) {
   const labels = locale === "es"
     ? { recipe: "Receta", menu: "Menú", day: "Día", week: "Semana", list: "Lista", ingredient: "Ingrediente", category: "Categoría" }
     : { recipe: "Recipe", menu: "Menu", day: "Day", week: "Week", list: "List", ingredient: "Ingredient", category: "Category" };
@@ -134,40 +136,40 @@ function cardImage(card: GalleryCard, index: number, hasCursor: boolean) {
 }
 
 type GalleryFixedState = {
-  type?: GalleryState["type"];
-  facets?: Partial<Pick<GalleryFacetState, "categories" | "ingredients">>;
+  type?: GalleryQueryState["type"];
+  filters?: Partial<Pick<GalleryFilters, "categories" | "ingredients_include">>;
 };
 
 function distinct(values: string[]) {
   return [...new Set(values)];
 }
 
-function applyFixedState(state: GalleryState, fixed?: GalleryFixedState): GalleryState {
+function applyFixedState(state: GalleryQueryState, fixed?: GalleryFixedState): GalleryQueryState {
   if (!fixed) return state;
-  const facets = fixed.facets;
+  const filters = fixed.filters;
   return {
     ...state,
     type: fixed.type ?? state.type,
-    facets: {
-      ...state.facets,
-      categories: facets?.categories
-        ? distinct([...facets.categories, ...state.facets.categories])
-        : state.facets.categories,
-      ingredients: facets?.ingredients
-        ? distinct([...facets.ingredients, ...state.facets.ingredients])
-        : state.facets.ingredients,
+    filters: {
+      ...state.filters,
+      categories: filters?.categories
+        ? distinct([...filters.categories, ...state.filters.categories])
+        : state.filters.categories,
+      ingredients_include: filters?.ingredients_include
+        ? distinct([...filters.ingredients_include, ...state.filters.ingredients_include])
+        : state.filters.ingredients_include,
     },
   };
 }
 
-function stateForRoute(state: GalleryState, fixed?: GalleryFixedState): GalleryState {
-  if (!fixed?.facets) return state;
+function stateForRoute(state: GalleryQueryState, fixed?: GalleryFixedState): GalleryQueryState {
+  if (!fixed?.filters) return state;
   return {
     ...state,
-    facets: {
-      ...state.facets,
-      categories: state.facets.categories.filter((value) => !fixed.facets?.categories?.includes(value)),
-      ingredients: state.facets.ingredients.filter((value) => !fixed.facets?.ingredients?.includes(value)),
+    filters: {
+      ...state.filters,
+      categories: state.filters.categories.filter((value) => !fixed.filters?.categories?.includes(value)),
+      ingredients_include: state.filters.ingredients_include.filter((value) => !fixed.filters?.ingredients_include?.includes(value)),
     },
   };
 }
@@ -188,7 +190,7 @@ export default function GalleryClient({
   const labels = labelsFor(initial.state.locale);
   const [items, setItems] = useState<GalleryCard[]>(initial.items);
   const [cursor, setCursor] = useState(initial.nextCursor);
-  const [state, setState] = useState<GalleryState>(initial.state);
+  const [state, setState] = useState<GalleryQueryState>(initial.state);
   const [query, setQuery] = useState(initial.state.q);
   const [facetOptions, setFacetOptions] = useState<GalleryFacetOptions>(initial.facetOptions);
   const [loading, setLoading] = useState(deferInitialLoad);
@@ -197,7 +199,7 @@ export default function GalleryClient({
 
   const path = basePath ?? (state.locale === "en" ? "/en/gallery" : "/es/gallery");
 
-  const fetchPage = useCallback(async (nextState: GalleryState, append: boolean) => {
+  const fetchPage = useCallback(async (nextState: GalleryQueryState, append: boolean) => {
     setLoading(true);
     setError(null);
     try {
@@ -209,8 +211,8 @@ export default function GalleryClient({
       setFacetOptions(page.facetOptions);
       setItems((current) => {
         if (!append) return page.items;
-        const seen = new Set(current.map((item) => `${item.objectType}:${item.href}`));
-        return [...current, ...page.items.filter((item) => !seen.has(`${item.objectType}:${item.href}`))];
+        const seen = new Set(current.map((item) => `${item.objectType}:${item.objectId}`));
+        return [...current, ...page.items.filter((item) => !seen.has(`${item.objectType}:${item.objectId}`))];
       });
       setCursor(page.nextCursor);
       setState(page.state);
@@ -221,7 +223,7 @@ export default function GalleryClient({
   }, []);
 
   const routeState = useMemo(() => {
-    const parsed = parseGalleryState(initial.state.locale, searchParams);
+    const parsed = parseGalleryQueryState(initial.state.locale, searchParams);
     return applyFixedState(parsed, fixedState);
   }, [fixedState, initial.state.locale, searchParams]);
 
@@ -243,7 +245,7 @@ export default function GalleryClient({
     return () => window.clearTimeout(request);
   }, [deferInitialLoad, fetchPage, labels.requestError, routeFingerprint, routeState, stateFingerprint]);
 
-  const applyState = async (nextState: GalleryState, append = false) => {
+  const applyState = async (nextState: GalleryQueryState, append = false) => {
     const resetState = applyFixedState(append ? nextState : { ...nextState, cursor: null }, fixedState);
     if (!append) {
       router.push(galleryUrl(path, stateForRoute(resetState, fixedState)), { scroll: false });
@@ -257,11 +259,11 @@ export default function GalleryClient({
     }
   };
 
-  const updateFacets = (patch: Partial<GalleryState["facets"]>) => {
+  const updateFilters = (patch: Partial<GalleryFilters>) => {
     void applyState({
       ...state,
       cursor: null,
-      facets: { ...state.facets, ...patch },
+      filters: { ...state.filters, ...patch },
     });
   };
 
@@ -277,15 +279,7 @@ export default function GalleryClient({
       cursor: null,
       q: "",
       type: "all",
-      facets: {
-        categories: [],
-        meals: [],
-        components: [],
-        ingredients: [],
-        excludedIngredients: [],
-        minTime: null,
-        maxTime: null,
-      },
+      filters: emptyGalleryFilters(),
     });
   };
 
@@ -294,7 +288,7 @@ export default function GalleryClient({
     void applyState({ ...state, cursor }, true);
   };
 
-  const selectType = (type: GalleryState["type"]) => {
+  const selectType = (type: GalleryQueryState["type"]) => {
     void applyState({ ...state, type, cursor: null });
   };
 
@@ -326,7 +320,7 @@ export default function GalleryClient({
 
       <div className={styles.toolbar}>
         <div className={styles.filters} role="group" aria-label={labels.filters}>
-          {(["all", "recipes", "menus", "days", "weeks", "lists", "ingredients", "categories"] as const).map((type) => (
+          {gallerySearchTypes.map((type) => (
             <button
               key={type}
               type="button"
@@ -345,13 +339,13 @@ export default function GalleryClient({
 
       <div className={styles.chips} aria-label={labels.filters}>
         <span className={styles.chipLabel}>{labels.maxTime}</span>
-        {facetOptions.times.map((time) => (
+        {facetOptions.timeMinutes.map((time) => (
           <button
             type="button"
             key={time}
-            className={state.facets.maxTime === time ? styles.chipActive : styles.chip}
-            onClick={() => updateFacets({ maxTime: state.facets.maxTime === time ? null : time })}
-            aria-pressed={state.facets.maxTime === time}
+            className={state.filters.time_max_minutes === time ? styles.chipActive : styles.chip}
+            onClick={() => updateFilters({ time_max_minutes: state.filters.time_max_minutes === time ? null : time })}
+            aria-pressed={state.filters.time_max_minutes === time}
           >
             ≤ {time} min
           </button>
@@ -360,13 +354,13 @@ export default function GalleryClient({
           <button
             type="button"
             key={category.value}
-            className={state.facets.categories.includes(category.value) ? styles.chipActive : styles.chip}
-            onClick={() => updateFacets({
-              categories: state.facets.categories.includes(category.value)
-                ? state.facets.categories.filter((value) => value !== category.value)
-                : [...state.facets.categories, category.value],
+            className={state.filters.categories.includes(category.value) ? styles.chipActive : styles.chip}
+            onClick={() => updateFilters({
+              categories: state.filters.categories.includes(category.value)
+                ? state.filters.categories.filter((value) => value !== category.value)
+                : [...state.filters.categories, category.value],
             })}
-            aria-pressed={state.facets.categories.includes(category.value)}
+            aria-pressed={state.filters.categories.includes(category.value)}
           >
             {category.label}
           </button>
@@ -379,28 +373,28 @@ export default function GalleryClient({
           <label>
             {labels.meal}
             <select
-              value={state.facets.meals[0] ?? ""}
-              onChange={(event) => updateFacets({ meals: event.target.value ? [event.target.value] : [] })}
+              value={state.filters.meal_moments[0] ?? ""}
+              onChange={(event) => updateFilters({ meal_moments: event.target.value ? [event.target.value as GalleryFilters["meal_moments"][number]] : [] })}
             >
               <option value="">{labels.any}</option>
-              {facetOptions.meals.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+              {facetOptions.mealMoments.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </label>
           <label>
             {labels.component}
             <select
-              value={state.facets.components[0] ?? ""}
-              onChange={(event) => updateFacets({ components: event.target.value ? [event.target.value] : [] })}
+              value={state.filters.component_types[0] ?? ""}
+              onChange={(event) => updateFilters({ component_types: event.target.value ? [event.target.value as GalleryFilters["component_types"][number]] : [] })}
             >
               <option value="">{labels.any}</option>
-              {facetOptions.components.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+              {facetOptions.componentTypes.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </label>
           <label>
             {labels.category}
             <select
-              value={state.facets.categories[0] ?? ""}
-              onChange={(event) => updateFacets({ categories: event.target.value ? [event.target.value] : [] })}
+              value={state.filters.categories[0] ?? ""}
+              onChange={(event) => updateFilters({ categories: event.target.value ? [event.target.value] : [] })}
             >
               <option value="">{labels.any}</option>
               {facetOptions.categories.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -409,11 +403,11 @@ export default function GalleryClient({
           <label>
             {labels.minTime}
             <select
-              value={state.facets.minTime ?? ""}
-              onChange={(event) => updateFacets({ minTime: event.target.value ? Number(event.target.value) : null })}
+              value={state.filters.time_min_minutes ?? ""}
+              onChange={(event) => updateFilters({ time_min_minutes: event.target.value ? Number(event.target.value) : null })}
             >
               <option value="">{labels.any}</option>
-              {facetOptions.times.map((time) => <option key={time} value={time}>{time} min</option>)}
+              {facetOptions.timeMinutes.map((time) => <option key={time} value={time}>{time} min</option>)}
             </select>
           </label>
         </div>
@@ -432,14 +426,14 @@ export default function GalleryClient({
         <>
           <div className={styles.grid}>
             {items.map((item, index) => (
-              <Link key={`${item.objectType}-${item.href}`} href={item.href} className={styles.card}>
+              <Link key={`${item.objectType}-${item.objectId}`} href={item.href} className={styles.card}>
                 <div className={styles.media}>{cardImage(item, index, Boolean(state.cursor))}</div>
                 <div className={styles.body}>
                   <span className={styles.type}>{cardTypeLabel(item, state.locale)}</span>
                   <h2>{item.title}</h2>
                   {item.description ? <p>{inlineMarkdownToText(item.description)}</p> : null}
                   <div className={styles.meta}>
-                    {item.timeMinutes ? <span>{item.timeMinutes} min</span> : null}
+                    {item.timeMinutes !== null ? <span>{item.timeMinutes} min</span> : null}
                   </div>
                 </div>
               </Link>

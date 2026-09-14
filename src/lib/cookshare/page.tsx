@@ -20,7 +20,7 @@ const loadCookShareObject = cache(async (
   handle: string | null,
   slug: string,
 ) => {
-  const client = createSupabasePublicClient();
+  const client = createSupabasePublicClient({ cache: "no-store" });
   const object = await resolvePublicObject({ locale, objectType, handle, slug }, client);
   return { object, client };
 });

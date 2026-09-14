@@ -24,9 +24,9 @@ export default function SemanticCollection({
           basePath={canonicalPath}
           fixedState={{
             type: page.state.type,
-            facets: {
-              categories: page.state.facets.categories,
-              ingredients: page.state.facets.ingredients,
+            filters: {
+              categories: page.state.filters.categories,
+              ingredients_include: page.state.filters.ingredients_include,
             },
           }}
         />

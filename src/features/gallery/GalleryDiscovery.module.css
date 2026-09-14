@@ -18,7 +18,8 @@
 .group > label, .group legend { color: var(--cp-text-primary); font-size: var(--cp-text-16); font-weight: var(--cp-fw-semibold); }
 .group legend { margin-bottom: 12px; }
 .group small { font-size: var(--cp-text-12); color: var(--cp-text-tertiary); }
-.sidebar select { width: 100%; min-width: 0; min-height: 46px; padding: 0 12px; border: 1px solid var(--cp-border-subtle); border-radius: 12px; background: var(--cp-layer-floating); color: var(--cp-text-primary); font: inherit; font-size: var(--cp-text-14); cursor: pointer; }
+.sidebar :is(select, input) { width: 100%; min-width: 0; min-height: 46px; padding: 0 12px; border: 1px solid var(--cp-border-subtle); border-radius: 12px; background: var(--cp-layer-floating); color: var(--cp-text-primary); font: inherit; font-size: var(--cp-text-14); }
+.sidebar select { cursor: pointer; }
 .options { display: flex; flex-wrap: wrap; gap: 8px; }
 .options button { min-height: 38px; padding: 8px 13px; border: 1px solid var(--cp-border-subtle); border-radius: var(--cp-radius-pill); background: var(--cp-layer-floating); color: var(--cp-text-secondary); font: inherit; font-size: var(--cp-text-14); cursor: pointer; box-shadow: 0 2px 0 #00000012; transition: background .18s, color .18s; }
 .options button:hover { color: var(--cp-text-primary); border-color: var(--cp-primary); }
@@ -34,7 +35,7 @@
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: 24px; }
 .card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--cp-border-subtle); border-radius: var(--cp-card-radius); background: var(--cp-layer-raised); transition: transform .25s cubic-bezier(.22,1,.36,1), border-color .2s, box-shadow .25s; }
 .card:hover { border-color: var(--cp-primary); box-shadow: var(--cp-shadow-soft); transform: translateY(-3px); }
-.page :is(button, select, a):focus-visible { outline: 2px solid var(--cp-primary); outline-offset: 4px; }
+.page :is(button, select, input, a):focus-visible { outline: 2px solid var(--cp-primary); outline-offset: 4px; }
 .media { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--cp-layer-floating); }
 .media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .fallback { display: grid; place-items: center; height: 100%; font-size: var(--cp-text-28); color: var(--cp-primary); }
@@ -46,8 +47,9 @@
 .empty { display: grid; justify-items: center; gap: 18px; min-height: 370px; padding: 64px 24px; border-radius: var(--cp-card-radius); background: var(--cp-layer-raised); text-align: center; color: var(--cp-text-secondary); }
 .empty h2 { margin: 0; font-size: var(--cp-text-32); color: var(--cp-text-primary); }
 .empty p { margin: 0; font-size: var(--cp-text-18); }
-.more { display: flex; justify-content: center; margin: 36px 0; }
-.more button { gap: 24px; }
+.loadMoreSentinel { height: 1px; margin: 8px 0 36px; }
+.loadMoreError { display: grid; justify-items: center; gap: 14px; margin: 18px 0 36px; padding: 20px; border: 1px solid var(--cp-border-subtle); border-radius: var(--cp-card-radius); background: var(--cp-layer-raised); color: var(--cp-text-secondary); text-align: center; }
+.loadMoreError p { margin: 0; }
 .shimmer { background: linear-gradient(105deg, var(--cp-layer-floating) 20%, color-mix(in srgb, var(--cp-text-tertiary) 18%, var(--cp-layer-floating)) 42%, var(--cp-layer-floating) 64%); background-size: 220% 100%; animation: shimmer 1.35s ease-in-out infinite; }
 .skeletonTitle { width: 75%; height: 28px; border-radius: 8px; }
 .skeletonLine { width: 100%; height: 18px; border-radius: 8px; }
