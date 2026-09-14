@@ -148,7 +148,7 @@ export const comoFuncionaContent = {
         title: "Start",
         description: "You can begin with a recipe, an idea, a pending meal, a saved menu, or an empty day.",
         whatYouDo: [
-          "Create a menu manually.",
+          "Create a menu.",
           "Import a recipe or ask CookPilot to resolve a meal.",
         ],
         whatGetsReady: [

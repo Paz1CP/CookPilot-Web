@@ -33,7 +33,7 @@ const componentValues = new Set([
   "dessert",
   "dressing",
 ]);
-const timeValues = new Set([15, 30, 45, 60]);
+const timeValues = new Set([0, 5, 15, 30, 45, 60]);
 
 export const emptyGalleryFacets = (): GalleryFacetState => ({
   categories: [],

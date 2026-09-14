@@ -14,6 +14,6 @@ export async function GET(request: NextRequest) {
     facetOptions: page.facetOptions,
   };
   return NextResponse.json(publicPage, {
-    headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" },
+    headers: { "Cache-Control": "public, max-age=60, s-maxage=60, stale-while-revalidate=300" },
   });
 }

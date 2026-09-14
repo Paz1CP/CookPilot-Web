@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   galleryQueryFingerprint,
@@ -19,6 +19,7 @@ import type {
   GalleryState,
 } from "@/lib/cookshare/types";
 import styles from "./GalleryClient.module.css";
+import GallerySkeleton from "./GallerySkeleton";
 
 type GalleryLabels = {
   all: string;
@@ -175,10 +176,12 @@ export default function GalleryClient({
   initial,
   basePath,
   fixedState,
+  deferInitialLoad = false,
 }: {
   initial: GalleryPage;
   basePath?: string;
   fixedState?: GalleryFixedState;
+  deferInitialLoad?: boolean;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -188,8 +191,9 @@ export default function GalleryClient({
   const [state, setState] = useState<GalleryState>(initial.state);
   const [query, setQuery] = useState(initial.state.q);
   const [facetOptions, setFacetOptions] = useState<GalleryFacetOptions>(initial.facetOptions);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(deferInitialLoad);
   const [error, setError] = useState<string | null>(null);
+  const initialLoadStarted = useRef(false);
 
   const path = basePath ?? (state.locale === "en" ? "/en/gallery" : "/es/gallery");
 
@@ -198,7 +202,6 @@ export default function GalleryClient({
     setError(null);
     try {
       const response = await fetch(`/api/gallery?${apiParams(nextState).toString()}`, {
-        cache: "no-store",
         headers: { Accept: "application/json" },
       });
       if (!response.ok) throw new Error("gallery_request");
@@ -226,13 +229,19 @@ export default function GalleryClient({
   const stateFingerprint = galleryQueryFingerprint(state);
 
   useEffect(() => {
+    if (deferInitialLoad && !initialLoadStarted.current) {
+      initialLoadStarted.current = true;
+      void fetchPage({ ...routeState, cursor: routeState.cursor }, false)
+        .catch(() => setError(labels.requestError));
+      return;
+    }
     if (routeFingerprint === stateFingerprint) return;
     const request = window.setTimeout(() => {
       void fetchPage({ ...routeState, cursor: null }, false)
         .catch(() => setError(labels.requestError));
     }, 0);
     return () => window.clearTimeout(request);
-  }, [fetchPage, labels.requestError, routeFingerprint, routeState, stateFingerprint]);
+  }, [deferInitialLoad, fetchPage, labels.requestError, routeFingerprint, routeState, stateFingerprint]);
 
   const applyState = async (nextState: GalleryState, append = false) => {
     const resetState = applyFixedState(append ? nextState : { ...nextState, cursor: null }, fixedState);
@@ -411,26 +420,35 @@ export default function GalleryClient({
       </details>
 
       <p className={styles.resultCount} aria-live="polite">
-        {items.length} {labels.results}
+        {loading ? (
+          <span className={styles.resultLoading} aria-hidden="true" />
+        ) : (
+          `${items.length} ${labels.results}`
+        )}
       </p>
       {error ? <p className={styles.error} role="alert">{error}</p> : null}
 
       {items.length ? (
-        <div className={styles.grid}>
-          {items.map((item, index) => (
-            <Link key={`${item.objectType}-${item.href}`} href={item.href} className={styles.card}>
-              <div className={styles.media}>{cardImage(item, index, Boolean(state.cursor))}</div>
-              <div className={styles.body}>
-                <span className={styles.type}>{cardTypeLabel(item, state.locale)}</span>
-                <h2>{item.title}</h2>
-                {item.description ? <p>{inlineMarkdownToText(item.description)}</p> : null}
-                <div className={styles.meta}>
-                  {item.timeMinutes ? <span>{item.timeMinutes} min</span> : null}
+        <>
+          <div className={styles.grid}>
+            {items.map((item, index) => (
+              <Link key={`${item.objectType}-${item.href}`} href={item.href} className={styles.card}>
+                <div className={styles.media}>{cardImage(item, index, Boolean(state.cursor))}</div>
+                <div className={styles.body}>
+                  <span className={styles.type}>{cardTypeLabel(item, state.locale)}</span>
+                  <h2>{item.title}</h2>
+                  {item.description ? <p>{inlineMarkdownToText(item.description)}</p> : null}
+                  <div className={styles.meta}>
+                    {item.timeMinutes ? <span>{item.timeMinutes} min</span> : null}
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+          {loading ? <GallerySkeleton count={6} /> : null}
+        </>
+      ) : loading ? (
+        <GallerySkeleton count={12} />
       ) : (
         <div className={styles.empty}>
           <p>{labels.noResults}</p>

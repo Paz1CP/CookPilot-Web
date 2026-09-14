@@ -1,0 +1,43 @@
+.loading {
+  display: grid;
+  gap: 18px;
+}
+
+.block {
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, var(--cp-layer-floating) 76%, transparent) 20%,
+    color-mix(in srgb, var(--cp-text-tertiary) 20%, var(--cp-layer-floating)) 42%,
+    color-mix(in srgb, var(--cp-layer-floating) 76%, transparent) 64%
+  );
+  background-size: 220% 100%;
+  animation: galleryShimmer 1.35s ease-in-out infinite;
+}
+
+.eyebrow {
+  width: 110px;
+  height: 13px;
+  border-radius: 999px;
+}
+
+.heading {
+  width: min(330px, 55vw);
+  height: clamp(48px, 7vw, 86px);
+  border-radius: 18px;
+}
+
+.lead {
+  width: min(650px, 75vw);
+  height: 22px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+}
+
+@keyframes galleryShimmer {
+  from { background-position: 180% 0; }
+  to { background-position: -40% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block { animation: none; }
+}

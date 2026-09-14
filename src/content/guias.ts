@@ -6,7 +6,7 @@ export const guiasContent = {
       accent: "Mucho por cocinar.",
       subtitle: "Guías rápidas para planificar, comprar, ajustar, cocinar, importar y reutilizar sin perderte entre funciones.",
       supportText: "Empieza con la guía que encaja con lo que quieres hacer hoy.",
-   
+
     },
     labels: {
       whatYouDo: "Qué haces",
@@ -27,7 +27,7 @@ export const guiasContent = {
         icon: "/icons/actions/simple_menu.png",
         summary: "Crea o resuelve una comida real y déjala lista para planificar, comprar o cocinar.",
         whatYouDo: [
-          "Crea un menú manual con recetas e ingredientes.",
+          "Crea un menú con recetas e ingredientes.",
           "Resuelve una comida o un día cuando no quieres decidir todo.",
           "Guarda lo que sirve para repetirlo después."
         ],
@@ -222,7 +222,7 @@ export const guiasContent = {
   },
   en: {
     hero: {
-     
+
       eyebrow: "CookPilot guides",
       title: "A little guidance.",
       accent: "A lot to cook.",
@@ -248,7 +248,7 @@ export const guiasContent = {
         icon: "/icons/actions/simple_menu.png",
         summary: "Create or resolve one real meal and leave it ready to plan, shop, or cook.",
         whatYouDo: [
-          "Create a menu manually with recipes and ingredients.",
+          "Create a menu with recipes and ingredients.",
           "Resolve a meal or day when you do not want to decide everything.",
           "Save what works to reuse it later."
         ],

@@ -3,13 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sun1, Moon, SearchNormal1 } from "iconsax-reactjs";
 import styles from "./Header.module.css";
 import { useLocale } from "@/contexts/LanguageContext";
 import { usePathname } from "next/navigation";
 import { DownloadButton } from "@/shared/download/DownloadExperience";
 import { getLocalizedRoute } from "@/shared/config/routes";
+
+function getProScrollTop() {
+  const section = document.getElementById("go-pro");
+  const panel = section?.querySelector<HTMLElement>(".lc-pro-panel") ?? section;
+  if (!panel) return null;
+
+  const rect = panel.getBoundingClientRect();
+  return rect.top + window.scrollY + (rect.height - window.innerHeight) / 2;
+}
 
 export default function Header() {
   const { t, locale, toggleLocale } = useLocale();
@@ -25,6 +34,29 @@ export default function Header() {
     setTheme(document.documentElement.getAttribute("data-theme") || "light");
     setScrolled(latest > 40);
   });
+
+  const homePath = locale === "es" ? "/es" : "/en";
+
+  useEffect(() => {
+    if (pathname !== homePath || window.location.hash !== "#go-pro") return;
+
+    let frameId = 0;
+    const alignWithProSection = () => {
+      const top = getProScrollTop();
+      if (top === null) {
+        frameId = window.requestAnimationFrame(alignWithProSection);
+        return;
+      }
+
+      window.scrollTo({ top, behavior: "auto" });
+    };
+
+    const timeoutId = window.setTimeout(alignWithProSection, 80);
+    return () => {
+      window.clearTimeout(timeoutId);
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [homePath, pathname]);
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -44,11 +76,11 @@ export default function Header() {
   ];
 
   const handleProClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    const homePath = locale === "es" ? "/es" : "/en";
     if (pathname !== homePath) return;
 
     event.preventDefault();
-    document.getElementById("go-pro")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const top = getProScrollTop();
+    if (top !== null) window.scrollTo({ top, behavior: "smooth" });
     window.history.replaceState(null, "", `${homePath}#go-pro`);
   };
 
@@ -120,11 +152,12 @@ export default function Header() {
 
           <Link
             href={getLocalizedRoute(locale, "gallery")}
+            prefetch
             className={`${styles.iconBtn} ${styles.searchBtn}`}
             aria-label={t.header.open_gallery}
             title={t.header.open_gallery}
           >
-            <SearchNormal1 variant="Linear" size={24} color="currentColor" aria-hidden="true" />
+            <SearchNormal1 variant="Linear" size={20} color="currentColor" aria-hidden="true" />
             <span className={styles.searchLabel}>{t.header.search_recipes}</span>
           </Link>
 

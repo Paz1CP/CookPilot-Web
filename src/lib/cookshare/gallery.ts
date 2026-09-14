@@ -97,7 +97,7 @@ function decodeCursor(cursor: string | null): GalleryCursor | null {
 function emptyFacetOptions(locale: AppLocale): GalleryFacetOptions {
   const labels = locale === "es"
     ? {
-      meals: ["Desayuno", "Media mañana", "Almuerzo", "Merienda", "Cena", "Noche"],
+      meals: ["Desayuno", "Media mañana", "Almuerzo", "Merienda", "Cena", "Madrugada"],
       components: ["Plato principal", "Entrada", "Acompañamiento", "Ensalada", "Bebida", "Salsa", "Postre", "Aderezo"],
     }
     : {
@@ -124,7 +124,7 @@ function emptyFacetOptions(locale: AppLocale): GalleryFacetOptions {
       "dessert",
       "dressing",
     ].map((value, index) => ({ value, label: labels.components[index] })),
-    times: [15, 30, 45, 60],
+    times: [0, 5, 15, 30, 45, 60],
   };
 }
 
@@ -179,10 +179,14 @@ function emptyPage(state: GalleryState, facetOptions: GalleryFacetOptions): Gall
   };
 }
 
+export function getEmptyGalleryPage(state: GalleryState): GalleryPage {
+  const normalizedState = { ...state, facets: state.facets ?? emptyGalleryFacets() };
+  return emptyPage(normalizedState, emptyFacetOptions(normalizedState.locale));
+}
+
 export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Promise<GalleryPage> {
   const boundedLimit = Math.min(Math.max(limit, 1), PAGE_SIZE);
   const normalizedState = { ...state, facets: state.facets ?? emptyGalleryFacets() };
-  const facetOptions = await getFacetOptions(normalizedState.locale);
   const type = normalizedState.type;
   const cursor = decodeCursor(normalizedState.cursor);
   const rpcArgs: Record<string, unknown> = {
@@ -206,7 +210,11 @@ export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Pr
     rpcArgs.p_after_id = cursor.id;
     rpcArgs.p_after_object_type = cursor.objectType;
   }
-  const result = await createSupabasePublicClient().schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs, { get: true });
+  const client = createSupabasePublicClient();
+  const [facetOptions, result] = await Promise.all([
+    getFacetOptions(normalizedState.locale),
+    client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs, { get: true }),
+  ]);
   if (result.error || !Array.isArray(result.data)) return emptyPage(normalizedState, facetOptions);
   const rows = result.data as GalleryRpcRow[];
   const selected = rows.slice(0, boundedLimit);

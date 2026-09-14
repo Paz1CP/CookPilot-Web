@@ -18,7 +18,7 @@ export const comparativasContent = {
           slug: "apps-de-recetas"
         },
         {
-          title: "Planners de comida",
+          title: "Planeadores de comida",
           desc: "La mayoría de planificadores son plantillas vacías donde debes escribir cada plato de forma manual sin conexión con tus compras o macros reales.",
           contrast: "CookPilot permite automatizar la planificación con generación inteligente y ajustar automáticamente las proporciones nutricionales.",
           slug: "planners-de-comida"

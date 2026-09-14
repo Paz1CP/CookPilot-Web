@@ -168,6 +168,37 @@
   font-size: 14px;
 }
 
+.resultLoading {
+  display: block;
+  width: 116px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, var(--cp-layer-floating) 76%, transparent) 20%,
+    color-mix(in srgb, var(--cp-text-tertiary) 20%, var(--cp-layer-floating)) 42%,
+    color-mix(in srgb, var(--cp-layer-floating) 76%, transparent) 64%
+  );
+  background-size: 220% 100%;
+  animation: galleryResultShimmer 1.35s ease-in-out infinite;
+}
+
+@keyframes galleryResultShimmer {
+  from {
+    background-position: 180% 0;
+  }
+
+  to {
+    background-position: -40% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resultLoading {
+    animation: none;
+  }
+}
+
 .error {
   padding: 14px 16px;
   border: 1px solid var(--cp-error);
