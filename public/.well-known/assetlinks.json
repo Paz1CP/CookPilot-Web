@@ -1,0 +1,14 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.cookpilot.pe",
+      "sha256_cert_fingerprints": [
+        "16:0B:A3:40:B1:B1:F5:7A:30:20:E8:F1:39:C0:45:16:1E:00:F8:A3:28:CD:01:EC:BA:B9:F8:85:62:2A:A8:24",
+        "38:97:4E:8F:1F:12:E1:B6:BD:74:C6:A8:4E:AF:B1:A2:CF:6A:94:19:39:9E:DB:F1:1B:78:CC:8F:4F:64:0D:BE",
+        "DA:CA:0F:C5:08:0A:EC:54:64:96:41:EE:19:78:E3:29:CD:75:8F:0E:35:AE:78:E8:4A:A7:C0:7C:F6:59:6F:84"
+      ]
+    }
+  }
+]

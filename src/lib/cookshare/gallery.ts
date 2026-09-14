@@ -2,21 +2,38 @@ import { supabaseConfig } from "@/lib/supabase/config";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { buildCookSharePath, type AppLocale } from "@/shared/config/routes";
 import {
-  emptyGalleryFacets,
+  emptyGalleryFilters,
+  galleryComponentTypes,
+  galleryMealMoments,
   galleryQueryFingerprint,
-  hasActiveGalleryFacets,
+  hasActiveGalleryFilters,
+  parseGalleryQueryState,
+  toGalleryRpcFilters,
 } from "./gallery-query";
 import type {
   CookShareObjectType,
   GalleryCard,
+  GalleryFacetOption,
   GalleryFacetOptions,
   GalleryPage,
-  GalleryState,
+  GalleryQueryState,
 } from "./types";
+import es from "@/locales/gallery.es.json";
+import en from "@/locales/gallery.en.json";
 
-export { parseGalleryState } from "./gallery-query";
+export { parseGalleryQueryState } from "./gallery-query";
 
 const PAGE_SIZE = 24;
+const GALLERY_TIME_OPTIONS = [0, 5, 15, 30, 45, 60, 90, 120] as const;
+const publicObjectTypes = new Set<CookShareObjectType>([
+  "recipe",
+  "menu",
+  "day",
+  "week",
+  "list",
+  "ingredient",
+  "category",
+]);
 
 type GalleryRpcRow = {
   object_type: string;
@@ -28,27 +45,32 @@ type GalleryRpcRow = {
   description?: string | null;
   description_en?: string | null;
   image_url?: string | null;
+  is_free?: boolean | null;
   time_minutes?: number | null;
-  nutrition?: Record<string, number | string | null> | null;
+  nutrition?: Record<string, unknown> | null;
   rank?: number | null;
   component?: string | null;
   slot_profile?: Record<string, number | string | null> | null;
   ingredients?: string[] | null;
+  match_type?: string | null;
+  relevance_score?: number | string | null;
 };
 
-type GalleryCursor = {
-  rank: number;
-  title: string;
-  id: string;
-  objectType?: string;
+type GalleryCursor = { rank: number };
+type CategoryRow = {
+  id?: string | null;
+  parent_id?: string | null;
+  slug?: string | null;
+  name?: string | null;
+  name_en?: string | null;
+  sort_order?: number | null;
 };
 
-function normalizeText(value: string) {
-  return value
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .trim();
+export class GalleryRpcError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "GalleryRpcError";
+  }
 }
 
 function normalizeHandle(value: string | null | undefined) {
@@ -75,151 +97,163 @@ function numberValue(value: unknown) {
 }
 
 function encodeCursor(row: GalleryRpcRow) {
-  return Buffer.from(JSON.stringify({
-    rank: numberValue(row.rank) ?? 0,
-    title: normalizeText(row.title ?? row.title_en ?? ""),
-    id: row.object_id,
-    objectType: row.object_type,
-  }), "utf8").toString("base64url");
+  const rank = numberValue(row.rank);
+  return rank === null ? null : Buffer.from(JSON.stringify({ rank }), "utf8").toString("base64url");
 }
 
 function decodeCursor(cursor: string | null): GalleryCursor | null {
   if (!cursor) return null;
   try {
     const parsed = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8")) as Partial<GalleryCursor>;
-    if (typeof parsed.rank !== "number" || typeof parsed.title !== "string" || typeof parsed.id !== "string") return null;
-    return parsed as GalleryCursor;
+    return typeof parsed.rank === "number" && Number.isSafeInteger(parsed.rank) && parsed.rank >= 0
+      ? { rank: parsed.rank }
+      : null;
   } catch {
     return null;
   }
 }
 
-function emptyFacetOptions(locale: AppLocale): GalleryFacetOptions {
-  const labels = locale === "es"
-    ? {
-      meals: ["Desayuno", "Media mañana", "Almuerzo", "Merienda", "Cena", "Madrugada"],
-      components: ["Plato principal", "Entrada", "Acompañamiento", "Ensalada", "Bebida", "Salsa", "Postre", "Aderezo"],
-    }
-    : {
-      meals: ["Breakfast", "Morning snack", "Lunch", "Afternoon snack", "Dinner", "Late night"],
-      components: ["Main dish", "Appetizer", "Side dish", "Salad", "Beverage", "Sauce", "Dessert", "Dressing"],
-    };
+function nutritionValue(value: GalleryRpcRow["nutrition"]): GalleryCard["nutrition"] {
+  if (!value || Array.isArray(value)) return null;
+  const badges = Array.isArray(value.badges)
+    ? value.badges.filter((badge): badge is string => typeof badge === "string")
+    : [];
   return {
-    categories: [],
-    meals: [
-      "breakfast",
-      "morning_snack",
-      "lunch",
-      "afternoon_snack",
-      "dinner",
-      "late_night",
-    ].map((value, index) => ({ value, label: labels.meals[index] })),
-    components: [
-      "main_dish",
-      "appetizer",
-      "side_dish",
-      "salad",
-      "beverage",
-      "sauce",
-      "dessert",
-      "dressing",
-    ].map((value, index) => ({ value, label: labels.components[index] })),
-    times: [0, 5, 15, 30, 45, 60],
+    kcal: numberValue(value.kcal),
+    proteinG: numberValue(value.protein_g),
+    carbsG: numberValue(value.carbs_g),
+    fatG: numberValue(value.fat_g),
+    fiberG: numberValue(value.fiber_g),
+    nutritionalScore: numberValue(value.nutritional_score),
+    badges,
   };
 }
 
-async function getFacetOptions(locale: AppLocale) {
-  const options = emptyFacetOptions(locale);
-  const result = await createSupabasePublicClient().schema("menu").from("recipe_categories")
-    .select("slug,name,name_en,sort_order")
-    .order("sort_order", { ascending: true })
-    .limit(100);
-  if (result.error || !Array.isArray(result.data)) return options;
-  options.categories = (result.data as Array<{ slug?: string | null; name?: string | null; name_en?: string | null }>).flatMap((row) => {
-    if (!row.slug) return [];
-    return [{ value: row.slug.toLowerCase(), label: locale === "en" ? row.name_en || row.name || row.slug : row.name || row.name_en || row.slug }];
-  });
+function localizedFacetOptions(locale: AppLocale): GalleryFacetOptions {
+  const labels = locale === "es" ? es : en;
+  return {
+    categories: [],
+    mealMoments: galleryMealMoments.map((value) => ({ value, label: labels.mealOptions[value] })),
+    componentTypes: galleryComponentTypes.map((value) => ({ value, label: labels.componentOptions[value] })),
+    timeMinutes: [...GALLERY_TIME_OPTIONS],
+  };
+}
+
+function categoryOptions(rows: CategoryRow[], locale: AppLocale) {
+  const validRows = rows.flatMap((row) => row.id && row.slug ? [{
+    id: row.id,
+    parentId: row.parent_id ?? null,
+    value: row.slug.toLowerCase(),
+    label: locale === "en" ? row.name_en || row.name || row.slug : row.name || row.name_en || row.slug,
+    sortOrder: row.sort_order ?? Number.MAX_SAFE_INTEGER,
+  }] : []);
+  const byParent = new Map<string | null, typeof validRows>();
+  for (const row of validRows) {
+    const rowsForParent = byParent.get(row.parentId) ?? [];
+    rowsForParent.push(row);
+    byParent.set(row.parentId, rowsForParent);
+  }
+  for (const rowsForParent of byParent.values()) rowsForParent.sort((left, right) => left.sortOrder - right.sortOrder || left.label.localeCompare(right.label));
+
+  const options: GalleryFacetOption[] = [];
+  const visited = new Set<string>();
+  const visit = (parentId: string | null, depth: number, parentValue: string | null) => {
+    for (const row of byParent.get(parentId) ?? []) {
+      if (visited.has(row.id)) continue;
+      visited.add(row.id);
+      options.push({ value: row.value, label: `${"— ".repeat(depth)}${row.label}`, parentValue });
+      visit(row.id, depth + 1, row.value);
+    }
+  };
+  visit(null, 0, null);
+  for (const row of validRows) {
+    if (visited.has(row.id)) continue;
+    options.push({ value: row.value, label: row.label, parentValue: null });
+    visit(row.id, 1, row.value);
+  }
   return options;
 }
 
-async function resolveRow(
-  row: GalleryRpcRow,
-  state: GalleryState,
-): Promise<GalleryCard | null> {
-  const objectType = row.object_type as CookShareObjectType;
-  if (!row.slug) return null;
-  const handle = normalizeHandle(row.handle);
+async function getFacetOptions(locale: AppLocale) {
+  const options = localizedFacetOptions(locale);
+  const result = await createSupabasePublicClient().schema("menu").from("recipe_categories")
+    .select("id,parent_id,slug,name,name_en,sort_order")
+    .order("sort_order", { ascending: true })
+    .limit(500);
+  if (result.error || !Array.isArray(result.data)) return options;
+  options.categories = categoryOptions(result.data as CategoryRow[], locale);
+  return options;
+}
+
+function isPublicObjectType(value: string): value is CookShareObjectType {
+  return publicObjectTypes.has(value as CookShareObjectType);
+}
+
+function resolveRow(row: GalleryRpcRow, state: GalleryQueryState): GalleryCard | null {
+  if (!row.object_id || !row.slug || !isPublicObjectType(row.object_type)) return null;
   const title = state.locale === "en"
     ? row.title_en ?? row.title ?? row.slug
     : row.title ?? row.title_en ?? row.slug;
-  const href = buildCookSharePath({ locale: state.locale, objectType, handle, slug: row.slug });
-  const nutrition = row.nutrition
-    ? Object.fromEntries(Object.entries(row.nutrition).map(([key, value]) => [key, numberValue(value)]))
-    : null;
   return {
-    objectType,
+    objectType: row.object_type,
+    objectId: row.object_id,
     title,
     description: state.locale === "en"
       ? row.description_en ?? row.description ?? null
       : row.description ?? row.description_en ?? null,
     imageUrl: mediaUrl(row.image_url),
-    href,
+    href: buildCookSharePath({ locale: state.locale, objectType: row.object_type, handle: normalizeHandle(row.handle), slug: row.slug }),
     timeMinutes: numberValue(row.time_minutes),
-    nutrition,
+    nutrition: nutritionValue(row.nutrition),
+    isFree: Boolean(row.is_free),
+    component: row.component ?? null,
+    matchType: row.match_type ?? null,
+    relevanceScore: numberValue(row.relevance_score),
   } satisfies GalleryCard;
 }
 
-function emptyPage(state: GalleryState, facetOptions: GalleryFacetOptions): GalleryPage {
-  return {
-    items: [],
-    nextCursor: null,
-    state,
-    hasMore: false,
-    facetOptions,
+function emptyPage(state: GalleryQueryState, facetOptions: GalleryFacetOptions): GalleryPage {
+  return { items: [], nextCursor: null, state, hasMore: false, facetOptions };
+}
+
+export function getEmptyGalleryPage(state: GalleryQueryState): GalleryPage {
+  const normalizedState = { ...state, filters: state.filters ?? emptyGalleryFilters() };
+  return emptyPage(normalizedState, localizedFacetOptions(normalizedState.locale));
+}
+
+export function mapGalleryStateToRpcArgs(state: GalleryQueryState, limit: number) {
+  const cursor = decodeCursor(state.cursor);
+  const args: Record<string, unknown> = {
+    p_locale: state.locale,
+    p_type: state.type,
+    p_limit: limit,
+    p_filters: toGalleryRpcFilters(state.filters),
   };
+  if (state.q) args.p_query = state.q;
+  if (state.handle) args.p_handle = state.handle;
+  if (cursor) args.p_after_rank = cursor.rank;
+  return args;
 }
 
-export function getEmptyGalleryPage(state: GalleryState): GalleryPage {
-  const normalizedState = { ...state, facets: state.facets ?? emptyGalleryFacets() };
-  return emptyPage(normalizedState, emptyFacetOptions(normalizedState.locale));
-}
-
-export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Promise<GalleryPage> {
+export async function executeGallerySearch(state: GalleryQueryState, limit = PAGE_SIZE): Promise<GalleryPage> {
   const boundedLimit = Math.min(Math.max(limit, 1), PAGE_SIZE);
-  const normalizedState = { ...state, facets: state.facets ?? emptyGalleryFacets() };
-  const type = normalizedState.type;
-  const cursor = decodeCursor(normalizedState.cursor);
-  const rpcArgs: Record<string, unknown> = {
-    p_locale: normalizedState.locale,
-    p_type: type,
-    p_handle: "",
-    p_categories: normalizedState.facets.categories,
-    p_meals: normalizedState.facets.meals,
-    p_components: normalizedState.facets.components,
-    p_ingredients: normalizedState.facets.ingredients,
-    p_excluded_ingredients: normalizedState.facets.excludedIngredients,
-    p_access: "all",
-    p_limit: boundedLimit + 1,
-  };
-  if (normalizedState.q) rpcArgs.p_query = normalizedState.q;
-  if (normalizedState.facets.minTime !== null) rpcArgs.p_min_time = normalizedState.facets.minTime;
-  if (normalizedState.facets.maxTime !== null) rpcArgs.p_max_time = normalizedState.facets.maxTime;
-  if (cursor) {
-    rpcArgs.p_after_rank = cursor.rank;
-    rpcArgs.p_after_title = cursor.title;
-    rpcArgs.p_after_id = cursor.id;
-    rpcArgs.p_after_object_type = cursor.objectType;
-  }
-  const client = createSupabasePublicClient();
+  const normalizedState = { ...state, filters: state.filters ?? emptyGalleryFilters() };
   const [facetOptions, result] = await Promise.all([
     getFacetOptions(normalizedState.locale),
-    client.schema("home").rpc("rpc_cookshare_gallery_candidates", rpcArgs, { get: true }),
+    createSupabasePublicClient().schema("home").rpc(
+      "rpc_cookshare_gallery_candidates",
+      mapGalleryStateToRpcArgs(normalizedState, boundedLimit + 1),
+    ),
   ]);
-  if (result.error || !Array.isArray(result.data)) return emptyPage(normalizedState, facetOptions);
+  if (result.error) throw new GalleryRpcError(result.error.message);
+  if (!Array.isArray(result.data)) throw new GalleryRpcError("Gallery RPC returned an invalid response.");
+
   const rows = result.data as GalleryRpcRow[];
   const selected = rows.slice(0, boundedLimit);
-  const cards = (await Promise.all(selected.map((row) => resolveRow(row, normalizedState))))
-    .filter((card): card is GalleryCard => Boolean(card));
+  const cards = selected.flatMap((row) => {
+    const card = resolveRow(row, normalizedState);
+    return card ? [card] : [];
+  });
   const lastRow = selected.at(-1);
   const nextCursor = rows.length > boundedLimit && lastRow ? encodeCursor(lastRow) : null;
   return {
@@ -231,8 +265,10 @@ export async function getGalleryPage(state: GalleryState, limit = PAGE_SIZE): Pr
   };
 }
 
-export function getGalleryFingerprint(state: GalleryState) {
+export const getGalleryPage = executeGallerySearch;
+
+export function getGalleryFingerprint(state: GalleryQueryState) {
   return galleryQueryFingerprint(state);
 }
 
-export { hasActiveGalleryFacets };
+export { hasActiveGalleryFilters };

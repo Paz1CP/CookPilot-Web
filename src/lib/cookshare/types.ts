@@ -19,6 +19,24 @@ export type GalleryType =
   | "ingredients"
   | "categories";
 
+export type GalleryMealMoment =
+  | "breakfast"
+  | "morning_snack"
+  | "lunch"
+  | "afternoon_snack"
+  | "dinner"
+  | "late_night";
+
+export type GalleryComponentType =
+  | "main_dish"
+  | "appetizer"
+  | "side_dish"
+  | "salad"
+  | "beverage"
+  | "sauce"
+  | "dessert"
+  | "dressing";
+
 export interface GalleryFacetState {
   categories: string[];
   meals: string[];
@@ -32,6 +50,7 @@ export interface GalleryFacetState {
 export interface GalleryFacetOption {
   value: string;
   label: string;
+  parentValue?: string | null;
 }
 
 export interface GalleryFacetOptions {
@@ -41,10 +60,16 @@ export interface GalleryFacetOptions {
   times: number[];
 }
 
+export interface GalleryState {
+  locale: AppLocale;
+  q: string;
+  type: GalleryType;
+  cursor: string | null;
+  facets: GalleryFacetState;
+}
+
 export interface CookShareIdentity {
   object_type: CookShareObjectType;
-  object_id?: string;
-  owner_id?: string | null;
   handle: string | null;
   slug: string;
   canonical_path: string;
@@ -53,7 +78,6 @@ export interface CookShareIdentity {
 }
 
 export interface RecipeIngredient {
-  rci_id?: string;
   ingredient_name?: string | null;
   quantity?: number | null;
   unit?: string | null;
@@ -69,7 +93,6 @@ export interface RecipeStep {
 
 export interface RecipeProjection {
   object_type: "recipe";
-  object_id?: string;
   title: string;
   description?: string | null;
   cover_photo_url?: string | null;
@@ -83,7 +106,6 @@ export interface RecipeProjection {
 
 export interface CookShareResolvedObject {
   object_type: CookShareObjectType;
-  object_id?: string;
   title?: string | null;
   description?: string | null;
   name?: string | null;
@@ -92,14 +114,6 @@ export interface CookShareResolvedObject {
   image_url?: string | null;
   identity: CookShareIdentity;
   [key: string]: unknown;
-}
-
-export interface GalleryState {
-  locale: AppLocale;
-  q: string;
-  type: GalleryType;
-  cursor: string | null;
-  facets: GalleryFacetState;
 }
 
 export interface GalleryCard {

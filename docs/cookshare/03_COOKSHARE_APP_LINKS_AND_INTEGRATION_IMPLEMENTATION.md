@@ -1569,16 +1569,7 @@ If entitlement disappears while a pending protected action exists:
 - never trust the access state captured when the link was first received.
 
 ---
-A Free user cannot obtain a Pro-only durable saved object merely by pressing Share.
-Publicability threshold - 12.2 Discoverable
-- valid enough under the object's existing CookPilot domain contract to exist and be used
-Control de publicar y despublicar/borrar  en Ui donde esta? y lo de crear handle? las listas pueden ser publicas..
--> NO TIENE QUE PORQUE VALIDAR SI UNA RECETA ES VALIDA O NO PARA MOSTRAR GALERIA, SON OFICIALES
-## 13. Authentication and entitlement model - DEPRECATED
-no necesito que las listas sean indexables.
-No era necesario ningun tipo de analñiticas, si esta implementado de algun modo, quitalo, no necesito conexxion con posthog aca.
-No sabe como renderizar un objeto en la APP, tampoco como mantener viva la intencion, mientras el login
-needsEntitlement SI es necesario, saber cuando un objeto tiene csas premium, y mostrar paywall
+
 ## 25. Paywall continuation
 
 Do not build a CookShare-specific native paywall.
@@ -2171,9 +2162,7 @@ No:
 
 Generate client-side/on-device.
 
-Use an existing suitable QR dependency if present, otherwise add one lightweight maintained dependency.
-
-Do not create a QR server/provider.
+Use an existing suitable QR dependency.
 
 ### 43.3 Scan result
 
@@ -2330,73 +2319,6 @@ Whether entitlement came from:
 
 does not alter CookShare object semantics.
 
----
-
-## 47. Analytics
-
-Reuse existing CookPilot/PostHog analytics.
-
-Do not duplicate Foundation analytics taxonomy.
-
-Add integration-level measurements only.
-
-### 47.1 Link lifecycle
-
-Capture events/fields sufficient to distinguish:
-
-- source: direct / Play deferred / Huawei deferred;
-- parse success/failure;
-- object type;
-- requested action;
-- alias canonicalization;
-- pending stored;
-- pending replaced;
-- pending expired;
-- pending consumed.
-
-### 47.2 Continuation
-
-Measure:
-
-- deep-link auth interruption;
-- auth resume;
-- entitlement interruption;
-- paywall resume;
-- exact handoff success/failure;
-- old-app Web fallback.
-
-### 47.3 Store deferred
-
-Measure:
-
-- Install Referrer recovered valid CookShare payload;
-- App Linking recovered valid canonical payload;
-- provider unavailable/empty/invalid.
-
-Do not log raw provider wrapper strings when they can contain noisy/untrusted query data.
-
-### 47.4 Sharing
-
-Where observable:
-
-- share initiated;
-- Copy Link;
-- WhatsApp shortcut;
-- recipe QR displayed.
-
-Native share-sheet target selection may not be reliably observable; do not fabricate completion data.
-
-### 47.5 Privacy
-
-Do not log:
-
-- auth tokens;
-- checkout data;
-- API keys;
-- private recipe bodies;
-- arbitrary raw URLs from hostile input.
-
-Use normalized canonical public identity according to the current analytics conventions.
 
 ---
 
