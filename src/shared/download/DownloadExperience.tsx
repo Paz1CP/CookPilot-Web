@@ -30,6 +30,14 @@ function isAndroidBrowser() {
   return typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
 }
 
+function buildCookPilotIntentUrl(canonicalUrl: string) {
+  const url = new URL(canonicalUrl);
+  const target = `${url.host}${url.pathname}${url.search}`;
+  const fallback = encodeURIComponent(url.toString());
+
+  return `intent://${target}#Intent;scheme=https;package=com.cookpilot.pe;S.browser_fallback_url=${fallback};end`;
+}
+
 function tryOpenCookPilot(cookSharePath: string) {
   const canonicalUrl = canonicalCookShareUrl(cookSharePath);
   if (!canonicalUrl || !isAndroidBrowser()) return false;
@@ -66,10 +74,11 @@ function tryOpenCookPilot(cookSharePath: string) {
   document.addEventListener("visibilitychange", handleVisibilityChange);
   const cleanupTimer = window.setTimeout(clearMarker, APP_HANDOFF_MAX_AGE_MS);
 
-  // A verified Android App Link will leave this page and open the app. If no
-  // app can claim it, the browser reloads the canonical page; the new page
-  // consumes this short-lived marker and opens the download dialog instead.
-  window.location.assign(canonicalUrl);
+  // Keep the canonical HTTPS URL as the app payload while explicitly asking
+  // Android to resolve CookPilot. Chrome follows browser_fallback_url when the
+  // package is not installed, so the page can consume the marker above and
+  // open the download dialog.
+  window.location.assign(buildCookPilotIntentUrl(canonicalUrl));
   return true;
 }
 
