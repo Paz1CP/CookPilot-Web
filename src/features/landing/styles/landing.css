@@ -1138,7 +1138,7 @@
 .lc-pro-panel {
   border-radius: 42px;
   padding: clamp(36px, 4.4vw, 64px);
-  background: #1f1e20;
+  background: var(--cp-layer-raised);
 }
 .lc-pro-header {
   display: flex;

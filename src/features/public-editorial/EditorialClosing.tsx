@@ -21,11 +21,10 @@ export default function EditorialClosing() {
   const reduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const states = [
-    { asset: DOWNLOAD_ASSETS[0], description: t.download.subtitle, title: undefined, alt: t.download.base_alt },
+    { asset: DOWNLOAD_ASSETS[0], description: t.download.subtitle, alt: t.download.base_alt },
     ...t.download.slides.map((slide, index) => ({
       asset: DOWNLOAD_ASSETS[index + 1],
       description: slide.description,
-      title: slide.title,
       alt: slide.title,
     })),
   ];
@@ -44,7 +43,10 @@ export default function EditorialClosing() {
     <section id="download-final" className={styles.closing}>
       <div className={styles.closingPanel}>
         <div className={styles.closingCopy}>
-          <h2>{t.download.title}</h2>
+          <h2>
+            {t.download.title_prefix}{" "}
+            <span>{t.download.title_accent}</span>
+          </h2>
           <div className={styles.descriptionStage} aria-live="polite" aria-atomic="true">
             {states.map((state, index) => (
               <p
@@ -74,7 +76,6 @@ export default function EditorialClosing() {
                 className={styles.artImage}
                 priority={index === 0}
               />
-              {state.title ? <figcaption>{state.title}</figcaption> : null}
             </figure>
           ))}
         </div>

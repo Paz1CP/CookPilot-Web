@@ -11,12 +11,20 @@ const DOWNLOAD_EVENT = "cookpilot:download";
 const APP_HANDOFF_STORAGE_KEY = "cookpilot:pending-app-handoff";
 const APP_HANDOFF_MAX_AGE_MS = 10_000;
 
-type DownloadEventDetail = { canonicalPath?: string };
+export type DownloadDialogContext = {
+  title: string;
+  description: string;
+};
 
-export function openDownloadExperience(canonicalPath?: string) {
+type DownloadEventDetail = {
+  canonicalPath?: string;
+  context?: DownloadDialogContext;
+};
+
+export function openDownloadExperience(canonicalPath?: string, context?: DownloadDialogContext) {
   window.dispatchEvent(
     new CustomEvent<DownloadEventDetail>(DOWNLOAD_EVENT, {
-      detail: canonicalPath ? { canonicalPath } : undefined,
+      detail: canonicalPath || context ? { canonicalPath, context } : undefined,
     }),
   );
 }
@@ -24,6 +32,7 @@ export function openDownloadExperience(canonicalPath?: string) {
 type DownloadButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> & {
   children: ReactNode;
   cookSharePath?: string;
+  downloadContext?: DownloadDialogContext;
 };
 
 function isAndroidBrowser() {
@@ -38,7 +47,15 @@ function buildCookPilotIntentUrl(canonicalUrl: string) {
   return `intent://${target}#Intent;scheme=https;package=com.cookpilot.pe;S.browser_fallback_url=${fallback};end`;
 }
 
-function tryOpenCookPilot(cookSharePath: string) {
+function readDownloadDialogContext(value: unknown): DownloadDialogContext | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  const record = value as Record<string, unknown>;
+  return typeof record.title === "string" && typeof record.description === "string"
+    ? { title: record.title, description: record.description }
+    : null;
+}
+
+function tryOpenCookPilot(cookSharePath: string, context?: DownloadDialogContext) {
   const canonicalUrl = canonicalCookShareUrl(cookSharePath);
   if (!canonicalUrl || !isAndroidBrowser()) return false;
 
@@ -48,6 +65,7 @@ function tryOpenCookPilot(cookSharePath: string) {
       JSON.stringify({
         path: new URL(canonicalUrl).pathname,
         startedAt: Date.now(),
+        context,
       }),
     );
   } catch {
@@ -82,7 +100,7 @@ function tryOpenCookPilot(cookSharePath: string) {
   return true;
 }
 
-export function DownloadButton({ children, onClick, cookSharePath, ...props }: DownloadButtonProps) {
+export function DownloadButton({ children, onClick, cookSharePath, downloadContext, ...props }: DownloadButtonProps) {
   return (
     <button
       type="button"
@@ -90,8 +108,8 @@ export function DownloadButton({ children, onClick, cookSharePath, ...props }: D
       onClick={(event) => {
         onClick?.(event);
         if (event.defaultPrevented) return;
-        if (cookSharePath && tryOpenCookPilot(cookSharePath)) return;
-        openDownloadExperience(cookSharePath);
+        if (cookSharePath && tryOpenCookPilot(cookSharePath, downloadContext)) return;
+        openDownloadExperience(cookSharePath, downloadContext);
       }}
     >
       {children}
@@ -103,11 +121,13 @@ export default function DownloadExperience() {
   const { t } = useLocale();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [canonicalPath, setCanonicalPath] = useState<string>();
+  const [dialogContext, setDialogContext] = useState<DownloadDialogContext | null>(null);
 
   useEffect(() => {
     const open = (event: Event) => {
       const detail = event instanceof CustomEvent ? event.detail as DownloadEventDetail | undefined : undefined;
       setCanonicalPath(detail?.canonicalPath);
+      setDialogContext(detail?.context ?? null);
       const dialog = dialogRef.current;
       if (dialog && !dialog.open) dialog.showModal();
     };
@@ -124,14 +144,18 @@ export default function DownloadExperience() {
     try {
       const raw = sessionStorage.getItem(APP_HANDOFF_STORAGE_KEY);
       if (raw) {
-        const pending = JSON.parse(raw) as { path?: unknown; startedAt?: unknown };
+        const pending = JSON.parse(raw) as { path?: unknown; startedAt?: unknown; context?: unknown };
         const path = typeof pending.path === "string" ? pending.path : undefined;
         const startedAt = typeof pending.startedAt === "number" ? pending.startedAt : 0;
+        const pendingContext = readDownloadDialogContext(pending.context);
         const isFresh = startedAt > 0 && Date.now() - startedAt <= APP_HANDOFF_MAX_AGE_MS;
         const isCurrentPage = path === window.location.pathname;
         if (path && isFresh && isCurrentPage && canonicalCookShareUrl(path)) {
           sessionStorage.removeItem(APP_HANDOFF_STORAGE_KEY);
-          setCanonicalPath(path);
+          queueMicrotask(() => {
+            setCanonicalPath(path);
+            setDialogContext(pendingContext);
+          });
           const dialog = dialogRef.current;
           if (dialog && !dialog.open) dialog.showModal();
         } else if (!isFresh) {
@@ -177,9 +201,9 @@ export default function DownloadExperience() {
         <div className={styles.brand} aria-hidden="true">
           <Image src="/images/cookpilot/cookpilot_logo.png" alt="" width={128} height={128} />
         </div>
-        <h2 id="download-dialog-title">{t.download_experience.title}</h2>
+        <h2 id="download-dialog-title">{dialogContext?.title ?? t.download_experience.title}</h2>
         <p id="download-dialog-description" className={styles.description}>
-          {t.download_experience.description}
+          {dialogContext?.description ?? t.download_experience.description}
         </p>
 
         <div className={styles.stores}>

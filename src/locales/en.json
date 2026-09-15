@@ -115,7 +115,9 @@
     "a5": "It is available in Google Play for most devices and Huawei."
   },
   "download": {
-    "title": "GET THE COMPLETE EXPERIENCE, IN COOKPILOT",
+    "title_prefix": "GET,",
+    "title_accent": "COOKPILOT",
+    "title": "GET COOKPILOT",
     "subtitle": "Turn what you find into an experience you can actually bring to your kitchen.",
     "cta": "Download CookPilot",
     "base_alt": "CookPilot ready to join you in the kitchen",
@@ -306,6 +308,185 @@
     "guide_feature_support": "Start with clarity and reach your first organized week faster.",
     "food_title": "It all starts with something you actually want to eat.",
     "food_support": "Real dishes, real culture, and a clearer way to bring them to your table."
+  },
+  "cookshare_preview_insights": {
+    "group_label": "More possibilities in CookPilot",
+    "open_hint": "Discover this feature in CookPilot",
+    "cost": {
+      "label": "Cost & savings",
+      "preview": "$15 · save $8",
+      "recipe_preview": "$15",
+      "card_preview": "S/25",
+      "modal_title": "See what it could cost to put it on the table.",
+      "modal_description": "In CookPilot, you can check prices, understand ingredient costs and compare what you could save before shopping or cooking."
+    },
+    "time": {
+      "label": "Preparation time",
+      "preview": "20 min · coordinated",
+      "recipe_preview": "20 min",
+      "card_preview": "20 min",
+      "modal_title": "From discovery to cooking.",
+      "modal_description": "CookPilot connects recipes, steps and timing to help you prepare a meal with clarity. Explore how to organize each preparation in the app."
+    },
+    "nutrition": {
+      "label": "Nutrition insights",
+      "preview": "420 kcal · macros & more",
+      "recipe_preview": "420 kcal",
+      "card_preview": "7/10",
+      "modal_title": "Understand what you're about to eat.",
+      "modal_description": "In CookPilot, you can explore calories, macros and other nutrition details for ingredients and meals in the context of your plan."
+    }
+  },
+  "cookshare_action_dock": {
+    "navigation_label": "Actions for this object",
+    "recipe": {
+      "create_version": {
+        "label": "Create my version",
+        "title": "Make it your way.",
+        "description": "Tell CookPilot what you want to keep and what you want to change. Adjust ingredients, quantities, technique or preferences and create a personal version ready to plan, shop and cook."
+      },
+      "cook_now": {
+        "label": "Cook now",
+        "title": "From recipe to cooking.",
+        "description": "CookPilot turns this recipe into a guided session with steps, timing and continuity so you can focus on cooking."
+      },
+      "add_to_plan": {
+        "label": "Add to plan",
+        "title": "Put it where you'll actually eat it.",
+        "description": "Add it to a meal, day or week and keep servings, ingredients and context connected inside CookPlan."
+      },
+      "add_to_shopping": {
+        "label": "Add to shopping",
+        "title": "Turn this recipe into shopping.",
+        "description": "CookList brings its ingredients into one connected list, combines quantities and keeps track of where everything came from."
+      },
+      "adjust_goals": {
+        "label": "Adjust to my goals",
+        "title": "Make it fit you.",
+        "description": "Adjust quantities toward your calorie and macro goals without losing the identity of the food you wanted."
+      }
+    },
+    "menu": {
+      "cook_menu": {
+        "label": "Cook menu",
+        "title": "Cook it as one meal.",
+        "description": "CookPilot coordinates the preparations so steps, timing, heat, resting and components come together at the table."
+      },
+      "add_to_plan": {
+        "label": "Add to plan",
+        "title": "Bring this menu into your plan.",
+        "description": "Place it in your day or week and keep working from it without rebuilding its recipes and components."
+      },
+      "buy_menu": {
+        "label": "Buy this menu",
+        "title": "The whole menu. One shopping list.",
+        "description": "CookList gathers the ingredients from its recipes, combines compatible quantities and keeps their origin clear."
+      },
+      "adjust_servings": {
+        "label": "Adjust servings",
+        "title": "Make it for the people eating.",
+        "description": "Change the servings and let CookPilot recalculate the connected quantities across the menu."
+      },
+      "adjust_goals": {
+        "label": "Adjust to my goals",
+        "title": "Make this menu work for you.",
+        "description": "CookPilot can adjust quantities toward your nutrition goals while keeping the meal recognizable and coherent."
+      }
+    },
+    "day": {
+      "use_day": {
+        "label": "Use this day",
+        "title": "Make this day your starting point.",
+        "description": "Bring it into CookPlan as a real structure you can adjust and reuse without starting from scratch."
+      },
+      "edit_meals": {
+        "label": "Edit meals",
+        "title": "Change what you want from the day.",
+        "description": "Adjust meals, recipes, menus and servings while CookPilot keeps the rest of the plan connected."
+      },
+      "buy_day": {
+        "label": "Shop this day",
+        "title": "Turn an entire day into shopping.",
+        "description": "CookList gathers the ingredients across the day's meals and keeps their origin clear so you know what you need and why."
+      },
+      "save_day": {
+        "label": "Save day",
+        "title": "Save it to use again.",
+        "description": "Keep this day's structure reusable without tying it permanently to a specific date."
+      },
+      "adapt_day": {
+        "label": "Adapt this day",
+        "title": "Tell CookPilot what you want to change.",
+        "description": "Keep the meals you like and change the rest. CookMatch can reorganize the day from your intent without making you rebuild it."
+      }
+    },
+    "week": {
+      "use_week": {
+        "label": "Use this week",
+        "title": "Make this week your starting point.",
+        "description": "Bring it into CookPlan as a real structure you can adjust without placing every meal again."
+      },
+      "repeat_week": {
+        "label": "Repeat week",
+        "title": "A good week deserves another round.",
+        "description": "Reuse a structure that already works instead of rebuilding decisions you've already made."
+      },
+      "buy_week": {
+        "label": "Shop the week",
+        "title": "The whole week. One shopping list.",
+        "description": "CookList gathers what your meals need and turns it into one connected, understandable shopping list."
+      },
+      "save_template": {
+        "label": "Save template",
+        "title": "Save the structure that worked.",
+        "description": "Keep this week so you can reuse it later without tying it to the original dates."
+      },
+      "adapt_week": {
+        "label": "Adapt this week",
+        "title": "Reorganize it your way.",
+        "description": "Tell CookPilot what you want to keep, change or solve. CookMatch can work on specific days and meal moments without rebuilding what you already want to preserve."
+      }
+    },
+    "list": {
+      "use_list": {
+        "label": "Use this list",
+        "title": "Make this list yours.",
+        "description": "Bring it into CookList to review, edit and turn it into part of your real shopping flow."
+      },
+      "add_all_to_shopping": {
+        "label": "Add all to shopping",
+        "title": "Add it all to your shopping.",
+        "description": "Bring these ingredients into CookList and let them combine with the recipes, menus and lists you're already using."
+      },
+      "adjust_quantities": {
+        "label": "Adjust quantities",
+        "title": "Buy what you actually need.",
+        "description": "Change quantities and units before shopping without rebuilding the list from scratch."
+      },
+      "scan_shopping": {
+        "label": "Scan shopping",
+        "title": "From a photo to your list.",
+        "description": "Scan a list, screenshot, handwritten note or receipt and CookPilot turns the visible food items into an organized list ready to review."
+      }
+    },
+    "ingredient": {
+      "recipes_with_ingredient": {
+        "label": "See recipes with this",
+        "title": "Turn this ingredient into a meal.",
+        "description": "Find recipes that use it and take them into planning, shopping or cooking inside CookPilot."
+      },
+      "add_to_shopping": {
+        "label": "Add to shopping",
+        "title": "Don't leave it off the list.",
+        "description": "Add this ingredient to CookList, choose how much you need and keep it with the rest of your shopping."
+      },
+      "explore_in_cookpilot": {
+        "label": "Explore in CookPilot",
+        "title": "Keep going from here.",
+        "description": "Use this ingredient as a starting point to discover recipes and keep building a real meal inside CookPilot."
+      }
+    },
+    "category": {}
   },
   "download_experience": {
     "kicker": "Download CookPilot",
