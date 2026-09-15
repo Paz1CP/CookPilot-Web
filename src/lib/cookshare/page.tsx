@@ -20,10 +20,10 @@ const loadCookShareObject = cache(async (
   handle: string | null,
   slug: string,
 ) => {
-  // Public object pages are immutable enough for the shared 60s public cache.
-  // This keeps Gallery navigation from waiting on the resolver for every click
-  // while preserving a short revalidation window for newly published content.
-  const client = createSupabasePublicClient();
+  // Detail resolution must observe publication changes immediately. Gallery
+  // discovery keeps its own bounded cache, but object pages cannot reuse a
+  // stale null after an object is published or revoked.
+  const client = createSupabasePublicClient({ cache: "no-store" });
   const object = await resolvePublicObject({ locale, objectType, handle, slug }, client);
   return { object, client };
 });
