@@ -112,8 +112,36 @@
     "a5": "Está disponible en Google Play para la mayoría de dispositivos y Huawei."
   },
   "download": {
-    "title": "Descarga la aplicación",
-    "subtitle": "Toma el control total de tu alimentación desde tu celular."
+    "title": "OBTÉN LA EXPERIENCIA COMPLETA, EN COOKPILOT",
+    "subtitle": "Convierte lo que encuentras en una experiencia que realmente puedes llevar a tu cocina.",
+    "cta": "Descargar CookPilot",
+    "base_alt": "CookPilot listo para acompañarte en la cocina",
+    "slides": [
+      {
+        "title": "Crear mi versión",
+        "description": "Convierte cualquier receta en una versión hecha a tu manera."
+      },
+      {
+        "title": "Planear todo el mes",
+        "description": "Pasa de una comida suelta a días y semanas completas."
+      },
+      {
+        "title": "Traer recetas de donde sea",
+        "description": "Importa enlaces, fotos, videos y PDFs y conviértelos en recetas utilizables."
+      },
+      {
+        "title": "Comprar con claridad",
+        "description": "Convierte recetas y menús en compras claras, conectadas y listas para revisar."
+      },
+      {
+        "title": "Descubre cuánto cuesta",
+        "description": "Consulta precios y entiende cuánto podría costarte cocinar antes de comprar."
+      },
+      {
+        "title": "Cocinar con ayuda en vivo",
+        "description": "Recibe ayuda mientras cocinas, justo cuando más la necesitas."
+      }
+    ]
   },
   "public_object": {
     "nutrition_facts": "Datos nutricionales",

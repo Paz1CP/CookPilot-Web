@@ -1,5 +1,4 @@
 import { notFound, permanentRedirect } from "next/navigation";
-import { cache } from "react";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { createCookShareMetadata, createMissingCookShareMetadata } from "@/shared/config/metadata";
 import type { AppLocale } from "@/shared/config/routes";
@@ -14,7 +13,7 @@ type CookSharePageInput = {
   slug: string;
 };
 
-const loadCookShareObject = cache(async (
+const loadCookShareObject = async (
   locale: AppLocale,
   objectType: CookShareObjectType,
   handle: string | null,
@@ -26,7 +25,7 @@ const loadCookShareObject = cache(async (
   const client = createSupabasePublicClient({ cache: "no-store" });
   const object = await resolvePublicObject({ locale, objectType, handle, slug }, client);
   return { object, client };
-});
+};
 
 export async function getCookShareObject(input: CookSharePageInput) {
   return loadCookShareObject(input.locale, input.objectType, input.handle ?? null, input.slug);

@@ -16,13 +16,24 @@ const objectTypes = new Set<CookShareObjectType>([
   "category",
 ]);
 
+function decodeRouteParam(value: string | undefined) {
+  if (!value) return null;
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return null;
+  }
+}
+
 function normalizeSlug(value: string | undefined) {
-  const slug = value?.trim().toLowerCase() ?? "";
+  const decoded = decodeRouteParam(value);
+  const slug = decoded?.trim().toLowerCase() ?? "";
   return /^[a-z0-9][a-z0-9-]{0,63}$/.test(slug) ? slug : null;
 }
 
 function normalizeHandle(value: string | undefined) {
-  const handle = value?.trim().replace(/^@/, "").toLowerCase() ?? "";
+  const decoded = decodeRouteParam(value);
+  const handle = decoded?.trim().replace(/^@/, "").toLowerCase() ?? "";
   return /^[a-z0-9][a-z0-9._-]{2,29}$/.test(handle) ? handle : null;
 }
 
@@ -60,7 +71,7 @@ export async function resolvePublicObject(
       p_handle: handle ?? "",
       p_slug: slug,
     },
-    { get: true },
+    { get: false },
   );
 
   if (error || !data || typeof data !== "object") return null;

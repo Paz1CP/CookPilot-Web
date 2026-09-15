@@ -115,8 +115,36 @@
     "a5": "It is available in Google Play for most devices and Huawei."
   },
   "download": {
-    "title": "Download the App",
-    "subtitle": "Take full control of your nutrition from your Android device."
+    "title": "GET THE COMPLETE EXPERIENCE, IN COOKPILOT",
+    "subtitle": "Turn what you find into an experience you can actually bring to your kitchen.",
+    "cta": "Download CookPilot",
+    "base_alt": "CookPilot ready to join you in the kitchen",
+    "slides": [
+      {
+        "title": "Create my version",
+        "description": "Turn any recipe into a version made your way."
+      },
+      {
+        "title": "Plan the whole month",
+        "description": "Go from a single meal to complete days and weeks."
+      },
+      {
+        "title": "Bring recipes from anywhere",
+        "description": "Import links, photos, videos, and PDFs and turn them into usable recipes."
+      },
+      {
+        "title": "Shop with clarity",
+        "description": "Turn recipes and menus into clear, connected shopping lists ready to review."
+      },
+      {
+        "title": "See what it costs",
+        "description": "Check prices and understand what cooking might cost before you shop."
+      },
+      {
+        "title": "Cook with live help",
+        "description": "Get help while you cook, right when you need it."
+      }
+    ]
   },
   "public_object": {
     "nutrition_facts": "Nutrition facts",

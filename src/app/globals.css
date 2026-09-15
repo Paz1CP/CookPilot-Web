@@ -267,6 +267,7 @@ ul, ol {
 .cp-btn--primary {
   background: var(--cp-primary);
   color: var(--cp-dark);
+  letter-spacing: 0;
 }
 
 .cp-btn--primary:hover {
