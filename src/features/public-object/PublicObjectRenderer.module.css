@@ -60,7 +60,7 @@
 }
 
 .centeredHero .copy {
-  width: min(1040px, 100%);
+  width: 100%;
 }
 
 .centeredHero .copy h1,

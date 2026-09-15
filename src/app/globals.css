@@ -195,23 +195,27 @@ ul, ol {
   -webkit-backdrop-filter: blur(var(--cp-blur-24));
 }
 
-/* Shared glass treatment for floating navigation surfaces. */
+/* Shared liquid-glass treatment for the AppBar and contextual action dock. */
 .cp-appbar-glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1),
-    0 10px 30px rgba(0, 0, 0, 0.2);
+  background: rgb(8 0 0 / 8%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 42%),
+    inset 0 -1px 0 rgb(255 255 255 / 12%),
+    0 8px 24px rgb(8 0 0 / 18%);
+}
+
+.cp-appbar-glass--scrolled {
+  background: rgb(8 0 0 / 14%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 42%), 0 12px 28px rgb(8 0 0 / 22%);
 }
 
 [data-theme="light"] .cp-appbar-glass {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.7),
-    0 7px 20px rgba(0, 0, 0, 0.035);
+  background: rgb(255 255 255 / 12%);
+  border-color: rgb(255 255 255 / 48%);
+}
+
+[data-theme="light"] .cp-appbar-glass--scrolled {
+  background: rgb(255 255 255 / 18%);
 }
 
 /* ── Radius Scale ── */

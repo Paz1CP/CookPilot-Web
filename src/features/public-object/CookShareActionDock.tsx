@@ -17,9 +17,11 @@ import {
   TaskSquare,
 } from "iconsax-reactjs";
 import type { Icon } from "iconsax-reactjs";
+import { useEffect, useState } from "react";
 import { useLocale } from "@/contexts/LanguageContext";
 import type { CookShareObjectType } from "@/lib/cookshare/types";
 import { DownloadButton, type DownloadDialogContext } from "@/shared/download/DownloadExperience";
+import { useLiquidGlass } from "@/shared/ui/useLiquidGlass";
 import styles from "./CookShareActionDock.module.css";
 
 type ActionKey =
@@ -115,11 +117,28 @@ export default function CookShareActionDock({
   path: string;
 }) {
   const { t } = useLocale();
+  const [scrolled, setScrolled] = useState(false);
+  const liquidGlass = useLiquidGlass<HTMLElement>();
   const definitions = ACTIONS[objectType] ?? [];
+
+  useEffect(() => {
+    const updateScrollState = () => setScrolled(window.scrollY > 40);
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrollState);
+  }, []);
+
   if (!definitions.length) return null;
 
   return (
-    <nav className={`cp-appbar-glass ${styles.dock}`} aria-label={t.cookshare_action_dock.navigation_label}>
+    <>
+    {liquidGlass.filter}
+    <nav
+      ref={liquidGlass.ref}
+      className={`cp-appbar-glass ${scrolled ? "cp-appbar-glass--scrolled" : ""} ${styles.dock}`}
+      aria-label={t.cookshare_action_dock.navigation_label}
+      style={liquidGlass.style}
+    >
       {definitions.map(({ key, icon: ActionIcon, featured }) => {
         const copy = copyFor(t.cookshare_action_dock, objectType, key);
         if (!copy) return null;
@@ -138,5 +157,6 @@ export default function CookShareActionDock({
         );
       })}
     </nav>
+    </>
   );
 }

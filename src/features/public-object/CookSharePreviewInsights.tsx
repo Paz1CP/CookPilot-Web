@@ -35,6 +35,7 @@ export default function CookSharePreviewInsights({
           <DownloadButton
             key={key}
             className={objectType === "recipe" ? styles.chip : styles.card}
+            data-insight={objectType === "recipe" ? undefined : key}
             cookSharePath={path}
             downloadContext={{ title: item.modal_title, description: item.modal_description }}
             aria-label={`${item.label}. ${copy.open_hint}`}

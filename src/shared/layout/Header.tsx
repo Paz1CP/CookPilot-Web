@@ -10,6 +10,7 @@ import { useLocale } from "@/contexts/LanguageContext";
 import { usePathname } from "next/navigation";
 import { DownloadButton } from "@/shared/download/DownloadExperience";
 import { getLocalizedRoute } from "@/shared/config/routes";
+import { useLiquidGlass } from "@/shared/ui/useLiquidGlass";
 
 function getProScrollTop() {
   const section = document.getElementById("go-pro");
@@ -25,6 +26,7 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const liquidGlass = useLiquidGlass<HTMLElement>();
   const [theme, setTheme] = useState(() => {
     if (typeof document === "undefined") return "dark";
     return document.documentElement.getAttribute("data-theme") || "light";
@@ -85,8 +87,12 @@ export default function Header() {
   };
 
   return (
+    <>
+    {liquidGlass.filter}
     <motion.header
-      className={`cp-appbar-glass ${styles.header} ${scrolled ? styles.scrolled : ""}`}
+      ref={liquidGlass.ref}
+      className={`cp-appbar-glass ${scrolled ? "cp-appbar-glass--scrolled" : ""} ${styles.header}`}
+      style={liquidGlass.style}
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -167,5 +173,6 @@ export default function Header() {
         </div>
       </div>
     </motion.header>
+    </>
   );
 }
