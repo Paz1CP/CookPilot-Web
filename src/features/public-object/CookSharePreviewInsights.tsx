@@ -10,8 +10,8 @@ import styles from "./CookSharePreviewInsights.module.css";
 type InsightKey = "cost" | "time" | "nutrition";
 
 const insights: { key: InsightKey; image: string }[] = [
-  { key: "cost", image: "/icons/actions/lookup_prices.webp" },
-  { key: "time", image: "/icons/billing/cookmode_live.webp" },
+  { key: "cost", image: "/icons/actions/buying_1.webp" },
+  { key: "time", image: "/icons/actions/time.webp", },
   { key: "nutrition", image: "/icons/actions/nutrition.png" },
 ];
 
@@ -35,21 +35,23 @@ export default function CookSharePreviewInsights({
           <DownloadButton
             key={key}
             className={objectType === "recipe" ? styles.chip : styles.card}
-            data-insight={objectType === "recipe" ? undefined : key}
+            data-insight={key}
             cookSharePath={path}
             downloadContext={{ title: item.modal_title, description: item.modal_description }}
             aria-label={`${item.label}. ${copy.open_hint}`}
           >
-            <Image
-              src={image}
-              alt=""
-              width={objectType === "recipe" ? 28 : 256}
-              height={objectType === "recipe" ? 28 : 256}
-              sizes={objectType === "recipe" ? "28px" : "(max-width: 800px) 132px, 244px"}
-              quality={objectType === "recipe" ? 75 : 100}
-              unoptimized={objectType !== "recipe"}
-              className={styles.icon}
-            />
+            {objectType !== "recipe" ? (
+              <Image
+                src={image}
+                alt=""
+                width={256}
+                height={256}
+                sizes="(max-width: 800px) 132px, 244px"
+                quality={100}
+                unoptimized
+                className={styles.icon}
+              />
+            ) : null}
             <span className={styles.cardCopy}>
               <strong>{item.label}</strong>
               <span className={styles.blurred} aria-hidden="true">{objectType === "recipe" ? item.recipe_preview : item.card_preview}</span>

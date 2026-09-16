@@ -113,15 +113,22 @@
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .chip {
+  --insight-value-color: var(--cp-primary);
+  --insight-value-blur: 6px;
+  --insight-value-opacity: .4;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 7px 13px;
   border-radius: var(--cp-radius-pill);
+}
+
+.chip[data-insight="nutrition"] {
+  --insight-value-color: var(--cp-secondary);
 }
 
 .chip .cardCopy {
