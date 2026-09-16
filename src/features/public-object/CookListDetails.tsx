@@ -21,7 +21,7 @@ function textValue(value: unknown): string | null {
 }
 
 function localizedText(value: PublicRecord, locale: AppLocale, keys: [string, string]): string {
-  const preferred = locale === "en" ? keys : [keys[1], keys[0]];
+  const preferred = locale === "en" ? [keys[1], keys[0]] : keys;
   return preferred.map((key) => textValue(value[key])).find(Boolean) ?? (locale === "es" ? "Ingrediente" : "Ingredient");
 }
 

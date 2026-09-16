@@ -333,40 +333,46 @@
 }
 
 .listRecipeRail {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  display: flex;
+  overflow-x: auto;
   gap: 14px;
   margin-bottom: 34px;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
 }
 
 .listRecipeButton {
+  flex: 0 0 clamp(240px, 31vw, 380px);
   display: grid;
-  gap: 10px;
+  gap: 12px;
   min-width: 0;
-  padding: 10px;
-  border: 1px solid var(--cp-border-subtle);
+  padding: 12px;
+  border: 0;
   border-radius: var(--cp-card-radius);
   background: var(--cp-layer-raised);
   color: var(--cp-text-primary);
-  text-align: left;
+  text-align: center;
   cursor: pointer;
-  transition: border-color .2s ease, background-color .2s ease, transform .2s ease;
+  transition: background-color .2s ease, transform .2s ease;
 }
 
-.listRecipeButton:hover,
-.listRecipeButton:focus-visible {
-  border-color: var(--cp-primary);
+.listRecipeButton:hover {
   transform: translateY(-2px);
 }
 
+.listRecipeButton:focus-visible {
+  outline: 2px solid var(--cp-primary);
+  outline-offset: 3px;
+}
+
 .listRecipeButtonActive {
-  border-color: var(--cp-primary);
   background: var(--cp-layer-floating);
 }
 
 .listRecipeAll {
   display: grid;
-  min-height: 132px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   place-items: center;
   color: var(--cp-text-primary);
   font-size: 18px;
@@ -395,7 +401,10 @@
   font-weight: var(--cp-fw-medium);
   line-height: 1.2;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .listCategoryGroups {
@@ -499,7 +508,7 @@
   aspect-ratio: 16 / 9;
   margin: -18px -18px 14px;
   width: calc(100% + 36px);
-  border-radius: 17px 17px 0 0;
+  border-radius: 24px 24px 0 0;
   object-fit: cover;
 }
 
