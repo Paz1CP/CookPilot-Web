@@ -332,6 +332,110 @@
   margin-top: var(--cp-space-3);
 }
 
+.listRecipeRail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 14px;
+  margin-bottom: 34px;
+}
+
+.listRecipeButton {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--cp-border-subtle);
+  border-radius: var(--cp-card-radius);
+  background: var(--cp-layer-raised);
+  color: var(--cp-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease, transform .2s ease;
+}
+
+.listRecipeButton:hover,
+.listRecipeButton:focus-visible {
+  border-color: var(--cp-primary);
+  transform: translateY(-2px);
+}
+
+.listRecipeButtonActive {
+  border-color: var(--cp-primary);
+  background: var(--cp-layer-floating);
+}
+
+.listRecipeAll {
+  display: grid;
+  min-height: 132px;
+  place-items: center;
+  color: var(--cp-text-primary);
+  font-size: 18px;
+  font-weight: var(--cp-fw-semibold);
+}
+
+.listRecipeImage,
+.listRecipeImageFallback {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: calc(var(--cp-card-radius) - 6px);
+  object-fit: cover;
+  background: var(--cp-layer-floating);
+}
+
+.listRecipeImageFallback {
+  background: var(--cp-primary-gradient);
+}
+
+.listRecipeTitle {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--cp-text-primary);
+  font-size: 15px;
+  font-weight: var(--cp-fw-medium);
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.listCategoryGroups {
+  display: grid;
+  gap: 30px;
+}
+
+.listCategory {
+  display: grid;
+  gap: 12px;
+}
+
+.listCategoryHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--cp-border-subtle);
+}
+
+.listCategoryHeading h3 {
+  margin: 0;
+  color: var(--cp-text-secondary);
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: var(--cp-tracking-title);
+}
+
+.listCategoryIcon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.listCategory .ingredientList {
+  gap: 9px;
+}
+
 .compositeGroups {
   display: grid;
   gap: 26px;
