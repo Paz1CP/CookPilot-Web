@@ -37,12 +37,46 @@ function normalizeHandle(value: string | undefined) {
   return /^[a-z0-9][a-z0-9._-]{2,29}$/.test(handle) ? handle : null;
 }
 
+function contextualParentPath(
+  locale: AppLocale,
+  parentType: ContextualRecipeRouteInput["parentType"],
+  handle: string,
+  slug: string,
+) {
+  const segment = parentType === "menu"
+    ? "menus"
+    : parentType === "day"
+      ? locale === "es" ? "dias" : "days"
+      : parentType === "week"
+        ? locale === "es" ? "semanas" : "weeks"
+        : locale === "es" ? "listas" : "lists";
+  return `/${locale}/@${handle}/${segment}/${slug}`;
+}
+
 export interface PublicObjectRouteInput {
   locale: AppLocale;
   objectType: CookShareObjectType;
   handle?: string | null;
   slug: string;
 }
+
+export interface ContextualRecipeRouteInput {
+  locale: AppLocale;
+  parentType: Extract<CookShareObjectType, "menu" | "day" | "week" | "list">;
+  parentHandle: string;
+  parentSlug: string;
+  recipeSlug: string;
+}
+
+type ContextualRecipePayload = CookShareResolvedObject & {
+  context?: {
+    parent_type?: string;
+    parent_canonical_path?: string;
+    requested_recipe_slug?: string;
+    recipe_slug?: string;
+    is_recipe_alias?: boolean;
+  };
+};
 
 function stripInternalIdentifiers(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(stripInternalIdentifiers);
@@ -76,6 +110,51 @@ export async function resolvePublicObject(
 
   if (error || !data || typeof data !== "object") return null;
   return stripInternalIdentifiers(data) as CookShareResolvedObject;
+}
+
+export async function resolveContextualRecipe(
+  input: ContextualRecipeRouteInput,
+  client?: SupabaseClient,
+): Promise<{ object: CookShareResolvedObject; canonicalPath: string; isAlias: boolean } | null> {
+  const parentHandle = normalizeHandle(input.parentHandle);
+  const parentSlug = normalizeSlug(input.parentSlug);
+  const recipeSlug = normalizeSlug(input.recipeSlug);
+  if (!parentHandle || !parentSlug || !recipeSlug) return null;
+
+  const supabase = client ?? createSupabasePublicClient();
+  const { data, error } = await supabase.schema("home").rpc(
+    "rpc_resolve_cookshare_contextual_recipe",
+    {
+      p_parent_type: input.parentType,
+      p_parent_handle: parentHandle,
+      p_parent_slug: parentSlug,
+      p_recipe_slug: recipeSlug,
+      p_locale: input.locale,
+    },
+    { get: false },
+  );
+  if (error || !data || typeof data !== "object") return null;
+
+  const payload = stripInternalIdentifiers(data) as ContextualRecipePayload;
+  const parentPath = payload.context?.parent_canonical_path;
+  const canonicalRecipeSlug = normalizeSlug(payload.context?.recipe_slug);
+  if (payload.object_type !== "recipe" || !payload.identity || !parentPath || !canonicalRecipeSlug) return null;
+
+  const recipeSegment = input.locale === "es" ? "recetas" : "recipes";
+  const canonicalPath = `${parentPath}/${recipeSegment}/${canonicalRecipeSlug}`;
+  return {
+    object: {
+      ...payload,
+      identity: {
+        ...payload.identity,
+        canonical_path: canonicalPath,
+        is_alias: false,
+      },
+    },
+    canonicalPath,
+    isAlias: parentPath !== contextualParentPath(input.locale, input.parentType, parentHandle, parentSlug)
+      || payload.context?.is_recipe_alias === true,
+  };
 }
 
 export function publicTitle(object: CookShareResolvedObject, locale: AppLocale) {

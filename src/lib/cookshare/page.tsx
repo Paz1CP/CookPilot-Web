@@ -3,7 +3,7 @@ import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { createCookShareMetadata, createMissingCookShareMetadata } from "@/shared/config/metadata";
 import type { AppLocale } from "@/shared/config/routes";
 import type { CookShareObjectType, CookShareResolvedObject } from "./types";
-import { resolvePublicObject } from "./resolver";
+import { resolveContextualRecipe, resolvePublicObject, type ContextualRecipeRouteInput } from "./resolver";
 import PublicObjectRenderer from "@/features/public-object/PublicObjectRenderer";
 
 type CookSharePageInput = {
@@ -50,4 +50,19 @@ export async function metadataForCookShareObject(input: CookSharePageInput) {
       ? alternate
       : null,
   });
+}
+
+export async function renderContextualCookShareRecipe(input: ContextualRecipeRouteInput) {
+  const client = createSupabasePublicClient({ cache: "no-store" });
+  const resolved = await resolveContextualRecipe(input, client);
+  if (!resolved) notFound();
+  if (resolved.isAlias) permanentRedirect(resolved.canonicalPath);
+  return <PublicObjectRenderer object={resolved.object} locale={input.locale} />;
+}
+
+export async function metadataForContextualCookShareRecipe(input: ContextualRecipeRouteInput) {
+  const client = createSupabasePublicClient({ cache: "no-store" });
+  const resolved = await resolveContextualRecipe(input, client);
+  if (!resolved) return createMissingCookShareMetadata(input.locale);
+  return createCookShareMetadata(resolved.object, input.locale, { noindex: true });
 }

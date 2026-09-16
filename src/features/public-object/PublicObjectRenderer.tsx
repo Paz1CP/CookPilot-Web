@@ -213,7 +213,136 @@ function IngredientNutrition({ object, locale }: { object: CookShareResolvedObje
   );
 }
 
+type PublicComponent = Record<string, unknown>;
+
+function publicComponents(value: unknown): PublicComponent[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is PublicComponent => Boolean(item) && typeof item === "object" && !Array.isArray(item))
+    : [];
+}
+
+function publicComponent(value: unknown): PublicComponent | null {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? value as PublicComponent
+    : null;
+}
+
+function componentText(component: PublicComponent, keys: string[]) {
+  for (const key of keys) {
+    const value = component[key];
+    if (typeof value === "string" && value.trim()) return value;
+    if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  }
+  return null;
+}
+
+function contextualRecipePath(
+  component: PublicComponent,
+  parentPath: string,
+  locale: AppLocale,
+) {
+  const directPath = componentText(component, ["recipe_canonical_path"]);
+  if (directPath?.startsWith("/")) return directPath;
+  const identity = component.identity;
+  const identitySlug = identity && typeof identity === "object" && !Array.isArray(identity)
+    ? componentText(identity as PublicComponent, ["slug"])
+    : null;
+  const slug = componentText(component, ["recipe_slug"]) ?? identitySlug;
+  if (!slug || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(slug)) return null;
+  return `${parentPath}/${locale === "es" ? "recetas" : "recipes"}/${slug}`;
+}
+
+function RecipeCardGrid({
+  components,
+  locale,
+  parentPath,
+}: {
+  components: PublicComponent[];
+  locale: AppLocale;
+  parentPath: string;
+}) {
+  if (!components.length) return null;
+  return (
+    <div className={styles.componentGrid}>
+      {components.map((component, index) => {
+        const title = componentText(component, locale === "en" ? ["title_en", "title", "name"] : ["title", "name", "title_en"])
+          ?? (locale === "es" ? `Receta ${index + 1}` : `Recipe ${index + 1}`);
+        const href = contextualRecipePath(component, parentPath, locale);
+        const image = mediaUrl(component.image_url);
+        const time = component.time && typeof component.time === "object" && !Array.isArray(component.time)
+          ? componentText(component.time as PublicComponent, ["total_minutes"])
+          : null;
+        const content = (
+          <>
+            {image ? <img src={image} alt="" loading="lazy" decoding="async" className={styles.componentImage} /> : null}
+            <span className={styles.componentType}>{objectTypeLabel("recipe", locale)}</span>
+            <h3>{title}</h3>
+            {time ? <p>{time} min</p> : null}
+          </>
+        );
+        const key = `${href ?? title}-${index}`;
+        return href
+          ? <Link href={href} key={key} className={styles.componentCard}>{content}</Link>
+          : <article key={key} className={styles.componentCard}>{content}</article>;
+      })}
+    </div>
+  );
+}
+
+function LiveCompositeSection({ object, locale }: { object: CookShareResolvedObject; locale: AppLocale }) {
+  if (!(["menu", "day", "week"] as const).includes(object.object_type as "menu" | "day" | "week")) return null;
+  const parentPath = object.identity.canonical_path;
+  if (object.object_type === "menu") {
+    const components = publicComponents(object.components);
+    if (!components.length) return null;
+    return (
+      <section className={styles.components} aria-labelledby="object-content-title">
+        <div className={styles.sectionHeading}><h2 id="object-content-title">{locale === "es" ? "Recetas" : "Recipes"}</h2></div>
+        <RecipeCardGrid components={components} locale={locale} parentPath={parentPath} />
+      </section>
+    );
+  }
+
+  const dayGroups = object.object_type === "day"
+    ? publicComponents(object.slots).flatMap((slot, index) => {
+        const menu = publicComponent(slot.menu);
+        return menu ? [{
+        label: componentText(slot, ["custom_label", "slot_key"]) ?? (locale === "es" ? `Momento ${index + 1}` : `Meal ${index + 1}`),
+        menu,
+        }] : [];
+      })
+    : publicComponents(object.days).flatMap((day, dayIndex) => publicComponents(day.slots).flatMap((slot, slotIndex) => {
+        const menu = publicComponent(slot.menu);
+        return menu ? [{
+        label: `${locale === "es" ? "Día" : "Day"} ${dayIndex + 1} · ${componentText(slot, ["custom_label", "slot_key"]) ?? (locale === "es" ? `Momento ${slotIndex + 1}` : `Meal ${slotIndex + 1}`)}`,
+        menu,
+        }] : [];
+      }));
+  const groups = dayGroups.map((group) => ({
+    label: group.label,
+    title: componentText(group.menu, locale === "en" ? ["title_en", "title"] : ["title", "title_en"]),
+    components: publicComponents(group.menu.components),
+  })).filter((group) => group.components.length);
+  if (!groups.length) return null;
+  return (
+    <section className={styles.components} aria-labelledby="object-content-title">
+      <div className={styles.sectionHeading}><h2 id="object-content-title">{locale === "es" ? "Plan" : "Plan"}</h2></div>
+      <div className={styles.compositeGroups}>
+        {groups.map((group, index) => (
+          <section key={`${group.label}-${index}`} className={styles.compositeGroup}>
+            <p className={styles.compositeLabel}>{group.label}</p>
+            {group.title ? <h3 className={styles.compositeTitle}>{group.title}</h3> : null}
+            <RecipeCardGrid components={group.components} locale={locale} parentPath={parentPath} />
+          </section>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ComponentSection({ object, locale }: { object: CookShareResolvedObject; locale: AppLocale }) {
+  const liveComposite = LiveCompositeSection({ object, locale });
+  if (liveComposite) return liveComposite;
   const components = Array.isArray(object.components) ? object.components.filter((value): value is CookShareResolvedObject => Boolean(value && typeof value === "object")) : [];
   const recipes = Array.isArray(object.recipes) ? object.recipes.filter((value): value is CookShareResolvedObject => Boolean(value && typeof value === "object")) : [];
   const isIngredient = object.object_type === "ingredient";

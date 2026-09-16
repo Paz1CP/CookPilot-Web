@@ -332,6 +332,36 @@
   margin-top: var(--cp-space-3);
 }
 
+.compositeGroups {
+  display: grid;
+  gap: 26px;
+}
+
+.compositeGroup {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--cp-border-subtle);
+  border-radius: var(--cp-card-radius);
+  background: var(--cp-layer-raised);
+}
+
+.compositeLabel {
+  margin: 0;
+  color: var(--cp-primary);
+  font-size: 12px;
+  font-weight: var(--cp-fw-semibold);
+  letter-spacing: var(--cp-tracking-label);
+  text-transform: uppercase;
+}
+
+.compositeTitle {
+  margin: 0;
+  color: var(--cp-text-primary);
+  font-size: clamp(20px, 2.5vw, 28px);
+  line-height: 1.1;
+}
+
 .componentGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -358,6 +388,15 @@
   color: var(--cp-text-primary);
   font-size: 18px;
   line-height: 1.12;
+}
+
+.componentImage {
+  display: block;
+  aspect-ratio: 16 / 9;
+  margin: -18px -18px 14px;
+  width: calc(100% + 36px);
+  border-radius: 17px 17px 0 0;
+  object-fit: cover;
 }
 
 .componentCard p {
