@@ -213,6 +213,94 @@ function IngredientNutrition({ object, locale }: { object: CookShareResolvedObje
   );
 }
 
+type PublicListItem = Record<string, unknown>;
+
+function publicListItems(value: unknown): PublicListItem[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is PublicListItem => Boolean(item) && typeof item === "object" && !Array.isArray(item))
+    : [];
+}
+
+function listItemLabel(item: PublicListItem, locale: AppLocale) {
+  const preferred = locale === "en" ? ["name_en", "name"] : ["name", "name_en"];
+  for (const key of preferred) {
+    const value = item[key];
+    if (typeof value === "string" && value.trim()) return value;
+  }
+  return locale === "es" ? "Ingrediente" : "Ingredient";
+}
+
+function ListItems({ items, locale }: { items: PublicListItem[]; locale: AppLocale }) {
+  if (!items.length) {
+    return <p className={styles.muted}>{locale === "es" ? "No hay ingredientes en esta lista." : "This list has no ingredients."}</p>;
+  }
+  return (
+    <ul className={styles.ingredientList}>
+      {items.map((item, index) => {
+        const quantity = item.quantity;
+        const unit = typeof item.unit === "string" ? item.unit : "";
+        const amount = quantity === null || quantity === undefined
+          ? ""
+          : `${String(quantity)}${unit ? ` ${unit}` : ""}`;
+        return (
+          <li key={`${listItemLabel(item, locale)}-${index}`}>
+            <strong>{listItemLabel(item, locale)}</strong>
+            {amount ? <span>{amount}</span> : null}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function CookListDetails({ object, locale }: { object: CookShareResolvedObject; locale: AppLocale }) {
+  const groups = publicListItems(object.groups);
+  const flatItems = publicListItems(object.items);
+  const images = Array.isArray(object.images)
+    ? object.images.map(mediaUrl).filter((value): value is string => Boolean(value))
+    : [];
+  const isGrouped = groups.length > 0;
+  return (
+    <section className={styles.components} aria-labelledby="list-content-title">
+      <div className={styles.sectionHeading}>
+        <h2 id="list-content-title">{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+      </div>
+      {images.length ? (
+        <div className={styles.componentGrid} aria-label={locale === "es" ? "Imágenes" : "Images"}>
+          {images.slice(0, 8).map((image, index) => (
+            <img key={`${image}-${index}`} src={image} alt="" loading="lazy" decoding="async" className={styles.componentImage} />
+          ))}
+        </div>
+      ) : null}
+      {isGrouped ? (
+        <div className={styles.compositeGroups}>
+          {groups.map((group, index) => {
+            const title = locale === "en"
+              ? (typeof group.title_en === "string" && group.title_en.trim() ? group.title_en : group.title)
+              : (typeof group.title === "string" && group.title.trim() ? group.title : group.title_en);
+            const groupImages = Array.isArray(group.image_urls)
+              ? group.image_urls.map(mediaUrl).filter((value): value is string => Boolean(value))
+              : [];
+            return (
+              <section key={`${title ?? "group"}-${index}`} className={styles.compositeGroup}>
+                {typeof title === "string" && title.trim() ? <h3 className={styles.compositeTitle}>{title}</h3> : null}
+                {groupImages.length ? (
+                  <div className={styles.componentGrid}>
+                    {groupImages.slice(0, 8).map((image, imageIndex) => (
+                      <img key={`${image}-${imageIndex}`} src={image} alt="" loading="lazy" decoding="async" className={styles.componentImage} />
+                    ))}
+                  </div>
+                ) : null}
+                <ListItems items={publicListItems(group.items)} locale={locale} />
+              </section>
+            );
+          })}
+        </div>
+      ) : <ListItems items={flatItems} locale={locale} />}
+    </section>
+  );
+}
+
 type PublicComponent = Record<string, unknown>;
 
 function publicComponents(value: unknown): PublicComponent[] {
@@ -439,7 +527,7 @@ export default function PublicObjectRenderer({
         <CookShareActionDock objectType={object.object_type} path={canonicalPath} />
         {recipe ? <RecipeDetails recipe={recipe} locale={locale} /> : null}
         {isIngredient ? <IngredientNutrition object={object} locale={locale} /> : null}
-        <ComponentSection object={object} locale={locale} />
+        {object.object_type === "list" ? <CookListDetails object={object} locale={locale} /> : <ComponentSection object={object} locale={locale} />}
       </div>
       <EditorialClosing />
     </main>
