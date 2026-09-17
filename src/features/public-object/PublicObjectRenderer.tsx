@@ -9,6 +9,8 @@ import type { CookShareResolvedObject, GalleryCard, IngredientNutritionProjectio
 import { parseInlineMarkdown } from "@/lib/cookshare/inline-markdown";
 import siteEn from "@/locales/en.json";
 import siteEs from "@/locales/es.json";
+import galleryEn from "@/locales/gallery.en.json";
+import galleryEs from "@/locales/gallery.es.json";
 import GalleryReturnLink from "./GalleryReturnLink";
 import GalleryCardView from "../gallery/GalleryCardView";
 import ShareActions from "./ShareActions";
@@ -46,6 +48,10 @@ type PublicObjectCopy = {
 
 function publicObjectCopy(locale: AppLocale): PublicObjectCopy {
   return (locale === "es" ? siteEs.public_object : siteEn.public_object) as PublicObjectCopy;
+}
+
+function publicGalleryCopy(locale: AppLocale) {
+  return locale === "es" ? galleryEs : galleryEn;
 }
 
 function numberValue(value: unknown) {
@@ -229,6 +235,26 @@ function componentText(component: PublicComponent, keys: string[]) {
   return null;
 }
 
+function mealMomentLabel(slot: PublicComponent, locale: AppLocale) {
+  const slotKey = componentText(slot, ["slot_key"])?.trim().toLowerCase();
+  const options = publicGalleryCopy(locale).mealOptions as Record<string, string>;
+  return (slotKey ? options[slotKey] : null)
+    ?? componentText(slot, ["custom_label"])
+    ?? publicGalleryCopy(locale).meal;
+}
+
+function dayLabel(dayIndex: number, locale: AppLocale) {
+  return publicGalleryCopy(locale).dayLabel.replace("{number}", String(dayIndex + 1));
+}
+
+function objectArray(object: PublicComponent, key: string) {
+  return publicComponents(object[key]);
+}
+
+function objectRecord(object: PublicComponent, key: string) {
+  return publicComponent(object[key]);
+}
+
 function contextualRecipePath(
   component: PublicComponent,
   parentPath: string,
@@ -268,7 +294,6 @@ function RecipeCardGrid({
         const content = (
           <>
             {image ? <img src={image} alt="" loading="lazy" decoding="async" className={styles.componentImage} /> : null}
-            <span className={styles.componentType}>{objectTypeLabel("recipe", locale)}</span>
             <h3>{title}</h3>
             {time ? <p>{time} min</p> : null}
           </>
@@ -296,11 +321,50 @@ function LiveCompositeSection({ object, locale }: { object: CookShareResolvedObj
     );
   }
 
+  if (object.object_type === "week") {
+    const structure = objectRecord(object, "structure");
+    const directDays = objectArray(object, "days");
+    const days = directDays.length ? directDays : objectArray(structure ?? {}, "days");
+    const dayGroups = days.map((day, dayIndex) => ({
+      label: dayLabel(dayIndex, locale),
+      menus: objectArray(day, "slots").flatMap((slot) => {
+        const menu = publicComponent(slot.menu);
+        return menu ? [{ label: mealMomentLabel(slot, locale), menu }] : [];
+      }),
+    })).filter((day) => day.menus.length);
+    if (!dayGroups.length) return null;
+    return (
+      <section className={styles.components} aria-labelledby="object-content-title">
+        <div className={styles.sectionHeading}><h2 id="object-content-title">{publicGalleryCopy(locale).plan}</h2></div>
+        <div className={styles.weekDays}>
+          {dayGroups.map((day) => (
+            <section key={day.label} className={styles.weekDay}>
+              <h3 className={styles.weekDayLabel}>{day.label}</h3>
+              <div className={styles.weekDayMenus}>
+                {day.menus.map((group, index) => {
+                  const components = publicComponents(group.menu.components);
+                  const title = componentText(group.menu, locale === "en" ? ["title_en", "title"] : ["title", "title_en"]);
+                  return components.length ? (
+                    <article key={`${group.label}-${index}`} className={styles.compositeGroup}>
+                      <p className={styles.compositeLabel}>{group.label}</p>
+                      {title ? <h4 className={styles.compositeTitle}>{title}</h4> : null}
+                      <RecipeCardGrid components={components} locale={locale} parentPath={parentPath} />
+                    </article>
+                  ) : null;
+                })}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   const dayGroups = object.object_type === "day"
     ? publicComponents(object.slots).flatMap((slot, index) => {
         const menu = publicComponent(slot.menu);
         return menu ? [{
-        label: componentText(slot, ["custom_label", "slot_key"]) ?? (locale === "es" ? `Momento ${index + 1}` : `Meal ${index + 1}`),
+        label: mealMomentLabel(slot, locale),
         menu,
         }] : [];
       })
@@ -319,7 +383,7 @@ function LiveCompositeSection({ object, locale }: { object: CookShareResolvedObj
   if (!groups.length) return null;
   return (
     <section className={styles.components} aria-labelledby="object-content-title">
-      <div className={styles.sectionHeading}><h2 id="object-content-title">{locale === "es" ? "Plan" : "Plan"}</h2></div>
+      <div className={styles.sectionHeading}><h2 id="object-content-title">{publicGalleryCopy(locale).plan}</h2></div>
       <div className={styles.compositeGroups}>
         {groups.map((group, index) => (
           <section key={`${group.label}-${index}`} className={styles.compositeGroup}>
@@ -348,20 +412,22 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
   if (!recipeCards.length && !otherValues.length) return null;
   const heading = object.object_type === "category"
     ? locale === "es" ? "Recetas de esta categoría" : "Recipes in this category"
-    : locale === "es" ? "Contenido" : "Content";
+    : "";
   return (
     <section className={styles.components} aria-labelledby="object-content-title">
-      <div className={`${styles.sectionHeading} ${isIngredient ? styles.sectionHeadingWithAction : ""}`}>
-        <h2 id="object-content-title">{isIngredient ? publicObjectCopy(locale).recipes_for_ingredient : heading}</h2>
-        {isIngredient ? <Link href={ingredientGalleryHref(object, locale)} className={styles.sectionAction}>{publicObjectCopy(locale).view_more}</Link> : null}
-      </div>
+      {isIngredient || heading ? (
+        <div className={`${styles.sectionHeading} ${isIngredient ? styles.sectionHeadingWithAction : ""}`}>
+          <h2 id="object-content-title">{isIngredient ? publicObjectCopy(locale).recipes_for_ingredient : heading}</h2>
+          {isIngredient ? <Link href={ingredientGalleryHref(object, locale)} className={styles.sectionAction}>{publicObjectCopy(locale).view_more}</Link> : null}
+        </div>
+      ) : null}
       <div className={styles.componentGrid}>
         {recipeCards.map((card, index) => (
           <GalleryCardView key={card.href} card={card} locale={locale} index={index} />
         ))}
         {otherValues.map((component, index) => {
           const identity = component.identity;
-          const title = component.title ?? component.name ?? `${heading} ${index + 1}`;
+          const title = component.title ?? component.name ?? `${objectTypeLabel(component.object_type, locale)} ${index + 1}`;
           const content = (
             <>
               <span className={styles.componentType}>{objectTypeLabel(component.object_type, locale)}</span>

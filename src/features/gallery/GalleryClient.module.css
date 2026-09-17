@@ -234,20 +234,20 @@
 
 .media {
   position: relative;
-  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--cp-primary-gradient);
 }
 
 .media img,
 .fallback {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
 .fallback {
   display: grid;
+  min-height: 240px;
   place-items: center;
   color: var(--cp-dark);
   font-size: 20px;
@@ -258,14 +258,6 @@
   display: grid;
   gap: 8px;
   padding: 18px;
-}
-
-.type {
-  color: var(--cp-primary);
-  font-size: 12px;
-  font-weight: var(--cp-fw-semibold);
-  letter-spacing: var(--cp-tracking-label);
-  text-transform: uppercase;
 }
 
 .body h2 {

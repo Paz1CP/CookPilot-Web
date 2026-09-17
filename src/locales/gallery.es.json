@@ -64,6 +64,8 @@
   "removeIngredient": "Quitar ingrediente",
   "contextSearchOnly": "Este tipo se explora por texto; sus filtros específicos aparecerán cuando correspondan.",
   "brand": "CookPilot",
+  "plan": "Plan",
+  "dayLabel": "D\u00eda {number}",
   "mealOptions": {
     "breakfast": "Desayuno",
     "morning_snack": "Media mañana",

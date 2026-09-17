@@ -338,7 +338,18 @@
   gap: 14px;
   margin-bottom: 34px;
   padding-bottom: 4px;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.listRecipeRail::-webkit-scrollbar {
+  display: none;
+}
+
+.listRecipeRailDragging {
+  cursor: grabbing;
 }
 
 .listRecipeButton {
@@ -405,6 +416,56 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.listMenuControls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 34px;
+}
+
+.listMenuAllButton {
+  min-width: 180px;
+  padding: 14px 26px;
+  border: 0;
+  border-radius: var(--cp-radius-pill);
+  background: var(--cp-layer-raised);
+  color: var(--cp-text-primary);
+  font-size: 18px;
+  font-weight: var(--cp-fw-semibold);
+  cursor: pointer;
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.listMenuAllButton:hover {
+  transform: translateY(-2px);
+}
+
+.listMenuAllButton:focus-visible {
+  outline: 2px solid var(--cp-primary);
+  outline-offset: 3px;
+}
+
+.listMenuAllButtonActive {
+  background: var(--cp-layer-floating);
+}
+
+.listMenuSections {
+  display: grid;
+  gap: 58px;
+}
+
+.listMenuSection {
+  display: grid;
+  gap: 16px;
+}
+
+.listMenuSection .sectionHeading {
+  margin-bottom: 0;
+}
+
+.listMenuSection .listRecipeRail {
+  margin-bottom: 8px;
 }
 
 .listCategoryGroups {
@@ -505,17 +566,39 @@
 
 .componentImage {
   display: block;
-  aspect-ratio: 16 / 9;
   margin: -18px -18px 14px;
   width: calc(100% + 36px);
+  height: auto;
   border-radius: 24px 24px 0 0;
-  object-fit: cover;
 }
 
 .componentCard p {
   margin: 0;
   color: var(--cp-text-primary);
   font-size: 14px;
+}
+
+.weekDays {
+  display: grid;
+  gap: 34px;
+}
+
+.weekDay {
+  display: grid;
+  gap: 14px;
+}
+
+.weekDayLabel {
+  margin: 0;
+  color: var(--cp-text-primary);
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1;
+  letter-spacing: var(--cp-tracking-title);
+}
+
+.weekDayMenus {
+  display: grid;
+  gap: 18px;
 }
 
 @media (max-width: 840px) {

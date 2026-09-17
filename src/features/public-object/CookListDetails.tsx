@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- public media is validated against the Cloudflare host */
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import type { AppLocale } from "@/shared/config/routes";
 import type { CookShareResolvedObject } from "@/lib/cookshare/types";
 import { mediaUrl } from "@/lib/cookshare/media";
@@ -25,6 +25,11 @@ function localizedText(value: PublicRecord, locale: AppLocale, keys: [string, st
   return preferred.map((key) => textValue(value[key])).find(Boolean) ?? (locale === "es" ? "Ingrediente" : "Ingredient");
 }
 
+function localizedOptional(value: PublicRecord, locale: AppLocale, keys: [string, string]): string | null {
+  const preferred = locale === "en" ? [keys[1], keys[0]] : keys;
+  return preferred.map((key) => textValue(value[key])).find(Boolean) ?? null;
+}
+
 function recipeKey(value: PublicRecord, index: number): string {
   return textValue(value.key) ?? `recipe-${index}-${textValue(value.title) ?? "item"}`;
 }
@@ -34,6 +39,7 @@ type RecipeCard = {
   title: string;
   image: string | null;
   items: PublicRecord[];
+  menuKey?: string;
 };
 
 function recipeCards(value: unknown, locale: AppLocale): RecipeCard[] {
@@ -80,6 +86,135 @@ function groupedItems(items: PublicRecord[], locale: AppLocale) {
     }));
 }
 
+function mergedItems(items: PublicRecord[]): PublicRecord[] {
+  const merged = new Map<string, PublicRecord>();
+  for (const item of items) {
+    const name = textValue(item.name) ?? textValue(item.name_en) ?? "ingredient";
+    const unit = textValue(item.unit) ?? "";
+    const category = item.category && typeof item.category === "object" && !Array.isArray(item.category)
+      ? textValue((item.category as PublicRecord).name) ?? "other"
+      : "other";
+    const key = `${name.toLocaleLowerCase()}|${unit.toLocaleLowerCase()}|${category.toLocaleLowerCase()}`;
+    const quantity = typeof item.quantity === "number" ? item.quantity : Number(item.quantity);
+    const current = merged.get(key);
+    if (!current) {
+      merged.set(key, { ...item, quantity: Number.isFinite(quantity) ? quantity : 0 });
+      continue;
+    }
+    const currentQuantity = typeof current.quantity === "number" ? current.quantity : Number(current.quantity);
+    current.quantity = (Number.isFinite(currentQuantity) ? currentQuantity : 0) + (Number.isFinite(quantity) ? quantity : 0);
+  }
+  return [...merged.values()];
+}
+
+type MenuSection = {
+  key: string;
+  title: string;
+  cards: RecipeCard[];
+  items: PublicRecord[];
+};
+
+function menuSections(groups: PublicRecord[], locale: AppLocale): MenuSection[] {
+  const sections = new Map<string, MenuSection>();
+  groups.forEach((group, index) => {
+    const key = textValue(group.menu_key) ?? `menu-${index}`;
+    const title = localizedOptional(group, locale, ["menu_title", "menu_title_en"])
+      ?? localizedText(group, locale, ["title", "title_en"]);
+    const cards = recipeCards([group], locale).map((card) => ({ ...card, menuKey: key }));
+    const current = sections.get(key) ?? { key, title, cards: [], items: [] };
+    current.cards.push(...cards);
+    current.items.push(...records(group.items));
+    sections.set(key, current);
+  });
+  return [...sections.values()].map((section) => ({
+    ...section,
+    cards: section.cards.filter((card, index, cards) => cards.findIndex((candidate) => candidate.key === card.key) === index),
+    items: mergedItems(section.items),
+  }));
+}
+
+function RecipeRail({
+  cards,
+  selectedKey,
+  includeAll,
+  allActive,
+  onSelect,
+  locale,
+}: {
+  cards: RecipeCard[];
+  selectedKey: string | null;
+  includeAll?: boolean;
+  allActive?: boolean;
+  onSelect: (key: string | null) => void;
+  locale: AppLocale;
+}) {
+  const railRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef({ pointerId: -1, startX: 0, startScrollLeft: 0, moved: false, suppressClick: false });
+  const [dragging, setDragging] = useState(false);
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const rail = railRef.current;
+    if (!rail) return;
+    dragRef.current = { pointerId: event.pointerId, startX: event.clientX, startScrollLeft: rail.scrollLeft, moved: false, suppressClick: false };
+    setDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const state = dragRef.current;
+    const rail = railRef.current;
+    if (!rail || state.pointerId !== event.pointerId) return;
+    const distance = event.clientX - state.startX;
+    if (Math.abs(distance) > 6) state.moved = true;
+    if (state.moved) {
+      event.preventDefault();
+      rail.scrollLeft = state.startScrollLeft - distance;
+    }
+  };
+
+  const handlePointerEnd = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const state = dragRef.current;
+    if (state.pointerId !== event.pointerId) return;
+    state.suppressClick = state.moved;
+    state.pointerId = -1;
+    setDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
+  const handleClickCapture = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (!dragRef.current.suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+    dragRef.current.suppressClick = false;
+  };
+
+  return (
+    <div
+      ref={railRef}
+      className={`${styles.listRecipeRail} ${dragging ? styles.listRecipeRailDragging : ""}`}
+      aria-label={locale === "es" ? "Recetas de esta lista" : "Recipes in this list"}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerEnd}
+      onPointerCancel={handlePointerEnd}
+      onClickCapture={handleClickCapture}
+    >
+      {includeAll ? (
+        <button type="button" className={`${styles.listRecipeButton} ${styles.listRecipeButtonAll} ${allActive ? styles.listRecipeButtonActive : ""}`} aria-pressed={allActive} onClick={() => onSelect(null)}>
+          <span className={styles.listRecipeAll}>{locale === "es" ? "Todos" : "All"}</span>
+        </button>
+      ) : null}
+      {cards.map((card, index) => (
+        <button key={card.key} type="button" className={`${styles.listRecipeButton} ${selectedKey === card.key ? styles.listRecipeButtonActive : ""}`} aria-pressed={selectedKey === card.key} onClick={() => onSelect(card.key)}>
+          {card.image ? <img src={card.image} alt="" loading={index === 0 ? "eager" : "lazy"} decoding="async" draggable="false" className={styles.listRecipeImage} /> : <span className={styles.listRecipeImageFallback} aria-hidden="true" />}
+          <span className={styles.listRecipeTitle}>{card.title}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function IngredientRows({ items, locale }: { items: PublicRecord[]; locale: AppLocale }) {
   if (!items.length) {
     return <p className={styles.muted}>{locale === "es" ? "No hay ingredientes en esta lista." : "This list has no ingredients."}</p>;
@@ -112,26 +247,66 @@ function IngredientRows({ items, locale }: { items: PublicRecord[]; locale: AppL
 
 export default function CookListDetails({ object, locale }: { object: CookShareResolvedObject; locale: AppLocale }) {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
+  const [showAllMenus, setShowAllMenus] = useState(false);
   const groups = useMemo(() => records(object.recipe_groups).length ? records(object.recipe_groups) : records(object.groups), [object.groups, object.recipe_groups]);
   const cards = useMemo(() => recipeCards(groups, locale), [groups, locale]);
   const flatItems = useMemo(() => records(object.items), [object.items]);
+  const mode = textValue(object.mode) ?? "all";
+  const menus = useMemo(() => menuSections(groups, locale), [groups, locale]);
   const selected = selectedKey ? cards.find((card) => card.key === selectedKey) ?? null : null;
-  const visibleItems = selected ? selected.items : flatItems;
+  const allItems = flatItems.length ? flatItems : mergedItems(groups.flatMap((group) => records(group.items)));
+
+  if (mode === "menus") {
+    return (
+      <section className={styles.components} aria-label={locale === "es" ? "Lista organizada por menús" : "List organized by menus"}>
+        <div className={styles.listMenuControls}>
+          <button type="button" className={`${styles.listMenuAllButton} ${showAllMenus ? styles.listMenuAllButtonActive : ""}`} aria-pressed={showAllMenus} onClick={() => { setShowAllMenus(true); setSelectedKey(null); }}>
+            {locale === "es" ? "Todos" : "All"}
+          </button>
+        </div>
+        {showAllMenus ? (
+          <>
+            <div className={styles.sectionHeading}>
+              <h2 id="list-content-title">{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+            </div>
+            <IngredientRows items={allItems} locale={locale} />
+          </>
+        ) : selected ? (
+          <article className={styles.listMenuSection}>
+            <div className={styles.sectionHeading}>
+              <h2>{selected.title}</h2>
+            </div>
+            <div className={styles.sectionHeading}>
+              <h2>{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+            </div>
+            <IngredientRows items={selected.items} locale={locale} />
+          </article>
+        ) : (
+          <div className={styles.listMenuSections}>
+            {menus.map((menu) => (
+              <article key={menu.key} className={styles.listMenuSection}>
+                <div className={styles.sectionHeading}>
+                  <h2>{menu.title}</h2>
+                </div>
+                {menu.cards.length ? <RecipeRail cards={menu.cards} selectedKey={selectedKey} onSelect={(key) => { setSelectedKey(key); setShowAllMenus(false); }} locale={locale} /> : null}
+                <div className={styles.sectionHeading}>
+                  <h2>{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+                </div>
+                <IngredientRows items={menu.items} locale={locale} />
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  const visibleItems = selected ? selected.items : allItems;
 
   return (
     <section className={styles.components} aria-labelledby="list-content-title">
       {cards.length ? (
-        <div className={styles.listRecipeRail} aria-label={locale === "es" ? "Recetas de esta lista" : "Recipes in this list"}>
-          <button type="button" className={`${styles.listRecipeButton} ${selectedKey === null ? styles.listRecipeButtonActive : ""}`} aria-pressed={selectedKey === null} onClick={() => setSelectedKey(null)}>
-            <span className={styles.listRecipeAll}>{locale === "es" ? "Todos" : "All"}</span>
-          </button>
-          {cards.map((card, index) => (
-            <button key={card.key} type="button" className={`${styles.listRecipeButton} ${selectedKey === card.key ? styles.listRecipeButtonActive : ""}`} aria-pressed={selectedKey === card.key} onClick={() => setSelectedKey(card.key)}>
-              {card.image ? <img src={card.image} alt="" loading={index === 0 ? "eager" : "lazy"} decoding="async" className={styles.listRecipeImage} /> : <span className={styles.listRecipeImageFallback} aria-hidden="true" />}
-              <span className={styles.listRecipeTitle}>{card.title}</span>
-            </button>
-          ))}
-        </div>
+        <RecipeRail cards={cards} selectedKey={selectedKey} allActive={selectedKey === null} onSelect={setSelectedKey} includeAll locale={locale} />
       ) : null}
       <div className={styles.sectionHeading}>
         <h2 id="list-content-title">{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>

@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element -- public recipe media keeps its intrinsic source ratio */
 import Link from "next/link";
 import type { AppLocale } from "@/shared/config/routes";
 import type { GalleryCard } from "@/lib/cookshare/types";
@@ -14,13 +14,12 @@ function cardTypeLabel(card: GalleryCard, locale: AppLocale) {
 
 function cardImage(card: GalleryCard, index: number, hasCursor: boolean) {
   return card.imageUrl ? (
-    <Image
+    <img
       src={card.imageUrl}
       alt={card.title}
-      width={720}
-      height={480}
-      sizes="(max-width: 680px) 100vw, (max-width: 1040px) 50vw, 33vw"
-      priority={index === 0 && !hasCursor}
+      loading={index === 0 && !hasCursor ? "eager" : "lazy"}
+      fetchPriority={index === 0 && !hasCursor ? "high" : undefined}
+      decoding="async"
     />
   ) : (
     <div className={styles.fallback} aria-hidden="true">
@@ -41,10 +40,9 @@ export default function GalleryCardView({
   hasCursor?: boolean;
 }) {
   return (
-    <Link href={card.href} className={styles.card}>
+    <Link href={card.href} className={styles.card} aria-label={`${cardTypeLabel(card, locale)}: ${card.title}`}>
       <div className={styles.media}>{cardImage(card, index, hasCursor)}</div>
       <div className={styles.body}>
-        <span className={styles.type}>{cardTypeLabel(card, locale)}</span>
         <h2>{card.title}</h2>
         {card.description ? <p>{inlineMarkdownToText(card.description)}</p> : null}
         <div className={styles.meta}>
