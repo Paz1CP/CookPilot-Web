@@ -4,7 +4,12 @@ import Image from "next/image";
 import { type ButtonHTMLAttributes, type ReactNode, useEffect, useRef, useState } from "react";
 import { CloseCircle } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
-import { buildCookShareInstallLinks, canonicalCookShareUrl } from "./cookshare-install-links";
+import {
+  buildCookShareInstallLinks,
+  canonicalCookShareUrl,
+  isCookShareAppAction,
+  type CookShareAppAction,
+} from "./cookshare-install-links";
 import styles from "./DownloadExperience.module.css";
 
 const DOWNLOAD_EVENT = "cookpilot:download";
@@ -19,12 +24,19 @@ export type DownloadDialogContext = {
 type DownloadEventDetail = {
   canonicalPath?: string;
   context?: DownloadDialogContext;
+  appAction?: CookShareAppAction;
 };
 
-export function openDownloadExperience(canonicalPath?: string, context?: DownloadDialogContext) {
+export function openDownloadExperience(
+  canonicalPath?: string,
+  context?: DownloadDialogContext,
+  appAction?: CookShareAppAction,
+) {
   window.dispatchEvent(
     new CustomEvent<DownloadEventDetail>(DOWNLOAD_EVENT, {
-      detail: canonicalPath || context ? { canonicalPath, context } : undefined,
+      detail: canonicalPath || context || appAction
+        ? { canonicalPath, context, appAction }
+        : undefined,
     }),
   );
 }
@@ -33,16 +45,20 @@ type DownloadButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type">
   children: ReactNode;
   cookSharePath?: string;
   downloadContext?: DownloadDialogContext;
+  appAction?: CookShareAppAction;
 };
 
 function isAndroidBrowser() {
   return typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
 }
 
-function buildCookPilotIntentUrl(canonicalUrl: string) {
+function buildCookPilotIntentUrl(canonicalUrl: string, appAction?: CookShareAppAction) {
   const url = new URL(canonicalUrl);
+  if (isCookShareAppAction(appAction)) url.searchParams.set("action", appAction);
   const target = `${url.host}${url.pathname}${url.search}`;
-  const fallback = encodeURIComponent(url.toString());
+  // The app action is transport metadata. If the app is absent, Chrome must
+  // return to the clean public URL so Web and SEO remain queryless.
+  const fallback = encodeURIComponent(canonicalUrl);
 
   return `intent://${target}#Intent;scheme=https;package=com.cookpilot.pe;S.browser_fallback_url=${fallback};end`;
 }
@@ -55,7 +71,11 @@ function readDownloadDialogContext(value: unknown): DownloadDialogContext | null
     : null;
 }
 
-function tryOpenCookPilot(cookSharePath: string, context?: DownloadDialogContext) {
+function tryOpenCookPilot(
+  cookSharePath: string,
+  context?: DownloadDialogContext,
+  appAction?: CookShareAppAction,
+) {
   const canonicalUrl = canonicalCookShareUrl(cookSharePath);
   if (!canonicalUrl || !isAndroidBrowser()) return false;
 
@@ -66,6 +86,7 @@ function tryOpenCookPilot(cookSharePath: string, context?: DownloadDialogContext
         path: new URL(canonicalUrl).pathname,
         startedAt: Date.now(),
         context,
+        appAction,
       }),
     );
   } catch {
@@ -96,11 +117,11 @@ function tryOpenCookPilot(cookSharePath: string, context?: DownloadDialogContext
   // Android to resolve CookPilot. Chrome follows browser_fallback_url when the
   // package is not installed, so the page can consume the marker above and
   // open the download dialog.
-  window.location.assign(buildCookPilotIntentUrl(canonicalUrl));
+  window.location.assign(buildCookPilotIntentUrl(canonicalUrl, appAction));
   return true;
 }
 
-export function DownloadButton({ children, onClick, cookSharePath, downloadContext, ...props }: DownloadButtonProps) {
+export function DownloadButton({ children, onClick, cookSharePath, downloadContext, appAction, ...props }: DownloadButtonProps) {
   return (
     <button
       type="button"
@@ -108,8 +129,8 @@ export function DownloadButton({ children, onClick, cookSharePath, downloadConte
       onClick={(event) => {
         onClick?.(event);
         if (event.defaultPrevented) return;
-        if (cookSharePath && tryOpenCookPilot(cookSharePath, downloadContext)) return;
-        openDownloadExperience(cookSharePath, downloadContext);
+        if (cookSharePath && tryOpenCookPilot(cookSharePath, downloadContext, appAction)) return;
+        openDownloadExperience(cookSharePath, downloadContext, appAction);
       }}
     >
       {children}
@@ -122,12 +143,14 @@ export default function DownloadExperience() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [canonicalPath, setCanonicalPath] = useState<string>();
   const [dialogContext, setDialogContext] = useState<DownloadDialogContext | null>(null);
+  const [dialogAction, setDialogAction] = useState<CookShareAppAction>();
 
   useEffect(() => {
     const open = (event: Event) => {
       const detail = event instanceof CustomEvent ? event.detail as DownloadEventDetail | undefined : undefined;
       setCanonicalPath(detail?.canonicalPath);
       setDialogContext(detail?.context ?? null);
+      setDialogAction(detail?.appAction);
       const dialog = dialogRef.current;
       if (dialog && !dialog.open) dialog.showModal();
     };
@@ -144,7 +167,7 @@ export default function DownloadExperience() {
     try {
       const raw = sessionStorage.getItem(APP_HANDOFF_STORAGE_KEY);
       if (raw) {
-        const pending = JSON.parse(raw) as { path?: unknown; startedAt?: unknown; context?: unknown };
+        const pending = JSON.parse(raw) as { path?: unknown; startedAt?: unknown; context?: unknown; appAction?: unknown };
         const path = typeof pending.path === "string" ? pending.path : undefined;
         const startedAt = typeof pending.startedAt === "number" ? pending.startedAt : 0;
         const pendingContext = readDownloadDialogContext(pending.context);
@@ -155,6 +178,11 @@ export default function DownloadExperience() {
           queueMicrotask(() => {
             setCanonicalPath(path);
             setDialogContext(pendingContext);
+            setDialogAction(
+              isCookShareAppAction(pending.appAction)
+                ? pending.appAction
+                : undefined,
+            );
           });
           const dialog = dialogRef.current;
           if (dialog && !dialog.open) dialog.showModal();
@@ -172,7 +200,7 @@ export default function DownloadExperience() {
     };
   }, []);
 
-  const installLinks = buildCookShareInstallLinks(canonicalPath);
+  const installLinks = buildCookShareInstallLinks(canonicalPath, dialogAction);
 
   return (
     <dialog

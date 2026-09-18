@@ -353,9 +353,9 @@
         "description": "Llévala a un momento, día o semana y mantén porciones, ingredientes y contexto conectados dentro de CookPlan."
       },
       "add_to_shopping": {
-        "label": "Añadir a compras",
+        "label": "A?adir a compras",
         "title": "Convierte esta receta en compra.",
-        "description": "CookList lleva sus ingredientes a una lista conectada, reúne cantidades y conserva de qué receta viene cada cosa."
+        "description": "CookList lleva sus ingredientes a una lista conectada, re?ne cantidades y conserva de qu? receta viene cada cosa."
       },
       "adjust_goals": {
         "label": "Ajustar a mis objetivos",
@@ -369,10 +369,10 @@
         "title": "Cocina todo como una sola comida.",
         "description": "CookPilot organiza las preparaciones para que pasos, tiempos, calor, reposos y componentes lleguen juntos a la mesa."
       },
-      "add_to_plan": {
-        "label": "Añadir al plan",
-        "title": "Lleva este menú a tu plan.",
-        "description": "Colócalo en tu día o semana y sigue trabajando sobre él sin reconstruir sus recetas y componentes."
+      "save_menu": {
+        "label": "Guardar",
+        "title": "Guarda este menú para usarlo en CookPilot.",
+        "description": "Conserva este menú en tu CookSearch sin modificar el original."
       },
       "buy_menu": {
         "label": "Comprar este menú",
@@ -394,17 +394,7 @@
       "use_day": {
         "label": "Usar este día",
         "title": "Haz de este día tu punto de partida.",
-        "description": "Llévalo a CookPlan como una estructura real que puedes ajustar y reutilizar sin empezar desde cero."
-      },
-      "edit_meals": {
-        "label": "Editar comidas",
-        "title": "Cambia lo que quieras del día.",
-        "description": "Ajusta comidas, recetas, menús y porciones mientras CookPilot conserva el resto de la planificación conectado."
-      },
-      "buy_day": {
-        "label": "Comprar este día",
-        "title": "Un día entero convertido en compra.",
-        "description": "CookList reúne los ingredientes de las comidas del día y mantiene su origen para que sepas qué necesitas y para qué."
+        "description": "Confirma si quieres reemplazar el día actual o guárdalo para usarlo más adelante."
       },
       "save_day": {
         "label": "Guardar día",
@@ -421,22 +411,12 @@
       "use_week": {
         "label": "Usar esta semana",
         "title": "Haz de esta semana tu punto de partida.",
-        "description": "Llévala a CookPlan y úsala como una estructura real que puedes ajustar sin colocar cada comida nuevamente."
+        "description": "Confirma si quieres reemplazar la semana actual o guárdala para usarla más adelante."
       },
-      "repeat_week": {
-        "label": "Repetir semana",
-        "title": "Una buena semana merece otra vuelta.",
-        "description": "Reutiliza una estructura que ya funciona y evita reconstruir decisiones que ya estaban resueltas."
-      },
-      "buy_week": {
-        "label": "Comprar la semana",
-        "title": "Toda la semana. Una sola compra.",
-        "description": "CookList reúne las necesidades de tus comidas y las convierte en una compra conectada y comprensible."
-      },
-      "save_template": {
-        "label": "Guardar plantilla",
-        "title": "Guarda la estructura que funcionó.",
-        "description": "Conserva esta semana para reutilizarla más adelante sin atarla a las fechas originales."
+      "save_week": {
+        "label": "Guardar semana",
+        "title": "Guarda esta semana para volver a usarla.",
+        "description": "Conserva la estructura completa como una semana guardada, sin convertirla en plantilla."
       },
       "adapt_week": {
         "label": "Adaptar esta semana",
@@ -450,16 +430,6 @@
         "title": "Haz tuya esta lista.",
         "description": "Llévala a CookList para revisarla, editarla y convertirla en parte de tu compra real."
       },
-      "add_all_to_shopping": {
-        "label": "Añadir todo a compras",
-        "title": "Suma todo a tu compra.",
-        "description": "Añade estos ingredientes a CookList y deja que se integren con las demás recetas, menús y listas que ya estés usando."
-      },
-      "adjust_quantities": {
-        "label": "Ajustar cantidades",
-        "title": "Compra lo que realmente necesitas.",
-        "description": "Cambia cantidades y unidades antes de comprar sin reconstruir la lista desde cero."
-      },
       "scan_shopping": {
         "label": "Escanear compra",
         "title": "De una foto a tu lista.",
@@ -470,17 +440,7 @@
       "recipes_with_ingredient": {
         "label": "Ver recetas con esto",
         "title": "Convierte este ingrediente en una comida.",
-        "description": "Encuentra recetas que lo usan y llévalas después a tu plan, compra o cocina desde CookPilot."
-      },
-      "add_to_shopping": {
-        "label": "Añadir a compras",
-        "title": "Que no se te quede fuera.",
-        "description": "Añade este ingrediente a CookList, define cuánto necesitas y mantenlo junto al resto de tu compra."
-      },
-      "explore_in_cookpilot": {
-        "label": "Explorar en CookPilot",
-        "title": "Sigue desde aquí.",
-        "description": "Usa este ingrediente como punto de partida para descubrir recetas y seguir construyendo una comida real en CookPilot."
+        "description": "Encuentra recetas que lo usan y ll?valas despu?s a tu plan, compra o cocina desde CookPilot."
       }
     },
     "category": {}

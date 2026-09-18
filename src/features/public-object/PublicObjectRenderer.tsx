@@ -271,6 +271,29 @@ function contextualRecipePath(
   return `${parentPath}/${locale === "es" ? "recetas" : "recipes"}/${slug}`;
 }
 
+function galleryCardFromComponent(component: PublicComponent, locale: AppLocale, parentPath: string, index: number): GalleryCard | null {
+  const href = contextualRecipePath(component, parentPath, locale);
+  if (!href) return null;
+  const title = componentText(component, locale === "en" ? ["title_en", "title", "name"] : ["title", "name", "title_en"])
+    ?? `${publicGalleryCopy(locale).types.recipe} ${index + 1}`;
+  const time = component.time && typeof component.time === "object" && !Array.isArray(component.time)
+    ? numberValue((component.time as PublicComponent).total_minutes)
+    : null;
+  return {
+    objectType: "recipe",
+    objectId: href,
+    title,
+    description: componentText(component, ["description"]),
+    imageUrl: mediaUrl(component.image_url ?? component.cover_photo_url),
+    href,
+    timeMinutes: time,
+    nutrition: null,
+    component: componentText(component, ["component_type"]),
+    matchType: null,
+    relevanceScore: null,
+  };
+}
+
 function RecipeCardGrid({
   components,
   locale,
@@ -281,28 +304,14 @@ function RecipeCardGrid({
   parentPath: string;
 }) {
   if (!components.length) return null;
+  const cards = components.flatMap((component, index) => {
+    const card = galleryCardFromComponent(component, locale, parentPath, index);
+    return card ? [card] : [];
+  });
+  if (!cards.length) return null;
   return (
     <div className={styles.componentGrid}>
-      {components.map((component, index) => {
-        const title = componentText(component, locale === "en" ? ["title_en", "title", "name"] : ["title", "name", "title_en"])
-          ?? (locale === "es" ? `Receta ${index + 1}` : `Recipe ${index + 1}`);
-        const href = contextualRecipePath(component, parentPath, locale);
-        const image = mediaUrl(component.image_url);
-        const time = component.time && typeof component.time === "object" && !Array.isArray(component.time)
-          ? componentText(component.time as PublicComponent, ["total_minutes"])
-          : null;
-        const content = (
-          <>
-            {image ? <img src={image} alt="" loading="lazy" decoding="async" className={styles.componentImage} /> : null}
-            <h3>{title}</h3>
-            {time ? <p>{time} min</p> : null}
-          </>
-        );
-        const key = `${href ?? title}-${index}`;
-        return href
-          ? <Link href={href} key={key} className={styles.componentCard}>{content}</Link>
-          : <article key={key} className={styles.componentCard}>{content}</article>;
-      })}
+      {cards.map((card, index) => <GalleryCardView key={`${card.href}-${index}`} card={card} locale={locale} index={index} />)}
     </div>
   );
 }
@@ -361,7 +370,7 @@ function LiveCompositeSection({ object, locale }: { object: CookShareResolvedObj
   }
 
   const dayGroups = object.object_type === "day"
-    ? publicComponents(object.slots).flatMap((slot, index) => {
+    ? publicComponents(object.slots).flatMap((slot) => {
         const menu = publicComponent(slot.menu);
         return menu ? [{
         label: mealMomentLabel(slot, locale),
@@ -472,10 +481,10 @@ export default function PublicObjectRenderer({
           {breadcrumbs.map((item, index) => <span key={item.href}>{index ? <span aria-hidden="true">/</span> : null}{index === 1 ? <GalleryReturnLink href={item.href} label={item.label} locale={locale} /> : <Link href={item.href} aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>{item.label}</Link>}</span>)}
         </nav>
         <div className={`${styles.heroGrid} ${recipe ? "" : styles.centeredHero}`}>
-          {!recipe && image ? <img src={image} alt={title} loading="eager" fetchPriority="high" decoding="async" className={styles.centeredImage} /> : null}
+          {!recipe && object.object_type !== "day" && image ? <img src={image} alt={title} loading="eager" fetchPriority="high" decoding="async" className={styles.centeredImage} /> : null}
           <div className={styles.copy}>
             <h1>{title}</h1>
-            {!recipe ? <CookSharePreviewInsights objectType={object.object_type} path={canonicalPath} locale={locale} /> : null}
+            {!recipe && !isIngredient ? <CookSharePreviewInsights objectType={object.object_type} path={canonicalPath} locale={locale} /> : null}
             {description ? <p className={styles.description}><InlineMarkdown value={description} /></p> : null}
             {recipe ? (
               <div className={styles.quickFacts}>

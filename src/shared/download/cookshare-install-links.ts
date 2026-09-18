@@ -5,6 +5,31 @@ export type CookShareInstallLinks = {
   appGallery: string;
 };
 
+export type CookShareAppAction =
+  | "view"
+  | "cook"
+  | "remix"
+  | "plan"
+  | "list"
+  | "fit"
+  | "save"
+  | "scan";
+
+const APP_ACTIONS = new Set<CookShareAppAction>([
+  "view",
+  "cook",
+  "remix",
+  "plan",
+  "list",
+  "fit",
+  "save",
+  "scan",
+]);
+
+export function isCookShareAppAction(value: unknown): value is CookShareAppAction {
+  return typeof value === "string" && APP_ACTIONS.has(value as CookShareAppAction);
+}
+
 export function canonicalCookShareUrl(path: string | undefined) {
   if (!path) return null;
   try {
@@ -47,20 +72,35 @@ function huaweiWrapperUrl(canonicalUrl: string) {
   }
 }
 
+export function cookShareTransportUrl(
+  canonicalPath: string | undefined,
+  action?: CookShareAppAction,
+) {
+  const canonicalUrl = canonicalCookShareUrl(canonicalPath);
+  if (!canonicalUrl) return null;
+  if (!action) return canonicalUrl;
+  if (!isCookShareAppAction(action)) return null;
+
+  const transport = new URL(canonicalUrl);
+  transport.searchParams.set("action", action);
+  return transport.toString();
+}
+
 export function buildCookShareInstallLinks(
   canonicalPath?: string,
+  action?: CookShareAppAction,
 ): CookShareInstallLinks {
   const googlePlay = new URL(siteConfig.publicData.stores.googlePlay);
   const appGallery = siteConfig.publicData.stores.appGallery;
-  const canonicalUrl = canonicalCookShareUrl(canonicalPath);
-  if (!canonicalUrl) {
+  const transportUrl = cookShareTransportUrl(canonicalPath, action);
+  if (!transportUrl) {
     return { googlePlay: googlePlay.toString(), appGallery };
   }
 
-  const referrer = new URLSearchParams({ v: "1", url: canonicalUrl }).toString();
+  const referrer = new URLSearchParams({ v: "1", url: transportUrl }).toString();
   googlePlay.searchParams.set("referrer", referrer);
   return {
     googlePlay: googlePlay.toString(),
-    appGallery: huaweiWrapperUrl(canonicalUrl) ?? appGallery,
+    appGallery: huaweiWrapperUrl(transportUrl) ?? appGallery,
   };
 }
