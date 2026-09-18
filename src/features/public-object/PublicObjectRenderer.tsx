@@ -311,7 +311,7 @@ function RecipeCardGrid({
   if (!cards.length) return null;
   return (
     <div className={styles.componentGrid}>
-      {cards.map((card, index) => <GalleryCardView key={`${card.href}-${index}`} card={card} locale={locale} index={index} />)}
+      {cards.map((card, index) => <GalleryCardView key={`${card.href}-${index}`} card={card} locale={locale} />)}
     </div>
   );
 }
@@ -432,7 +432,7 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
       ) : null}
       <div className={styles.componentGrid}>
         {recipeCards.map((card, index) => (
-          <GalleryCardView key={card.href} card={card} locale={locale} index={index} />
+          <GalleryCardView key={card.href} card={card} locale={locale} />
         ))}
         {otherValues.map((component, index) => {
           const identity = component.identity;
@@ -481,7 +481,6 @@ export default function PublicObjectRenderer({
           {breadcrumbs.map((item, index) => <span key={item.href}>{index ? <span aria-hidden="true">/</span> : null}{index === 1 ? <GalleryReturnLink href={item.href} label={item.label} locale={locale} /> : <Link href={item.href} aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>{item.label}</Link>}</span>)}
         </nav>
         <div className={`${styles.heroGrid} ${recipe ? "" : styles.centeredHero}`}>
-          {!recipe && object.object_type !== "day" && image ? <img src={image} alt={title} loading="eager" fetchPriority="high" decoding="async" className={styles.centeredImage} /> : null}
           <div className={styles.copy}>
             <h1>{title}</h1>
             {!recipe && !isIngredient ? <CookSharePreviewInsights objectType={object.object_type} path={canonicalPath} locale={locale} /> : null}

@@ -1,53 +1,54 @@
-/* eslint-disable @next/next/no-img-element -- public recipe media keeps its intrinsic source ratio */
+import Image from "next/image";
 import Link from "next/link";
+import { Clock } from "iconsax-reactjs";
 import type { AppLocale } from "@/shared/config/routes";
 import type { GalleryCard } from "@/lib/cookshare/types";
 import { inlineMarkdownToText } from "@/lib/cookshare/inline-markdown";
-import styles from "./GalleryClient.module.css";
+import es from "@/locales/gallery.es.json";
+import en from "@/locales/gallery.en.json";
+import styles from "./GalleryDiscovery.module.css";
 
-function cardTypeLabel(card: GalleryCard, locale: AppLocale) {
-  const labels = locale === "es"
-    ? { recipe: "Receta", menu: "Menú", day: "Día", week: "Semana", list: "Lista", ingredient: "Ingrediente", category: "Categoría" }
-    : { recipe: "Recipe", menu: "Menu", day: "Day", week: "Week", list: "List", ingredient: "Ingredient", category: "Category" };
-  return labels[card.objectType];
-}
-
-function cardImage(card: GalleryCard, index: number, hasCursor: boolean) {
-  return card.imageUrl ? (
-    <img
-      src={card.imageUrl}
-      alt={card.title}
-      loading={index === 0 && !hasCursor ? "eager" : "lazy"}
-      fetchPriority={index === 0 && !hasCursor ? "high" : undefined}
-      decoding="async"
-    />
-  ) : (
-    <div className={styles.fallback} aria-hidden="true">
-      <span>CookPilot</span>
-    </div>
-  );
+function withGalleryReturnPath(href: string, returnPath?: string) {
+  if (!returnPath) return href;
+  const separator = href.includes("?") ? "&" : "?";
+  return `${href}${separator}gallery_return=${encodeURIComponent(returnPath)}`;
 }
 
 export default function GalleryCardView({
   card,
   locale,
-  index = 0,
-  hasCursor = false,
+  returnPath,
 }: {
   card: GalleryCard;
   locale: AppLocale;
-  index?: number;
-  hasCursor?: boolean;
+  returnPath?: string;
 }) {
+  const labels = locale === "es" ? es : en;
+  const href = withGalleryReturnPath(card.href, returnPath);
+
   return (
-    <Link href={card.href} className={styles.card} aria-label={`${cardTypeLabel(card, locale)}: ${card.title}`}>
-      <div className={styles.media}>{cardImage(card, index, hasCursor)}</div>
+    <Link href={href} prefetch className={styles.card} aria-label={`${labels.types[card.objectType]}: ${card.title}`}>
+      <div className={styles.media}>
+        {card.imageUrl ? (
+          <Image
+            src={card.imageUrl}
+            alt={card.title}
+            width={720}
+            height={720}
+            sizes="(max-width: 700px) 90vw, (max-width: 1200px) 38vw, 28vw"
+          />
+        ) : <span className={styles.fallback}>{labels.brand}</span>}
+      </div>
       <div className={styles.body}>
+        {card.objectType !== "recipe" ? <span className={styles.type}>{labels.types[card.objectType]}</span> : null}
         <h2>{card.title}</h2>
         {card.description ? <p>{inlineMarkdownToText(card.description)}</p> : null}
-        <div className={styles.meta}>
-          {card.timeMinutes !== null ? <span>{card.timeMinutes} min</span> : null}
-        </div>
+        {card.timeMinutes !== null ? (
+          <span className={styles.timeChip}>
+            <Clock size={18} aria-hidden="true" />
+            {card.timeMinutes} {labels.minutes}
+          </span>
+        ) : null}
       </div>
     </Link>
   );

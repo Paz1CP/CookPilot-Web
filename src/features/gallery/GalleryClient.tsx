@@ -400,13 +400,11 @@ export default function GalleryClient({
       {items.length ? (
         <>
           <div className={styles.grid}>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <GalleryCardView
                 key={`${item.objectType}-${item.objectId}`}
                 card={item}
                 locale={state.locale}
-                index={index}
-                hasCursor={Boolean(state.cursor)}
               />
             ))}
           </div>

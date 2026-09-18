@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ArrowDown2, Clock, SearchNormal1, Setting4 } from "iconsax-reactjs";
+import { ArrowDown2, SearchNormal1, Setting4 } from "iconsax-reactjs";
 import {
   emptyGalleryFilters,
   galleryFacetApplicability,
@@ -16,10 +14,10 @@ import {
   type GalleryArrayFilterKey,
   type GalleryNumericFilterKey,
 } from "@/lib/cookshare/gallery-query";
-import { inlineMarkdownToText } from "@/lib/cookshare/inline-markdown";
 import type { GalleryCard, GalleryFacetOption, GalleryFilters, GalleryPage, GalleryQueryState } from "@/lib/cookshare/types";
 import es from "@/locales/gallery.es.json";
 import en from "@/locales/gallery.en.json";
+import GalleryCardView from "./GalleryCardView";
 import styles from "./GalleryDiscovery.module.css";
 
 type GalleryLabels = typeof es;
@@ -27,11 +25,6 @@ type GalleryLabels = typeof es;
 function cardIdentity(item: GalleryCard) { return `${item.objectType}:${item.objectId}`; }
 function titleize(value: string) { return value.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase()); }
 function labelFromMap(map: Record<string, string>, value: string) { return map[value] ?? titleize(value); }
-function withGalleryReturnPath(href: string, returnPath: string) {
-  const separator = href.includes("?") ? "&" : "?";
-  return `${href}${separator}gallery_return=${encodeURIComponent(returnPath)}`;
-}
-
 function GallerySelect({
   id,
   value,
@@ -405,16 +398,7 @@ export default function GalleryDiscovery({ initial }: { initial: GalleryPage }) 
 
   function card(item: GalleryCard) {
     const galleryReturnPath = `/${locale}/gallery${canonicalParams ? `?${canonicalParams}` : ""}`;
-    return <Link href={withGalleryReturnPath(item.href, galleryReturnPath)} prefetch className={styles.card} key={cardIdentity(item)}>
-      <div className={styles.media}>{item.imageUrl ?
-       <Image src={item.imageUrl} alt={item.title} width={720} height={720} sizes="(max-width: 700px) 90vw, (max-width: 1200px) 38vw, 28vw" /> : <span className={styles.fallback}>{labels.brand}</span>}</div>
-      <div className={styles.body}>
-        {item.objectType !== "recipe" ? <span className={styles.type}>{labels.types[item.objectType]}</span> : null}
-        <h2>{item.title}</h2>
-        {item.description ? <p>{inlineMarkdownToText(item.description)}</p> : null}
-        {item.timeMinutes !== null ? <span className={styles.timeChip}><Clock size={18} aria-hidden="true" />{item.timeMinutes} {labels.minutes}</span> : null}
-      </div>
-    </Link>;
+    return <GalleryCardView card={item} locale={locale} returnPath={galleryReturnPath} />;
   }
 
   const typeOptions = gallerySearchTypes.map((type) => ({ value: type, label: labels[type] }));
