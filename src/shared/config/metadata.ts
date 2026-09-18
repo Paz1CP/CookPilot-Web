@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig, absoluteUrl, type PublicUtilityRouteKey } from "@/shared/config/site";
 import { type AppLocale, type LocalizedRouteKey } from "@/shared/config/routes";
 import { hasActiveGalleryFilters } from "@/lib/cookshare/gallery-query";
+import { mediaUrl } from "@/lib/cookshare/media";
 import type { CookShareResolvedObject, GalleryQueryState } from "@/lib/cookshare/types";
 
 const ogLocale = {
@@ -132,6 +133,30 @@ export function getHtmlLanguage(locale: AppLocale) {
   return languageCode[locale];
 }
 
+const cookShareLogoImage = {
+  url: "https://cookpilot.pro/images/cookpilot/cookpilot_logo.png",
+  alt: "CookPilot",
+} as const;
+
+/** Resolve the one social image for a public CookShare object without another fetch. */
+export function resolveCookShareSocialImage(
+  object: CookShareResolvedObject,
+  alt: string,
+) {
+  if (object.object_type !== "recipe" && object.object_type !== "ingredient") {
+    return cookShareLogoImage;
+  }
+
+  const candidates = object.object_type === "recipe"
+    ? [object.cover_photo_url, object.image_url]
+    : [object.image_url];
+  const image = candidates
+    .map((value) => mediaUrl(value))
+    .find((value): value is string => Boolean(value));
+
+  return image ? { url: image, alt } : cookShareLogoImage;
+}
+
 export function createCookShareMetadata(
   object: CookShareResolvedObject,
   locale: AppLocale,
@@ -147,15 +172,7 @@ export function createCookShareMetadata(
       : "Descubre este objeto de CookPilot y ábrelo en la app.";
   const canonical = absoluteUrl(object.identity.canonical_path);
   const alternateLocale = locale === "es" ? "en" : "es";
-  const image = [object.cover_photo_url, object.image_url].map((value) => {
-    if (!value) return null;
-    try {
-      const candidate = new URL(value, siteConfig.publicUrl);
-      return candidate.hostname === "media.cookpilot.pro" ? candidate.toString() : null;
-    } catch {
-      return null;
-    }
-  }).find((value): value is string => Boolean(value));
+  const socialImage = resolveCookShareSocialImage(object, title);
 
   const languages: Record<string, string> = { [locale]: canonical };
   if (options.alternate
@@ -181,13 +198,13 @@ export function createCookShareMetadata(
       siteName: siteConfig.productName,
       locale: ogLocale[locale],
       type: "website",
-      ...(image ? { images: [{ url: image, alt: title }] } : {}),
+      images: [socialImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(image ? { images: [image] } : {}),
+      images: [socialImage],
     },
   };
 }
@@ -222,5 +239,7 @@ export function createMissingCookShareMetadata(locale: AppLocale): Metadata {
   return {
     title: locale === "en" ? "CookShare | CookPilot" : "CookShare | CookPilot",
     robots: { index: false, follow: false },
+    openGraph: { images: [cookShareLogoImage] },
+    twitter: { card: "summary_large_image", images: [cookShareLogoImage] },
   };
 }
