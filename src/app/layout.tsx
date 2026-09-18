@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { headers } from "next/headers";
 import { Outfit, Permanent_Marker } from "next/font/google";
 import "./globals.css";
@@ -122,6 +123,7 @@ const jsonLd = {
 };
 
 const serializedJsonLd = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default async function RootLayout({
   children,
@@ -150,6 +152,7 @@ export default async function RootLayout({
           <DownloadExperience />
           <Footer />
         </LanguageProvider>
+        {gaMeasurementId ? <GoogleAnalytics gaId={gaMeasurementId} /> : null}
       </body>
     </html>
   );
