@@ -7,6 +7,7 @@ import { useLocale } from "@/contexts/LanguageContext";
 import {
   buildCookShareInstallLinks,
   canonicalCookShareUrl,
+  COOKSHARE_APP_TRANSPORT_HOST,
   isCookShareAppAction,
   type CookShareAppAction,
 } from "./cookshare-install-links";
@@ -55,7 +56,7 @@ function isAndroidBrowser() {
 function buildCookPilotIntentUrl(canonicalUrl: string, appAction?: CookShareAppAction) {
   const url = new URL(canonicalUrl);
   if (isCookShareAppAction(appAction)) url.searchParams.set("action", appAction);
-  const target = `${url.host}${url.pathname}${url.search}`;
+  const target = `${COOKSHARE_APP_TRANSPORT_HOST}${url.pathname}${url.search}`;
   // The app action is transport metadata. If the app is absent, Chrome must
   // return to the clean public URL so Web and SEO remain queryless.
   const fallback = encodeURIComponent(canonicalUrl);

@@ -5,6 +5,8 @@ export type CookShareInstallLinks = {
   appGallery: string;
 };
 
+export const COOKSHARE_APP_TRANSPORT_HOST = "app.cookpilot.pro";
+
 export type CookShareAppAction =
   | "view"
   | "cook"
