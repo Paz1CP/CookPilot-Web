@@ -353,9 +353,9 @@
         "description": "Llévala a un momento, día o semana y mantén porciones, ingredientes y contexto conectados dentro de CookPlan."
       },
       "add_to_shopping": {
-        "label": "A?adir a compras",
+        "label": "Añadir a compras",
         "title": "Convierte esta receta en compra.",
-        "description": "CookList lleva sus ingredientes a una lista conectada, re?ne cantidades y conserva de qu? receta viene cada cosa."
+        "description": "CookList lleva sus ingredientes a una lista conectada, reúne cantidades y conserva de qué receta viene cada cosa."
       },
       "adjust_goals": {
         "label": "Ajustar a mis objetivos",
@@ -440,7 +440,7 @@
       "recipes_with_ingredient": {
         "label": "Ver recetas con esto",
         "title": "Convierte este ingrediente en una comida.",
-        "description": "Encuentra recetas que lo usan y ll?valas despu?s a tu plan, compra o cocina desde CookPilot."
+        "description": "Encuentra recetas que lo usan y llévalas después a tu plan, compra o cocina desde CookPilot."
       }
     },
     "category": {}

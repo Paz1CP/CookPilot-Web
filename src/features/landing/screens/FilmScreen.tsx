@@ -67,6 +67,7 @@ export default function Film() {
   const root = useRef<HTMLDivElement>(null);
   const advanceDishRef = useRef<() => void>(() => undefined);
   const [viewportRevision, setViewportRevision] = useState(0);
+  const [heroReady, setHeroReady] = useState(false);
   useLayoutEffect(() => {
     let timeout: number;
     const resize = () => { clearTimeout(timeout); timeout = window.setTimeout(() => setViewportRevision(v => v + 1), 180); };
@@ -77,11 +78,31 @@ export default function Film() {
     gsap.registerPlugin(ScrollTrigger);
     const host = root.current!;
     const mm = gsap.matchMedia();
+    let cancelled = false;
+    let removeHeroImageListeners: () => void = () => undefined;
     let carousel: gsap.core.Timeline | undefined;
     let dishIndex = 0;
     const fast = (value: number) => value * .88;
     // Reframing the canvas must reset image and caption as one carousel state.
     const heroImages = host.querySelectorAll<HTMLImageElement>(".hero-food");
+    const heroImageReady = new Promise<void>(resolve => {
+      const heroImage = heroImages[0];
+      if (!heroImage || (heroImage.complete && heroImage.naturalWidth > 0)) {
+        resolve();
+        return;
+      }
+
+      const onReady = () => {
+        removeHeroImageListeners();
+        resolve();
+      };
+      heroImage.addEventListener("load", onReady, {once:true});
+      heroImage.addEventListener("error", onReady, {once:true});
+      removeHeroImageListeners = () => {
+        heroImage.removeEventListener("load", onReady);
+        heroImage.removeEventListener("error", onReady);
+      };
+    });
     gsap.set(heroImages, {opacity:0, rotation:0, scale:1});
     gsap.set(heroImages[0], {opacity:1});
     const heroCaption = host.querySelector(".hero-caption")!;
@@ -123,7 +144,7 @@ export default function Film() {
       const plateSize = Math.min(w * (mobile ? 1.08 : .76), h * (mobile ? .98 : 1.12));
       const emptySize = Math.min(w * .64, h * (mobile ? .49 : .60));
       const cx = w * .5, cy = h * .57;
-      gsap.set($(".protagonist"), {width:plateSize, height:plateSize, x:cx, y:h*(mobile?.49:.47)+plateSize/2, xPercent:-50, yPercent:-50});
+      gsap.set($(".protagonist"), {left:0, top:0, width:plateSize, height:plateSize, x:cx, y:h*(mobile?.49:.47)+plateSize/2, xPercent:-50, yPercent:-50});
       gsap.set($(".empty-food"),{autoAlpha:0});
       gsap.set($(".shot-title, .request-field, .cooklist, .cookmode, .cookplan, .table-shot, .action-seed, .meal-world"),{autoAlpha:0});
       gsap.set($(".opening-title .optical-word, .opening-title .optical-glyph"),{opacity:0,filter:reduced?"none":"blur(12px)",y:8});
@@ -326,12 +347,15 @@ export default function Film() {
       gsap.set(host, {height: h + (originalHeight - h) * tl.duration() / originalDuration});
       const refresh = () => ScrollTrigger.refresh();
       document.fonts.ready.then(refresh);
+      Promise.all([heroImageReady, document.fonts.ready]).then(() => {
+        if (!cancelled) requestAnimationFrame(() => { if (!cancelled) setHeroReady(true); });
+      });
       return () => tl.scrollTrigger?.kill();
     },host);
-    return () => {clearInterval(timer);carousel?.kill();advanceDishRef.current=()=>undefined;mm.revert();};
+    return () => {cancelled=true;removeHeroImageListeners();clearInterval(timer);carousel?.kill();advanceDishRef.current=()=>undefined;mm.revert();};
   },[viewportRevision, dishes]);
 
-  return <div className="film-experience" ref={root} id="top">
+  return <div className={`film-experience ${heroReady ? "film-ready" : "film-booting"}`} ref={root} id="top">
     <div className="film-anchor" id="film" /><div className="film-anchor" id="film-stage" />
     <div className="film-anchor serve-anchor" id="serve" />
     <div className="film-canvas">

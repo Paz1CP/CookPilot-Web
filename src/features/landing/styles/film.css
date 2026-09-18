@@ -60,6 +60,52 @@
    Native scroll stays untouched; the timeline adds only a short settling ease. */
 .film-experience { height: 2560svh; position: relative; background:var(--cp-layer-base); }
 .film-canvas { position:sticky; top:0; height:100svh; overflow:hidden; isolation:isolate; }
+
+/* Keep the canvas out of the first paint until the hero image, fonts, and
+ * initial GSAP geometry are ready. The shared appbar remains visible above it. */
+#top.film-booting .film-canvas { visibility: hidden; }
+
+/*
+ * First-paint guard: the hero is the only film scene that is allowed to be
+ * visible before GSAP owns the timeline. Without this CSS fallback, a cold
+ * load can paint every later scene together while the layout effect and its
+ * ScrollTrigger are still initializing.
+ */
+#top .empty-food,
+#top .shot-title,
+#top .request-field,
+#top .compression-light,
+#top .action-seed,
+#top .cooklist,
+#top .cookmode,
+#top .cookplan,
+#top .meal-world,
+#top .table-shot,
+#top .table-contact {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Give the hero a complete, useful fallback frame even before the layout
+ * effect calculates the responsive plate geometry. GSAP resets left/top when
+ * it takes ownership of the timeline below. */
+#top .protagonist {
+  width: min(76vw, 112svh);
+  height: min(76vw, 112svh);
+  left: calc(50% - min(38vw, 56svh));
+  top: calc(57% - min(38vw, 56svh));
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  #top .protagonist {
+    width: min(108vw, 98svh);
+    height: min(108vw, 98svh);
+    left: calc(50% - min(54vw, 49svh));
+    top: calc(57% - min(54vw, 49svh));
+  }
+}
+
 #top .rehook{display:none;position:absolute;inset:0;z-index:42;background:var(--cp-layer-base);visibility:hidden;}
 @media(min-width:721px){
  .film-experience{height:2855.2svh;}

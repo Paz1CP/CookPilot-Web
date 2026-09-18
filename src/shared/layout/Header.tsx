@@ -93,7 +93,7 @@ export default function Header() {
       ref={liquidGlass.ref}
       className={`cp-appbar-glass ${scrolled ? "cp-appbar-glass--scrolled" : ""} ${styles.header}`}
       style={liquidGlass.style}
-      initial={{ opacity: 0, y: -16 }}
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
     >

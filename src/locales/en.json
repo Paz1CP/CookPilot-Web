@@ -337,7 +337,7 @@
       "modal_description": "In CookPilot, you can explore calories, macros and other nutrition details for ingredients and meals in the context of your plan."
     }
   },
-  "cookshare_action_dock":   {
+  "cookshare_action_dock": {
     "navigation_label": "Actions for this object",
     "recipe": {
       "create_version": {
