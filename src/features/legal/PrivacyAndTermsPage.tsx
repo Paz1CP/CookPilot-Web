@@ -50,104 +50,7 @@ interface PrivacyAndTermsPageProps {
   documents: Documents;
 }
 
-const ui = {
-  es: {
-    titleA: "Privacidad y términos",
-    titleB: "sin letra chica",
-    intro:
-      "Todo el copy legal de CookPilot, organizado para que puedas revisar datos, AI, pagos, derechos y eliminación de cuenta sin enfrentarte a una pared de texto.",
-    developerLabel: "Responsable desarrollador",
-    developerValue: "Christopher Jeffersson Lenin Paz Leon",
-    updatedLabel: "Última actualización",
-    contactLabel: "Contacto",
-    contactValue: siteConfig.publicData.contactEmail,
-    tabs: {
-      full: "Documento completo",
-      account: "Eliminar cuenta",
-    },
-    highlights: [
-      {
-        icon: ShieldTick,
-        title: "Datos personales",
-        body: "Qué recopilamos, por qué lo usamos y cómo protegemos tu cuenta.",
-      },
-      {
-        icon: Lock,
-        title: "AI y proveedores",
-        body: "Cómo se procesan recetas, imágenes, audio y contexto culinario.",
-      },
-      {
-        icon: ReceiptText,
-        title: "Planes y pagos",
-        body: "Suscripciones, packs, límites, cancelaciones y reembolsos.",
-      },
-      {
-        icon: Trash,
-        title: "Eliminación",
-        body: "Qué ocurre cuando solicitas borrar tu cuenta y tus datos.",
-      },
-    ],
-    tocTitle: "En esta página",
-    fullIntro: "Documento completo",
-    accountIntro:
-      "Vista rápida de las secciones específicas sobre eliminación de cuenta, datos asociados y suscripciones activas.",
-    sectionLabel: "Sección",
-    noAccountSections:
-      "No encontramos secciones específicas de eliminación de cuenta en este documento.",
-    deletionCtaTitle: "Eliminar cuenta",
-    deletionCtaBody:
-      "Puedes eliminar tu cuenta directamente desde la página pública de eliminación con verificación por correo.",
-    deletionCtaAction: "Ir a eliminar cuenta",
-  },
-  en: {
-    titleA: "Privacy and terms",
-    titleB: "without noise",
-    intro:
-      "CookPilot's full legal copy, structured so you can review data, AI, payments, rights, and account deletion without digging through a flat document.",
-    developerLabel: "Responsible developer",
-    developerValue: "Christopher Jeffersson Lenin Paz Leon",
-    updatedLabel: "Last updated",
-    contactLabel: "Contact",
-    contactValue: siteConfig.publicData.contactEmail,
-    tabs: {
-      full: "Full document",
-      account: "Delete account",
-    },
-    highlights: [
-      {
-        icon: ShieldTick,
-        title: "Personal data",
-        body: "What we collect, why we use it, and how we protect your account.",
-      },
-      {
-        icon: Lock,
-        title: "AI and providers",
-        body: "How recipes, images, audio, and cooking context may be processed.",
-      },
-      {
-        icon: ReceiptText,
-        title: "Plans and payments",
-        body: "Subscriptions, packs, limits, cancellations, and refunds.",
-      },
-      {
-        icon: Trash,
-        title: "Deletion",
-        body: "What happens when you ask CookPilot to delete your account and data.",
-      },
-    ],
-    tocTitle: "On this page",
-    fullIntro: "Full document",
-    accountIntro:
-      "Focused view of the sections about account deletion, associated data, and active subscriptions.",
-    sectionLabel: "Section",
-    noAccountSections:
-      "We could not find account deletion sections in this document.",
-    deletionCtaTitle: "Delete account",
-    deletionCtaBody:
-      "You can delete your account directly from the public deletion page with email verification.",
-    deletionCtaAction: "Go to delete account",
-  },
-} satisfies Record<Locale, unknown>;
+const highlightIcons = [ShieldTick, Lock, ReceiptText, Trash] as const;
 
 function slugify(value: string) {
   return value
@@ -367,8 +270,8 @@ function isDeletionSection(section: PolicySection) {
 }
 
 export default function PrivacyAndTermsPage({ documents }: PrivacyAndTermsPageProps) {
-  const { locale } = useLocale();
-  const copy = ui[locale];
+  const { locale, t } = useLocale();
+  const copy = t.legal;
   const [activeTab, setActiveTab] = useState<"full" | "account">("full");
 
   const policy = useMemo(() => parsePolicy(documents[locale]), [documents, locale]);
@@ -402,9 +305,9 @@ export default function PrivacyAndTermsPage({ documents }: PrivacyAndTermsPagePr
               <span>{copy.updatedLabel}</span>
               <strong>{policy.updatedAt}</strong>
             </div>
-            <a className={styles.metaItem} href={`mailto:${copy.contactValue}`}>
+            <a className={styles.metaItem} href={`mailto:${siteConfig.publicData.contactEmail}`}>
               <span>{copy.contactLabel}</span>
-              <strong>{copy.contactValue}</strong>
+              <strong>{siteConfig.publicData.contactEmail}</strong>
             </a>
           </div>
         </div>
@@ -419,8 +322,8 @@ export default function PrivacyAndTermsPage({ documents }: PrivacyAndTermsPagePr
       </div>
 
       <div className={styles.highlights}>
-        {copy.highlights.map((item) => {
-          const Icon = item.icon;
+        {copy.highlights.map((item, index) => {
+          const Icon = highlightIcons[index];
           return (
             <article key={item.title} className={styles.highlightCard}>
               <div className={styles.highlightIcon}>

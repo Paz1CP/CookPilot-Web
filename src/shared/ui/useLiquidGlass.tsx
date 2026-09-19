@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import type { CSSProperties } from "react";
 
@@ -44,12 +44,14 @@ function displacementMap(width: number, height: number) {
 
 /** Refraction map for the live backdrop of a rounded floating navigation surface. */
 export function useLiquidGlass<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
+  const [element, setElement] = useState<T | null>(null);
+  const ref = useCallback((node: T | null) => {
+    setElement(node);
+  }, []);
   const id = `cp-liquid-${useId().replace(/:/g, "")}`;
   const [lens, setLens] = useState<Lens | null>(null);
 
   useEffect(() => {
-    const element = ref.current;
     if (!element) return;
 
     let lastSize = "";
@@ -65,7 +67,7 @@ export function useLiquidGlass<T extends HTMLElement>() {
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [element]);
 
   const filterValue = lens ? `blur(2px) url(#${id})` : "blur(2px)";
   const style: CSSProperties = {
@@ -73,7 +75,7 @@ export function useLiquidGlass<T extends HTMLElement>() {
     WebkitBackdropFilter: filterValue,
   };
 
-  const filter = lens && createPortal(
+  const filter = lens && typeof document !== "undefined" ? createPortal(
     <svg width="0" height="0" aria-hidden="true" style={{ position: "absolute", pointerEvents: "none" }}>
       <defs>
         <filter id={id} x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
@@ -83,7 +85,7 @@ export function useLiquidGlass<T extends HTMLElement>() {
       </defs>
     </svg>,
     document.body,
-  );
+  ) : null;
 
-  return { ref, style, filter };
+  return { targetRef: ref, style, filter };
 }

@@ -1,16 +1,13 @@
 /* eslint-disable @next/next/no-img-element -- public editorial media keeps its intrinsic source ratio */
 import Link from "next/link";
-import type { AppLocale } from "@/shared/config/routes";
+import { getLocalizedRoute, getCookShareObjectSegment, type AppLocale } from "@/shared/config/routes";
 import { publicDescription, publicTitle } from "@/lib/cookshare/resolver";
 import { mediaUrl } from "@/lib/cookshare/media";
 import { buildCookShareStructuredData } from "@/lib/cookshare/structured-data";
 import { emptyGalleryFilters, galleryIncludeIngredientsHash, galleryUrl } from "@/lib/cookshare/gallery-query";
 import type { CookShareResolvedObject, GalleryCard, IngredientNutritionProjection, RecipeProjection } from "@/lib/cookshare/types";
 import { parseInlineMarkdown } from "@/lib/cookshare/inline-markdown";
-import siteEn from "@/locales/en.json";
-import siteEs from "@/locales/es.json";
-import galleryEn from "@/locales/gallery.en.json";
-import galleryEs from "@/locales/gallery.es.json";
+import { getTranslations, getGalleryTranslations } from "@/lib/i18n";
 import GalleryReturnLink from "./GalleryReturnLink";
 import GalleryCardView from "../gallery/GalleryCardView";
 import ShareActions from "./ShareActions";
@@ -21,10 +18,7 @@ import EditorialClosing from "../public-editorial/EditorialClosing";
 import styles from "./PublicObjectRenderer.module.css";
 
 function objectTypeLabel(objectType: CookShareResolvedObject["object_type"], locale: AppLocale) {
-  const labels = locale === "es"
-    ? { recipe: "Receta", menu: "Menú", day: "Día", week: "Semana", list: "Lista", ingredient: "Ingrediente", category: "Categoría" }
-    : { recipe: "Recipe", menu: "Menu", day: "Day", week: "Week", list: "List", ingredient: "Ingredient", category: "Category" };
-  return labels[objectType];
+  return getGalleryTranslations(locale).types[objectType];
 }
 
 function InlineMarkdown({ value }: { value: string | null | undefined }) {
@@ -44,14 +38,15 @@ type PublicObjectCopy = {
   view_more: string;
   labels: Record<string, string>;
   units: { kcal: string; g: string; mg: string };
+  sections: Record<string, string>;
 };
 
 function publicObjectCopy(locale: AppLocale): PublicObjectCopy {
-  return (locale === "es" ? siteEs.public_object : siteEn.public_object) as PublicObjectCopy;
+  return getTranslations(locale).public_object as PublicObjectCopy;
 }
 
 function publicGalleryCopy(locale: AppLocale) {
-  return locale === "es" ? galleryEs : galleryEn;
+  return getGalleryTranslations(locale);
 }
 
 function numberValue(value: unknown) {
@@ -95,7 +90,7 @@ function recipeCardFromPublicObject(object: CookShareResolvedObject, locale: App
 function ingredientGalleryHref(object: CookShareResolvedObject, locale: AppLocale) {
   const filters = emptyGalleryFilters();
   filters.ingredients_include = [object.identity.slug];
-  return `${galleryUrl(locale === "es" ? "/es/gallery" : "/en/gallery", {
+  return `${galleryUrl(getLocalizedRoute(locale, "gallery"), {
     locale,
     q: "",
     type: "recipes",
@@ -142,11 +137,12 @@ function RecipeDetails({ recipe, locale }: { recipe: RecipeProjection; locale: A
   const steps = Array.isArray(recipe.steps) ? recipe.steps : [];
   const nutrition = recipe.nutrition ?? {};
   const hasNutrition = Object.values(nutrition).some((value) => typeof value === "number");
+  const copy = publicObjectCopy(locale);
   return (
     <div className={`${styles.recipeDetails} ${hasNutrition ? styles.withNutrition : styles.withoutNutrition}`}>
       <section className={`${styles.detailCard} ${styles.ingredientsCard}`} aria-labelledby="ingredients-title">
         <div className={styles.sectionHeading}>
-          <h2 id="ingredients-title">{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+          <h2 id="ingredients-title">{copy.sections.ingredients}</h2>
         </div>
         {ingredients.length ? (
           <ul className={styles.ingredientList}>
@@ -157,12 +153,12 @@ function RecipeDetails({ recipe, locale }: { recipe: RecipeProjection; locale: A
               </li>
             ))}
           </ul>
-        ) : <p className={styles.muted}>{locale === "es" ? "Ingredientes no disponibles." : "Ingredients unavailable."}</p>}
+        ) : <p className={styles.muted}>{copy.sections.ingredients_unavailable}</p>}
       </section>
       {hasNutrition ? (
         <section className={`${styles.detailCard} ${styles.nutritionCard}`} aria-labelledby="nutrition-title">
           <div className={styles.sectionHeading}>
-            <h2 id="nutrition-title">{locale === "es" ? "Nutrición" : "Nutrition"}</h2>
+            <h2 id="nutrition-title">{copy.sections.nutrition}</h2>
           </div>
           <NutritionMetricGrid entries={numericNutrition(nutrition)} locale={locale} />
         </section>
@@ -170,7 +166,7 @@ function RecipeDetails({ recipe, locale }: { recipe: RecipeProjection; locale: A
       {steps.length ? (
         <section className={`${styles.detailCard} ${styles.stepsCard}`} aria-labelledby="steps-title">
           <div className={styles.sectionHeading}>
-            <h2 id="steps-title">{locale === "es" ? "Preparación" : "Preparation"}</h2>
+            <h2 id="steps-title">{copy.sections.preparation}</h2>
           </div>
           <ol className={styles.steps}>
             {steps.map((step, index) => <li key={`${step.step_number ?? index}`}><span>{step.step_number ?? index + 1}</span><p><InlineMarkdown value={step.instruction} /></p></li>)}
@@ -268,7 +264,7 @@ function contextualRecipePath(
     : null;
   const slug = componentText(component, ["recipe_slug"]) ?? identitySlug;
   if (!slug || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(slug)) return null;
-  return `${parentPath}/${locale === "es" ? "recetas" : "recipes"}/${slug}`;
+  return `${parentPath}/${getCookShareObjectSegment(locale, "recipe")}/${slug}`;
 }
 
 function galleryCardFromComponent(component: PublicComponent, locale: AppLocale, parentPath: string, index: number): GalleryCard | null {
@@ -324,7 +320,7 @@ function LiveCompositeSection({ object, locale }: { object: CookShareResolvedObj
     if (!components.length) return null;
     return (
       <section className={styles.components} aria-labelledby="object-content-title">
-        <div className={styles.sectionHeading}><h2 id="object-content-title">{locale === "es" ? "Recetas" : "Recipes"}</h2></div>
+        <div className={styles.sectionHeading}><h2 id="object-content-title">{publicObjectCopy(locale).sections.recipes}</h2></div>
         <RecipeCardGrid components={components} locale={locale} parentPath={parentPath} />
       </section>
     );
@@ -379,8 +375,9 @@ function LiveCompositeSection({ object, locale }: { object: CookShareResolvedObj
       })
     : publicComponents(object.days).flatMap((day, dayIndex) => publicComponents(day.slots).flatMap((slot, slotIndex) => {
         const menu = publicComponent(slot.menu);
+        const copy = publicObjectCopy(locale);
         return menu ? [{
-        label: `${locale === "es" ? "Día" : "Day"} ${dayIndex + 1} · ${componentText(slot, ["custom_label", "slot_key"]) ?? (locale === "es" ? `Momento ${slotIndex + 1}` : `Meal ${slotIndex + 1}`)}`,
+        label: `${copy.sections.day} ${dayIndex + 1} · ${componentText(slot, ["custom_label", "slot_key"]) ?? (`${copy.sections.meal} ${slotIndex + 1}`)}`,
         menu,
         }] : [];
       }));
@@ -420,7 +417,7 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
   const otherValues = values.filter((value) => value.object_type !== "recipe");
   if (!recipeCards.length && !otherValues.length) return null;
   const heading = object.object_type === "category"
-    ? locale === "es" ? "Recetas de esta categoría" : "Recipes in this category"
+    ? publicObjectCopy(locale).sections.recipes_in_category
     : "";
   return (
     <section className={styles.components} aria-labelledby="object-content-title">
@@ -431,7 +428,7 @@ function ComponentSection({ object, locale }: { object: CookShareResolvedObject;
         </div>
       ) : null}
       <div className={styles.componentGrid}>
-        {recipeCards.map((card, index) => (
+        {recipeCards.map((card) => (
           <GalleryCardView key={card.href} card={card} locale={locale} />
         ))}
         {otherValues.map((component, index) => {
@@ -466,10 +463,10 @@ export default function PublicObjectRenderer({
   const isIngredient = object.object_type === "ingredient";
   const structuredData = buildCookShareStructuredData(object, locale);
   const canonicalPath = object.identity.canonical_path;
-  const siteCopy = locale === "es" ? siteEs : siteEn;
+  const siteCopy = getTranslations(locale);
   const breadcrumbs = [
-    { label: "CookPilot", href: locale === "es" ? "/es" : "/en" },
-    { label: siteCopy.header.gallery, href: locale === "es" ? "/es/gallery" : "/en/gallery" },
+    { label: "CookPilot", href: getLocalizedRoute(locale, "home") },
+    { label: siteCopy.header.gallery, href: getLocalizedRoute(locale, "gallery") },
     { label: title, href: canonicalPath },
   ];
 
@@ -477,7 +474,7 @@ export default function PublicObjectRenderer({
     <main className={`${styles.page} ${object.object_type !== "category" ? styles.withActionDock : ""}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <div className={styles.shell}>
-        <nav className={styles.breadcrumbs} aria-label={locale === "es" ? "Migas de navegación" : "Breadcrumbs"}>
+        <nav className={styles.breadcrumbs} aria-label={siteCopy.public_object.sections.breadcrumbs_aria}>
           {breadcrumbs.map((item, index) => <span key={item.href}>{index ? <span aria-hidden="true">/</span> : null}{index === 1 ? <GalleryReturnLink href={item.href} label={item.label} locale={locale} /> : <Link href={item.href} aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>{item.label}</Link>}</span>)}
         </nav>
         <div className={`${styles.heroGrid} ${recipe ? "" : styles.centeredHero}`}>
@@ -488,9 +485,9 @@ export default function PublicObjectRenderer({
             {recipe ? (
               <div className={styles.quickFacts}>
                 {recipe.time ? (
-                  <div className={styles.meta} aria-label={locale === "es" ? "Datos rápidos" : "Quick facts"}>
+                  <div className={styles.meta} aria-label={siteCopy.public_object.sections.quick_facts_aria}>
                     {recipe.time.total_minutes ? <span>{recipe.time.total_minutes} min</span> : null}
-                    {recipe.servings ? <span>{recipe.servings} {locale === "es" ? "porciones" : "servings"}</span> : null}
+                    {recipe.servings ? <span>{recipe.servings} {siteCopy.public_object.sections.servings}</span> : null}
                   </div>
                 ) : null}
                 <CookSharePreviewInsights objectType="recipe" path={canonicalPath} locale={locale} />

@@ -3,8 +3,8 @@
 import Image from "next/image";
 import type { CookShareResolvedObject } from "@/lib/cookshare/types";
 import { DownloadButton } from "@/shared/download/DownloadExperience";
-import siteEn from "@/locales/en.json";
-import siteEs from "@/locales/es.json";
+import { getTranslations } from "@/lib/i18n";
+import type { AppLocale } from "@/shared/config/routes";
 import styles from "./CookSharePreviewInsights.module.css";
 
 type InsightKey = "cost" | "time" | "nutrition";
@@ -22,9 +22,9 @@ export default function CookSharePreviewInsights({
 }: {
   objectType: CookShareResolvedObject["object_type"];
   path: string;
-  locale: "es" | "en";
+  locale: AppLocale;
 }) {
-  const copy = (locale === "es" ? siteEs : siteEn).cookshare_preview_insights;
+  const copy = getTranslations(locale).cookshare_preview_insights;
   const visible = objectType === "recipe" ? insights.filter((insight) => insight.key !== "time") : insights;
 
   return (

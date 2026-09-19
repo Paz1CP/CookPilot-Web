@@ -141,10 +141,10 @@ export default function Film() {
       const tokenPrimary = getComputedStyle(host).getPropertyValue("--cp-primary").trim();
       const tokenSuccess = getComputedStyle(host).getPropertyValue("--cp-secondary").trim();
       const $ = gsap.utils.selector(host);
-      const plateSize = Math.min(w * (mobile ? 1.08 : .76), h * (mobile ? .98 : 1.12));
+      const plateSize = Math.min(w * (mobile ? .96 : .76), h * (mobile ? .84 : 1.12));
       const emptySize = Math.min(w * .64, h * (mobile ? .49 : .60));
       const cx = w * .5, cy = h * .57;
-      gsap.set($(".protagonist"), {left:0, top:0, width:plateSize, height:plateSize, x:cx, y:h*(mobile?.49:.47)+plateSize/2, xPercent:-50, yPercent:-50});
+      gsap.set($(".protagonist"), {left:0, top:0, width:plateSize, height:plateSize, x:cx, y:h*(mobile?.56:.47)+plateSize/2, xPercent:-50, yPercent:-50});
       gsap.set($(".empty-food"),{autoAlpha:0});
       gsap.set($(".shot-title, .request-field, .cooklist, .cookmode, .cookplan, .table-shot, .action-seed, .meal-world"),{autoAlpha:0});
       gsap.set($(".opening-title .optical-word, .opening-title .optical-glyph"),{opacity:0,filter:reduced?"none":"blur(12px)",y:8});

@@ -206,6 +206,41 @@
       "kcal": "kcal",
       "g": "g",
       "mg": "mg"
+    },
+    "share_actions": {
+      "share": "Share",
+      "copy": "Copy link",
+      "whatsapp": "WhatsApp",
+      "qr": "Show QR",
+      "close": "Close",
+      "open": "Open in CookPilot",
+      "copied": "Link copied",
+      "shared": "Ready to share",
+      "failed": "Could not complete the action.",
+      "qrFailed": "Could not generate QR code.",
+      "qrHint": "Scan to open this page in CookPilot.",
+      "actions_aria": "Sharing actions"
+    },
+    "sections": {
+      "ingredients": "Ingredients",
+      "ingredients_unavailable": "Ingredients unavailable.",
+      "nutrition": "Nutrition",
+      "preparation": "Preparation",
+      "recipes": "Recipes",
+      "recipes_in_category": "Recipes in this category",
+      "breadcrumbs_aria": "Breadcrumbs",
+      "quick_facts_aria": "Quick facts",
+      "servings": "servings",
+      "day": "Day",
+      "meal": "Meal"
+    },
+    "list": {
+      "default_ingredient": "Ingredient",
+      "other": "Other",
+      "recipes_aria": "Recipes in this list",
+      "all": "All",
+      "no_ingredients": "This list has no ingredients.",
+      "organized_by_menus_aria": "List organized by menus"
     }
   },
   "footer": {
@@ -465,5 +500,108 @@
     "play_button_aria": "Play video",
     "summary_title": "In this demo",
     "summary_body": "CookPilot shows how a simple conversation can help you save money, save time, and eat better, solving what to cook with more clarity from your real context."
+  },
+  "not_found": {
+    "title": "Page not found.",
+    "description": "The route you are looking for does not exist or is no longer available.",
+    "action": "Go home",
+    "meta_title": "Page not found | CookPilot"
+  },
+  "delete_account": {
+    "title": "Delete account",
+    "intro": "Use this page to request and confirm permanent deletion of your CookPilot account. You do not need to reinstall or open the mobile app.",
+    "formTitle": "Delete your CookPilot account",
+    "formLead": "Verify your email, enter the one-time code, and confirm the exact phrase before deletion starts.",
+    "permanentTitle": "What gets deleted",
+    "permanentBody": "Deleting your account permanently deletes CookPilot account data, including profile, recipes, shopping lists, menus, CookMode sessions, uploaded files, generated images, AI history, preferences, packs, and usage data.",
+    "subscriptionsTitle": "Subscriptions",
+    "subscriptionsBody": "Deleting your CookPilot account may not automatically cancel subscriptions managed by Google Play, Apple App Store, or Huawei.",
+    "retentionTitle": "Limited retention",
+    "retentionBody": "Limited technical or transaction-related information may be retained for up to 30 days for security, fraud prevention, legal compliance, dispute resolution, or completion of the deletion process.",
+    "emailLabel": "CookPilot account email",
+    "emailPlaceholder": "you@example.com",
+    "sendCode": "Send verification code",
+    "resendCode": "Send another code",
+    "otpLabel": "Verification code",
+    "otpPlaceholder": "6-digit code",
+    "verifyCode": "Verify code",
+    "confirmLabel": "Final confirmation",
+    "confirmHelp": "Type this phrase exactly:",
+    "confirmationPhrase": "Delete my account",
+    "deleteButton": "Delete my account permanently",
+    "successTitle": "Your CookPilot account has been deleted.",
+    "successBody": "The verified account deletion request completed successfully. Any retained technical or transaction-related records follow the limited retention policy above.",
+    "genericOtpMessage": "If an account exists for this email, we sent a verification code.",
+    "sendCodeFailed": "We could not send the code right now. Please try again.",
+    "invalidEmail": "Enter a valid email address.",
+    "invalidOtp": "Enter the verification code from your email.",
+    "wrongOtp": "The code is wrong or expired. Check your email and try again.",
+    "networkError": "Network error. Please check your connection and try again.",
+    "deleteFailed": "Account deletion failed. Please try again.",
+    "userNotFound": "We could not verify an active CookPilot account for this session.",
+    "cooldown": "Please wait before requesting another code.",
+    "step": "Step",
+    "emailStep": "Email",
+    "otpStep": "Code",
+    "finalStep": "Confirm"
+  },
+  "legal": {
+    "titleA": "Privacy and terms",
+    "titleB": "without noise",
+    "intro": "CookPilot's full legal copy, structured so you can review data, AI, payments, rights, and account deletion without digging through a flat document.",
+    "developerLabel": "Responsible developer",
+    "developerValue": "Christopher Jeffersson Lenin Paz Leon",
+    "updatedLabel": "Last updated",
+    "contactLabel": "Contact",
+    "tabs": {
+      "full": "Full document",
+      "account": "Delete account"
+    },
+    "highlights": [
+      {
+        "title": "Personal data",
+        "body": "What we collect, why we use it, and how we protect your account."
+      },
+      {
+        "title": "AI and providers",
+        "body": "How recipes, images, audio, and cooking context may be processed."
+      },
+      {
+        "title": "Plans and payments",
+        "body": "Subscriptions, packs, limits, cancellations, and refunds."
+      },
+      {
+        "title": "Deletion",
+        "body": "What happens when you ask CookPilot to delete your account and data."
+      }
+    ],
+    "tocTitle": "On this page",
+    "fullIntro": "Full document",
+    "accountIntro": "Focused view of the sections about account deletion, associated data, and active subscriptions.",
+    "sectionLabel": "Section",
+    "noAccountSections": "We could not find account deletion sections in this document.",
+    "deletionCtaTitle": "Delete account",
+    "deletionCtaBody": "You can delete your account directly from the public deletion page with email verification.",
+    "deletionCtaAction": "Go to delete account"
+  },
+  "landing_gallery": {
+    "title": "Cook with real food",
+    "description": "Explore recipes that already live inside CookPilot.",
+    "view_gallery": "View gallery",
+    "coming_soon": "The gallery will be available soon."
+  },
+  "units": {
+    "unit_singular": "unit",
+    "unit_plural": "units"
+  },
+  "semantic": {
+    "category_description": "Public recipes matching these categories.",
+    "ingredient_description": "Public recipes with {name}."
+  },
+  "structured_data": {
+    "related_content": "Related content"
+  },
+  "metadata_cookshare": {
+    "default_description": "Discover this CookPilot food object and open it in the app."
   }
 }

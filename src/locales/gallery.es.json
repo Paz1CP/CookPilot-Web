@@ -65,7 +65,7 @@
   "contextSearchOnly": "Este tipo se explora por texto; sus filtros específicos aparecerán cuando correspondan.",
   "brand": "CookPilot",
   "plan": "Plan",
-  "dayLabel": "D\u00eda {number}",
+  "dayLabel": "Día {number}",
   "mealOptions": {
     "breakfast": "Desayuno",
     "morning_snack": "Media mañana",
@@ -203,5 +203,8 @@
     "list": "Lista",
     "ingredient": "Ingrediente",
     "category": "Categoría"
-  }
+  },
+  "more": "Cargar más",
+  "requestError": "No pudimos cargar la Gallery. Inténtalo de nuevo.",
+  "advanced": "Más filtros"
 }

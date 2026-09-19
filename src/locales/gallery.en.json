@@ -203,5 +203,8 @@
     "list": "List",
     "ingredient": "Ingredient",
     "category": "Category"
-  }
+  },
+  "more": "Load more",
+  "requestError": "Could not load Gallery. Please try again.",
+  "advanced": "More filters"
 }

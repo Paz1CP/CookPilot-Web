@@ -1,4 +1,5 @@
 import type { AppLocale } from "@/shared/config/routes";
+import { getTranslations } from "@/lib/i18n";
 
 type DisplayQuantity = { quantity: number; unit: string };
 
@@ -145,8 +146,9 @@ export function formatCookShareQuantity(
   const metric = toMetric(numeric, normalizedUnit);
   const number = formatNumber(metric.quantity, locale);
   if (metric.unit === "unit") {
-    if (locale === "es") return `${number} ${Math.abs(metric.quantity) === 1 ? "unidad" : "unidades"}`;
-    return `${number} ${Math.abs(metric.quantity) === 1 ? "unit" : "units"}`;
+    const copy = getTranslations(locale);
+    const unitLabel = Math.abs(metric.quantity) === 1 ? copy.units.unit_singular : copy.units.unit_plural;
+    return `${number} ${unitLabel}`;
   }
   const labels: Record<string, string> = {
     g: "g",

@@ -1,6 +1,7 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import { absoluteUrl } from "@/shared/config/site";
-import type { AppLocale } from "@/shared/config/routes";
+import { getAlternateLocale, getCookShareObjectSegment, type AppLocale } from "@/shared/config/routes";
+import { getTranslations } from "@/lib/i18n";
 import { getCookShareObject } from "./page";
 import { emptyGalleryFilters } from "./gallery-query";
 import { getGalleryPage } from "./gallery";
@@ -12,9 +13,7 @@ type SemanticType = "category" | "ingredient";
 const slugPattern = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 function pathFor(locale: AppLocale, type: SemanticType, segments: string[]) {
-  const section = type === "category"
-    ? locale === "es" ? "categorias" : "categories"
-    : locale === "es" ? "ingredientes" : "ingredients";
+  const section = getCookShareObjectSegment(locale, type);
   return `/${locale}/${section}/${segments.join("/")}`;
 }
 
@@ -81,9 +80,10 @@ export async function getSemanticCollection(
   });
   const primaryTitle = publicTitle(primary.object, locale);
   const title = type === "category" ? labels.join(" · ") : `${primaryTitle} · ${labels.join(" · ")}`;
+  const copy = getTranslations(locale);
   const description = type === "category"
-    ? locale === "es" ? "Recetas públicas que coinciden con estas categorías." : "Public recipes matching these categories."
-    : locale === "es" ? `Recetas públicas con ${primaryTitle.toLowerCase()}.` : `Public recipes with ${primaryTitle.toLowerCase()}.`;
+    ? copy.semantic.category_description
+    : copy.semantic.ingredient_description.replace("{name}", primaryTitle.toLowerCase());
   return { page, title, description, canonicalPath: pathFor(locale, type, canonicalSegments) };
 }
 
@@ -93,7 +93,7 @@ export function semanticCollectionMetadata(
   type: SemanticType,
   hasSearchState = false,
 ) {
-  const alternateLocale: AppLocale = locale === "es" ? "en" : "es";
+  const alternateLocale: AppLocale = getAlternateLocale(locale);
   const segments = collection.canonicalPath.split("/").filter(Boolean).slice(2);
   const alternatePath = pathFor(alternateLocale, type, segments);
   return {

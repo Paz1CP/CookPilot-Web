@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { useLocale } from "@/contexts/LanguageContext";
 import { emptyGalleryFilters, galleryIncludeIngredientsHash, galleryUrl } from "@/lib/cookshare/gallery-query";
 import type { CookShareObjectType } from "@/lib/cookshare/types";
-import type { AppLocale } from "@/shared/config/routes";
+import { getLocalizedRoute, type AppLocale } from "@/shared/config/routes";
 import { DownloadButton, type DownloadDialogContext } from "@/shared/download/DownloadExperience";
 import type { CookShareAppAction } from "@/shared/download/cookshare-install-links";
 import { useLiquidGlass } from "@/shared/ui/useLiquidGlass";
@@ -140,7 +140,7 @@ function ingredientRecipesHref(path: string, locale: AppLocale) {
   }
   const filters = emptyGalleryFilters();
   if (slug) filters.ingredients_include = [slug];
-  const galleryPath = locale === "es" ? "/es/gallery" : "/en/gallery";
+  const galleryPath = getLocalizedRoute(locale, "gallery");
   return `${galleryUrl(galleryPath, {
     locale,
     q: "",
@@ -160,7 +160,7 @@ export default function CookShareActionDock({
 }) {
   const { locale, t } = useLocale();
   const [scrolled, setScrolled] = useState(false);
-  const liquidGlass = useLiquidGlass<HTMLElement>();
+  const { targetRef, style: glassStyle, filter: glassFilter } = useLiquidGlass<HTMLElement>();
   const definitions = ACTIONS[objectType] ?? [];
 
   useEffect(() => {
@@ -174,12 +174,12 @@ export default function CookShareActionDock({
 
   return (
     <>
-    {liquidGlass.filter}
+    {glassFilter}
     <nav
-      ref={liquidGlass.ref}
+      ref={targetRef}
       className={`cp-appbar-glass ${scrolled ? "cp-appbar-glass--scrolled" : ""} ${styles.dock}`}
       aria-label={t.cookshare_action_dock.navigation_label}
-      style={liquidGlass.style}
+      style={glassStyle}
     >
       {definitions.map(({ key, icon: ActionIcon, featured }) => {
         const copy = copyFor(t.cookshare_action_dock, objectType, key);

@@ -5,9 +5,11 @@ import { useState } from "react";
 import { Copy, ScanBarcode, Share } from "iconsax-reactjs";
 import { absoluteUrl } from "@/shared/config/site";
 import { DownloadButton } from "@/shared/download/DownloadExperience";
+import { getTranslations } from "@/lib/i18n";
+import type { AppLocale } from "@/shared/config/routes";
 import styles from "./ShareActions.module.css";
 
-type Locale = "es" | "en";
+type Locale = AppLocale;
 
 async function copyText(value: string) {
   if (navigator.clipboard?.writeText) {
@@ -39,33 +41,7 @@ export default function ShareActions({
   const [qrOpen, setQrOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const url = absoluteUrl(path);
-  const labels = locale === "es"
-    ? {
-      share: "Compartir",
-      copy: "Copiar enlace",
-      whatsapp: "WhatsApp",
-      qr: "Mostrar QR",
-      close: "Cerrar",
-      open: "Abrir en CookPilot",
-      copied: "Enlace copiado",
-      shared: "Listo para compartir",
-      failed: "No pudimos completar la acción.",
-      qrFailed: "No pudimos generar el QR.",
-      qrHint: "Escanea para abrir esta página en CookPilot.",
-    }
-    : {
-      share: "Share",
-      copy: "Copy link",
-      whatsapp: "WhatsApp",
-      qr: "Show QR",
-      close: "Close",
-      open: "Open in CookPilot",
-      copied: "Link copied",
-      shared: "Ready to share",
-      failed: "We could not complete that action.",
-      qrFailed: "We could not generate the QR code.",
-      qrHint: "Scan to open this page in CookPilot.",
-    };
+  const labels = getTranslations(locale).public_object.share_actions;
 
   const share = async () => {
     setBusy(true);
@@ -124,7 +100,7 @@ export default function ShareActions({
 
   return (
     <>
-      <div className={styles.actions} aria-label={locale === "es" ? "Acciones de compartir" : "Sharing actions"}>
+      <div className={styles.actions} aria-label={labels.actions_aria}>
         <button type="button" className={styles.iconAction} onClick={share} disabled={busy} aria-label={labels.share} title={labels.share}>
           <Share size={21} variant="Outline" aria-hidden="true" />
         </button>

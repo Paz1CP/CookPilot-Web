@@ -1,30 +1,18 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
+import { getTranslations } from "@/lib/i18n";
 import { getHtmlLanguage } from "@/shared/config/metadata";
 import { defaultLocale, type AppLocale } from "@/shared/config/routes";
 import styles from "./not-found.module.css";
 
 export const metadata: Metadata = {
-  title: "Página no encontrada | CookPilot",
+  title: getTranslations(defaultLocale).not_found.meta_title,
   robots: {
     index: false,
     follow: false,
   },
 };
-
-const copy = {
-  es: {
-    title: "Página no encontrada.",
-    description: "La ruta que buscas no existe o ya no está disponible.",
-    action: "Volver al inicio",
-  },
-  en: {
-    title: "Page not found.",
-    description: "The route you are looking for does not exist or is no longer available.",
-    action: "Go home",
-  },
-} satisfies Record<AppLocale, Record<string, string>>;
 
 function getLocale(value: string | null): AppLocale {
   return value === "en" ? "en" : defaultLocale;
@@ -33,7 +21,7 @@ function getLocale(value: string | null): AppLocale {
 export default async function NotFound() {
   const requestHeaders = await headers();
   const locale = getLocale(requestHeaders.get("x-cp-locale"));
-  const t = copy[locale];
+  const t = getTranslations(locale).not_found;
 
   return (
     <main className={styles.page} lang={getHtmlLanguage(locale)}>

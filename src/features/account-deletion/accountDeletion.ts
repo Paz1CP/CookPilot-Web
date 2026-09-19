@@ -1,4 +1,5 @@
 import { supabaseConfig } from "@/lib/supabase/config";
+import { getTranslations } from "@/lib/i18n";
 
 const SUPABASE_PUBLISHABLE_KEY = supabaseConfig.publishableKey;
 const SUPABASE_URL = supabaseConfig.url;
@@ -37,14 +38,13 @@ export async function requestAccountDeletionOtp(
   });
 
   const payload = await parseJson(response);
+  const copy = getTranslations(locale).delete_account;
 
   if (!response.ok) {
     const message =
       typeof payload.message === "string"
         ? payload.message
-        : locale === "es"
-          ? "No pudimos enviar el código ahora. Inténtalo nuevamente."
-          : "We could not send the code right now. Please try again.";
+        : copy.sendCodeFailed;
 
     const error = new Error(message);
     if (typeof payload.cooldownSeconds === "number") {
@@ -57,9 +57,7 @@ export async function requestAccountDeletionOtp(
     message:
       typeof payload.message === "string"
         ? payload.message
-        : locale === "es"
-          ? "Si existe una cuenta asociada a este correo, enviamos un código de verificación."
-          : "If an account exists for this email, we sent a verification code.",
+        : copy.genericOtpMessage,
     cooldownSeconds:
       typeof payload.cooldownSeconds === "number" ? payload.cooldownSeconds : undefined,
   };

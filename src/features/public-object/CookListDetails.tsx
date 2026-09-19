@@ -6,6 +6,7 @@ import type { AppLocale } from "@/shared/config/routes";
 import type { CookShareResolvedObject } from "@/lib/cookshare/types";
 import { mediaUrl } from "@/lib/cookshare/media";
 import { formatCookShareQuantity } from "@/lib/cookshare/quantity-format";
+import { getTranslations } from "@/lib/i18n";
 import styles from "./PublicObjectRenderer.module.css";
 
 type PublicRecord = Record<string, unknown>;
@@ -22,7 +23,7 @@ function textValue(value: unknown): string | null {
 
 function localizedText(value: PublicRecord, locale: AppLocale, keys: [string, string]): string {
   const preferred = locale === "en" ? [keys[1], keys[0]] : keys;
-  return preferred.map((key) => textValue(value[key])).find(Boolean) ?? (locale === "es" ? "Ingrediente" : "Ingredient");
+  return preferred.map((key) => textValue(value[key])).find(Boolean) ?? getTranslations(locale).public_object.list.default_ingredient;
 }
 
 function localizedOptional(value: PublicRecord, locale: AppLocale, keys: [string, string]): string | null {
@@ -57,7 +58,7 @@ function recipeCards(value: unknown, locale: AppLocale): RecipeCard[] {
     const image = mediaUrl(group.image_url ?? group.cover_photo_url ?? (Array.isArray(group.image_urls) ? group.image_urls[0] : null));
     const title = localizedText(group, locale, ["title", "title_en"]);
     return [{ key: recipeKey(group, groupIndex), title, image, items: groupItems }];
-  }).sort((a, b) => a.title.localeCompare(b.title, locale === "es" ? "es" : "en", { sensitivity: "base" }))
+  }).sort((a, b) => a.title.localeCompare(b.title, locale, { sensitivity: "base" }))
     .filter((card, index, cards) => cards.findIndex((candidate) => `${candidate.title.toLocaleLowerCase()}|${candidate.image ?? ""}` === `${card.title.toLocaleLowerCase()}|${card.image ?? ""}`) === index);
 }
 
@@ -65,7 +66,7 @@ function categoryFor(item: PublicRecord, locale: AppLocale): { key: string; titl
   const category = item.category && typeof item.category === "object" && !Array.isArray(item.category)
     ? item.category as PublicRecord
     : null;
-  const title = category ? localizedText(category, locale, ["name", "name_en"]) : (locale === "es" ? "Otros" : "Other");
+  const title = category ? localizedText(category, locale, ["name", "name_en"]) : getTranslations(locale).public_object.list.other;
   const icon = category ? mediaUrl(category.icon_url) : null;
   return { key: `${title.toLocaleLowerCase()}|${icon ?? ""}`, title, icon };
 }
@@ -79,10 +80,10 @@ function groupedItems(items: PublicRecord[], locale: AppLocale) {
     byCategory.set(category.key, current);
   }
   return [...byCategory.values()]
-    .sort((a, b) => a.title.localeCompare(b.title, locale === "es" ? "es" : "en", { sensitivity: "base" }))
+    .sort((a, b) => a.title.localeCompare(b.title, locale, { sensitivity: "base" }))
     .map((category) => ({
       ...category,
-      items: [...category.items].sort((a, b) => localizedText(a, locale, ["name", "name_en"]).localeCompare(localizedText(b, locale, ["name", "name_en"]), locale === "es" ? "es" : "en", { sensitivity: "base" })),
+      items: [...category.items].sort((a, b) => localizedText(a, locale, ["name", "name_en"]).localeCompare(localizedText(b, locale, ["name", "name_en"]), locale, { sensitivity: "base" })),
     }));
 }
 
@@ -189,11 +190,13 @@ function RecipeRail({
     dragRef.current.suppressClick = false;
   };
 
+  const copy = getTranslations(locale);
+
   return (
     <div
       ref={railRef}
       className={`${styles.listRecipeRail} ${dragging ? styles.listRecipeRailDragging : ""}`}
-      aria-label={locale === "es" ? "Recetas de esta lista" : "Recipes in this list"}
+      aria-label={copy.public_object.list.recipes_aria}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
@@ -202,7 +205,7 @@ function RecipeRail({
     >
       {includeAll ? (
         <button type="button" className={`${styles.listRecipeButton} ${styles.listRecipeButtonAll} ${allActive ? styles.listRecipeButtonActive : ""}`} aria-pressed={allActive} onClick={() => onSelect(null)}>
-          <span className={styles.listRecipeAll}>{locale === "es" ? "Todos" : "All"}</span>
+          <span className={styles.listRecipeAll}>{copy.public_object.list.all}</span>
         </button>
       ) : null}
       {cards.map((card, index) => (
@@ -216,8 +219,9 @@ function RecipeRail({
 }
 
 function IngredientRows({ items, locale }: { items: PublicRecord[]; locale: AppLocale }) {
+  const copy = getTranslations(locale);
   if (!items.length) {
-    return <p className={styles.muted}>{locale === "es" ? "No hay ingredientes en esta lista." : "This list has no ingredients."}</p>;
+    return <p className={styles.muted}>{copy.public_object.list.no_ingredients}</p>;
   }
   return (
     <div className={styles.listCategoryGroups}>
@@ -246,6 +250,7 @@ function IngredientRows({ items, locale }: { items: PublicRecord[]; locale: AppL
 }
 
 export default function CookListDetails({ object, locale }: { object: CookShareResolvedObject; locale: AppLocale }) {
+  const copy = getTranslations(locale);
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [showAllMenus, setShowAllMenus] = useState(false);
   const groups = useMemo(() => records(object.recipe_groups).length ? records(object.recipe_groups) : records(object.groups), [object.groups, object.recipe_groups]);
@@ -258,16 +263,16 @@ export default function CookListDetails({ object, locale }: { object: CookShareR
 
   if (mode === "menus") {
     return (
-      <section className={styles.components} aria-label={locale === "es" ? "Lista organizada por menús" : "List organized by menus"}>
+      <section className={styles.components} aria-label={copy.public_object.list.organized_by_menus_aria}>
         <div className={styles.listMenuControls}>
           <button type="button" className={`${styles.listMenuAllButton} ${showAllMenus ? styles.listMenuAllButtonActive : ""}`} aria-pressed={showAllMenus} onClick={() => { setShowAllMenus(true); setSelectedKey(null); }}>
-            {locale === "es" ? "Todos" : "All"}
+            {copy.public_object.list.all}
           </button>
         </div>
         {showAllMenus ? (
           <>
             <div className={styles.sectionHeading}>
-              <h2 id="list-content-title">{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+              <h2 id="list-content-title">{copy.public_object.sections.ingredients}</h2>
             </div>
             <IngredientRows items={allItems} locale={locale} />
           </>
@@ -277,7 +282,7 @@ export default function CookListDetails({ object, locale }: { object: CookShareR
               <h2>{selected.title}</h2>
             </div>
             <div className={styles.sectionHeading}>
-              <h2>{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+              <h2>{copy.public_object.sections.ingredients}</h2>
             </div>
             <IngredientRows items={selected.items} locale={locale} />
           </article>
@@ -290,7 +295,7 @@ export default function CookListDetails({ object, locale }: { object: CookShareR
                 </div>
                 {menu.cards.length ? <RecipeRail cards={menu.cards} selectedKey={selectedKey} onSelect={(key) => { setSelectedKey(key); setShowAllMenus(false); }} locale={locale} /> : null}
                 <div className={styles.sectionHeading}>
-                  <h2>{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+                  <h2>{copy.public_object.sections.ingredients}</h2>
                 </div>
                 <IngredientRows items={menu.items} locale={locale} />
               </article>
@@ -309,7 +314,7 @@ export default function CookListDetails({ object, locale }: { object: CookShareR
         <RecipeRail cards={cards} selectedKey={selectedKey} allActive={selectedKey === null} onSelect={setSelectedKey} includeAll locale={locale} />
       ) : null}
       <div className={styles.sectionHeading}>
-        <h2 id="list-content-title">{locale === "es" ? "Ingredientes" : "Ingredients"}</h2>
+        <h2 id="list-content-title">{copy.public_object.sections.ingredients}</h2>
       </div>
       <IngredientRows items={visibleItems} locale={locale} />
     </section>

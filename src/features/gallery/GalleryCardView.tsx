@@ -4,8 +4,7 @@ import { Clock } from "iconsax-reactjs";
 import type { AppLocale } from "@/shared/config/routes";
 import type { GalleryCard } from "@/lib/cookshare/types";
 import { inlineMarkdownToText } from "@/lib/cookshare/inline-markdown";
-import es from "@/locales/gallery.es.json";
-import en from "@/locales/gallery.en.json";
+import { getGalleryTranslations } from "@/lib/i18n";
 import styles from "./GalleryDiscovery.module.css";
 
 function withGalleryReturnPath(href: string, returnPath?: string) {
@@ -23,7 +22,7 @@ export default function GalleryCardView({
   locale: AppLocale;
   returnPath?: string;
 }) {
-  const labels = locale === "es" ? es : en;
+  const labels = getGalleryTranslations(locale);
   const href = withGalleryReturnPath(card.href, returnPath);
 
   return (

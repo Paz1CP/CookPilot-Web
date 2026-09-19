@@ -96,6 +96,14 @@ const objectSegments: Record<AppLocale, Record<CookShareRouteObjectType, string>
   },
 };
 
+export function getAlternateLocale(locale: AppLocale): AppLocale {
+  return locale === "es" ? "en" : "es";
+}
+
+export function getCookShareObjectSegment(locale: AppLocale, objectType: CookShareRouteObjectType): string {
+  return objectSegments[locale][objectType];
+}
+
 export function buildCookSharePath(input: {
   locale: AppLocale;
   objectType: CookShareRouteObjectType;
@@ -105,7 +113,7 @@ export function buildCookSharePath(input: {
   const segment = objectSegments[input.locale][input.objectType];
   const handle = input.handle ? `@${input.handle.replace(/^@/, "").toLowerCase()}` : "";
   const prefix = handle ? `/${handle}` : "";
-  return `${input.locale === "es" ? "/es" : "/en"}${prefix}/${segment}/${input.slug}`;
+  return `/${input.locale}${prefix}/${segment}/${input.slug}`;
 }
 
 const cookShareSegmentAliases: Record<string, string> = {

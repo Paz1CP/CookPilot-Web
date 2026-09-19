@@ -4,7 +4,7 @@ import type {
   CookShareObjectType,
   CookShareResolvedObject,
 } from "./types";
-import type { AppLocale } from "@/shared/config/routes";
+import { getCookShareObjectSegment, type AppLocale } from "@/shared/config/routes";
 
 const objectTypes = new Set<CookShareObjectType>([
   "recipe",
@@ -43,13 +43,7 @@ function contextualParentPath(
   handle: string,
   slug: string,
 ) {
-  const segment = parentType === "menu"
-    ? "menus"
-    : parentType === "day"
-      ? locale === "es" ? "dias" : "days"
-      : parentType === "week"
-        ? locale === "es" ? "semanas" : "weeks"
-        : locale === "es" ? "listas" : "lists";
+  const segment = getCookShareObjectSegment(locale, parentType);
   return `/${locale}/@${handle}/${segment}/${slug}`;
 }
 
@@ -140,7 +134,7 @@ export async function resolveContextualRecipe(
   const canonicalRecipeSlug = normalizeSlug(payload.context?.recipe_slug);
   if (payload.object_type !== "recipe" || !payload.identity || !parentPath || !canonicalRecipeSlug) return null;
 
-  const recipeSegment = input.locale === "es" ? "recetas" : "recipes";
+  const recipeSegment = getCookShareObjectSegment(input.locale, "recipe");
   const canonicalPath = `${parentPath}/${recipeSegment}/${canonicalRecipeSlug}`;
   return {
     object: {

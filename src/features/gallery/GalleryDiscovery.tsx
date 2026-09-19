@@ -15,12 +15,11 @@ import {
   type GalleryNumericFilterKey,
 } from "@/lib/cookshare/gallery-query";
 import type { GalleryCard, GalleryFacetOption, GalleryFilters, GalleryPage, GalleryQueryState } from "@/lib/cookshare/types";
-import es from "@/locales/gallery.es.json";
-import en from "@/locales/gallery.en.json";
+import { getGalleryTranslations, type GalleryTranslations } from "@/lib/i18n";
 import GalleryCardView from "./GalleryCardView";
 import styles from "./GalleryDiscovery.module.css";
 
-type GalleryLabels = typeof es;
+type GalleryLabels = GalleryTranslations;
 
 function cardIdentity(item: GalleryCard) { return `${item.objectType}:${item.objectId}`; }
 function titleize(value: string) { return value.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase()); }
@@ -244,7 +243,7 @@ export function DiscoverySkeleton({ count = 6 }: { count?: number }) {
 
 export default function GalleryDiscovery({ initial }: { initial: GalleryPage }) {
   const locale = initial.state.locale;
-  const labels = locale === "es" ? es : en;
+  const labels = getGalleryTranslations(locale);
   const params = useSearchParams();
   const state = parseGalleryQueryState(locale, params);
   const requestParams = toGallerySearchParams(state, { includeLocale: true, includeCursor: true }).toString();

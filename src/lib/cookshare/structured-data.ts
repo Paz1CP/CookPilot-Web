@@ -1,6 +1,7 @@
 import { absoluteUrl, siteConfig } from "@/shared/config/site";
 import { publicDescription, publicTitle } from "./resolver";
-import type { AppLocale } from "@/shared/config/routes";
+import { getLocalizedRoute, type AppLocale } from "@/shared/config/routes";
+import { getTranslations } from "@/lib/i18n";
 import type { CookShareResolvedObject, RecipeProjection } from "./types";
 import { inlineMarkdownToText } from "./inline-markdown";
 
@@ -38,7 +39,7 @@ export function buildCookShareStructuredData(object: CookShareResolvedObject, lo
     "@type": "BreadcrumbList",
     "@id": `${canonical}#breadcrumbs`,
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "CookPilot", item: absoluteUrl(locale === "en" ? "/en" : "/es") },
+      { "@type": "ListItem", position: 1, name: "CookPilot", item: absoluteUrl(getLocalizedRoute(locale, "home")) },
       { "@type": "ListItem", position: 2, name: breadcrumbName(object, locale), item: canonical },
     ],
   }];
@@ -91,7 +92,7 @@ export function buildCookShareStructuredData(object: CookShareResolvedObject, lo
     graph.push({
       "@type": "ItemList",
       "@id": `${canonical}#items`,
-      name: locale === "es" ? "Contenido relacionado" : "Related content",
+      name: getTranslations(locale).structured_data.related_content,
       itemListElement: links.slice(0, 50).map((url, index) => ({
         "@type": "ListItem",
         position: index + 1,

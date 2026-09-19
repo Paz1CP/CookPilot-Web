@@ -22,85 +22,8 @@ import styles from "./GalleryClient.module.css";
 import GalleryCardView from "./GalleryCardView";
 import GallerySkeleton from "./GallerySkeleton";
 
-type GalleryLabels = {
-  all: string;
-  recipes: string;
-  menus: string;
-  days: string;
-  weeks: string;
-  lists: string;
-  ingredients: string;
-  categories: string;
-  search: string;
-  submit: string;
-  more: string;
-  filters: string;
-  advanced: string;
-  category: string;
-  meal: string;
-  component: string;
-  minTime: string;
-  maxTime: string;
-  any: string;
-  clear: string;
-  results: string;
-  noResults: string;
-  requestError: string;
-};
-
-function labelsFor(locale: GalleryQueryState["locale"]): GalleryLabels {
-  return locale === "es"
-    ? {
-      all: "Todo",
-      recipes: "Recetas",
-      menus: "Menús",
-      days: "Días",
-      weeks: "Semanas",
-      lists: "Listas",
-      ingredients: "Ingredientes",
-      categories: "Categorías",
-      search: "Buscar recetas o ingredientes",
-      submit: "Buscar",
-      more: "Cargar más",
-      filters: "Filtros de Gallery",
-      advanced: "Más filtros",
-      category: "Categoría",
-      meal: "Momento",
-      component: "Tipo de plato",
-      minTime: "Tiempo mínimo",
-      maxTime: "Tiempo máximo",
-      any: "Cualquiera",
-      clear: "Limpiar filtros",
-      results: "resultados",
-      noResults: "No encontramos objetos con esos filtros.",
-      requestError: "No pudimos cargar la Gallery. Inténtalo de nuevo.",
-    }
-    : {
-      all: "All",
-      recipes: "Recipes",
-      menus: "Menus",
-      days: "Days",
-      weeks: "Weeks",
-      lists: "Lists",
-      ingredients: "Ingredients",
-      categories: "Categories",
-      search: "Search recipes or ingredients",
-      submit: "Search",
-      more: "Load more",
-      filters: "Gallery filters",
-      advanced: "More filters",
-      category: "Category",
-      meal: "Meal moment",
-      component: "Dish type",
-      minTime: "Minimum time",
-      maxTime: "Maximum time",
-      any: "Any",
-      clear: "Clear filters",
-      results: "results",
-      noResults: "No objects match those filters.",
-      requestError: "We could not load the Gallery. Try again.",
-    };
-}
+import { getGalleryTranslations } from "@/lib/i18n";
+import { getLocalizedRoute } from "@/shared/config/routes";
 
 function apiParams(state: GalleryQueryState) {
   const params = toGallerySearchParams(state, {
@@ -162,7 +85,7 @@ export default function GalleryClient({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const labels = labelsFor(initial.state.locale);
+  const labels = getGalleryTranslations(initial.state.locale);
   const [items, setItems] = useState<GalleryCard[]>(initial.items);
   const [cursor, setCursor] = useState(initial.nextCursor);
   const [state, setState] = useState<GalleryQueryState>(initial.state);
@@ -172,7 +95,7 @@ export default function GalleryClient({
   const [error, setError] = useState<string | null>(null);
   const initialLoadStarted = useRef(false);
 
-  const path = basePath ?? (state.locale === "en" ? "/en/gallery" : "/es/gallery");
+  const path = basePath ?? getLocalizedRoute(state.locale, "gallery");
 
   const fetchPage = useCallback(async (nextState: GalleryQueryState, append: boolean) => {
     setLoading(true);

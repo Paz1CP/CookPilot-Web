@@ -24,7 +24,7 @@ export default function Footer() {
     }
   };
 
-  const homePath = locale === "es" ? "/es" : "/en";
+  const homePath = getLocalizedRoute(locale, "home");
   const productLinks = [
     { label: t.footer.como_funciona, href: getLocalizedRoute(locale, "howItWorks") },
     { label: t.footer.pro, href: `${homePath}#go-pro` },
@@ -44,7 +44,7 @@ export default function Footer() {
           
           {/* Logo & Made in info */}
           <div className={styles.brandCol}>
-            <Link href={locale === "es" ? "/es" : "/en"} className={styles.logo}>
+            <Link href={homePath} className={styles.logo}>
               <Image
                 src="/images/cookpilot/cookpilot_logo.png"
                 alt={t.footer.logo_alt}

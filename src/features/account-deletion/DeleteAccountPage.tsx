@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { InfoCircle, Lock, ReceiptText, ShieldTick, Trash } from "iconsax-reactjs";
 import { useLocale } from "@/contexts/LanguageContext";
+import { type Translations } from "@/lib/i18n";
 import {
   deleteCookPilotAccount,
   requestAccountDeletionOtp,
@@ -12,125 +13,35 @@ import {
 import styles from "./DeleteAccountPage.module.css";
 
 type Step = "email" | "otp" | "confirm" | "success";
-
-const copy = {
-  en: {
-    title: "Delete account",
-    intro:
-      "Use this page to request and confirm permanent deletion of your CookPilot account. You do not need to reinstall or open the mobile app.",
-    formTitle: "Delete your CookPilot account",
-    formLead:
-      "Verify your email, enter the one-time code, and confirm the exact phrase before deletion starts.",
-    permanentTitle: "What gets deleted",
-    permanentBody:
-      "Deleting your account permanently deletes CookPilot account data, including profile, recipes, shopping lists, menus, CookMode sessions, uploaded files, generated images, AI history, preferences, packs, and usage data.",
-    subscriptionsTitle: "Subscriptions",
-    subscriptionsBody:
-      "Deleting your CookPilot account may not automatically cancel subscriptions managed by Google Play, Apple App Store, or Huawei.",
-    retentionTitle: "Limited retention",
-    retentionBody:
-      "Limited technical or transaction-related information may be retained for up to 30 days for security, fraud prevention, legal compliance, dispute resolution, or completion of the deletion process.",
-    emailLabel: "CookPilot account email",
-    emailPlaceholder: "you@example.com",
-    sendCode: "Send verification code",
-    resendCode: "Send another code",
-    otpLabel: "Verification code",
-    otpPlaceholder: "6-digit code",
-    verifyCode: "Verify code",
-    confirmLabel: "Final confirmation",
-    confirmHelp: "Type this phrase exactly:",
-    confirmationPhrase: "Delete my account",
-    deleteButton: "Delete my account permanently",
-    successTitle: "Your CookPilot account has been deleted.",
-    successBody:
-      "The verified account deletion request completed successfully. Any retained technical or transaction-related records follow the limited retention policy above.",
-    genericOtpMessage: "If an account exists for this email, we sent a verification code.",
-    invalidEmail: "Enter a valid email address.",
-    invalidOtp: "Enter the verification code from your email.",
-    wrongOtp: "The code is wrong or expired. Check your email and try again.",
-    networkError: "Network error. Please check your connection and try again.",
-    deleteFailed: "Account deletion failed. Please try again.",
-    userNotFound: "We could not verify an active CookPilot account for this session.",
-    cooldown: "Please wait before requesting another code.",
-    step: "Step",
-    emailStep: "Email",
-    otpStep: "Code",
-    finalStep: "Confirm",
-  },
-  es: {
-    title: "Eliminar cuenta",
-    intro:
-      "Usa esta pagina para solicitar y confirmar la eliminacion permanente de tu cuenta de CookPilot. No necesitas reinstalar ni abrir la app movil.",
-    formTitle: "Elimina tu cuenta de CookPilot",
-    formLead:
-      "Verifica tu correo, ingresa el codigo de un solo uso y confirma la frase exacta antes de iniciar la eliminacion.",
-    permanentTitle: "Que se elimina",
-    permanentBody:
-      "Eliminar tu cuenta borra permanentemente los datos de cuenta de CookPilot, incluidos perfil, recetas, listas de compras, menus, sesiones de CookMode, archivos subidos, imagenes generadas, historial de AI, preferencias, packs y datos de uso.",
-    subscriptionsTitle: "Suscripciones",
-    subscriptionsBody:
-      "Eliminar tu cuenta de CookPilot puede no cancelar automaticamente suscripciones administradas por Google Play, Apple App Store o Huawei.",
-    retentionTitle: "Retencion limitada",
-    retentionBody:
-      "Informacion tecnica o relacionada con transacciones puede conservarse hasta por 30 dias por seguridad, prevencion de fraude, cumplimiento legal, resolucion de disputas o finalizacion del proceso de eliminacion.",
-    emailLabel: "Correo de tu cuenta CookPilot",
-    emailPlaceholder: "tu@correo.com",
-    sendCode: "Enviar codigo de verificacion",
-    resendCode: "Enviar otro codigo",
-    otpLabel: "Codigo de verificacion",
-    otpPlaceholder: "Codigo de 6 digitos",
-    verifyCode: "Verificar codigo",
-    confirmLabel: "Confirmacion final",
-    confirmHelp: "Escribe esta frase exactamente:",
-    confirmationPhrase: "Eliminar mi cuenta",
-    deleteButton: "Eliminar mi cuenta permanentemente",
-    successTitle: "Tu cuenta de CookPilot ha sido eliminada.",
-    successBody:
-      "La solicitud verificada de eliminacion de cuenta se completo correctamente. Cualquier registro tecnico o transaccional retenido sigue la politica de retencion limitada indicada arriba.",
-    genericOtpMessage:
-      "Si existe una cuenta asociada a este correo, enviamos un codigo de verificacion.",
-    invalidEmail: "Ingresa un correo valido.",
-    invalidOtp: "Ingresa el codigo de verificacion enviado a tu correo.",
-    wrongOtp: "El codigo es incorrecto o expiro. Revisa tu correo e intentalo otra vez.",
-    networkError: "Error de red. Revisa tu conexion e intentalo otra vez.",
-    deleteFailed: "La eliminacion de cuenta fallo. Intentalo nuevamente.",
-    userNotFound: "No pudimos verificar una cuenta activa de CookPilot para esta sesion.",
-    cooldown: "Espera antes de solicitar otro codigo.",
-    step: "Paso",
-    emailStep: "Correo",
-    otpStep: "Codigo",
-    finalStep: "Confirmar",
-  },
-} satisfies Record<AccountDeletionLocale, Record<string, string>>;
+type DeletionCopy = Translations["delete_account"];
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function mapOtpError(message: string, locale: AccountDeletionLocale) {
+function mapOtpError(message: string, copy: DeletionCopy) {
   const lower = message.toLowerCase();
   if (lower.includes("expired") || lower.includes("invalid") || lower.includes("token")) {
-    return copy[locale].wrongOtp;
+    return copy.wrongOtp;
   }
-  return copy[locale].wrongOtp;
+  return copy.wrongOtp;
 }
 
-function mapDeleteError(message: string, locale: AccountDeletionLocale) {
+function mapDeleteError(message: string, copy: DeletionCopy) {
   const lower = message.toLowerCase();
-  if (lower.includes("not found") || lower.includes("user")) return copy[locale].userNotFound;
-  if (lower.includes("network")) return copy[locale].networkError;
-  return copy[locale].deleteFailed;
+  if (lower.includes("not found") || lower.includes("user")) return copy.userNotFound;
+  if (lower.includes("network")) return copy.networkError;
+  return copy.deleteFailed;
 }
 
 interface ProgressPillsProps {
-  locale: AccountDeletionLocale;
+  copy: DeletionCopy;
   step: Step;
 }
 
-function ProgressPills({ locale, step }: ProgressPillsProps) {
-  const t = copy[locale];
+function ProgressPills({ copy, step }: ProgressPillsProps) {
   const steps = [
-    { key: "email", label: t.emailStep },
-    { key: "otp", label: t.otpStep },
-    { key: "confirm", label: t.finalStep },
+    { key: "email", label: copy.emailStep },
+    { key: "otp", label: copy.otpStep },
+    { key: "confirm", label: copy.finalStep },
   ] as const;
   const activeIndex = Math.max(
     0,
@@ -138,7 +49,7 @@ function ProgressPills({ locale, step }: ProgressPillsProps) {
   );
 
   return (
-    <ol className={styles.progress} aria-label={`${t.step} status`}>
+    <ol className={styles.progress} aria-label={`${copy.step} status`}>
       {steps.map((item, index) => (
         <li
           key={item.key}
@@ -153,7 +64,7 @@ function ProgressPills({ locale, step }: ProgressPillsProps) {
 }
 
 interface DeletionFormProps {
-  locale: AccountDeletionLocale;
+  copy: DeletionCopy;
   step: Step;
   email: string;
   otp: string;
@@ -171,7 +82,7 @@ interface DeletionFormProps {
 }
 
 function DeletionForm(props: DeletionFormProps) {
-  const t = copy[props.locale];
+  const t = props.copy;
   const canDelete = props.confirmation === t.confirmationPhrase && !props.isBusy;
 
   if (props.step === "success") {
@@ -186,7 +97,7 @@ function DeletionForm(props: DeletionFormProps) {
 
   return (
     <div className={styles.formStack}>
-      <ProgressPills locale={props.locale} step={props.step} />
+      <ProgressPills copy={props.copy} step={props.step} />
 
       <form className={styles.form} onSubmit={props.onEmailSubmit}>
         <label htmlFor="delete-account-email">{t.emailLabel}</label>
@@ -278,9 +189,9 @@ function DeletionForm(props: DeletionFormProps) {
 }
 
 export default function DeleteAccountPage() {
-  const { locale } = useLocale();
+  const { locale, t: appTranslations } = useLocale();
   const deletionLocale: AccountDeletionLocale = locale;
-  const t = copy[deletionLocale];
+  const t = appTranslations.delete_account;
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
@@ -354,7 +265,7 @@ export default function DeleteAccountPage() {
       setVerificationToken(vToken);
       setStep("confirm");
     } catch (error) {
-      setErrorMessage(error instanceof Error ? mapOtpError(error.message, deletionLocale) : t.wrongOtp);
+      setErrorMessage(error instanceof Error ? mapOtpError(error.message, t) : t.wrongOtp);
     } finally {
       setIsBusy(false);
     }
@@ -372,7 +283,7 @@ export default function DeleteAccountPage() {
       await deleteCookPilotAccount(accessToken, verificationToken);
       setStep("success");
     } catch (error) {
-      setErrorMessage(error instanceof Error ? mapDeleteError(error.message, deletionLocale) : t.deleteFailed);
+      setErrorMessage(error instanceof Error ? mapDeleteError(error.message, t) : t.deleteFailed);
     } finally {
       setIsBusy(false);
     }
@@ -413,7 +324,7 @@ export default function DeleteAccountPage() {
             </div>
           </div>
           <DeletionForm
-            locale={deletionLocale}
+            copy={t}
             step={step}
             email={email}
             otp={otp}

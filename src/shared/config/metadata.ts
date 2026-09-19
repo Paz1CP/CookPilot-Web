@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig, absoluteUrl, type PublicUtilityRouteKey } from "@/shared/config/site";
-import { type AppLocale, type LocalizedRouteKey } from "@/shared/config/routes";
+import { getAlternateLocale, type AppLocale, type LocalizedRouteKey } from "@/shared/config/routes";
+import { getTranslations } from "@/lib/i18n";
 import { hasActiveGalleryFilters } from "@/lib/cookshare/gallery-query";
 import { mediaUrl } from "@/lib/cookshare/media";
 import type { CookShareResolvedObject, GalleryQueryState } from "@/lib/cookshare/types";
@@ -167,11 +168,9 @@ export function createCookShareMetadata(
     : object.title ?? "CookPilot";
   const description = typeof object.description === "string"
     ? object.description
-    : locale === "en"
-      ? "Discover this CookPilot food object and open it in the app."
-      : "Descubre este objeto de CookPilot y ábrelo en la app.";
+    : getTranslations(locale).metadata_cookshare.default_description;
   const canonical = absoluteUrl(object.identity.canonical_path);
-  const alternateLocale = locale === "es" ? "en" : "es";
+  const alternateLocale = getAlternateLocale(locale);
   const socialImage = resolveCookShareSocialImage(object, title);
 
   const languages: Record<string, string> = { [locale]: canonical };
@@ -235,9 +234,9 @@ export function createGalleryMetadata(locale: AppLocale, state: GalleryQueryStat
   };
 }
 
-export function createMissingCookShareMetadata(locale: AppLocale): Metadata {
+export function createMissingCookShareMetadata(): Metadata {
   return {
-    title: locale === "en" ? "CookShare | CookPilot" : "CookShare | CookPilot",
+    title: "CookShare | CookPilot",
     robots: { index: false, follow: false },
     openGraph: { images: [cookShareLogoImage] },
     twitter: { card: "summary_large_image", images: [cookShareLogoImage] },

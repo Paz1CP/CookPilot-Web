@@ -1,7 +1,7 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { createCookShareMetadata, createMissingCookShareMetadata } from "@/shared/config/metadata";
-import type { AppLocale } from "@/shared/config/routes";
+import { getAlternateLocale, type AppLocale } from "@/shared/config/routes";
 import type { CookShareObjectType, CookShareResolvedObject } from "./types";
 import { resolveContextualRecipe, resolvePublicObject, type ContextualRecipeRouteInput } from "./resolver";
 import PublicObjectRenderer from "@/features/public-object/PublicObjectRenderer";
@@ -40,8 +40,8 @@ export async function renderCookShareObject(input: CookSharePageInput) {
 
 export async function metadataForCookShareObject(input: CookSharePageInput) {
   const { object, client } = await getCookShareObject(input);
-  if (!object) return createMissingCookShareMetadata(input.locale);
-  const alternateLocale = input.locale === "es" ? "en" : "es";
+  if (!object) return createMissingCookShareMetadata();
+  const alternateLocale = getAlternateLocale(input.locale);
   const alternate = await resolvePublicObject({ ...input, locale: alternateLocale }, client);
   return createCookShareMetadata(object, input.locale, {
     alternate: alternate && alternate.object_type === object.object_type
@@ -63,6 +63,6 @@ export async function renderContextualCookShareRecipe(input: ContextualRecipeRou
 export async function metadataForContextualCookShareRecipe(input: ContextualRecipeRouteInput) {
   const client = createSupabasePublicClient({ cache: "no-store" });
   const resolved = await resolveContextualRecipe(input, client);
-  if (!resolved) return createMissingCookShareMetadata(input.locale);
+  if (!resolved) return createMissingCookShareMetadata();
   return createCookShareMetadata(resolved.object, input.locale, { noindex: true });
 }

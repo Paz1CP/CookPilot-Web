@@ -8,25 +8,16 @@ import {
   ReactNode,
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import es from "@/locales/es.json";
-import en from "@/locales/en.json";
-import landingEnglish from "@/locales/landing.en.json";
-import landingSpanish from "@/locales/landing.es.json";
+import { getTranslations, type Translations } from "@/lib/i18n";
 import {
   getAlternateLocalizedRoute,
+  getAlternateLocale,
   switchCookShareLocalePath,
   type AppLocale,
 } from "@/shared/config/routes";
 
 export type Locale = AppLocale;
-const esTranslations = { ...es, ...landingSpanish };
-const enTranslations = { ...en, ...landingEnglish };
-export type Translations = typeof enTranslations;
-
-const locales: Record<Locale, Translations> = {
-  es: esTranslations as Translations,
-  en: enTranslations,
-};
+export type { Translations };
 
 function getLocaleFromPath(pathname: string): Locale | null {
   if (pathname.startsWith("/en")) return "en";
@@ -61,7 +52,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [locale]);
 
   const toggleLocale = () => {
-    const next: Locale = locale === "es" ? "en" : "es";
+    const next: Locale = getAlternateLocale(locale);
     setFallbackLocale(next);
 
     const targetPath = getAlternateLocalizedRoute(pathname) ?? switchCookShareLocalePath(pathname, next);
@@ -72,7 +63,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   return (
     <LanguageContext.Provider
-      value={{ locale, t: locales[locale], toggleLocale }}
+      value={{ locale, t: getTranslations(locale), toggleLocale }}
     >
       {children}
     </LanguageContext.Provider>

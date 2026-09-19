@@ -31,7 +31,10 @@
     "pitch_deck_button": "Ver Pitch Deck",
     "pitch_deck_link": "https://canva.link/727s1xmjt7agm28",
     "dot_indicator_aria": "Ir al estado {number}",
-    "floating_icon_alt": "Elemento decorativo"
+    "floating_icon_alt": "Elemento decorativo",
+    "eyebrow": "CookPilot para Android",
+    "support_text": "CookPilot convierte tus recetas, menús, días y semanas en un sistema claro para decidir qué comer, qué comprar y cómo cocinarlo.",
+    "languages_support": "Disponible en español e inglés."
   },
   "pillars": {
     "title": "Seis pilares para cocinar con ventaja",
@@ -203,6 +206,41 @@
       "kcal": "kcal",
       "g": "g",
       "mg": "mg"
+    },
+    "share_actions": {
+      "share": "Compartir",
+      "copy": "Copiar enlace",
+      "whatsapp": "WhatsApp",
+      "qr": "Mostrar QR",
+      "close": "Cerrar",
+      "open": "Abrir en CookPilot",
+      "copied": "Enlace copiado",
+      "shared": "Listo para compartir",
+      "failed": "No pudimos completar la acción.",
+      "qrFailed": "No pudimos generar el QR.",
+      "qrHint": "Escanea para abrir esta página en CookPilot.",
+      "actions_aria": "Acciones de compartir"
+    },
+    "sections": {
+      "ingredients": "Ingredientes",
+      "ingredients_unavailable": "Ingredientes no disponibles.",
+      "nutrition": "Nutrición",
+      "preparation": "Preparación",
+      "recipes": "Recetas",
+      "recipes_in_category": "Recetas de esta categoría",
+      "breadcrumbs_aria": "Migas de navegación",
+      "quick_facts_aria": "Datos rápidos",
+      "servings": "porciones",
+      "day": "Día",
+      "meal": "Momento"
+    },
+    "list": {
+      "default_ingredient": "Ingrediente",
+      "other": "Otros",
+      "recipes_aria": "Recetas de esta lista",
+      "all": "Todos",
+      "no_ingredients": "No hay ingredientes en esta lista.",
+      "organized_by_menus_aria": "Lista organizada por menús"
     }
   },
   "footer": {
@@ -450,7 +488,8 @@
     "title": "Elige dónde descargar",
     "description": "CookPilot está disponible en Google Play y AppGallery con la misma experiencia.",
     "available_on": "Disponible en",
-    "close": "Cerrar opciones de descarga"
+    "close": "Cerrar opciones de descarga",
+    "note": "Los enlaces abren las tiendas oficiales. La ficha específica de CookPilot se agregará al publicarse."
   },
   "demo": {
     "section_title_prefix": "Mira ",
@@ -461,5 +500,108 @@
     "play_button_aria": "Reproducir video",
     "summary_title": "En este demo",
     "summary_body": "CookPilot muestra cómo una conversación simple puede ayudarte a ahorrar plata, ahorrar tiempo y comer mejor, resolviendo qué cocinar con más claridad desde tu contexto real."
+  },
+  "not_found": {
+    "title": "Página no encontrada.",
+    "description": "La ruta que buscas no existe o ya no está disponible.",
+    "action": "Volver al inicio",
+    "meta_title": "Página no encontrada | CookPilot"
+  },
+  "delete_account": {
+    "title": "Eliminar cuenta",
+    "intro": "Usa esta página para solicitar y confirmar la eliminación permanente de tu cuenta de CookPilot. No necesitas reinstalar ni abrir la app móvil.",
+    "formTitle": "Elimina tu cuenta de CookPilot",
+    "formLead": "Verifica tu correo, ingresa el código de un solo uso y confirma la frase exacta antes de iniciar la eliminación.",
+    "permanentTitle": "Qué se elimina",
+    "permanentBody": "Eliminar tu cuenta borra permanentemente los datos de cuenta de CookPilot, incluidos perfil, recetas, listas de compras, menús, sesiones de CookMode, archivos subidos, imágenes generadas, historial de AI, preferencias, packs y datos de uso.",
+    "subscriptionsTitle": "Suscripciones",
+    "subscriptionsBody": "Eliminar tu cuenta de CookPilot puede no cancelar automáticamente suscripciones administradas por Google Play, Apple App Store o Huawei.",
+    "retentionTitle": "Retención limitada",
+    "retentionBody": "Información técnica o relacionada con transacciones puede conservarse hasta por 30 días por seguridad, prevención de fraude, cumplimiento legal, resolución de disputas o finalización del proceso de eliminación.",
+    "emailLabel": "Correo de tu cuenta CookPilot",
+    "emailPlaceholder": "tu@correo.com",
+    "sendCode": "Enviar código de verificación",
+    "resendCode": "Enviar otro código",
+    "otpLabel": "Código de verificación",
+    "otpPlaceholder": "Código de 6 dígitos",
+    "verifyCode": "Verificar código",
+    "confirmLabel": "Confirmación final",
+    "confirmHelp": "Escribe esta frase exactamente:",
+    "confirmationPhrase": "Eliminar mi cuenta",
+    "deleteButton": "Eliminar mi cuenta permanentemente",
+    "successTitle": "Tu cuenta de CookPilot ha sido eliminada.",
+    "successBody": "La solicitud verificada de eliminación de cuenta se completó correctamente. Cualquier registro técnico o transaccional retenido sigue la política de retención limitada indicada arriba.",
+    "genericOtpMessage": "Si existe una cuenta asociada a este correo, enviamos un código de verificación.",
+    "sendCodeFailed": "No pudimos enviar el código ahora. Inténtalo nuevamente.",
+    "invalidEmail": "Ingresa un correo válido.",
+    "invalidOtp": "Ingresa el código de verificación enviado a tu correo.",
+    "wrongOtp": "El código es incorrecto o expiró. Revisa tu correo e inténtalo otra vez.",
+    "networkError": "Error de red. Revisa tu conexión e inténtalo otra vez.",
+    "deleteFailed": "La eliminación de cuenta falló. Inténtalo nuevamente.",
+    "userNotFound": "No pudimos verificar una cuenta activa de CookPilot para esta sesión.",
+    "cooldown": "Espera antes de solicitar otro código.",
+    "step": "Paso",
+    "emailStep": "Correo",
+    "otpStep": "Código",
+    "finalStep": "Confirmar"
+  },
+  "legal": {
+    "titleA": "Privacidad y términos",
+    "titleB": "sin letra chica",
+    "intro": "Todo el copy legal de CookPilot, organizado para que puedas revisar datos, AI, pagos, derechos y eliminación de cuenta sin enfrentarte a una pared de texto.",
+    "developerLabel": "Responsable desarrollador",
+    "developerValue": "Christopher Jeffersson Lenin Paz Leon",
+    "updatedLabel": "Última actualización",
+    "contactLabel": "Contacto",
+    "tabs": {
+      "full": "Documento completo",
+      "account": "Eliminar cuenta"
+    },
+    "highlights": [
+      {
+        "title": "Datos personales",
+        "body": "Qué recopilamos, por qué lo usamos y cómo protegemos tu cuenta."
+      },
+      {
+        "title": "AI y proveedores",
+        "body": "Cómo se procesan recetas, imágenes, audio y contexto culinario."
+      },
+      {
+        "title": "Planes y pagos",
+        "body": "Suscripciones, packs, límites, cancelaciones y reembolsos."
+      },
+      {
+        "title": "Eliminación",
+        "body": "Qué ocurre cuando solicitas borrar tu cuenta y tus datos."
+      }
+    ],
+    "tocTitle": "En esta página",
+    "fullIntro": "Documento completo",
+    "accountIntro": "Vista rápida de las secciones específicas sobre eliminación de cuenta, datos asociados y suscripciones activas.",
+    "sectionLabel": "Sección",
+    "noAccountSections": "No encontramos secciones específicas de eliminación de cuenta en este documento.",
+    "deletionCtaTitle": "Eliminar cuenta",
+    "deletionCtaBody": "Puedes eliminar tu cuenta directamente desde la página pública de eliminación con verificación por correo.",
+    "deletionCtaAction": "Ir a eliminar cuenta"
+  },
+  "landing_gallery": {
+    "title": "Cocina con comida real",
+    "description": "Explora recetas que ya viven dentro de CookPilot.",
+    "view_gallery": "Ver galería",
+    "coming_soon": "La galería estará disponible muy pronto."
+  },
+  "units": {
+    "unit_singular": "unidad",
+    "unit_plural": "unidades"
+  },
+  "semantic": {
+    "category_description": "Recetas públicas que coinciden con estas categorías.",
+    "ingredient_description": "Recetas públicas con {name}."
+  },
+  "structured_data": {
+    "related_content": "Contenido relacionado"
+  },
+  "metadata_cookshare": {
+    "default_description": "Descubre este objeto de CookPilot y ábrelo en la app."
   }
 }

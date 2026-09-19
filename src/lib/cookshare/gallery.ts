@@ -1,5 +1,4 @@
-import es from "@/locales/gallery.es.json";
-import en from "@/locales/gallery.en.json";
+import { getGalleryTranslations } from "@/lib/i18n";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { buildCookSharePath, type AppLocale } from "@/shared/config/routes";
 import {
@@ -89,7 +88,7 @@ function humanize(value: string) { return value.replaceAll("_", " ").replace(/\b
 function localizedOption(map: Record<string, string>, value: string) { return map[value] ?? humanize(value); }
 
 function localizedFacetOptions(locale: AppLocale): GalleryFacetOptions {
-  const labels = locale === "es" ? es : en;
+  const labels = getGalleryTranslations(locale);
   return {
     categories: [],
     mealMoments: galleryMealMoments.map((value) => ({ value, label: labels.mealOptions[value] })),
@@ -146,7 +145,7 @@ async function loadFacetOptions(locale: AppLocale) {
 
   if (!categoryResult.error && Array.isArray(categoryResult.data)) options.categories = categoryOptions(categoryResult.data as CategoryRow[], locale);
 
-  const labels = locale === "es" ? es : en;
+  const labels = getGalleryTranslations(locale);
   const ingredientRows = !ingredientResult.error && Array.isArray(ingredientResult.data) ? ingredientResult.data as IngredientRow[] : [];
   const ingredientOptions = new Map<string, GalleryFacetOption>();
   const matrixValues = new Set<string>();

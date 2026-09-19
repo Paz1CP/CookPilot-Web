@@ -26,7 +26,7 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-  const liquidGlass = useLiquidGlass<HTMLElement>();
+  const { targetRef, style: glassStyle, filter: glassFilter } = useLiquidGlass<HTMLElement>();
   const [theme, setTheme] = useState(() => {
     if (typeof document === "undefined") return "dark";
     return document.documentElement.getAttribute("data-theme") || "light";
@@ -37,7 +37,7 @@ export default function Header() {
     setScrolled(latest > 40);
   });
 
-  const homePath = locale === "es" ? "/es" : "/en";
+  const homePath = getLocalizedRoute(locale, "home");
 
   useEffect(() => {
     if (pathname !== homePath || window.location.hash !== "#go-pro") return;
@@ -73,7 +73,7 @@ export default function Header() {
   const menuItems = [
     { label: t.header.como_funciona, href: getLocalizedRoute(locale, "howItWorks") },
     { label: t.header.guias, href: getLocalizedRoute(locale, "guides") },
-    { label: t.header.pro, href: `${locale === "es" ? "/es" : "/en"}#go-pro`, isLandingAnchor: true },
+    { label: t.header.pro, href: `${homePath}#go-pro`, isLandingAnchor: true },
     { label: t.header.faq, href: getLocalizedRoute(locale, "faq") },
   ];
 
@@ -88,17 +88,17 @@ export default function Header() {
 
   return (
     <>
-    {liquidGlass.filter}
+    {glassFilter}
     <motion.header
-      ref={liquidGlass.ref}
+      ref={targetRef}
       className={`cp-appbar-glass ${scrolled ? "cp-appbar-glass--scrolled" : ""} ${styles.header}`}
-      style={liquidGlass.style}
+      style={glassStyle}
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
     >
       <div className={styles.inner}>
-        <Link href={locale === "es" ? "/es" : "/en"} className={styles.logo}>
+        <Link href={homePath} className={styles.logo}>
           <Image
             src="/images/cookpilot/cookpilot_logo.png"
             alt={t.header.logo_alt}

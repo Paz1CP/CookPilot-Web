@@ -354,7 +354,7 @@ function ProductStory() {
 function ProMoment() {
   const { locale, t } = useLocale();
   const reduceMotion = useReducedMotion();
-  const proPath = `${locale === "es" ? "/es" : "/en"}#go-pro`;
+  const proPath = `${getLocalizedRoute(locale, "home")}#go-pro`;
 
   return (
     <section className={styles.proMoment} id="pro">
