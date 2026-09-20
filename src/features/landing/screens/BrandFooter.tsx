@@ -2,7 +2,7 @@
 
 import { useLocale } from "@/contexts/LanguageContext";
 import HeroAtmosphere from "../components/HeroAtmosphere";
-import { ArrowUpRight, DownloadIcon } from "../components/LandingIcons";
+import { ArrowUpRight } from "../components/LandingIcons";
 import { landingLinks } from "../data/landing-assets";
 
 export default function BrandFooter() {
@@ -19,7 +19,7 @@ export default function BrandFooter() {
       <div className="lc-footer-content lc-wrap">
         <div className="lc-footer-close">
           <p>{copy.tagline}<br /><span>{copy.taglineAccent}</span></p>
-          <a className="lc-footer-download" href="#download">{copy.download} <DownloadIcon /></a>
+          <a className="lc-footer-download" href="#download">{copy.download}</a>
         </div>
         <div className="lc-footer-middle">
           <nav aria-label={copy.navAria}>

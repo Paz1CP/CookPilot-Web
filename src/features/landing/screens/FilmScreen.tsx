@@ -233,10 +233,14 @@ export default function Film() {
         .to($(".list-ready"),{opacity:1,duration:fast(1)},32);
 
       // The completed check becomes the action track. UI travels out of frame, never ghosts.
-      const stepSize = mobile ? w*.12 : h*.075;
-      const trackLeft = w*(mobile?.08:.20), trackWidth = w*(mobile?.84:.60);
+      const stepSize = mobile ? Math.min(Math.max(w * .11, 38), 44) : h * .075;
+      const trackLeft = mobile ? w * .07 : w * .20;
+      const trackWidth = mobile ? w * .86 : w * .60;
+      const trackTop = mobile ? h * .22 : (h * .40 - 8);
       const stepOneX = cx;
-      const trackY = h*.40+stepSize/2;
+      const trackY = trackTop + stepSize / 2;
+      gsap.set($(".mode-track"),{left:trackLeft,width:trackWidth,top:trackTop});
+      gsap.set($(".mode-track span"),{width:stepSize,height:stepSize,fontSize:mobile?Math.round(stepSize*.44):undefined});
       tl.to($(".cooklist"),{y:-h*1.12,duration:fast(2.4),ease:"power3.inOut"},35)
         .to($(".action-seed span"),{opacity:0,duration:fast(.6)},36)
         .to($(".action-seed"),{y:trackY,width:trackWidth-stepSize,height:3,borderRadius:2,duration:fast(1.2)},35.6)
@@ -244,7 +248,7 @@ export default function Film() {
         .fromTo($(".cookmode"),{y:h},{y:0,duration:fast(2.4),ease:"power3.out"},36)
         .set($(".mode-title"),{autoAlpha:1},36)
         .set($(".instruction-two, .instruction-three, .mode-stir"),{autoAlpha:0},0)
-        .set($(".step-1"),{opacity:0},38)
+        .set($(".step-1"),{autoAlpha:0},36)
         .to($(".action-seed"),{x:stepOneX,width:stepSize,height:stepSize,borderRadius:"50%",duration:fast(1.2)},36.8)
         .set($(".action-seed span"),{textContent:"1"},38)
         .to($(".action-seed span"),{opacity:1,duration:fast(.4)},38)
@@ -253,29 +257,33 @@ export default function Film() {
         .fromTo($(".instruction-two"),{y:24},{y:0,autoAlpha:1,duration:fast(.8)},46.7)
         .to($(".mode-stir"),{autoAlpha:1,duration:fast(1.4)},46)
         .to($(".mode-beef"),{autoAlpha:0,duration:fast(1.4)},46)
-        .set($(".step-1"),{opacity:1,backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},46)
+        .set($(".step-1"),{autoAlpha:1,opacity:1,visibility:"visible",backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},46)
+        .set($(".action-seed span"),{textContent:"2"},46)
         .to($(".action-seed"),{x:trackLeft+stepSize/2+(trackWidth-stepSize)*.75,duration:fast(1.2)},46)
-        .set($(".step-2"),{opacity:0},47.2)
-        .set($(".action-seed span"),{textContent:"2"},47.2)
+        .set($(".step-2"),{autoAlpha:0},47.0)
         .to($(".instruction-two"),{autoAlpha:0,y:-24,duration:fast(.7)},54)
         .fromTo($(".instruction-three"),{y:24},{y:0,autoAlpha:1,duration:fast(.8)},54.7)
-        .set($(".step-2"),{opacity:1,backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},54)
+        .set($(".step-2"),{autoAlpha:1,opacity:1,visibility:"visible",backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},54)
+        .set($(".action-seed span"),{textContent:"3"},54)
         .to($(".action-seed"),{x:trackLeft+trackWidth-stepSize/2,duration:fast(1.2)},54)
-        .set($(".step-3"),{opacity:0},55.2)
+        .set($(".step-3"),{autoAlpha:0},55.0)
         .set($(".action-seed span"),{textContent:"✓"},55.2)
         .to($(".action-seed"),{backgroundColor:tokenSuccess,duration:fast(.6)},55.2)
         // Return ownership to the actual timeline node before its camera exits.
-        .set($(".step-3"),{opacity:1,backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},55.8)
+        .set($(".step-3"),{autoAlpha:1,opacity:1,visibility:"visible",backgroundColor:tokenSuccess,color:"var(--cp-text-inverse)",textContent:"✓"},55.8)
         .set($(".action-seed"),{autoAlpha:0},55.8);
 
       // One food element survives the macro reference, return, and discovery of Saturday lunch.
-      const mealX = w*(mobile?.38:.28), mealY=h*(mobile?.57:.7275);
-      const mealSize = Math.min(w*(mobile?.55:.18),h*(mobile?.26:.235));
+      const mealSize = mobile ? Math.min(w * .24, 96) : Math.min(w * .18, h * .235);
+      const mealX = mobile ? (w * 0.1933 + 5) : (w * .28);
+      const mealY = mobile ? (h * 0.30 + 56 + mealSize / 2) : (h * .7275);
       // Explicit neutral filter values keep GSAP from interpolating contrast/brightness from zero.
       gsap.set($(".return-food"),{width:mealSize,height:mealSize,x:mealX,y:mealY,xPercent:-50,yPercent:-50,filter:"sepia(0) saturate(1) brightness(1) contrast(1)"});
-      const modeSize = Math.min(w*.43,h*.44);
+      const modeSize = mobile ? Math.min(w * .80, h * .35, 340) : Math.min(w * .43, h * .44);
+      const modeFoodX = mobile ? cx : (w * .705);
+      const modeFoodY = mobile ? (h * .68) : (h * .76);
       if (mobile) {
-        gsap.set($(".mode-food"),{width:modeSize,height:modeSize,left:w*.705-modeSize/2,top:h*.76-modeSize/2});
+        gsap.set($(".mode-food"),{width:modeSize,height:modeSize,left:modeFoodX-modeSize/2,top:modeFoodY-modeSize/2});
       } else {
         gsap.set($(".mode-food"),{width:modeSize,height:modeSize,left:"auto",top:"auto",right:0,bottom:0});
       }
@@ -288,7 +296,7 @@ export default function Film() {
       const tableScaleX = 960*photoScale/mealSize;
       const tableScaleY = 766*photoScale/mealSize;
       gsap.set($(".table-contact"),{x:tableX,y:tableY+12,width:930*photoScale,height:740*photoScale,xPercent:-50,yPercent:-50,autoAlpha:0,scale:1.07});
-      gsap.set($(".meal-world"),{transformOrigin:"0 0",scale:thumb,x:w*.705-mealX*thumb,y:h*.76-mealY*thumb});
+      gsap.set($(".meal-world"),{transformOrigin:"0 0",scale:thumb,x:modeFoodX-mealX*thumb,y:modeFoodY-mealY*thumb});
       tl.to($(".meal-world"),{autoAlpha:1,duration:fast(1.5)},54)
         .to($(".mode-food"),{autoAlpha:0,duration:fast(1.5)},54)
         .to($(".cookmode"),{scale:1.6,x:-w*1.2,y:-h*.15,duration:fast(5),ease:"power3.inOut"},60)
@@ -298,7 +306,7 @@ export default function Film() {
         .set($(".cookplan"),{autoAlpha:1},71)
         .fromTo($(".plan-days, .plan-meal"),{opacity:0,y:32},{opacity:1,y:0,duration:fast(4),stagger:.25},72)
         .to($(".meal-world"),{scale:1,x:0,y:0,duration:fast(8),ease:"power2.inOut"},71)
-        .fromTo($(".plan-title"),{autoAlpha:0,y:24,filter:reduced?"none":"blur(8px)"},{autoAlpha:1,y:0,filter:"blur(0px)",duration:fast(3)},76)
+        .fromTo($(".plan-title"),{autoAlpha:0,y:24,filter:reduced?"none":"blur(8px)"},{autoAlpha:1,y:0,filter:"blur(0px)",duration:fast(3)},72)
         .to($(".plan-title"),{y:-h*.5,duration:fast(3),ease:"power2.in"},83)
         .set($(".plan-title"),{autoAlpha:0},86)
         .to($(".cookplan"),{autoAlpha:0,y:-h*.12,duration:fast(3)},83)

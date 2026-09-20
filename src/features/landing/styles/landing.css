@@ -464,7 +464,7 @@
 }
 .lc-list-lead {
   max-width: 560px;
-  margin-top: 24px;
+  margin-top: 36px;
   color: var(--lc-soft);
   font-size: 19px;
   line-height: 1.42;
@@ -481,7 +481,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 40px;
 }
 .lc-list-sources > div {
   display: grid;
@@ -976,7 +976,8 @@
 .lc-explore-heading h2 {
   font-size: clamp(62px, 5.8vw, 86px);
 }
-.lc-explore-cta {
+.lc-explore-cta,
+.cp-landing .lc-explore-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -984,19 +985,22 @@
   padding: 0 29px;
   border-radius: 999px;
   background: var(--yellow);
-  color: #111;
+  color: var(--cp-dark) !important;
   font-size: 16px;
-  font-weight: 650;
+  font-weight: 700;
   white-space: nowrap;
   transition:
     transform 0.25s ease,
     background 0.25s ease;
 }
-.lc-explore-cta:hover {
+.lc-explore-cta:hover,
+.cp-landing .lc-explore-cta:hover {
   transform: translateY(-3px);
   background: var(--yellow-soft);
+  color: var(--cp-dark) !important;
 }
-.lc-explore-cta:active {
+.lc-explore-cta:active,
+.cp-landing .lc-explore-cta:active {
   transform: translateY(1px);
 }
 .lc-rail-controls {
@@ -1359,22 +1363,24 @@
 .lc-footer .footer-atmosphere::after { z-index: 3; }
 .lc-wordmark-stage {
   position: relative;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 .lc-wordmark {
   display: flex;
   justify-content: center;
-  width: max-content;
-  font-size: 23.55vw;
-  line-height: 1.05;
+  align-items: center;
+  width: 100%;
+  font-size: clamp(48px, 23.5vw, 360px);
+  line-height: 1.02;
   letter-spacing: -0.065em;
   font-weight: 780;
   text-align: center;
   user-select: none;
+  padding-inline: 4px;
 }
 .lc-wordmark > span { display: inline-block; }
 .lc-wordmark-pilot {
@@ -1399,8 +1405,8 @@
 .cp-landing .lc-footer-download {
   display: inline-flex;
   align-items: center;
-  gap: 22px;
-  padding: 17px 24px;
+  justify-content: center;
+  padding: 17px 32px;
   border-radius: 18px;
   background: var(--yellow);
   color: var(--cp-dark);
@@ -1408,7 +1414,6 @@
   font-weight: 650;
   transition: transform .25s ease, background .25s ease;
 }
-.cp-landing .lc-footer-download .lc-download-icon { width: 23px; height: 23px; margin-left: 0; color: var(--cp-dark); }
 .lc-footer-download:hover { transform: translateY(-3px); background: var(--cp-primary-strong); }
 .lc-footer-download:active { transform: translateY(0) scale(.98); }
 .lc-footer-middle {
@@ -1605,7 +1610,7 @@
   .lc-plan-copy p { font-size: 18px; }
   .lc-shopping { gap: 34px; padding-block: 72px; }
   .lc-shopping h2 { font-size: clamp(44px, 13vw, 60px); }
-  .lc-list-lead { margin-top: 18px; font-size: 17px; }
+  .lc-list-lead { margin-top: 30px; font-size: 17px; }
   .lc-list-surface { height: 650px; padding: 22px 18px 18px; border-radius: 28px; }
   .lc-small-brand { font-size: 31px; }
   .lc-list-total { font-size: 28px; }
@@ -1636,9 +1641,32 @@
   .lc-download { padding-block: 82px 76px; }
   .lc-download h2 { font-size: clamp(43px, 12.8vw, 61px); }
   .lc-download-copy p { margin-top: 22px; font-size: 17px; }
-  .lc-download-avatar { width: min(86vw, 460px); margin-block: 42px 36px; }
-  .lc-stores { width: 100%; flex-direction: column; }
-  .lc-stores > a { width: 100%; min-width: 0; }
+  .lc-stores {
+    width: 100%;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+  }
+  .lc-stores > a {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 10px;
+    gap: 8px;
+    border-radius: 12px;
+    justify-content: center;
+  }
+  .lc-stores img {
+    width: 26px;
+    height: 26px;
+  }
+  .lc-stores > a > span:not(:last-child) {
+    font-size: clamp(13px, 3.8vw, 16px);
+    font-weight: 700;
+  }
+  .lc-stores small {
+    font-size: 8px;
+    margin-bottom: 2px;
+  }
   .lc-discovery { padding-block: 76px 60px; }
   .lc-explore-heading { grid-template-columns: 1fr; align-items: start; gap: 24px; }
   .lc-explore-cta { min-height: 52px; padding-inline: 24px; justify-self: start; }
@@ -1738,8 +1766,7 @@
   background: var(--cp-dark-deep);
   filter: none;
 }
-:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-footer-download,
-:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-footer-download .lc-download-icon {
+:where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-footer-download {
   color: var(--cp-dark);
 }
 :where(:root:not([data-theme="dark"]), [data-theme="light"]) .cp-landing .lc-categories button {

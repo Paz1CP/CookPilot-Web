@@ -295,16 +295,15 @@
 .plan-days strong{font-size:24px;}
 .plan-days .chosen{background:var(--yellow);color:var(--cp-text-inverse);}
 .plan-meal{position:absolute;left:17%;top:50%;width:66%;height:40%;background:var(--ink);border-radius:40px;}
-.meal-label{position:absolute;left:5%;top:7%;display:flex;gap:28px;align-items:center;}
-.meal-label>span{font-size:12px;letter-spacing:.17em;color:var(--muted-2);}
-.meal-label>strong{font-size:24px;font-weight:500;}
-.meal-name{position:absolute;left:43%;top:35%;display:flex;flex-direction:column;gap:12px;}
-.meal-name>strong{font-size:clamp(30px,3vw,58px);letter-spacing:-.04em;}
-.meal-name>span{font-size:15px;color:var(--muted-2);}
-.meal-name>b{margin-top:18px;padding:14px 30px;background:var(--yellow);color:var(--cp-text-inverse);border-radius:40px;font-size:18px;align-self:start;}
-.meal-side{position:absolute;right:-10%;bottom:-13%;width:27%;text-align:center;}
-.meal-side img{width:100%;}
-.meal-side span{font-size:12px;color:#a6a28f;}
+.lunch-header{display:flex;align-items:center;}
+.lunch-header>strong{display:flex;align-items:center;font-weight:600;color:var(--paper);}
+.lunch-icon{color:var(--yellow);font-style:normal;}
+.lunch-header>span{border-radius:8px;background:var(--ink-2);color:var(--muted);line-height:1;}
+.lunch-header>b{margin-left:auto;border-radius:99px;background:var(--yellow);color:var(--cp-text-inverse);font-weight:700;white-space:nowrap;}
+.lunch-menu{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;}
+.lunch-food-slot{display:flex;align-items:center;justify-content:center;position:relative;}
+.lunch-food-slot img{height:100%;width:100%;object-fit:contain;}
+.lunch-item>strong{display:block;font-weight:550;letter-spacing:-.025em;color:var(--paper);}
 .plan-title{z-index:24;top:14%;font-size:min(6.7vw,11vh);}
 @media(min-width:721px){
  .cookplan{z-index:17;}
@@ -333,22 +332,45 @@
 @media(max-width:1040px){.nav-links{display:none;}.fullscreen{margin-left:0;}}
 @media(max-width:720px){
  .nav{top:13px;gap:15px;padding:7px 8px 7px 14px;}.brand{font-size:17px;}.brand-mark{font-size:29px;}.fullscreen{display:none;}.nav-cta{padding:10px 13px;font-size:10px;gap:10px;}
- .hero-title{top:calc(19svh - 2svh);left:4%;width:92%;}.hero-title h1{font-size:14.2vw;line-height:.98;}.hero-title h1 span{font-size:calc(.67em + 8px);}.hero-title>p{margin-bottom:2.3svh;font-size:9px;}
- .hero-caption{right:6%;bottom:calc(2.5svh + 42px);left:auto;width:82%;text-align:right;}.hero-caption::before{top:-12px;font-size:9px;}.hero-caption span{font-size:11px;}.hero-caption small{font-size:7px;}
- .hero-origin{right:6%;bottom:2.5svh;width:88%;text-align:right;font-size:7px;}.hero-down{bottom:7svh;width:50px;}
  .opening-title{top:22%;font-size:13vw;}.opening-title em{font-size:1.7em;}
  .request-ticket small{font-size:5px;}.request-ticket strong{font-size:15px;margin:8px 0 12px;}.request-ticket>span{font-size:4px;}
  .list-title{top:17%;font-size:10vw;}.list-title em{font-size:1.6em;}
  .list-composition{left:6%;width:88%;top:37%;}.list-heading{padding-bottom:15px;flex-wrap:wrap;gap:12px;}.product-wordmark{font-size:23px;}.recipe-label{font-size:17px;gap:12px;order:3;width:100%;justify-content:space-between;}.recipe-label small{font-size:10px;padding:6px 12px;}.yellow-pill{font-size:10px;padding:8px 15px;}
  .ingredient-grid{grid-template-columns:1fr;gap:8px;}.ingredient-row{height:6.4vh;min-height:48px;padding:0 14px;gap:12px;border-radius:18px;}.ingredient-row img{height:38px;width:38px;}.ingredient-row strong{font-size:18px;}.ingredient-amount{font-size:16px;}.row-check{width:23px;height:23px;font-size:15px;}.list-ready{font-size:8px;margin-top:15px;}
- .action-seed{width:34px;height:34px;font-size:17px;}
- .mode-title{top:19%;font-size:12vw;}.mode-title>span{font-size:.62em;line-height:1.2;margin-bottom:12px;}.mode-title>em{font-size:1.15em;}
- .mode-context{left:8%;width:84%;top:38%;font-size:17px;}.mode-context small{font-size:8px;}.mode-track{left:8%;width:84%;top:45%;}.mode-track span{width:12vw;height:12vw;font-size:20px;}
- .instruction-plane{left:10%;width:84%;top:61%;}.instruction-plane small{font-size:10px;}.instruction-plane p{font-size:10vw;}.mode-upcoming{font-size:8px;right:10%;bottom:9%;}
- .plan-top{left:7%;width:86%;top:18%;}.plan-top>span{font-size:9px;}.plan-days{left:7%;width:86%;top:26%;}.plan-days>div{width:12%;height:70px;font-size:10px;}.plan-days strong{font-size:20px;}
- .plan-meal{left:5%;width:90%;top:38%;height:52%;border-radius:25px;}.meal-label{left:7%;gap:22px;}.meal-label>span{font-size:9px;}.meal-label>strong{font-size:20px;}
- .meal-name{top:61%;left:9%;gap:6px;}.meal-name>strong{font-size:27px;}.meal-name>span{font-size:12px;}.meal-name>b{font-size:14px;padding:10px 25px;margin-top:7px;}.meal-side{width:38%;right:-3%;bottom:3%;}.meal-side span{display:none;}
- .plan-title{top:10%;font-size:10.7vw;}
+ .action-seed{width:clamp(38px, 11vw, 44px);height:clamp(38px, 11vw, 44px);font-size:clamp(16px, 4.8vw, 19px);}
+ .mode-title{top:clamp(64px, 9svh, 84px);font-size:clamp(24px, 7.2vw, 36px);left:4%;width:92%;text-align:center;}
+ .mode-title>span{font-size:.62em;line-height:1.25;margin-bottom:6px;display:block;}
+ .mode-title>em{font-size:1.18em;}
+ .mode-context{left:7%;width:86%;top:19%;font-size:15px;}.mode-context small{font-size:8px;}
+ .mode-track{left:7%;width:86%;top:22%;display:flex;justify-content:space-between;align-items:center;}
+ .mode-track span{width:clamp(38px, 11vw, 44px);height:clamp(38px, 11vw, 44px);font-size:clamp(16px, 4.8vw, 19px);}
+ .mode-lower-row{position:absolute;inset:0;pointer-events:none;}
+ .instruction-plane{position:absolute;left:6%;width:88%;top:32%;text-align:center;}
+ .instruction-plane small{display:block;font-size:clamp(11px, 2.8vw, 13px);letter-spacing:0.16em;font-weight:600;color:var(--muted-2);margin-bottom:6px;}
+ .instruction-plane p{font-size:clamp(22px, 6.4vw, 32px);line-height:1.06;letter-spacing:-0.04em;font-weight:700;margin-top:0;}
+ .instruction-plane p em{display:inline-block;color:var(--yellow);font-style:normal;}
+ .mode-food{position:absolute;}
+ .mode-upcoming{font-size:8px;right:8%;bottom:6%;}
+  .plan-top{display:none;}
+  .plan-title{top:clamp(56px, 8svh, 76px);left:4%;width:92%;font-size:clamp(24px, 7.2vw, 36px);line-height:0.96;letter-spacing:-0.05em;text-align:center;}
+  .plan-title>span{font-size:0.7em;line-height:1.2;display:block;}
+  .plan-title>em{font-size:1.2em;color:var(--yellow);font-style:normal;}
+  .plan-days{left:4%;width:92%;top:20%;display:flex;justify-content:space-between;gap:5px;}
+  .plan-days>div{flex:1;min-width:0;height:clamp(52px, 7.6svh, 64px);border-radius:14px;gap:2px;background:var(--ink-2);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .plan-days>div span{font-size:clamp(9px, 2.5vw, 11px);color:var(--muted);text-transform:uppercase;font-weight:550;line-height:1;}
+  .plan-days strong{font-size:clamp(15px, 4vw, 19px);line-height:1;font-weight:700;}
+  .plan-days .chosen{background:var(--yellow);color:var(--cp-text-inverse);}
+  .plan-days .chosen span{color:var(--cp-text-inverse);opacity:0.85;}
+  .plan-meal{left:4%;width:92%;top:30%;border-radius:22px;background:var(--ink);padding:12px 10px 16px;box-shadow:0 14px 36px color-mix(in srgb,var(--black) 55%,transparent);}
+  .lunch-header{height:36px;gap:8px;padding:0 4px;margin-bottom:8px;}
+  .lunch-header>strong{gap:6px;font-size:clamp(14px, 3.8vw, 17px);}
+  .lunch-icon{font-size:.92em;}
+  .lunch-header>span{padding:3px 8px;font-size:clamp(10px, 2.7vw, 12px);}
+  .lunch-header>b{padding:5px 12px;font-size:clamp(11px, 2.9vw, 13px);}
+  .lunch-menu{gap:6px;}
+  .lunch-food-slot{height:clamp(80px, 12svh, 105px);}
+  .lunch-food-slot img{max-height:clamp(80px, 12svh, 105px);}
+  .lunch-item>strong{margin-top:6px;font-size:clamp(10px, 2.7vw, 12px);line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
  .table-photo{object-position:54% center;}.table-title{left:6%;width:88%;bottom:11%;font-size:10.5vw;}.table-title>em{white-space:normal;}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}

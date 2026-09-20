@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useLocale } from "@/contexts/LanguageContext";
-import { DownloadIcon } from "../components/LandingIcons";
 import { landingLinks } from "../data/landing-assets";
 
 export default function DownloadScreen() {
@@ -21,11 +20,11 @@ export default function DownloadScreen() {
         <div className="lc-stores" data-lc-reveal>
           <a href={landingLinks.googlePlay} target="_blank" rel="noopener noreferrer">
             <Image src="/icons/stores/google-play.png" width={34} height={34} alt="" />
-            <span><small>{copy.playOverline}</small>{copy.play}</span><DownloadIcon />
+            <span><small>{copy.playOverline}</small>{copy.play}</span>
           </a>
           <a href={landingLinks.appGallery} target="_blank" rel="noopener noreferrer">
             <Image src="/icons/stores/app-gallery.png" width={34} height={34} alt="" />
-            <span><small>{copy.huaweiOverline}</small>{copy.huawei}</span><DownloadIcon />
+            <span><small>{copy.huaweiOverline}</small>{copy.huawei}</span>
           </a>
         </div>
       </div>
