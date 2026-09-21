@@ -1,4 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
+import { cache } from "react";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { createCookShareMetadata, createMissingCookShareMetadata } from "@/shared/config/metadata";
 import { getAlternateLocale, type AppLocale } from "@/shared/config/routes";
@@ -13,19 +14,29 @@ type CookSharePageInput = {
   slug: string;
 };
 
-const loadCookShareObject = async (
+const loadCookShareObject = cache(async (
   locale: AppLocale,
   objectType: CookShareObjectType,
   handle: string | null,
   slug: string,
 ) => {
-  // Detail resolution must observe publication changes immediately. Gallery
-  // discovery keeps its own bounded cache, but object pages cannot reuse a
-  // stale null after an object is published or revoked.
+  // Deduplicate metadata/render within one request; no-store keeps the next
+  // request current after an object is published or revoked.
   const client = createSupabasePublicClient({ cache: "no-store" });
   const object = await resolvePublicObject({ locale, objectType, handle, slug }, client);
   return { object, client };
-};
+});
+
+const loadContextualCookShareRecipe = cache((
+  locale: AppLocale,
+  parentType: ContextualRecipeRouteInput["parentType"],
+  parentHandle: string,
+  parentSlug: string,
+  recipeSlug: string,
+) => {
+  const client = createSupabasePublicClient({ cache: "no-store" });
+  return resolveContextualRecipe({ locale, parentType, parentHandle, parentSlug, recipeSlug }, client);
+});
 
 export async function getCookShareObject(input: CookSharePageInput) {
   return loadCookShareObject(input.locale, input.objectType, input.handle ?? null, input.slug);
@@ -53,16 +64,26 @@ export async function metadataForCookShareObject(input: CookSharePageInput) {
 }
 
 export async function renderContextualCookShareRecipe(input: ContextualRecipeRouteInput) {
-  const client = createSupabasePublicClient({ cache: "no-store" });
-  const resolved = await resolveContextualRecipe(input, client);
+  const resolved = await loadContextualCookShareRecipe(
+    input.locale,
+    input.parentType,
+    input.parentHandle,
+    input.parentSlug,
+    input.recipeSlug,
+  );
   if (!resolved) notFound();
   if (resolved.isAlias) permanentRedirect(resolved.canonicalPath);
   return <PublicObjectRenderer object={resolved.object} locale={input.locale} />;
 }
 
 export async function metadataForContextualCookShareRecipe(input: ContextualRecipeRouteInput) {
-  const client = createSupabasePublicClient({ cache: "no-store" });
-  const resolved = await resolveContextualRecipe(input, client);
+  const resolved = await loadContextualCookShareRecipe(
+    input.locale,
+    input.parentType,
+    input.parentHandle,
+    input.parentSlug,
+    input.recipeSlug,
+  );
   if (!resolved) return createMissingCookShareMetadata();
   return createCookShareMetadata(resolved.object, input.locale, { noindex: true });
 }
