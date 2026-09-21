@@ -149,7 +149,7 @@ export function resolveCookShareSocialImage(
   }
 
   const candidates = object.object_type === "recipe"
-    ? [object.cover_photo_url, object.image_url]
+    ? [object.cover_photo_url, object.image_url, object.user_image_urls]
     : [object.image_url];
   const image = candidates
     .map((value) => mediaUrl(value))

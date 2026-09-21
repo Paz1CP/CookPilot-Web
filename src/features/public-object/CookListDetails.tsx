@@ -4,7 +4,7 @@
 import { useMemo, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import type { AppLocale } from "@/shared/config/routes";
 import type { CookShareResolvedObject } from "@/lib/cookshare/types";
-import { mediaUrl } from "@/lib/cookshare/media";
+import { extractMediaUrl, mediaUrl } from "@/lib/cookshare/media";
 import { formatCookShareQuantity } from "@/lib/cookshare/quantity-format";
 import { getTranslations } from "@/lib/i18n";
 import styles from "./PublicObjectRenderer.module.css";
@@ -51,11 +51,11 @@ function recipeCards(value: unknown, locale: AppLocale): RecipeCard[] {
       return nested.map((recipe, recipeIndex) => ({
         key: recipeKey(recipe, groupIndex * 100 + recipeIndex),
         title: localizedText(recipe, locale, ["title", "title_en"]),
-        image: mediaUrl(recipe.image_url ?? recipe.cover_photo_url ?? (Array.isArray(group.image_urls) ? group.image_urls[recipeIndex] : null)),
+        image: extractMediaUrl(recipe) ?? (Array.isArray(group.image_urls) ? mediaUrl(group.image_urls[recipeIndex]) : null) ?? extractMediaUrl(group),
         items: records(recipe.items).length || nested.length === 1 ? records(recipe.items).length ? records(recipe.items) : groupItems : groupItems,
       }));
     }
-    const image = mediaUrl(group.image_url ?? group.cover_photo_url ?? (Array.isArray(group.image_urls) ? group.image_urls[0] : null));
+    const image = extractMediaUrl(group);
     const title = localizedText(group, locale, ["title", "title_en"]);
     return [{ key: recipeKey(group, groupIndex), title, image, items: groupItems }];
   }).sort((a, b) => a.title.localeCompare(b.title, locale, { sensitivity: "base" }))

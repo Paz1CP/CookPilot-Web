@@ -567,7 +567,7 @@ begin
       coalesce(nullif(r.title_en, ''), nullif(r.title, ''), cr.identity_title, cr.slug) as title_en,
       case when v_locale = 'en' then coalesce(nullif(r.description_en, ''), r.description) else coalesce(nullif(r.description, ''), r.description_en) end as description,
       coalesce(nullif(r.description_en, ''), r.description) as description_en,
-      r.cover_photo_url as image_url,
+      coalesce(r.cover_photo_url, r.user_image_urls[1]) as image_url,
       coalesce(r.is_free_recipe, false) as is_free,
       nullif(rte.total_minutes_avg, 0)::integer as time_minutes,
       case when rnp.recipe_id is null then null else jsonb_build_object(
@@ -841,10 +841,10 @@ begin
      and s.item_type::text = cr.object_type
      and s.deleted_at is null
     left join lateral (
-      select r.cover_photo_url
+      select coalesce(r.cover_photo_url, r.user_image_urls[1]) as cover_photo_url
       from unnest(home.fn_cookshare_extract_recipe_ids(s.content_snapshot)) with ordinality ids(recipe_id, ordinality)
       join menu.recipes r on r.id = ids.recipe_id
-      where nullif(r.cover_photo_url, '') is not null
+      where nullif(coalesce(r.cover_photo_url, r.user_image_urls[1]), '') is not null
         and home.fn_cookshare_effective_public('recipe', r.id, null)
       order by ids.ordinality
       limit 1

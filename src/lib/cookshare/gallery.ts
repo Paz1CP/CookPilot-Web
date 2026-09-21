@@ -10,6 +10,7 @@ import {
   normalizeGalleryQueryState,
   toGalleryRpcFilters,
 } from "./gallery-query";
+import { extractMediaUrl } from "./media";
 import type {
   CookShareObjectType,
   GalleryCard,
@@ -38,6 +39,8 @@ type GalleryRpcRow = {
   description?: string | null;
   description_en?: string | null;
   image_url?: string | null;
+  cover_photo_url?: string | null;
+  user_image_urls?: string[] | null;
   time_minutes?: number | null;
   nutrition?: Record<string, unknown> | null;
   rank?: number | null;
@@ -64,7 +67,6 @@ function numberValue(value: unknown) {
   return null;
 }
 function normalizeHandle(value: string | null | undefined) { return value?.trim().replace(/^@/, "").toLowerCase() || null; }
-function mediaUrl(value: string | null | undefined) { return value?.trim() || null; }
 function encodeCursor(row: GalleryRpcRow) {
   if (!row.cursor || typeof row.cursor !== "object" || Array.isArray(row.cursor)) return null;
   return Buffer.from(JSON.stringify(row.cursor), "utf8").toString("base64url");
@@ -196,7 +198,7 @@ function resolveRow(row: GalleryRpcRow, state: GalleryQueryState): GalleryCard |
   return {
     objectType: row.object_type, objectId: row.object_id, title,
     description: state.locale === "en" ? row.description_en ?? row.description ?? null : row.description ?? row.description_en ?? null,
-    imageUrl: mediaUrl(row.image_url),
+    imageUrl: extractMediaUrl(row.image_url ?? row.cover_photo_url ?? row.user_image_urls),
     href: buildCookSharePath({ locale: state.locale, objectType: row.object_type, handle: normalizeHandle(row.handle), slug: row.slug }),
     timeMinutes: numberValue(row.time_minutes), nutrition: nutritionValue(row.nutrition),
     component: row.component ?? null, matchType: row.match_type ?? null, relevanceScore: numberValue(row.relevance_score),

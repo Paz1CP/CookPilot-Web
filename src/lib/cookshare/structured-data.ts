@@ -4,15 +4,10 @@ import { getLocalizedRoute, type AppLocale } from "@/shared/config/routes";
 import { getTranslations } from "@/lib/i18n";
 import type { CookShareResolvedObject, RecipeProjection } from "./types";
 import { inlineMarkdownToText } from "./inline-markdown";
+import { extractMediaUrl } from "./media";
 
 function safeImage(value: unknown) {
-  if (typeof value !== "string") return null;
-  try {
-    const url = new URL(value, siteConfig.publicUrl);
-    return url.hostname === "media.cookpilot.pro" && url.protocol === "https:" ? url.toString() : null;
-  } catch {
-    return null;
-  }
+  return extractMediaUrl(value);
 }
 
 function breadcrumbName(object: CookShareResolvedObject, locale: AppLocale) {
@@ -34,7 +29,7 @@ export function buildCookShareStructuredData(object: CookShareResolvedObject, lo
   const canonical = absoluteUrl(object.identity.canonical_path);
   const title = publicTitle(object, locale);
   const description = inlineMarkdownToText(publicDescription(object));
-  const image = safeImage(object.cover_photo_url ?? object.image_url);
+  const image = safeImage(extractMediaUrl(object));
   const graph: Record<string, unknown>[] = [{
     "@type": "BreadcrumbList",
     "@id": `${canonical}#breadcrumbs`,

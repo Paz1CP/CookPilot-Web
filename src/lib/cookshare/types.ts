@@ -148,6 +148,7 @@ export interface RecipeProjection {
   title: string;
   description?: string | null;
   cover_photo_url?: string | null;
+  user_image_urls?: string[] | null;
   time?: Record<string, number | null> | null;
   servings?: number | null;
   nutrition?: NutritionValues | null;
@@ -164,6 +165,7 @@ export interface CookShareResolvedObject {
   name_en?: string | null;
   cover_photo_url?: string | null;
   image_url?: string | null;
+  user_image_urls?: string[] | null;
   nutrition?: NutritionValues | IngredientNutritionProjection | null;
   identity: CookShareIdentity;
   [key: string]: unknown;

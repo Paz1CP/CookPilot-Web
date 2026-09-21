@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { getLocalizedRoute, getCookShareObjectSegment, type AppLocale } from "@/shared/config/routes";
 import { publicDescription, publicTitle } from "@/lib/cookshare/resolver";
-import { mediaUrl } from "@/lib/cookshare/media";
+import { extractMediaUrl } from "@/lib/cookshare/media";
 import { buildCookShareStructuredData } from "@/lib/cookshare/structured-data";
 import { emptyGalleryFilters, galleryIncludeIngredientsHash, galleryUrl } from "@/lib/cookshare/gallery-query";
 import type { CookShareResolvedObject, GalleryCard, IngredientNutritionProjection, RecipeProjection } from "@/lib/cookshare/types";
@@ -69,7 +69,7 @@ function recipeCardFromPublicObject(object: CookShareResolvedObject, locale: App
     objectId: object.identity.canonical_path,
     title: publicTitle(object, locale),
     description: publicDescription(object),
-    imageUrl: mediaUrl(object.cover_photo_url ?? object.image_url),
+    imageUrl: extractMediaUrl(object),
     href: object.identity.canonical_path,
     timeMinutes: numberValue(time?.total_minutes ?? object.time_minutes),
     nutrition: nutrition ? {
@@ -280,7 +280,7 @@ function galleryCardFromComponent(component: PublicComponent, locale: AppLocale,
     objectId: href,
     title,
     description: componentText(component, ["description"]),
-    imageUrl: mediaUrl(component.image_url ?? component.cover_photo_url),
+    imageUrl: extractMediaUrl(component),
     href,
     timeMinutes: time,
     nutrition: null,
@@ -458,7 +458,7 @@ export default function PublicObjectRenderer({
 }) {
   const title = publicTitle(object, locale);
   const description = publicDescription(object);
-  const image = mediaUrl(object.cover_photo_url ?? object.image_url);
+  const image = extractMediaUrl(object);
   const recipe = object.object_type === "recipe" ? object as unknown as RecipeProjection : null;
   const isIngredient = object.object_type === "ingredient";
   const structuredData = buildCookShareStructuredData(object, locale);
