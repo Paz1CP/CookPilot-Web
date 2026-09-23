@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "src/app/api/gallery/route.ts": { "regions": ["gru1"] },
+    "src/app/api/gallery/facets/route.ts": { "regions": ["gru1"] },
+    "src/app/es/gallery/page.tsx": { "regions": ["gru1"] },
+    "src/app/en/gallery/page.tsx": { "regions": ["gru1"] }
+  }
+}
