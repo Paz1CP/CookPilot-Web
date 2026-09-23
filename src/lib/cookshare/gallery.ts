@@ -69,12 +69,15 @@ function numberValue(value: unknown) {
 function normalizeHandle(value: string | null | undefined) { return value?.trim().replace(/^@/, "").toLowerCase() || null; }
 function encodeCursor(row: GalleryRpcRow) {
   if (!row.cursor || typeof row.cursor !== "object" || Array.isArray(row.cursor)) return null;
-  return Buffer.from(JSON.stringify(row.cursor), "utf8").toString("base64url");
+  const bytes = new TextEncoder().encode(JSON.stringify(row.cursor));
+  return btoa(String.fromCharCode(...bytes)).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, "");
 }
 function decodeCursor(cursor: string | null): GalleryCursor | null {
   if (!cursor) return null;
   try {
-    const parsed = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8")) as unknown;
+    const base64 = cursor.replaceAll("-", "+").replaceAll("_", "/").padEnd(Math.ceil(cursor.length / 4) * 4, "=");
+    const bytes = Uint8Array.from(atob(base64), (char) => char.charCodeAt(0));
+    const parsed = JSON.parse(new TextDecoder().decode(bytes)) as unknown;
     return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed as GalleryCursor : null;
   } catch { return null; }
 }
