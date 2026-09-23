@@ -1,9 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getGalleryPage, parseGalleryQueryState } from "@/lib/cookshare/gallery";
 
-export const runtime = "edge";
-export const preferredRegion = "gru1";
-
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const locale = searchParams.get("locale") === "en" ? "en" : "es";
