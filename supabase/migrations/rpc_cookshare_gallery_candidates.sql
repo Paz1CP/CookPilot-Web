@@ -1161,7 +1161,7 @@ begin
           else 5
         end
       end as sort_match_type,
-      case when v_query_normalized is not null then a.best_similarity else 0 end as sort_similarity,
+      case when v_query_normalized is not null then round(a.best_similarity::double precision::numeric, 9) else 0::numeric end as sort_similarity,
       case when v_query_normalized is not null then a.query_score else 0 end as sort_query_score,
       case when a.object_type = 'recipe' then home.fn_cooksearch_component_type_sort_order(a.component) else 999 end as sort_component,
       coalesce(lower(public.unaccent(a.title)), '') as sort_title
