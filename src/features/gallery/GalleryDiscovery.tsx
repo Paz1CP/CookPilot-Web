@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowDown2, SearchNormal1, Setting4 } from "iconsax-reactjs";
 import {
@@ -14,7 +14,7 @@ import {
   type GalleryArrayFilterKey,
   type GalleryNumericFilterKey,
 } from "@/lib/cookshare/gallery-query";
-import type { GalleryCard, GalleryFacetOption, GalleryFilters, GalleryPage, GalleryQueryState } from "@/lib/cookshare/types";
+import type { GalleryCard, GalleryFacetOption, GalleryFacetOptions, GalleryFilters, GalleryPage, GalleryQueryState } from "@/lib/cookshare/types";
 import { getGalleryTranslations, type GalleryTranslations } from "@/lib/i18n";
 import GalleryCardView from "./GalleryCardView";
 import styles from "./GalleryDiscovery.module.css";
@@ -30,16 +30,23 @@ function GallerySelect({
   options,
   placeholder,
   onChange,
+  onOpen,
 }: {
   id: string;
   value: string;
   options: GalleryFacetOption[];
   placeholder: string;
   onChange: (value: string) => void;
+  onOpen?: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const active = options.find((option) => option.value === value);
+
+  function openMenu() {
+    setOpen(true);
+    onOpen?.();
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -65,10 +72,10 @@ function GallerySelect({
       type="button"
       aria-haspopup="listbox"
       aria-expanded={open}
-      onClick={() => setOpen((current) => !current)}
+      onClick={() => { if (open) setOpen(false); else openMenu(); }}
       onKeyDown={(event) => {
-        if (event.key === "ArrowDown") { event.preventDefault(); setOpen(true); requestAnimationFrame(() => moveFocus(1)); }
-        if (event.key === "ArrowUp") { event.preventDefault(); setOpen(true); requestAnimationFrame(() => moveFocus(-1)); }
+        if (event.key === "ArrowDown") { event.preventDefault(); if (!open) openMenu(); requestAnimationFrame(() => moveFocus(1)); }
+        if (event.key === "ArrowUp") { event.preventDefault(); if (!open) openMenu(); requestAnimationFrame(() => moveFocus(-1)); }
         if (event.key === "Home" && open) { event.preventDefault(); moveFocus("first"); }
         if (event.key === "End" && open) { event.preventDefault(); moveFocus("last"); }
         if (event.key === "Escape") setOpen(false);
@@ -250,6 +257,8 @@ export default function GalleryDiscovery({ initial }: { initial: GalleryPage }) 
   const canonicalParams = toGallerySearchParams(state).toString();
   const initialRequest = toGallerySearchParams(initial.state, { includeLocale: true, includeCursor: true }).toString();
   const [page, setPage] = useState(initial);
+  const facetOptionsLoadedRef = useRef(false);
+  const facetOptionsRequestRef = useRef<Promise<void> | null>(null);
   const [settledRequest, setSettledRequest] = useState(`${initialRequest}:0`);
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadMoreErrorRequest, setLoadMoreErrorRequest] = useState("");
@@ -267,6 +276,22 @@ export default function GalleryDiscovery({ initial }: { initial: GalleryPage }) 
   const isRecipeContext = state.type === "all" || state.type === "recipes";
   const isIngredientContext = state.type === "ingredients";
   const activeApplicability = galleryFacetApplicability[state.type];
+
+  const ensureFacetOptions = useCallback(() => {
+    if (facetOptionsLoadedRef.current || facetOptionsRequestRef.current) return;
+    const request = fetch(`/api/gallery/facets?locale=${locale}`, { headers: { Accept: "application/json" } })
+      .then((response) => {
+        if (!response.ok) throw new Error("gallery_facets_request");
+        return response.json() as Promise<{ facetOptions: GalleryFacetOptions }>;
+      })
+      .then(({ facetOptions }) => {
+        facetOptionsLoadedRef.current = true;
+        setPage((current) => ({ ...current, facetOptions }));
+      })
+      .catch(() => undefined)
+      .finally(() => { facetOptionsRequestRef.current = null; });
+    facetOptionsRequestRef.current = request;
+  }, [locale]);
 
   useEffect(() => {
     if (window.location.search.replace(/^\?/, "") !== canonicalParams) {
@@ -289,13 +314,17 @@ export default function GalleryDiscovery({ initial }: { initial: GalleryPage }) 
   }, [isRecipeContext, state.type]);
 
   useEffect(() => {
+    if (isIngredientContext) ensureFacetOptions();
+  }, [ensureFacetOptions, isIngredientContext]);
+
+  useEffect(() => {
     if (settledRequest === requestKey) return;
     const controller = new AbortController();
     requestRef.current?.abort();
     requestRef.current = controller;
     void fetch(`/api/gallery?${requestParams}`, { signal: controller.signal, headers: { Accept: "application/json" } })
       .then((response) => { if (!response.ok) throw new Error("gallery_request"); return response.json() as Promise<GalleryPage>; })
-      .then(setPage)
+      .then((result) => setPage((current) => ({ ...result, facetOptions: current.facetOptions })))
       .catch(() => { if (!controller.signal.aborted) setFailedRequest(requestKey); })
       .finally(() => { if (!controller.signal.aborted) { setSettledRequest(requestKey); setLoadingMore(false); } });
     return () => controller.abort();
@@ -331,6 +360,7 @@ export default function GalleryDiscovery({ initial }: { initial: GalleryPage }) 
           return {
             ...result,
             items,
+            facetOptions: current.facetOptions,
             totalCount: result.totalCount ?? (result.hasMore ? null : items.length),
           };
         });
@@ -427,11 +457,11 @@ export default function GalleryDiscovery({ initial }: { initial: GalleryPage }) 
           <fieldset className={styles.group}><legend>{labels.component}</legend><OptionPills options={page.facetOptions.componentTypes} selected={state.filters.component_types} onToggle={(value) => toggle("component_types", value)} /></fieldset>
           <div className={styles.group}>
             <label htmlFor="gallery-category">{labels.category}</label>
-            <GallerySelect id="gallery-category" value="" options={categoryOptions} placeholder={labels.any} onChange={(value) => { if (value) toggle("categories", value); }} />
+            <GallerySelect id="gallery-category" value="" options={categoryOptions} placeholder={labels.any} onOpen={ensureFacetOptions} onChange={(value) => { if (value) toggle("categories", value); }} />
           </div>
           <fieldset className={styles.group}><legend>{labels.time}</legend><RangeFields minKey="time_min_minutes" maxKey="time_max_minutes" minValue={state.filters.time_min_minutes} maxValue={state.filters.time_max_minutes} minLabel={labels.minTime} maxLabel={labels.maxTime} placeholder={labels.any} onCommit={filters} /></fieldset>
 
-          <details className={styles.advanced} ref={advancedFiltersRef}>
+          <details className={styles.advanced} ref={advancedFiltersRef} onToggle={(event) => { if (event.currentTarget.open) ensureFacetOptions(); }}>
             <DetailsSummary label={labels.moreFilters} hint={labels.advancedHint} />
             <div className={styles.advancedBody}>
               <details className={styles.subgroup} ref={includeIngredientsRef}><DetailsSummary label={labels.includeIngredients} /><IngredientPicker labels={labels} options={page.facetOptions.ingredients} selected={state.filters.ingredients_include} onAdd={(value) => toggle("ingredients_include", value)} onRemove={(value) => removeArrayValue("ingredients_include", value)} /></details>

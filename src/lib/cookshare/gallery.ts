@@ -214,13 +214,16 @@ export function mapGalleryStateToRpcArgs(state: GalleryQueryState, limit: number
   if (cursor) args.p_cursor = cursor;
   return args;
 }
+export function getGalleryFacetOptions(locale: AppLocale) {
+  return getFacetOptions(locale);
+}
 export async function executeGallerySearch(state: GalleryQueryState, limit = PAGE_SIZE): Promise<GalleryPage> {
   const boundedLimit = Math.min(Math.max(limit, 1), PAGE_SIZE);
   const normalizedState = normalizeGalleryQueryState({ ...state, filters: state.filters ?? emptyGalleryFilters() });
-  const [facetOptions, result] = await Promise.all([
-    getFacetOptions(normalizedState.locale),
-    createSupabasePublicClient().schema("home").rpc("rpc_cookshare_gallery_candidates", mapGalleryStateToRpcArgs(normalizedState, boundedLimit + 1)),
-  ]);
+  const result = await createSupabasePublicClient().schema("home").rpc(
+    "rpc_cookshare_gallery_candidates",
+    mapGalleryStateToRpcArgs(normalizedState, boundedLimit + 1),
+  );
   if (result.error) throw new GalleryRpcError(result.error.message);
   if (!Array.isArray(result.data)) throw new GalleryRpcError("Gallery RPC returned an invalid response.");
   const rows = result.data as GalleryRpcRow[];
@@ -236,7 +239,14 @@ export async function executeGallerySearch(state: GalleryQueryState, limit = PAG
       : hasMore
         ? null
         : cards.length;
-  return { items: cards, totalCount, nextCursor: hasMore && lastRow ? encodeCursor(lastRow) : null, state: normalizedState, hasMore, facetOptions };
+  return {
+    items: cards,
+    totalCount,
+    nextCursor: hasMore && lastRow ? encodeCursor(lastRow) : null,
+    state: normalizedState,
+    hasMore,
+    facetOptions: localizedFacetOptions(normalizedState.locale),
+  };
 }
 export const getGalleryPage = executeGallerySearch;
 export { parseGalleryQueryState } from "./gallery-query";

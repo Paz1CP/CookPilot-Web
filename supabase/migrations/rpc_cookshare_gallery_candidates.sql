@@ -1060,12 +1060,14 @@ begin
       and v_type = 'handles'
     order by cr.owner_id, cr.handle
   ),
-  candidates as (
+  -- Compute normalized candidate text once before it is reused by fuzzy, exact and prefix scoring.
+  candidates as materialized (
     select * from object_candidates
     union all
     select * from handle_candidates
   ),
-  scored as (
+  -- Reuse the expensive trigram scores in match filtering, ranking and cursor construction.
+  scored as materialized (
     select
       c.*,
       greatest(
